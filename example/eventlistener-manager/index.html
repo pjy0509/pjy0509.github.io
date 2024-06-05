@@ -338,7 +338,7 @@
             position: absolute;
             top: 0;
             left: 50%;
-            color: rgba(0,0,0, 1);
+            color: rgba(0, 0, 0, 1);
             transform: translate3d(-50%, 0, 0);
             font-size: 8px;
         }
@@ -400,375 +400,376 @@
         }
     </style>
     <script>
-		let target1 = document.querySelector('.gesture')
-		const log = document.querySelector('.gesture-log')
-		const objWrapper = document.querySelector('.gesture-obj-wrapper')
-		const obj = document.querySelector('.gesture-obj')
+        import {EventManager, ExtendedTouchEvent, ExtendedMouseEvent} from 'eventlistener-manager';
 
-		const c = {
-			mousepanmove: 'c1',
-			mousepanleft: 'c2',
-			mousepanright: 'c3',
-			mousepanup: 'c4',
-			mousepandown: 'c5',
-			mousepanend: 'c6',
-			mousepanleave: 'c7',
-			mouselongpressmove: 'c8',
-			mouselongpressend: 'c9',
-			mouselongpressleave: 'c10',
-			touchpanmove: 'c1',
-			touchpanleft: 'c2',
-			touchpanright: 'c3',
-			touchpanup: 'c4',
-			touchpandown: 'c5',
-			touchpanend: 'c6',
-			touchpanleave: 'c7',
-			touchlongpressmove: 'c8',
-			touchlongpressend: 'c9',
-			touchlongpressleave: 'c10',
-			touchpinchstart: 'c11',
-			touchpinchmove: 'c20',
-			touchpinchend: 'c13',
-			touchpinchcancel: 'c14',
-		}
+        window.onload = () => {
+			let target1 = document.querySelector('.gesture')
+			const log = document.querySelector('.gesture-log')
+			const objWrapper = document.querySelector('.gesture-obj-wrapper')
+			const obj = document.querySelector('.gesture-obj')
 
-		const logging = (e) => {
-			const element = log
-			const type = e.type
-
-			if (element.getAttribute('relate') === type) {
-				const divs = element.querySelectorAll('div')
-				const div = divs[divs.length - 1]
-				const cnt = parseInt(div.getAttribute('cnt') ?? '1')
-
-				div.innerHTML = type + ' ' + (cnt + 1)
-				div.setAttribute('cnt', String(cnt + 1))
-			} else {
-				element.innerHTML += '<div>' + type + '</div>'
-				element.setAttribute('relate', type)
+			const c = {
+				mousepanmove: 'c1',
+				mousepanleft: 'c2',
+				mousepanright: 'c3',
+				mousepanup: 'c4',
+				mousepandown: 'c5',
+				mousepanend: 'c6',
+				mousepanleave: 'c7',
+				mouselongpressmove: 'c8',
+				mouselongpressend: 'c9',
+				mouselongpressleave: 'c10',
+				touchpanmove: 'c1',
+				touchpanleft: 'c2',
+				touchpanright: 'c3',
+				touchpanup: 'c4',
+				touchpandown: 'c5',
+				touchpanend: 'c6',
+				touchpanleave: 'c7',
+				touchlongpressmove: 'c8',
+				touchlongpressend: 'c9',
+				touchlongpressleave: 'c10',
+				touchpinchstart: 'c11',
+				touchpinchmove: 'c20',
+				touchpinchend: 'c13',
+				touchpinchcancel: 'c14',
 			}
 
-			if (e instanceof ExtendedTouchEvent || e instanceof ExtendedMouseEvent) {
-				const rect = target1.getBoundingClientRect()
-				const b = parseFloat(getComputedStyle(target1).borderWidth)
-				const mw = rect.width - 2 * b
-				const mh = rect.height - 2 * b
-				const nm = e.type
+			const logging = (e) => {
+				const element = log
+				const type = e.type
 
-				if (nm === 'mousepanleft' || nm === 'touchpanleft') {
-					const c = 'left' + new Date().getTime()
-					objWrapper.classList.add(c)
-					setTimeout(() => objWrapper.classList.remove(c), 1000)
+				if (element.getAttribute('relate') === type) {
+					const divs = element.querySelectorAll('div')
+					const div = divs[divs.length - 1]
+					const cnt = parseInt(div.getAttribute('cnt') ?? '1')
+
+					div.innerHTML = type + ' ' + (cnt + 1)
+					div.setAttribute('cnt', String(cnt + 1))
+				} else {
+					element.innerHTML += '<div>' + type + '</div>'
+					element.setAttribute('relate', type)
 				}
 
-				if (nm === 'mousepanright' || nm === 'touchpanright') {
-					const c = 'right' + new Date().getTime()
-					objWrapper.classList.add(c)
-					setTimeout(() => objWrapper.classList.remove(c), 1000)
-				}
+				if (e instanceof ExtendedTouchEvent || e instanceof ExtendedMouseEvent) {
+					const rect = target1.getBoundingClientRect()
+					const b = parseFloat(getComputedStyle(target1).borderWidth)
+					const mw = rect.width - 2 * b
+					const mh = rect.height - 2 * b
+					const nm = e.type
 
-				if (nm === 'mousepanup' || nm === 'touchpanup') {
-					const c = 'up' + new Date().getTime()
-					objWrapper.classList.add(c)
-					setTimeout(() => objWrapper.classList.remove(c), 1000)
-				}
-
-				if (nm === 'mousepandown' || nm === 'touchpandown') {
-					const c = 'down' + new Date().getTime()
-					objWrapper.classList.add(c)
-					setTimeout(() => objWrapper.classList.remove(c), 1000)
-				}
-
-				if (nm === 'touchlongpressstart' || nm === 'mouselongpressstart') {
-					objWrapper.classList.add('longpress')
-				}
-				if (nm === 'mouselongpressend' || nm === 'mouselongpressleave' || nm === 'touchlongpressend' || nm === 'touchlongpresscancel') {
-					objWrapper.classList.remove('longpress')
-				}
-
-				if (nm === 'touchpanmove' || nm === 'mousepanmove') {
-					const last = e.paths.last
-					if (last) {
-						objWrapper.style.left = Math.min(mw, Math.max(0, (parseFloat(getComputedStyle(objWrapper).left) + last.dx))) + 'px'
-						objWrapper.style.top = Math.min(mh, Math.max(0, (parseFloat(getComputedStyle(objWrapper).top) + last.dy))) + 'px'
+					if (nm === 'mousepanleft' || nm === 'touchpanleft') {
+						const c = 'left' + new Date().getTime()
+						objWrapper.classList.add(c)
+						setTimeout(() => objWrapper.classList.remove(c), 1000)
 					}
-				}
 
-				if (nm === 'touchpinchmove') {
-					const f = e.paths.first
-					const l = e.paths.last
-					if (f && l) {
-						const scale = getComputedStyle(objWrapper).transform.match(/matrix\(([^)]+)\)/)?.[1].split(',')?.[0].trim()
-						if (scale) {
-							const s = Math.min(3, Math.max(0.33, parseFloat(scale) + ((l.distance / f.distance) - 1) / 3))
-							objWrapper.style.transform = 'matrix(' + s + ', 0, 0, ' + s + ', -25, -25)';
+					if (nm === 'mousepanright' || nm === 'touchpanright') {
+						const c = 'right' + new Date().getTime()
+						objWrapper.classList.add(c)
+						setTimeout(() => objWrapper.classList.remove(c), 1000)
+					}
+
+					if (nm === 'mousepanup' || nm === 'touchpanup') {
+						const c = 'up' + new Date().getTime()
+						objWrapper.classList.add(c)
+						setTimeout(() => objWrapper.classList.remove(c), 1000)
+					}
+
+					if (nm === 'mousepandown' || nm === 'touchpandown') {
+						const c = 'down' + new Date().getTime()
+						objWrapper.classList.add(c)
+						setTimeout(() => objWrapper.classList.remove(c), 1000)
+					}
+
+					if (nm === 'touchlongpressstart' || nm === 'mouselongpressstart') {
+						objWrapper.classList.add('longpress')
+					}
+					if (nm === 'mouselongpressend' || nm === 'mouselongpressleave' || nm === 'touchlongpressend' || nm === 'touchlongpresscancel') {
+						objWrapper.classList.remove('longpress')
+					}
+
+					if (nm === 'touchpanmove' || nm === 'mousepanmove') {
+						const last = e.paths.last
+						if (last) {
+							objWrapper.style.left = Math.min(mw, Math.max(0, (parseFloat(getComputedStyle(objWrapper).left) + last.dx))) + 'px'
+							objWrapper.style.top = Math.min(mh, Math.max(0, (parseFloat(getComputedStyle(objWrapper).top) + last.dy))) + 'px'
 						}
 					}
 
-					const dCenter = e.paths.dCenter(e.paths.length - 1)
-
-					if (dCenter) {
-						objWrapper.style.left = Math.min(mw, Math.max(0, (parseFloat(getComputedStyle(objWrapper).left) - dCenter.dx))) + 'px'
-						objWrapper.style.top = Math.min(mh, Math.max(0, (parseFloat(getComputedStyle(objWrapper).top) - dCenter.dy))) + 'px'
-					}
-
-					const dDegree = e.paths.dDegree(e.paths.length - 1)
-
-					if (dDegree) {
-						const deg = obj.style.transform.match(/rotate\(([^)]+)deg\)/)?.[1]
-						obj.style.transform = 'rotate(' + (Number(deg ? deg : 0) - dDegree) + 'deg)'
-					}
-				}
-				const ax = rect.x
-				const ay = rect.y
-
-				const p = nm.includes('move') ? e.paths.slice(-5) : e.paths
-
-				p.forEach(path => {
-					const type = e.type;
-					const mainColorClass = c[type] // 임의로 색상을 선택
-					const dir = (path.degree > -90 && path.degree <= -0) || (path.degree >= 90 && path.degree < 180) ? 'left' : 'right';
-
-					const line = document.createElement('div');
-					const dot1 = document.createElement('div');
-					const dot2 = document.createElement('div');
-
-					line.classList.add('line');
-					line.classList.add(mainColorClass);
-					line.classList.add(dir);
-					line.style.left = Math.min(path.start.x - 15, path.end.x - 15) - ax + 'px';
-					line.style.top = Math.min(path.start.y - 15, path.end.y - 15) - ay + 'px';
-					line.style.width = Math.max(1, Math.abs(path.dx)) + 'px';
-					line.style.height = Math.max(1, Math.abs(path.dy)) + 'px';
-					line.id = 'line-' + nm;
-
-					dot1.classList.add('dot');
-					dot1.classList.add(mainColorClass);
-					dot1.style.left = path.start.x - 15 - ax + 'px';
-					dot1.style.top = path.start.y - 15 - ay + 'px';
-					dot1.id = 'dot1-' + nm;
-
-					dot2.classList.add('dot');
-					dot2.classList.add(mainColorClass);
-					dot2.style.left = path.end.x - 15 - ax + 'px';
-					dot2.style.top = path.end.y - 15 - ay + 'px';
-					dot2.id = 'dot2-' + nm;
-
 					if (nm === 'touchpinchmove') {
-						const circle = document.createElement('div');
-						circle.classList.add('circle');
-						circle.style.left = path.center.x - 15 - ax + 'px';
-						circle.style.top = path.center.y - 15 - ay + 'px';
-						circle.style.width = path.distance / 2 + 'px';
-						circle.style.height = path.distance / 2 + 'px';
-						circle.id = 'circle-' + nm;
-						target1.appendChild(circle)
+						const f = e.paths.first
+						const l = e.paths.last
+						if (f && l) {
+							const scale = getComputedStyle(objWrapper).transform.match(/matrix\(([^)]+)\)/)?.[1].split(',')?.[0].trim()
+							if (scale) {
+								const s = Math.min(3, Math.max(0.33, parseFloat(scale) + ((l.distance / f.distance) - 1) / 3))
+								objWrapper.style.transform = 'matrix(' + s + ', 0, 0, ' + s + ', -25, -25)';
+							}
+						}
+
+						const dCenter = e.paths.dCenter(e.paths.length - 1)
+
+						if (dCenter) {
+							objWrapper.style.left = Math.min(mw, Math.max(0, (parseFloat(getComputedStyle(objWrapper).left) - dCenter.dx))) + 'px'
+							objWrapper.style.top = Math.min(mh, Math.max(0, (parseFloat(getComputedStyle(objWrapper).top) - dCenter.dy))) + 'px'
+						}
+
+						const dDegree = e.paths.dDegree(e.paths.length - 1)
+
+						if (dDegree) {
+							const deg = obj.style.transform.match(/rotate\(([^)]+)deg\)/)?.[1]
+							obj.style.transform = 'rotate(' + (Number(deg ? deg : 0) - dDegree) + 'deg)'
+						}
+					}
+					const ax = rect.x
+					const ay = rect.y
+
+					const p = nm.includes('move') ? e.paths.slice(-5) : e.paths
+
+					p.forEach(path => {
+						const type = e.type;
+						const mainColorClass = c[type] // 임의로 색상을 선택
+						const dir = (path.degree > -90 && path.degree <= -0) || (path.degree >= 90 && path.degree < 180) ? 'left' : 'right';
+
+						const line = document.createElement('div');
+						const dot1 = document.createElement('div');
+						const dot2 = document.createElement('div');
+
+						line.classList.add('line');
+						line.classList.add(mainColorClass);
+						line.classList.add(dir);
+						line.style.left = Math.min(path.start.x - 15, path.end.x - 15) - ax + 'px';
+						line.style.top = Math.min(path.start.y - 15, path.end.y - 15) - ay + 'px';
+						line.style.width = Math.max(1, Math.abs(path.dx)) + 'px';
+						line.style.height = Math.max(1, Math.abs(path.dy)) + 'px';
+						line.id = 'line-' + nm;
+
+						dot1.classList.add('dot');
+						dot1.classList.add(mainColorClass);
+						dot1.style.left = path.start.x - 15 - ax + 'px';
+						dot1.style.top = path.start.y - 15 - ay + 'px';
+						dot1.id = 'dot1-' + nm;
+
+						dot2.classList.add('dot');
+						dot2.classList.add(mainColorClass);
+						dot2.style.left = path.end.x - 15 - ax + 'px';
+						dot2.style.top = path.end.y - 15 - ay + 'px';
+						dot2.id = 'dot2-' + nm;
+
+						if (nm === 'touchpinchmove') {
+							const circle = document.createElement('div');
+							circle.classList.add('circle');
+							circle.style.left = path.center.x - 15 - ax + 'px';
+							circle.style.top = path.center.y - 15 - ay + 'px';
+							circle.style.width = path.distance / 2 + 'px';
+							circle.style.height = path.distance / 2 + 'px';
+							circle.id = 'circle-' + nm;
+							target1.appendChild(circle)
+
+							setTimeout(() => {
+								circle.remove()
+							}, 250)
+						}
+
+						target1.appendChild(line)
+						target1.appendChild(dot1)
+						target1.appendChild(dot2)
+
 
 						setTimeout(() => {
-							circle.remove()
-						}, 250)
-					}
+							line.remove()
+							dot1.remove()
+							dot2.remove()
+						}, nm.includes('move') ? 250 : 1000)
+					})
+				}
 
-					target1.appendChild(line)
-					target1.appendChild(dot1)
-					target1.appendChild(dot2)
-
-
-					setTimeout(() => {
-						line.remove()
-						dot1.remove()
-						dot2.remove()
-					}, nm.includes('move') ? 250 : 1000)
-				})
+				log.scrollTop = log.scrollHeight
 			}
 
-			log.scrollTop = log.scrollHeight
-		}
+			const addMouselongpress = () => EventManager.add(
+				target1,
+				[
+					'mouselongpressstart',
+					'mouselongpressend',
+					'mouselongpressmove',
+					'mouselongpressleave',
+				],
+				logging,
+				{passive: false}
+			)
 
-		const addMouselongpress = () => EventManager.add(
-			target1,
-			[
-				'mouselongpressstart',
-				'mouselongpressend',
-				'mouselongpressmove',
-				'mouselongpressleave',
-			],
-			logging,
-			{ passive: false }
-		)
+			const addMousepan = () => EventManager.add(
+				target1,
+				[
+					'mousepanstart',
+					'mousepanmove',
+					'mousepanleft',
+					'mousepanright',
+					'mousepanup',
+					'mousepandown',
+					'mousepanend',
+					'mousepanleave',
+				],
+				logging,
+				{passive: false}
+			)
 
-		const addMousepan = () => EventManager.add(
-			target1,
-			[
-				'mousepanstart',
-				'mousepanmove',
-				'mousepanleft',
-				'mousepanright',
-				'mousepanup',
-				'mousepandown',
-				'mousepanend',
-				'mousepanleave',
-			],
-			logging,
-			{ passive: false }
-		)
+			const addTouchlongpress = () => EventManager.add(
+				target1,
+				[
+					'touchlongpressstart',
+					'touchlongpressend',
+					'touchlongpressmove',
+					'touchlongpresscancel'
+				],
+				logging,
+				{passive: false}
+			)
 
-		const addTouchlongpress = () => EventManager.add(
-			target1,
-			[
-				'touchlongpressstart',
-				'touchlongpressend',
-				'touchlongpressmove',
-				'touchlongpresscancel'
-			],
-			logging,
-			{ passive: false }
-		)
+			const addTouchpan = () => EventManager.add(
+				target1,
+				[
+					'touchpanstart',
+					'touchpanmove',
+					'touchpanleft',
+					'touchpanright',
+					'touchpanup',
+					'touchpandown',
+					'touchpanend',
+					'touchpancancel',
+				],
+				logging,
+				{passive: false}
+			)
 
-		const addTouchpan = () => EventManager.add(
-			target1,
-			[
-				'touchpanstart',
-				'touchpanmove',
-				'touchpanleft',
-				'touchpanright',
-				'touchpanup',
-				'touchpandown',
-				'touchpanend',
-				'touchpancancel',
-			],
-			logging,
-			{ passive: false }
-		)
+			const addTouchpinch = () => EventManager.add(
+				target1,
+				[
+					'touchpinchstart',
+					'touchpinchmove',
+					'touchpinchend',
+					'touchpinchcancel',
+				],
+				logging,
+				{passive: false}
+			)
 
-		const addTouchpinch = () => EventManager.add(
-			target1,
-			[
-				'touchpinchstart',
-				'touchpinchmove',
-				'touchpinchend',
-				'touchpinchcancel',
-			],
-			logging,
-			{ passive: false }
-		)
+			const removeMouselongpress = () => EventManager.remove(
+				target1,
+				[
+					'mouselongpressstart',
+					'mouselongpressend',
+					'mouselongpressmove',
+					'mouselongpressleave',
+				]
+			)
 
-		const removeMouselongpress = () => EventManager.remove(
-			target1,
-			[
-				'mouselongpressstart',
-				'mouselongpressend',
-				'mouselongpressmove',
-				'mouselongpressleave',
-			]
-		)
+			const removeMousepan = () => EventManager.remove(
+				target1,
+				[
+					'mousepanstart',
+					'mousepanmove',
+					'mousepanleft',
+					'mousepanright',
+					'mousepanup',
+					'mousepandown',
+					'mousepanend',
+					'mousepanleave',
+				]
+			)
 
-		const removeMousepan = () => EventManager.remove(
-			target1,
-			[
-				'mousepanstart',
-				'mousepanmove',
-				'mousepanleft',
-				'mousepanright',
-				'mousepanup',
-				'mousepandown',
-				'mousepanend',
-				'mousepanleave',
-			]
-		)
+			const removeTouchlongpress = () => EventManager.remove(
+				target1,
+				[
+					'touchlongpressstart',
+					'touchlongpressend',
+					'touchlongpressmove',
+					'touchlongpresscancel'
+				]
+			)
 
-		const removeTouchlongpress = () => EventManager.remove(
-			target1,
-			[
-				'touchlongpressstart',
-				'touchlongpressend',
-				'touchlongpressmove',
-				'touchlongpresscancel'
-			]
-		)
+			const removeTouchpan = () => EventManager.remove(
+				target1,
+				[
+					'touchpanstart',
+					'touchpanmove',
+					'touchpanleft',
+					'touchpanright',
+					'touchpanup',
+					'touchpandown',
+					'touchpanend',
+					'touchpancancel',
+				]
+			)
+			const removeTouchpinch = () => EventManager.remove(
+				target1,
+				[
+					'touchpinchstart',
+					'touchpinchmove',
+					'touchpinchend',
+					'touchpinchcancel',
+				]
+			)
 
-		const removeTouchpan = () => EventManager.remove(
-			target1,
-			[
-				'touchpanstart',
-				'touchpanmove',
-				'touchpanleft',
-				'touchpanright',
-				'touchpanup',
-				'touchpandown',
-				'touchpanend',
-				'touchpancancel',
-			]
-		)
-		const removeTouchpinch = () => EventManager.remove(
-			target1,
-			[
-				'touchpinchstart',
-				'touchpinchmove',
-				'touchpinchend',
-				'touchpinchcancel',
-			]
-		)
-
-		const mouselongpress = document.querySelector('#mouselongpress')
-		const mousepan = document.querySelector('#mousepan')
-		const touchlongpress = document.querySelector('#touchlongpress')
-		const touchpan = document.querySelector('#touchpan')
-		const touchpinch = document.querySelector('#touchpinch')
-		const strict = document.querySelector('#strict')
+			const mouselongpress = document.querySelector('#mouselongpress')
+			const mousepan = document.querySelector('#mousepan')
+			const touchlongpress = document.querySelector('#touchlongpress')
+			const touchpan = document.querySelector('#touchpan')
+			const touchpinch = document.querySelector('#touchpinch')
+			const strict = document.querySelector('#strict')
 
 			mouselongpress.onchange = e => {
-			const input = e.target
-			if (input.checked) {
-				addMouselongpress()
-			} else {
-				removeMouselongpress()
+				const input = e.target
+				if (input.checked) {
+					addMouselongpress()
+				} else {
+					removeMouselongpress()
+				}
 			}
-		}
 
-		mousepan.onchange = e => {
-			const input = e.target
-			if (input.checked) {
-				addMousepan()
-			} else {
-				removeMousepan()
+			mousepan.onchange = e => {
+				const input = e.target
+				if (input.checked) {
+					addMousepan()
+				} else {
+					removeMousepan()
+				}
 			}
-		}
 
-		touchlongpress.onchange = e => {
-			const input = e.target
-			if (input.checked) {
-				addTouchlongpress()
-			} else {
-				removeTouchlongpress()
+			touchlongpress.onchange = e => {
+				const input = e.target
+				if (input.checked) {
+					addTouchlongpress()
+				} else {
+					removeTouchlongpress()
+				}
 			}
-		}
 
-		touchpan.onchange = e => {
-			const input = e.target
-			if (input.checked) {
-				addTouchpan()
-			} else {
-				removeTouchpan()
+			touchpan.onchange = e => {
+				const input = e.target
+				if (input.checked) {
+					addTouchpan()
+				} else {
+					removeTouchpan()
+				}
 			}
-		}
 
-		touchpinch.onchange = e => {
-			const input = e.target
-			if (input.checked) {
-				addTouchpinch()
-			} else {
-				removeTouchpinch()
+			touchpinch.onchange = e => {
+				const input = e.target
+				if (input.checked) {
+					addTouchpinch()
+				} else {
+					removeTouchpinch()
+				}
 			}
-		}
 
-		strict.onchange = e => {
-			const input = e.target
-			EventManager.options.strict = input.checked
-		}
-
-
-
+			strict.onchange = e => {
+				const input = e.target
+				EventManager.options.strict = input.checked
+			}
+        }
     </script>
 </head>
 <body>
