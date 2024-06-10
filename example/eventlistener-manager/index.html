@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <script src="https://unpkg.com/eventlistener-manager" defer></script>
+    <script src="https://unpkg.com/eventlistener-manager/dist/index.umd.js" defer></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
@@ -400,9 +400,7 @@
         }
     </style>
     <script>
-        import {EventManager, ExtendedTouchEvent, ExtendedMouseEvent} from 'eventlistener-manager';
-
-        window.onload = () => {
+		window.onload = () => {
 			let target1 = document.querySelector('.gesture')
 			const log = document.querySelector('.gesture-log')
 			const objWrapper = document.querySelector('.gesture-obj-wrapper')
@@ -588,8 +586,7 @@
 				log.scrollTop = log.scrollHeight
 			}
 
-			const addMouselongpress = () => EventManager.add(
-				target1,
+			const addMouselongpress = () => target1.addManagedEventListener(
 				[
 					'mouselongpressstart',
 					'mouselongpressend',
@@ -598,10 +595,9 @@
 				],
 				logging,
 				{passive: false}
-			)
+            )
 
-			const addMousepan = () => EventManager.add(
-				target1,
+			const addMousepan = () => target1.addManagedEventListener(
 				[
 					'mousepanstart',
 					'mousepanmove',
@@ -616,8 +612,7 @@
 				{passive: false}
 			)
 
-			const addTouchlongpress = () => EventManager.add(
-				target1,
+			const addTouchlongpress = () => target1.addManagedEventListener(
 				[
 					'touchlongpressstart',
 					'touchlongpressend',
@@ -628,8 +623,7 @@
 				{passive: false}
 			)
 
-			const addTouchpan = () => EventManager.add(
-				target1,
+			const addTouchpan = () => target1.addManagedEventListener(
 				[
 					'touchpanstart',
 					'touchpanmove',
@@ -644,8 +638,7 @@
 				{passive: false}
 			)
 
-			const addTouchpinch = () => EventManager.add(
-				target1,
+			const addTouchpinch = () => target1.addManagedEventListener(
 				[
 					'touchpinchstart',
 					'touchpinchmove',
@@ -656,8 +649,7 @@
 				{passive: false}
 			)
 
-			const removeMouselongpress = () => EventManager.remove(
-				target1,
+			const removeMouselongpress = () => target1.removeManagedEventListener(
 				[
 					'mouselongpressstart',
 					'mouselongpressend',
@@ -666,8 +658,7 @@
 				]
 			)
 
-			const removeMousepan = () => EventManager.remove(
-				target1,
+			const removeMousepan = () => target1.removeManagedEventListener(
 				[
 					'mousepanstart',
 					'mousepanmove',
@@ -680,8 +671,7 @@
 				]
 			)
 
-			const removeTouchlongpress = () => EventManager.remove(
-				target1,
+			const removeTouchlongpress = () => target1.removeManagedEventListener(
 				[
 					'touchlongpressstart',
 					'touchlongpressend',
@@ -690,8 +680,7 @@
 				]
 			)
 
-			const removeTouchpan = () => EventManager.remove(
-				target1,
+			const removeTouchpan = () => target1.removeManagedEventListener(
 				[
 					'touchpanstart',
 					'touchpanmove',
@@ -703,8 +692,8 @@
 					'touchpancancel',
 				]
 			)
-			const removeTouchpinch = () => EventManager.remove(
-				target1,
+
+			const removeTouchpinch = () => target1.removeManagedEventListener(
 				[
 					'touchpinchstart',
 					'touchpinchmove',
