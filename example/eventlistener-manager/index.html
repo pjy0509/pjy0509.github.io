@@ -586,7 +586,7 @@
 				log.scrollTop = log.scrollHeight
 			}
 
-			const addMouselongpress = () => target1.addManagedEventListener(
+			const addMouselongpress = () => target1.on(
 				[
 					'mouselongpressstart',
 					'mouselongpressend',
@@ -597,7 +597,7 @@
 				{passive: false}
             )
 
-			const addMousepan = () => target1.addManagedEventListener(
+			const addMousepan = () => target1.on(
 				[
 					'mousepanstart',
 					'mousepanmove',
@@ -612,7 +612,7 @@
 				{passive: false}
 			)
 
-			const addTouchlongpress = () => target1.addManagedEventListener(
+			const addTouchlongpress = () => target1.on(
 				[
 					'touchlongpressstart',
 					'touchlongpressend',
@@ -623,7 +623,7 @@
 				{passive: false}
 			)
 
-			const addTouchpan = () => target1.addManagedEventListener(
+			const addTouchpan = () => target1.on(
 				[
 					'touchpanstart',
 					'touchpanmove',
@@ -638,7 +638,7 @@
 				{passive: false}
 			)
 
-			const addTouchpinch = () => target1.addManagedEventListener(
+			const addTouchpinch = () => target1.on(
 				[
 					'touchpinchstart',
 					'touchpinchmove',
@@ -649,7 +649,7 @@
 				{passive: false}
 			)
 
-			const removeMouselongpress = () => target1.removeManagedEventListener(
+			const removeMouselongpress = () => target1.off(
 				[
 					'mouselongpressstart',
 					'mouselongpressend',
@@ -658,7 +658,7 @@
 				]
 			)
 
-			const removeMousepan = () => target1.removeManagedEventListener(
+			const removeMousepan = () => target1.off(
 				[
 					'mousepanstart',
 					'mousepanmove',
@@ -671,7 +671,7 @@
 				]
 			)
 
-			const removeTouchlongpress = () => target1.removeManagedEventListener(
+			const removeTouchlongpress = () => target1.off(
 				[
 					'touchlongpressstart',
 					'touchlongpressend',
@@ -680,7 +680,7 @@
 				]
 			)
 
-			const removeTouchpan = () => target1.removeManagedEventListener(
+			const removeTouchpan = () => target1.off(
 				[
 					'touchpanstart',
 					'touchpanmove',
@@ -693,7 +693,7 @@
 				]
 			)
 
-			const removeTouchpinch = () => target1.removeManagedEventListener(
+			const removeTouchpinch = () => target1.off(
 				[
 					'touchpinchstart',
 					'touchpinchmove',
