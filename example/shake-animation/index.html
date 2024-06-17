@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/shake-animation@latest/dist/index.umd.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
+        html {
+            font-family: "Work Sans", "IBM Plex Sans", "IBM Plex Sans KR", sans-serif;
+        }
+
+        body {
+            background-color: #131313;
+        }
+
+        .shake-box-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .shake-layer {
+            display: flex;
+            gap: 24px;
+        }
+
+        .shake-box-container {
+            width: 100%;
+        }
+
+        p {
+            margin: 0;
+            color: #333333;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .tilt p {
+            background: #ffa3a3;
+        }
+
+        .horizontal p {
+            background: #ffe0a3;
+        }
+
+        .vertical p {
+            background: #ffffa2;
+        }
+
+        .jump p {
+            background: #abffab;
+        }
+
+        .pulse p {
+            background: #a2a2ff;
+        }
+
+        .blur p {
+            background: #ffa2ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="shake-box-container">
+        <div class="shake-layer tilt">
+            <p class="tilt" id="11">Tilt<br/>Slow</p>
+            <p class="tilt" id="12">Tilt<br/>Medium</p>
+            <p class="tilt" id="13">Tilt<br/>Fast</p>
+        </div>
+        <div class="shake-layer horizontal">
+            <p class="tilt" id="21">Horizontal<br/>Slow</p>
+            <p class="tilt" id="22">Horizontal<br/>Medium</p>
+            <p class="tilt" id="23">Horizontal<br/>Fast</p>
+        </div>
+        <div class="shake-layer vertical">
+            <p class="tilt" id="31">Vertical<br/>Slow</p>
+            <p class="tilt" id="32">Vertical<br/>Medium</p>
+            <p class="tilt" id="33">Vertical<br/>Fast</p>
+        </div>
+        <div class="shake-layer jump">
+            <p class="tilt" id="41">Jump<br/>Slow</p>
+            <p class="tilt" id="42">Jump<br/>Medium</p>
+            <p class="tilt" id="43">Jump<br/>Fast</p>
+        </div>
+        <div class="shake-layer pulse">
+            <p class="tilt" id="51">Pulse<br/>Slow</p>
+            <p class="tilt" id="52">Pulse<br/>Medium</p>
+            <p class="tilt" id="53">Pulse<br/>Fast</p>
+        </div>
+        <div class="shake-layer blur">
+            <p class="tilt" id="61">Blur<br/>Slow</p>
+            <p class="tilt" id="62">Blur<br/>Medium</p>
+            <p class="tilt" id="63">Blur<br/>Fast</p>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('11').shake().start('tilt', 'slow');
+    document.getElementById('12').shake().start('tilt', 'medium');
+    document.getElementById('13').shake().start('tilt', 'fast');
+
+    document.getElementById('21').shake().start('horizontal', 'slow');
+    document.getElementById('22').shake().start('horizontal', 'medium');
+    document.getElementById('23').shake().start('horizontal', 'fast');
+
+    document.getElementById('31').shake().start('vertical', 'slow');
+    document.getElementById('32').shake().start('vertical', 'medium');
+    document.getElementById('33').shake().start('vertical', 'fast');
+
+    document.getElementById('41').shake().start('jump', 'slow');
+    document.getElementById('42').shake().start('jump', 'medium');
+    document.getElementById('43').shake().start('jump', 'fast');
+
+    document.getElementById('51').shake().start('pulse', 'slow');
+    document.getElementById('52').shake().start('pulse', 'medium');
+    document.getElementById('53').shake().start('pulse', 'fast');
+
+    document.getElementById('61').shake().start('blur', 'slow');
+    document.getElementById('62').shake().start('blur', 'medium');
+    document.getElementById('63').shake().start('blur', 'fast');
+</script>
+</html>
