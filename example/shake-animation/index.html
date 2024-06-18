@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://unpkg.com/shake-animation@latest/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/go.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
@@ -29,9 +32,10 @@
 
         .shake-box-container {
             width: 100%;
+            margin-bottom: 50px;
         }
 
-        p {
+        .shake-box-container p {
             margin: 0;
             color: #333333;
             width: 60px;
@@ -68,44 +72,143 @@
         .blur p {
             background: #ffa2ff;
         }
+
+        p#box {
+            background: #d2d2d2;
+        }
+
+        button {
+            border: 0;
+            padding: 4px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        pre, code {
+            position: relative;
+            width: calc(100% - 2em);
+            margin: 0;
+        }
+
+        pre label {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            color: white;
+            background: black;
+            border-radius: 0 0 0 5px;
+            padding: 6px;
+            font-size: 10px;
+            z-index: 99;
+        }
     </style>
 </head>
 <body>
     <div class="shake-box-container">
         <div class="shake-layer tilt">
-            <p class="tilt" id="11">Tilt<br/>Slow</p>
-            <p class="tilt" id="12">Tilt<br/>Medium</p>
-            <p class="tilt" id="13">Tilt<br/>Fast</p>
+            <p id="11">Tilt<br/>Slow</p>
+            <p id="12">Tilt<br/>Medium</p>
+            <p id="13">Tilt<br/>Fast</p>
         </div>
         <div class="shake-layer horizontal">
-            <p class="tilt" id="21">Horizontal<br/>Slow</p>
-            <p class="tilt" id="22">Horizontal<br/>Medium</p>
-            <p class="tilt" id="23">Horizontal<br/>Fast</p>
+            <p id="21">Horizontal<br/>Slow</p>
+            <p id="22">Horizontal<br/>Medium</p>
+            <p id="23">Horizontal<br/>Fast</p>
         </div>
         <div class="shake-layer vertical">
-            <p class="tilt" id="31">Vertical<br/>Slow</p>
-            <p class="tilt" id="32">Vertical<br/>Medium</p>
-            <p class="tilt" id="33">Vertical<br/>Fast</p>
+            <p id="31">Vertical<br/>Slow</p>
+            <p id="32">Vertical<br/>Medium</p>
+            <p id="33">Vertical<br/>Fast</p>
         </div>
         <div class="shake-layer jump">
-            <p class="tilt" id="41">Jump<br/>Slow</p>
-            <p class="tilt" id="42">Jump<br/>Medium</p>
-            <p class="tilt" id="43">Jump<br/>Fast</p>
+            <p id="41">Jump<br/>Slow</p>
+            <p id="42">Jump<br/>Medium</p>
+            <p id="43">Jump<br/>Fast</p>
         </div>
         <div class="shake-layer pulse">
-            <p class="tilt" id="51">Pulse<br/>Slow</p>
-            <p class="tilt" id="52">Pulse<br/>Medium</p>
-            <p class="tilt" id="53">Pulse<br/>Fast</p>
+            <p id="51">Pulse<br/>Slow</p>
+            <p id="52">Pulse<br/>Medium</p>
+            <p id="53">Pulse<br/>Fast</p>
         </div>
         <div class="shake-layer blur">
-            <p class="tilt" id="61">Blur<br/>Slow</p>
-            <p class="tilt" id="62">Blur<br/>Medium</p>
-            <p class="tilt" id="63">Blur<br/>Fast</p>
+            <p id="61">Blur<br/>Slow</p>
+            <p id="62">Blur<br/>Medium</p>
+            <p id="63">Blur<br/>Fast</p>
         </div>
+    </div>
+    <div class="shake-box-container">
+        <p id="box">:)</p>
+
+        <div class="buttons">
+            <button id="tilt">Tilt</button>
+            <button id="horizontal">Horizontal</button>
+            <button id="vertical">Vertical</button>
+            <button id="jump">Jump</button>
+            <button id="pulse">Pulse</button>
+            <button id="blur">Blur</button>
+        </div>
+
+        <pre>
+            <label>HTML</label>
+        <code class="language-html">
+&lt;p id="box">:)&lt;/p>
+
+&lt;div class="buttons">
+&emsp;&emsp;&lt;button id="tilt">Tilt&lt;/button>
+&emsp;&emsp;&lt;button id="horizontal">Horizontal&lt;/button>
+&emsp;&emsp;&lt;button id="vertical">Vertical&lt;/button>
+&emsp;&emsp;&lt;button id="jump">Jump&lt;/button>
+&emsp;&emsp;&lt;button id="pulse">Pulse&lt;/button>
+&emsp;&emsp;&lt;button id="blur">Blur&lt;/button>
+&lt;/div>
+        </code>
+        </pre>
+
+        <pre>
+            <label>Javascript</label>
+        <code class="language-javascript">
+const box = document.getElementById('box');
+const duration = Shake.cycle(1);
+const speed = 'medium';
+
+document.getElementById('tilt').addEventListener('click', () => {
+    box.shake().stop();
+    box.shake().start('tilt', speed, duration);
+});
+
+document.getElementById('horizontal').addEventListener('click', () => {
+    box.shake().stop();
+    box.shake().start('horizontal', speed, duration);
+});
+
+document.getElementById('vertical').addEventListener('click', () => {
+    box.shake().stop();
+    box.shake().start('vertical', speed, duration);
+});
+
+document.getElementById('jump').addEventListener('click', () => {
+    box.shake().stop();
+    box.shake().start('jump', speed, duration);
+});
+
+document.getElementById('pulse').addEventListener('click', () => {
+    box.shake().stop();
+    box.shake().start('pulse', speed, duration);
+});
+
+document.getElementById('blur').addEventListener('click', () => {
+    box.shake().stop();
+    box.shake().start('blur', speed, duration);
+});
+        </code>
+        </pre>
     </div>
 </body>
 <script>
-    document.getElementById('11').shake().start('tilt', 'slow');
+    // HTMLElement.shake(): Shake
+    // Shake.start(key: ShakeAnimation, speed?: ShakeSpeed, duration?: number): void
+
+	document.getElementById('11').shake().start('tilt', 'slow');
     document.getElementById('12').shake().start('tilt', 'medium');
     document.getElementById('13').shake().start('tilt', 'fast');
 
@@ -128,5 +231,41 @@
     document.getElementById('61').shake().start('blur', 'slow');
     document.getElementById('62').shake().start('blur', 'medium');
     document.getElementById('63').shake().start('blur', 'fast');
+
+	const box = document.getElementById('box');
+	const duration = Shake.cycle(1);
+	const speed = 'medium';
+
+	document.getElementById('tilt').addEventListener('click', () => {
+        box.shake().stop();
+        box.shake().start('tilt', speed, duration);
+    });
+
+	document.getElementById('horizontal').addEventListener('click', () => {
+		box.shake().stop();
+        box.shake().start('horizontal', speed, duration);
+    });
+
+	document.getElementById('vertical').addEventListener('click', () => {
+		box.shake().stop();
+        box.shake().start('vertical', speed, duration);
+    });
+
+	document.getElementById('jump').addEventListener('click', () => {
+		box.shake().stop();
+        box.shake().start('jump', speed, duration);
+    });
+
+	document.getElementById('pulse').addEventListener('click', () => {
+		box.shake().stop();
+        box.shake().start('pulse', speed, duration);
+    });
+
+	document.getElementById('blur').addEventListener('click', () => {
+		box.shake().stop();
+        box.shake().start('blur', speed, duration);
+    });
+
+	hljs.highlightAll();
 </script>
 </html>
