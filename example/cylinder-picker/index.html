@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/cylinder-picker@1.0.10/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/go.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+        html {
+            font-family: "Work Sans", "IBM Plex Sans", "IBM Plex Sans KR", sans-serif;
+        }
+
+        body {
+            background-color: #131313;
+            overflow: hidden;
+        }
+
+        .slot-machine-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .coin {
+            top: 50%;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 20 20" version="1.1"><g id="surface1"><path style=" stroke:none;fill-rule:nonzero;fill:rgb(74.901961%,56.862745%,0.392157%);fill-opacity:1;" d="M 9.257812 0.273438 L 9.257812 0.3125 C 13.449219 0.3125 17.34375 2.675781 18.824219 6.71875 C 20.355469 10.894531 18.726562 15.65625 15.039062 18.113281 C 14.136719 18.710938 13 19.304688 11.914062 19.453125 C 12.117188 19.53125 12.410156 19.421875 12.617188 19.371094 C 13.246094 19.214844 13.867188 18.996094 14.453125 18.71875 C 17.03125 17.5 18.910156 15.199219 19.671875 12.460938 C 20.90625 8.011719 18.613281 3.074219 14.414062 1.144531 C 12.714844 0.367188 11.082031 0.273438 9.257812 0.273438 Z M 9.257812 0.273438 "/><path style=" stroke:none;fill-rule:nonzero;fill:rgb(91.372549%,76.470588%,30.980392%);fill-opacity:1;" d="M 9.140625 0.367188 C 6.855469 0.667969 4.808594 1.367188 3.085938 2.972656 C 2.242188 3.757812 1.558594 4.714844 1.046875 5.742188 C -1.667969 11.179688 1.496094 17.929688 7.382812 19.398438 C 8.558594 19.695312 9.777344 19.757812 10.976562 19.597656 C 15.558594 18.996094 19.171875 15.046875 19.375 10.429688 C 19.578125 5.769531 16.214844 1.46875 11.640625 0.554688 C 10.84375 0.394531 9.953125 0.261719 9.140625 0.367188 Z M 9.140625 0.367188 "/><path style=" stroke:none;fill-rule:nonzero;fill:rgb(84.313725%,63.921569%,0.392157%);fill-opacity:1;" d="M 9.101562 1.695312 C 7.304688 1.933594 5.648438 2.460938 4.234375 3.660156 C 3.476562 4.304688 2.871094 5.113281 2.386719 5.976562 C 0.511719 9.339844 1.285156 13.871094 4.234375 16.378906 C 6 17.878906 8.410156 18.585938 10.703125 18.308594 C 11.960938 18.15625 13.191406 17.730469 14.257812 17.042969 C 18.28125 14.453125 19.316406 8.578125 16.289062 4.8125 C 15.222656 3.488281 13.765625 2.527344 12.148438 2.03125 C 11.203125 1.738281 10.089844 1.566406 9.101562 1.695312 Z M 9.101562 1.695312 "/><path style=" stroke:none;fill-rule:nonzero;fill:rgb(91.372549%,76.470588%,30.980392%);fill-opacity:1;" d="M 9.375 2.007812 C 7.753906 2.222656 6.265625 2.671875 4.945312 3.683594 C 4.160156 4.289062 3.507812 5.058594 2.984375 5.898438 C 0.898438 9.25 1.738281 13.769531 4.78125 16.261719 C 6.550781 17.707031 8.886719 18.316406 11.132812 17.996094 C 12.246094 17.839844 13.300781 17.410156 14.257812 16.828125 C 15.019531 16.363281 15.691406 15.738281 16.242188 15.039062 C 18.984375 11.554688 18.347656 6.199219 14.726562 3.570312 C 13.960938 3.015625 13.097656 2.578125 12.1875 2.316406 C 11.308594 2.0625 10.289062 1.886719 9.375 2.007812 Z M 9.375 2.007812 "/></g></svg>');
+            transition: opacity 1s linear;
+            border-radius: 50%;
+            box-shadow: 0 1px 0 #a58d2a, 0 2px 0 #7f6d21;
+        }
+
+        .wip {
+            margin-top: 20px;
+            color: white;
+            display: flex;
+            justify-content: center;
+        }
+
+        .wip pre {
+            border-radius: 5px;
+            background-color: #323240;
+            padding: 4px;
+            font-size: 12px;
+            margin: 0 5px 0 0;
+        }
+    </style>
+</head>
+<body>
+<div class="slot-machine-container">
+    <cylinder-picker id="slot-machine-1" cylinder-infinity="true">
+        <li style="text-align: center; font-size: 1.25rem; color: red; font-weight: 900; text-shadow: 2px -2px yellow, -2px 2px yellow, 2px 2px yellow, -2px -2px yellow, -2px 0 yellow, 0 2px yellow, 2px 0 yellow, 0 -2px yellow">7</li>
+        <li>🍉</li>
+        <li>💰</li>
+    </cylinder-picker>
+
+    <cylinder-picker id="slot-machine-2" cylinder-infinity="true">
+        <li style="text-align: center; font-size: 1.25rem; color: red; font-weight: 900; text-shadow: 2px -2px yellow, -2px 2px yellow, 2px 2px yellow, -2px -2px yellow, -2px 0 yellow, 0 2px yellow, 2px 0 yellow, 0 -2px yellow">7</li>
+        <li>🍑</li>
+        <li>🏆</li>
+    </cylinder-picker>
+
+    <cylinder-picker id="slot-machine-3" cylinder-infinity="true">
+        <li style="text-align: center; font-size: 1.25rem; color: red; font-weight: 900; text-shadow: 2px -2px yellow, -2px 2px yellow, 2px 2px yellow, -2px -2px yellow, -2px 0 yellow, 0 2px yellow, 2px 0 yellow, 0 -2px yellow">7</li>
+        <li>🍋</li>
+        <li>💰</li>
+    </cylinder-picker>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+    <div class="coin"></div>
+</div>
+<div class="wip">
+    <pre>Cylinder-Picker</pre>
+    is now work in progress . . .
+</div>
+</body>
+<script>
+	function throwCoin(
+		element,
+		forceX = (Math.random() - 0.5) * 600,
+		forceY = -500 + (Math.random() - 0.5) * 400,
+		gravity = 900 - (Math.random() - 0.5) * 200,
+		rotateX = (Math.random() - 0.5) * 60,
+		rotateY = (Math.random() - 0.5) * 60
+	) {
+		let posX = 0;
+		let posY = 0;
+		let velocityX = forceX;
+		let velocityY = forceY;
+		const interval = 16;
+		const groundLevel = window.innerHeight - element.clientHeight;
+
+		let rotateXEvent = Math.random();
+		let rotateYEvent = Math.random();
+
+		element.style.opacity = '1';
+		element.style.scale = String(Math.random() + 1);
+
+		function updatePosition() {
+			velocityY += gravity * (interval / 1000);
+			posX += velocityX * (interval / 1000);
+			posY += velocityY * (interval / 1000);
+
+			if (posY > groundLevel) {
+				posY = groundLevel;
+				velocityY = 0;
+				clearInterval(timer);
+				element.style.opacity = '0';
+				setTimeout(() => {
+					element.style.transform = ``;
+				}, 1000);
+				return;
+			}
+
+			rotateX = rotateX - rotateXEvent;
+			rotateX = rotateX - rotateYEvent;
+			element.style.transform = `translate(${posX}px, ${posY}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+			timer = setTimeout(updatePosition, interval);
+		}
+
+		let timer = setTimeout(updatePosition, interval);
+	}
+
+	function roll() {
+		setTimeout(() => {
+			Promise.all(
+				[...document.querySelectorAll('[id^=slot-machine]')]
+					.map(slotMachine => {
+						const length = slotMachine.childElementCount;
+
+						if (slotMachine instanceof HTMLCylinderPicker) {
+							return slotMachine.next(Math.floor((Math.random() - 0.5) * 2 * length));
+						}
+
+						return undefined;
+					})
+			).then(slotMachines => {
+				const goal = slotMachines
+					.map(slotMachine => {
+						if (slotMachine) {
+							return slotMachine.currentValue;
+						}
+						return undefined;
+					})
+					.every((slotMachine, i, slotMachines) => {
+						return slotMachine !== undefined
+							&& slotMachines[0] !== undefined
+							&& slotMachine === 0
+							&& slotMachine === slotMachines[0];
+					});
+
+				if (goal) {
+					document.querySelectorAll('.coin').forEach(coin => {
+						throwCoin(coin);
+					})
+				}
+			});
+
+			roll();
+		}, 1000);
+	}
+
+	roll();
+</script>
+</html>
