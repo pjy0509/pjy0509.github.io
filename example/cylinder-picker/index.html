@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Title</title>
-    <script src="https://unpkg.com/cylinder-picker@latest/dist/index.umd.js"></script>
+    <!--    <script src="https://unpkg.com/cylinder-picker@latest/dist/index.umd.js"></script>-->
+    <script src="https://unpkg.com/cylinder-picker@1.0.21/dist/index.umd.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/go.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -17,7 +18,7 @@
 
         body {
             background-color: #131313;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         .slot-machine-container {
@@ -25,6 +26,11 @@
             display: flex;
             justify-content: center;
             gap: 32px;
+        }
+
+        .slot-machine-container cylinder-picker {
+            width: 35px;
+            text-align: center;
         }
 
         .coin {
@@ -46,31 +52,145 @@
             justify-content: center;
         }
 
-        .wip pre {
+        .wip p {
             border-radius: 5px;
             background-color: #323240;
             padding: 4px;
             font-size: 12px;
             margin: 0 5px 0 0;
         }
+
+        .seven {
+            position: relative;
+            top: 4px;
+            color: red;
+            font-weight: 900;
+            text-shadow: 2px -2px yellow, -2px 2px yellow, 2px 2px yellow, -2px -2px yellow, -2px 0 yellow, 0 2px yellow, 2px 0 yellow, 0 -2px yellow
+        }
+
+        .date-picker {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .date-picker .month {
+            width: 20%
+        }
+
+        .date-picker .date {
+            width: 10%
+        }
+
+        .sample {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        pre, code {
+            position: relative;
+            width: calc(100% - 2em);
+            margin: 0;
+        }
+
+        pre label {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            color: white;
+            background: black;
+            border-radius: 0 0 0 5px;
+            padding: 6px;
+            font-size: 10px;
+            z-index: 99;
+        }
     </style>
 </head>
 <body>
+<div class="wip">
+    <p>Cylinder-Picker</p>
+    is now work in progress . . .
+</div>
+
+<div class="date-picker">
+    <cylinder-picker class="month">
+        <li>January</li>
+        <li>February</li>
+        <li>March</li>
+        <li>April</li>
+        <li>May</li>
+        <li>June</li>
+        <li>July</li>
+        <li>August</li>
+        <li>September</li>
+        <li>October</li>
+        <li>November</li>
+        <li>December</li>
+    </cylinder-picker>
+    <cylinder-picker class="date" cylinder-infinity="true">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li>
+        <li>13</li>
+        <li>14</li>
+        <li>15</li>
+        <li>16</li>
+        <li>17</li>
+        <li>18</li>
+        <li>19</li>
+        <li>20</li>
+        <li>21</li>
+        <li>22</li>
+        <li>23</li>
+        <li>24</li>
+        <li>25</li>
+        <li>26</li>
+        <li>27</li>
+        <li>28</li>
+        <li>29</li>
+        <li>30</li>
+        <li>31</li>
+    </cylinder-picker>
+    <cylinder-picker class="date" cylinder-infinity="true">
+        <li>2019</li>
+        <li>2020</li>
+        <li>2021</li>
+        <li>2022</li>
+        <li>2023</li>
+        <li>2024</li>
+        <li>2025</li>
+        <li>2026</li>
+        <li>2027</li>
+        <li>2028</li>
+    </cylinder-picker>
+</div>
 <div class="slot-machine-container">
-    <cylinder-picker id="slot-machine-1" cylinder-infinity="true">
-        <li style="text-align: center; font-size: 1.25rem; color: red; font-weight: 900; text-shadow: 2px -2px yellow, -2px 2px yellow, 2px 2px yellow, -2px -2px yellow, -2px 0 yellow, 0 2px yellow, 2px 0 yellow, 0 -2px yellow">7</li>
+    <cylinder-picker id="slot-machine-1" cylinder-infinity="true" disabled>
+        <li class="seven">7</li>
         <li>🍉</li>
         <li>💰</li>
     </cylinder-picker>
 
-    <cylinder-picker id="slot-machine-2" cylinder-infinity="true">
-        <li style="text-align: center; font-size: 1.25rem; color: red; font-weight: 900; text-shadow: 2px -2px yellow, -2px 2px yellow, 2px 2px yellow, -2px -2px yellow, -2px 0 yellow, 0 2px yellow, 2px 0 yellow, 0 -2px yellow">7</li>
+    <cylinder-picker id="slot-machine-2" cylinder-infinity="true" disabled>
+        <li class="seven">7</li>
         <li>🍑</li>
         <li>🏆</li>
     </cylinder-picker>
 
-    <cylinder-picker id="slot-machine-3" cylinder-infinity="true">
-        <li style="text-align: center; font-size: 1.25rem; color: red; font-weight: 900; text-shadow: 2px -2px yellow, -2px 2px yellow, 2px 2px yellow, -2px -2px yellow, -2px 0 yellow, 0 2px yellow, 2px 0 yellow, 0 -2px yellow">7</li>
+    <cylinder-picker id="slot-machine-3" cylinder-infinity="true" disabled>
+        <li class="seven">7</li>
         <li>🍋</li>
         <li>💰</li>
     </cylinder-picker>
@@ -114,9 +234,128 @@
     <div class="coin"></div>
     <div class="coin"></div>
 </div>
-<div class="wip">
-    <pre>Cylinder-Picker</pre>
-    is now work in progress . . .
+<div class="sample">
+
+<pre>
+            <label>HTML</label>
+        <code class="language-html">
+&lt;cylinder-picker id="slot-machine-1" cylinder-infinity="true" disabled>
+&emsp;&emsp;&lt;li class="seven">7&lt;/li>
+&emsp;&emsp;&lt;li>🍉&lt;/li>
+&emsp;&emsp;&lt;li>💰&lt;/li>
+&lt;/cylinder-picker>
+
+&lt;cylinder-picker id="slot-machine-2" cylinder-infinity="true" disabled>
+&emsp;&emsp;&lt;li class="seven">7&lt;/li>
+&emsp;&emsp;&lt;li>🍑&lt;/li>
+&emsp;&emsp;&lt;li>🏆&lt;/li>
+&lt;/cylinder-picker>
+
+&lt;cylinder-picker id="slot-machine-3" cylinder-infinity="true" disabled>
+&emsp;&emsp;&lt;li class="seven">7&lt;/li>
+&emsp;&emsp;&lt;li>🍋&lt;/li>
+&emsp;&emsp;&lt;li>💰&lt;/li>
+&lt;/cylinder-picker>
+
+&lt;div class="coin">&lt;/div>
+&lt;div class="coin">&lt;/div>
+&lt;div class="coin">&lt;/div>
+&lt;div class="coin">&lt;/div>
+&lt;div class="coin">&lt;/div>
+        </code>
+        </pre>
+    <pre>
+            <label>Javascript</label>
+        <code class="language-javascript">
+function throwCoin(
+    element,
+    forceX = (Math.random() - 0.5) * 600,
+    forceY = -500 + (Math.random() - 0.5) * 400,
+    gravity = 900 - (Math.random() - 0.5) * 200,
+    rotateX = (Math.random() - 0.5) * 60,
+    rotateY = (Math.random() - 0.5) * 60
+) {
+    let posX = 0;
+    let posY = 0;
+    let velocityX = forceX;
+    let velocityY = forceY;
+    const interval = 16;
+    const groundLevel = window.innerHeight - element.clientHeight;
+
+    let rotateXEvent = Math.random();
+    let rotateYEvent = Math.random();
+
+    element.style.opacity = '1';
+    element.style.scale = String(Math.random() + 1);
+
+    function updatePosition() {
+        velocityY += gravity * (interval / 1000);
+        posX += velocityX * (interval / 1000);
+        posY += velocityY * (interval / 1000);
+
+        if (posY > groundLevel) {
+            posY = groundLevel;
+            velocityY = 0;
+            clearInterval(timer);
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.style.transform = ``;
+            }, 1000);
+            return;
+        }
+
+        rotateX = rotateX - rotateXEvent;
+        rotateX = rotateX - rotateYEvent;
+        element.style.transform = `translate(${posX}px, ${posY}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+        timer = setTimeout(updatePosition, interval);
+    }
+
+    let timer = setTimeout(updatePosition, interval);
+}
+
+function roll() {
+    setTimeout(() => {
+        Promise.all(
+            [...document.querySelectorAll('[id^=slot-machine]')]
+                .map(slotMachine => {
+                    const length = slotMachine.childElementCount;
+
+                    if (slotMachine instanceof HTMLCylinderPicker) {
+                        return slotMachine.next(Math.floor((Math.random() - 0.5) * 2 * length));
+                    }
+
+                    return undefined;
+                })
+        ).then(slotMachines => {
+            const goal = slotMachines
+                .map(slotMachine => {
+                    if (slotMachine) {
+                        return slotMachine.currentValue;
+                    }
+                    return undefined;
+                })
+                .every((slotMachine, i, slotMachines) => {
+                    return slotMachine !== undefined
+                        && slotMachines[0] !== undefined
+                        && slotMachine === 0
+                        && slotMachine === slotMachines[0];
+                });
+
+            if (goal) {
+                document.querySelectorAll('.coin').forEach(coin => {
+                    throwCoin(coin);
+                })
+            }
+        });
+
+        roll();
+    }, 1000);
+}
+
+roll();
+        </code>
+</pre>
 </div>
 </body>
 <script>
@@ -207,5 +446,7 @@
 	}
 
 	roll();
+
+	hljs.highlightAll();
 </script>
 </html>
