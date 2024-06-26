@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Title</title>
     <!--    <script src="https://unpkg.com/cylinder-picker@latest/dist/index.umd.js"></script>-->
-    <script src="https://unpkg.com/cylinder-picker@1.0.21/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/cylinder-picker@1.0.25/dist/index.umd.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/go.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -19,6 +19,10 @@
         body {
             background-color: #131313;
             overflow-x: hidden;
+        }
+
+        cylinder-picker li {
+            color: #fff;
         }
 
         .slot-machine-container {
@@ -63,7 +67,7 @@
         .seven {
             position: relative;
             top: 4px;
-            color: red;
+            color: red !important;
             font-weight: 900;
             text-shadow: 2px -2px yellow, -2px 2px yellow, 2px 2px yellow, -2px -2px yellow, -2px 0 yellow, 0 2px yellow, 2px 0 yellow, 0 -2px yellow
         }
@@ -130,7 +134,7 @@
         <li>November</li>
         <li>December</li>
     </cylinder-picker>
-    <cylinder-picker class="date" cylinder-infinity="true">
+    <cylinder-picker class="date" infinite>
         <li>1</li>
         <li>2</li>
         <li>3</li>
@@ -163,7 +167,7 @@
         <li>30</li>
         <li>31</li>
     </cylinder-picker>
-    <cylinder-picker class="date" cylinder-infinity="true">
+    <cylinder-picker class="date" infinite>
         <li>2019</li>
         <li>2020</li>
         <li>2021</li>
@@ -177,19 +181,19 @@
     </cylinder-picker>
 </div>
 <div class="slot-machine-container">
-    <cylinder-picker id="slot-machine-1" cylinder-infinity="true" disabled>
+    <cylinder-picker id="slot-machine-1" infinite disabled>
         <li class="seven">7</li>
         <li>🍉</li>
         <li>💰</li>
     </cylinder-picker>
 
-    <cylinder-picker id="slot-machine-2" cylinder-infinity="true" disabled>
+    <cylinder-picker id="slot-machine-2" infinite disabled>
         <li class="seven">7</li>
         <li>🍑</li>
         <li>🏆</li>
     </cylinder-picker>
 
-    <cylinder-picker id="slot-machine-3" cylinder-infinity="true" disabled>
+    <cylinder-picker id="slot-machine-3" infinite disabled>
         <li class="seven">7</li>
         <li>🍋</li>
         <li>💰</li>
@@ -239,19 +243,19 @@
 <pre>
             <label>HTML</label>
         <code class="language-html">
-&lt;cylinder-picker id="slot-machine-1" cylinder-infinity="true" disabled>
+&lt;cylinder-picker id="slot-machine-3" infinite disabled>
 &emsp;&emsp;&lt;li class="seven">7&lt;/li>
 &emsp;&emsp;&lt;li>🍉&lt;/li>
 &emsp;&emsp;&lt;li>💰&lt;/li>
 &lt;/cylinder-picker>
 
-&lt;cylinder-picker id="slot-machine-2" cylinder-infinity="true" disabled>
+&lt;cylinder-picker id="slot-machine-3" infinite disabled>
 &emsp;&emsp;&lt;li class="seven">7&lt;/li>
 &emsp;&emsp;&lt;li>🍑&lt;/li>
 &emsp;&emsp;&lt;li>🏆&lt;/li>
 &lt;/cylinder-picker>
 
-&lt;cylinder-picker id="slot-machine-3" cylinder-infinity="true" disabled>
+&lt;cylinder-picker id="slot-machine-3" infinite disabled>
 &emsp;&emsp;&lt;li class="seven">7&lt;/li>
 &emsp;&emsp;&lt;li>🍋&lt;/li>
 &emsp;&emsp;&lt;li>💰&lt;/li>
