@@ -335,7 +335,7 @@ function roll() {
             const goal = slotMachines
                 .map(slotMachine => {
                     if (slotMachine) {
-                        return slotMachine.currentValue;
+                        return slotMachine.value;
                     }
                     return undefined;
                 })
@@ -427,7 +427,7 @@ roll();
 				const goal = slotMachines
 					.map(slotMachine => {
 						if (slotMachine) {
-							return slotMachine.currentValue;
+							return slotMachine.value;
 						}
 						return undefined;
 					})
