@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Title</title>
     <!--    <script src="https://unpkg.com/cylinder-picker@latest/dist/index.umd.js"></script>-->
-    <script src="https://unpkg.com/cylinder-picker@1.0.27/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/cylinder-picker@1.0.41/dist/index.umd.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/go.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -20,10 +20,6 @@
             background-color: #131313;
             overflow-x: hidden;
             margin: 0;
-        }
-
-        cylinder-picker li {
-            color: #fff;
         }
 
         .slot-machine-container {
@@ -50,21 +46,6 @@
             box-shadow: 0 1px 0 #a58d2a, 0 2px 0 #7f6d21;
         }
 
-        .wip {
-            margin-top: 20px;
-            color: white;
-            display: flex;
-            justify-content: center;
-        }
-
-        .wip p {
-            border-radius: 5px;
-            background-color: #323240;
-            padding: 4px;
-            font-size: 12px;
-            margin: 0 5px 0 0;
-        }
-
         .seven {
             position: relative;
             top: 4px;
@@ -73,19 +54,67 @@
             text-shadow: 2px -2px yellow, -2px 2px yellow, 2px 2px yellow, -2px -2px yellow, -2px 0 yellow, 0 2px yellow, 2px 0 yellow, 0 -2px yellow
         }
 
-        .date-picker {
-            position: relative;
+        .date-picker-box {
+            font-family: unset;
+            font-weight: 400;
+            flex-direction: column;
+            gap: 16px;
+            width: 18em;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: white;
+            z-index: 20000;
+            border: 1px solid black;
+            padding: 2px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .date-picker-box:before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: calc(100% - 4px);
+            height: calc(100% - 4px);
+            z-index: -1;
+            border: 1px solid rgba(0,0,0,0.2);
+            border-radius: 1px;
+        }
+
+        .date-picker-container {
+            padding: 0 20px 0 20px;
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5em;
+            height: 11em;
+        }
+
+        .date-picker-container cylinder-picker li {
+            color: black;
+        }
+
+        .date-picker-button-container {
+            display: flex;
+            padding: 0 20px 10px 20px;
+            justify-content: space-between;
+        }
+
+        .date-picker-button-container button {
+            background: none;
+            border: none;
+            font-size: 0.8em;
+            color: rgba(100, 140, 255, 1);
+            cursor: pointer;
+        }
+
+        .input-date-picker-container {
+            width: 100%;
+            height: 200px;
             display: flex;
             justify-content: center;
-            gap: 32px;
-        }
-
-        .date-picker .month {
-            width: 20%
-        }
-
-        .date-picker .date {
-            width: 10%
+            align-items: center;
         }
 
         .sample {
@@ -115,72 +144,257 @@
     </style>
 </head>
 <body>
-<div class="wip">
-    <p>Cylinder-Picker</p>
-    is now work in progress . . .
+<div class="input-date-picker-container">
+    <input type="date" class="input-date-picker">
+</div>
+<div class="date-picker-box">
+    <div class="date-picker-container">
+        <cylinder-picker class="month-picker">
+        </cylinder-picker>
+        <cylinder-picker class="date-picker" infinite>
+        </cylinder-picker>
+        <cylinder-picker class="year-picker">
+        </cylinder-picker>
+    </div>
+    <div class="date-picker-button-container">
+        <button class="date-picker-today-button">오늘</button>
+        <div>
+            <button class="date-picker-select-button">선택</button>
+            <button class="date-picker-cancel-button">취소</button>
+        </div>
+    </div>
 </div>
 
-<div class="date-picker">
-    <cylinder-picker class="month">
-        <li>January</li>
-        <li>February</li>
-        <li>March</li>
-        <li>April</li>
-        <li>May</li>
-        <li>June</li>
-        <li>July</li>
-        <li>August</li>
-        <li>September</li>
-        <li>October</li>
-        <li>November</li>
-        <li>December</li>
-    </cylinder-picker>
-    <cylinder-picker class="date" infinite>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-        <li>10</li>
-        <li>11</li>
-        <li>12</li>
-        <li>13</li>
-        <li>14</li>
-        <li>15</li>
-        <li>16</li>
-        <li>17</li>
-        <li>18</li>
-        <li>19</li>
-        <li>20</li>
-        <li>21</li>
-        <li>22</li>
-        <li>23</li>
-        <li>24</li>
-        <li>25</li>
-        <li>26</li>
-        <li>27</li>
-        <li>28</li>
-        <li>29</li>
-        <li>30</li>
-        <li>31</li>
-    </cylinder-picker>
-    <cylinder-picker class="date" infinite>
-        <li>2019</li>
-        <li>2020</li>
-        <li>2021</li>
-        <li>2022</li>
-        <li>2023</li>
-        <li>2024</li>
-        <li>2025</li>
-        <li>2026</li>
-        <li>2027</li>
-        <li>2028</li>
-    </cylinder-picker>
-</div>
+<pre>
+            <label>HTML</label>
+        <code class="language-html">
+&lt;div class="input-date-picker-container">
+&emsp;&emsp;&lt;input type="date" class="input-date-picker">
+&lt;/div>
+&lt;div class="date-picker-box">
+&emsp;&emsp;&lt;div class="date-picker-container">
+&emsp;&emsp;&emsp;&emsp;&lt;cylinder-picker class="month-picker">
+&emsp;&emsp;&emsp;&emsp;&lt;/cylinder-picker>
+&emsp;&emsp;&emsp;&emsp;&lt;cylinder-picker class="date-picker" infinite>
+&emsp;&emsp;&emsp;&emsp;&lt;/cylinder-picker>
+&emsp;&emsp;&emsp;&emsp;&lt;cylinder-picker class="year-picker" infinite>
+&emsp;&emsp;&emsp;&emsp;&lt;/cylinder-picker>
+&emsp;&emsp;&lt;/div>
+&emsp;&emsp;&lt;div class="date-picker-button-container">
+&emsp;&emsp;&emsp;&emsp;&lt;button class="date-picker-today-button">오늘&lt;/button>
+&emsp;&emsp;&emsp;&emsp;&lt;div>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;button class="date-picker-select-button">선택&lt;/button>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;button class="date-picker-cancel-button">취소&lt;/button>
+&emsp;&emsp;&emsp;&emsp;&lt;/div>
+&emsp;&emsp;&lt;/div>
+&lt;/div>
+        </code>
+        </pre>
+<pre>
+            <label>Javascript</label>
+        <code class="language-javascript">
+const monthPicker = document.querySelector('.month-picker');
+const datePicker = document.querySelector('.date-picker');
+const yearPicker = document.querySelector('.year-picker');
+
+const yearPickerPadSize = 7;
+
+const current = new Date();
+const currentMonth = current.getMonth() + 1;
+const currentDate = current.getDate();
+const currentYear = current.getFullYear();
+
+const customDatePicker = document.querySelector('.date-picker-box');
+const inputDate = document.querySelector('.input-date-picker');
+const todayButton = document.querySelector('.date-picker-today-button');
+const selectButton = document.querySelector('.date-picker-select-button');
+const cancelButton = document.querySelector('.date-picker-cancel-button');
+
+let month = currentMonth;
+let date = currentDate;
+let year = currentYear;
+
+function initMonthPicker() {
+    let html = '';
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    for (const month of months) {
+        html += `&lt;li>${month}&lt;/li>`;
+    }
+
+    monthPicker.innerHTML += html;
+    monthPicker.value = currentMonth - 1;
+    monthPicker.addEventListener('change', onMonthPickerChange);
+}
+
+function initDatePicker() {
+    const numberOfDate = getNumberOfDate();
+
+    let html = '';
+    for (let i = 1; i <= numberOfDate; i++) {
+        html += `&lt;li>${i}&lt;/li>`;
+    }
+    datePicker.innerHTML = html;
+    datePicker.value = currentDate - 1;
+    datePicker.addEventListener('change', onDatePickerChange);
+}
+
+function initYearPicker() {
+    const years = Array.from({length: 1 + 2 * yearPickerPadSize}, (e, i) => currentYear - yearPickerPadSize + i);
+    let html = '';
+
+    for (const year of years) {
+        html += `&lt;li>${year}&lt;/li>`
+    }
+
+    yearPicker.innerHTML = html;
+    yearPicker.value = yearPickerPadSize;
+    yearPicker.addEventListener('change', onYearPickerChange);
+}
+
+function initInputDate() {
+    inputDate.onchange = inputDate.oninput = inputDate.onclick = (event) => {
+        event.preventDefault();
+
+        const dateValue = inputDate.valueAsDate;
+        const inputRect = inputDate.getBoundingClientRect();
+        const x = inputRect.x;
+        const y = inputRect.y + inputRect.height;
+
+        if (dateValue) {
+            setMonth(dateValue.getMonth() + 1);
+            setDate(dateValue.getDate());
+            setYear(dateValue.getFullYear());
+        }
+
+        customDatePicker.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+        customDatePicker.style.display = 'flex';
+    }
+
+    todayButton.onclick = () => {
+        setMonth(currentMonth);
+        setDate(currentDate);
+        setYear(currentYear);
+    }
+
+    selectButton.onclick = () => {
+        inputDate.value = `${year}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')}`
+        customDatePicker.style.display = 'none';
+    }
+
+    cancelButton.onclick = () => {
+        customDatePicker.style.display = 'none';
+    }
+}
+
+function setMonth(value) {
+    monthPicker.value = value - 1;
+    month = value;
+    updateDatePicker();
+}
+
+function setDate(value) {
+    datePicker.value = value - 1;
+    date = value;
+}
+
+function setYear(value) {
+    const index = Array.from(document.querySelector('.year-picker').children).findIndex(child => child.innerText === String(value));
+    yearPicker.value = index;
+    year = value;
+    updateDatePicker();
+}
+
+function isLeapYear() {
+    return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)
+}
+
+function getNumberOfDate() {
+    switch (month) {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            return 31;
+        case 2:
+            return isLeapYear() ? 29 : 28;
+        default:
+            return 30;
+    }
+}
+
+function updateDatePicker() {
+    const previous = datePicker.value;
+    const numberOfDate = getNumberOfDate();
+
+    datePicker.innerHTML = '';
+
+    let html = '';
+    for (let i = 1; i <= numberOfDate; i++) {
+        html += `&lt;li>${i}&lt;/li>`;
+    }
+    datePicker.innerHTML = html;
+    datePicker.value = Math.min(previous, numberOfDate - 1);
+
+    date = Math.min(previous, numberOfDate - 1) + 1;
+}
+
+function onMonthPickerChange(event) {
+    month = event.value + 1;
+    updateDatePicker();
+}
+
+function onDatePickerChange(event) {
+    date = Number(event.elementValue.innerText);
+}
+
+function onYearPickerChange(event) {
+    let html = '';
+    if (event.value < yearPickerPadSize) {
+        const firstChild = yearPicker.firstElementChild;
+
+        if (firstChild) {
+            const minYear = Number(firstChild.textContent);
+            const delta = yearPickerPadSize - event.value;
+            for (let i = delta; i > 0; i--) {
+                html += `&lt;li>${minYear - i}&lt;/li>`
+            }
+            setTimeout(() => {
+                yearPicker.innerHTML = html + yearPicker.innerHTML;
+                yearPicker.value = yearPicker.value + delta;
+            });
+        }
+    }
+
+    if (event.value > yearPicker.length - yearPickerPadSize - 1) {
+        const lastChild = yearPicker.lastElementChild;
+
+        if (lastChild) {
+            const maxYear = Number(lastChild.textContent);
+            const delta = event.value - yearPicker.length + yearPickerPadSize + 1;
+            for (let i = 1; i < delta; i++) {
+                html += `&lt;li>${maxYear + i}&lt;/li>`
+            }
+            setTimeout(() => {
+                yearPicker.innerHTML += html;
+            });
+        }
+    }
+
+    year = Number(event.elementValue.innerText);
+    updateDatePicker();
+}
+
+initMonthPicker();
+initDatePicker();
+initYearPicker();
+initInputDate();
+        </code>
+</pre>
+
 <div class="slot-machine-container">
     <cylinder-picker id="slot-machine-1" infinite disabled>
         <li class="seven">7</li>
@@ -451,6 +665,206 @@ roll();
 	}
 
 	roll();
+
+    const monthPicker = document.querySelector('.month-picker');
+    const datePicker = document.querySelector('.date-picker');
+    const yearPicker = document.querySelector('.year-picker');
+
+	const yearPickerPadSize = 7;
+
+	const current = new Date();
+	const currentMonth = current.getMonth() + 1;
+	const currentDate = current.getDate();
+	const currentYear = current.getFullYear();
+
+	const customDatePicker = document.querySelector('.date-picker-box');
+	const inputDate = document.querySelector('.input-date-picker');
+	const todayButton = document.querySelector('.date-picker-today-button');
+	const selectButton = document.querySelector('.date-picker-select-button');
+	const cancelButton = document.querySelector('.date-picker-cancel-button');
+
+	let month = currentMonth;
+	let date = currentDate;
+	let year = currentYear;
+
+	function initMonthPicker() {
+		let html = '';
+		const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+		for (const month of months) {
+			html += `<li>${month}</li>`;
+		}
+
+		monthPicker.innerHTML += html;
+		monthPicker.value = currentMonth - 1;
+		monthPicker.addEventListener('change', onMonthPickerChange);
+    }
+
+	function initDatePicker() {
+		const numberOfDate = getNumberOfDate();
+
+		let html = '';
+		for (let i = 1; i <= numberOfDate; i++) {
+			html += `<li>${i}</li>`;
+		}
+		datePicker.innerHTML = html;
+		datePicker.value = currentDate - 1;
+		datePicker.addEventListener('change', onDatePickerChange);
+    }
+
+	function initYearPicker() {
+		const years = Array.from({length: 1 + 2 * yearPickerPadSize}, (e, i) => currentYear - yearPickerPadSize + i);
+		let html = '';
+
+		for (const year of years) {
+			html += `<li>${year}</li>`
+		}
+
+		yearPicker.innerHTML = html;
+		yearPicker.value = yearPickerPadSize;
+		yearPicker.addEventListener('change', onYearPickerChange);
+    }
+
+	function initInputDate() {
+		inputDate.onchange = inputDate.oninput = inputDate.onclick = (event) => {
+			event.preventDefault();
+
+            const dateValue = inputDate.valueAsDate;
+			const inputRect = inputDate.getBoundingClientRect();
+			const x = inputRect.x;
+			const y = inputRect.y + inputRect.height;
+
+			if (dateValue) {
+				setMonth(dateValue.getMonth() + 1);
+				setDate(dateValue.getDate());
+				setYear(dateValue.getFullYear());
+            }
+
+			customDatePicker.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+			customDatePicker.style.display = 'flex';
+		}
+
+		todayButton.onclick = () => {
+			setMonth(currentMonth);
+			setDate(currentDate);
+			setYear(currentYear);
+		}
+
+		selectButton.onclick = () => {
+			inputDate.value = `${year}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')}`
+			customDatePicker.style.display = 'none';
+		}
+
+		cancelButton.onclick = () => {
+			customDatePicker.style.display = 'none';
+		}
+    }
+
+	function setMonth(value) {
+		monthPicker.value = value - 1;
+		month = value;
+		updateDatePicker();
+    }
+
+	function setDate(value) {
+		datePicker.value = value - 1;
+		date = value;
+    }
+
+	function setYear(value) {
+		const index = Array.from(document.querySelector('.year-picker').children).findIndex(child => child.innerText === String(value));
+		yearPicker.value = index;
+		year = value;
+		updateDatePicker();
+    }
+
+	function isLeapYear() {
+		return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)
+	}
+
+	function getNumberOfDate() {
+		switch (month) {
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				return 31;
+			case 2:
+				return isLeapYear() ? 29 : 28;
+			default:
+				return 30;
+		}
+	}
+
+	function updateDatePicker() {
+		const previous = datePicker.value;
+		const numberOfDate = getNumberOfDate();
+
+		datePicker.innerHTML = '';
+
+		let html = '';
+		for (let i = 1; i <= numberOfDate; i++) {
+			html += `<li>${i}</li>`;
+		}
+		datePicker.innerHTML = html;
+		datePicker.value = Math.min(previous, numberOfDate - 1);
+
+		date = Math.min(previous, numberOfDate - 1) + 1;
+	}
+
+	function onMonthPickerChange(event) {
+		month = event.value + 1;
+		updateDatePicker();
+    }
+
+	function onDatePickerChange(event) {
+		date = Number(event.elementValue.innerText);
+    }
+
+	function onYearPickerChange(event) {
+		let html = '';
+		if (event.value < yearPickerPadSize) {
+			const firstChild = yearPicker.firstElementChild;
+
+			if (firstChild) {
+				const minYear = Number(firstChild.textContent);
+				const delta = yearPickerPadSize - event.value;
+				for (let i = delta; i > 0; i--) {
+					html += `<li>${minYear - i}</li>`
+				}
+				setTimeout(() => {
+					yearPicker.innerHTML = html + yearPicker.innerHTML;
+					yearPicker.value = yearPicker.value + delta;
+                });
+			}
+		}
+
+		if (event.value > yearPicker.length - yearPickerPadSize - 1) {
+			const lastChild = yearPicker.lastElementChild;
+
+			if (lastChild) {
+				const maxYear = Number(lastChild.textContent);
+				const delta = event.value - yearPicker.length + yearPickerPadSize + 1;
+				for (let i = 1; i < delta; i++) {
+					html += `<li>${maxYear + i}</li>`
+				}
+				setTimeout(() => {
+					yearPicker.innerHTML += html;
+                });
+			}
+		}
+
+		year = Number(event.elementValue.innerText);
+		updateDatePicker();
+	}
+
+	initMonthPicker();
+	initDatePicker();
+	initYearPicker();
+	initInputDate();
 
 	hljs.highlightAll();
 </script>
