@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Title</title>
     <!--    <script src="https://unpkg.com/cylinder-picker@latest/dist/index.umd.js"></script>-->
-    <script src="https://unpkg.com/cylinder-picker@1.0.41/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/cylinder-picker@1.0.45/dist/index.umd.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/go.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -124,6 +124,15 @@
             align-items: center;
         }
 
+        .common-picker-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .common-picker li {
+            color: white;
+        }
+
         pre, code {
             position: relative;
             width: calc(100% - 2em);
@@ -144,6 +153,113 @@
     </style>
 </head>
 <body>
+<div class="common-picker-container">
+    <cylinder-picker class="common-picker">
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
+    </cylinder-picker>
+    <cylinder-picker class="common-picker" infinite>
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
+    </cylinder-picker>
+    <cylinder-picker class="common-picker" disabled>
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
+    </cylinder-picker>
+    <cylinder-picker class="common-picker" curvature="15" value="2">
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
+    </cylinder-picker>
+    <cylinder-picker class="common-picker" curvature="20" value="2">
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
+    </cylinder-picker>
+    <cylinder-picker class="common-picker" curvature="25" value="2">
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
+    </cylinder-picker>
+    <cylinder-picker class="common-picker" curvature="30" value="2">
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
+    </cylinder-picker>
+    <cylinder-picker class="common-picker" curvature="35" value="2">
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
+    </cylinder-picker>
+</div>
+
+<pre>
+            <label>HTML</label>
+        <code class="language-html">
+&lt;div class="common-picker-container">
+&emsp;&emsp;&lt;cylinder-picker class="common-picker">
+&emsp;&emsp;&emsp;&emsp;&lt;li>First&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Second&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Third&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Fourth&lt;/li>
+&emsp;&emsp;&lt;/cylinder-picker>
+&emsp;&emsp;&lt;cylinder-picker class="common-picker" infinite>
+&emsp;&emsp;&emsp;&emsp;&lt;li>First&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Second&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Third&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Fourth&lt;/li>
+&emsp;&emsp;&lt;/cylinder-picker>
+&emsp;&emsp;&lt;cylinder-picker class="common-picker" disabled>
+&emsp;&emsp;&emsp;&emsp;&lt;li>First&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Second&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Third&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Fourth&lt;/li>
+&emsp;&emsp;&lt;/cylinder-picker>
+&emsp;&emsp;&lt;cylinder-picker class="common-picker" curvature="15" value="2">
+&emsp;&emsp;&emsp;&emsp;&lt;li>First&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Second&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Third&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Fourth&lt;/li>
+&emsp;&emsp;&lt;/cylinder-picker>
+&emsp;&emsp;&lt;cylinder-picker class="common-picker" curvature="20" value="2">
+&emsp;&emsp;&emsp;&emsp;&lt;li>First&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Second&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Third&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Fourth&lt;/li>
+&emsp;&emsp;&lt;/cylinder-picker>
+&emsp;&emsp;&lt;cylinder-picker class="common-picker" curvature="25" value="2">
+&emsp;&emsp;&emsp;&emsp;&lt;li>First&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Second&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Third&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Fourth&lt;/li>
+&emsp;&emsp;&lt;/cylinder-picker>
+&emsp;&emsp;&lt;cylinder-picker class="common-picker" curvature="30" value="2">
+&emsp;&emsp;&emsp;&emsp;&lt;li>First&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Second&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Third&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Fourth&lt;/li>
+&emsp;&emsp;&lt;/cylinder-picker>
+&emsp;&emsp;&lt;cylinder-picker class="common-picker" curvature="35" value="2">
+&emsp;&emsp;&emsp;&emsp;&lt;li>First&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Second&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Third&lt;/li>
+&emsp;&emsp;&emsp;&emsp;&lt;li>Fourth&lt;/li>
+&emsp;&emsp;&lt;/cylinder-picker>
+&lt;/div>
+        </code>
+</pre>
+
 <div class="input-date-picker-container">
     <input type="date" class="input-date-picker">
 </div>
@@ -177,7 +293,7 @@
 &emsp;&emsp;&emsp;&emsp;&lt;/cylinder-picker>
 &emsp;&emsp;&emsp;&emsp;&lt;cylinder-picker class="date-picker" infinite>
 &emsp;&emsp;&emsp;&emsp;&lt;/cylinder-picker>
-&emsp;&emsp;&emsp;&emsp;&lt;cylinder-picker class="year-picker" infinite>
+&emsp;&emsp;&emsp;&emsp;&lt;cylinder-picker class="year-picker">
 &emsp;&emsp;&emsp;&emsp;&lt;/cylinder-picker>
 &emsp;&emsp;&lt;/div>
 &emsp;&emsp;&lt;div class="date-picker-button-container">
@@ -239,12 +355,12 @@ function initDatePicker() {
     datePicker.addEventListener('change', onDatePickerChange);
 }
 
-function initYearPicker() {
-    const years = Array.from({length: 1 + 2 * yearPickerPadSize}, (e, i) => currentYear - yearPickerPadSize + i);
+function initYearPicker(year = currentYear) {
+    const years = Array.from({length: 1 + 2 * yearPickerPadSize}, (e, i) => year - yearPickerPadSize + i);
     let html = '';
 
     for (const year of years) {
-        html += `&lt;li>${year}&lt;/li>`
+        html += `$lt;li>${year}$lt;/li>`
     }
 
     yearPicker.innerHTML = html;
@@ -258,8 +374,8 @@ function initInputDate() {
 
         const dateValue = inputDate.valueAsDate;
         const inputRect = inputDate.getBoundingClientRect();
-        const x = inputRect.x;
-        const y = inputRect.y + inputRect.height;
+        const x = inputRect.x + window.scrollX;
+        const y = inputRect.y + inputRect.height + window.scrollY;
 
         if (dateValue) {
             setMonth(dateValue.getMonth() + 1);
@@ -300,7 +416,11 @@ function setDate(value) {
 
 function setYear(value) {
     const index = Array.from(document.querySelector('.year-picker').children).findIndex(child => child.innerText === String(value));
-    yearPicker.value = index;
+    if (yearPicker.childElementCount - 3 < index || index < 3) {
+        initYearPicker(value);
+    } else {
+        yearPicker.value = index;
+    }
     year = value;
     updateDatePicker();
 }
@@ -712,8 +832,8 @@ roll();
 		datePicker.addEventListener('change', onDatePickerChange);
     }
 
-	function initYearPicker() {
-		const years = Array.from({length: 1 + 2 * yearPickerPadSize}, (e, i) => currentYear - yearPickerPadSize + i);
+	function initYearPicker(year = currentYear) {
+		const years = Array.from({length: 1 + 2 * yearPickerPadSize}, (e, i) => year - yearPickerPadSize + i);
 		let html = '';
 
 		for (const year of years) {
@@ -731,8 +851,8 @@ roll();
 
             const dateValue = inputDate.valueAsDate;
 			const inputRect = inputDate.getBoundingClientRect();
-			const x = inputRect.x;
-			const y = inputRect.y + inputRect.height;
+			const x = inputRect.x + window.scrollX;
+			const y = inputRect.y + inputRect.height + window.scrollY;
 
 			if (dateValue) {
 				setMonth(dateValue.getMonth() + 1);
@@ -773,7 +893,11 @@ roll();
 
 	function setYear(value) {
 		const index = Array.from(document.querySelector('.year-picker').children).findIndex(child => child.innerText === String(value));
-		yearPicker.value = index;
+		if (yearPicker.childElementCount - 3 < index || index < 3) {
+			initYearPicker(value);
+        } else {
+			yearPicker.value = index;
+        }
 		year = value;
 		updateDatePicker();
     }
