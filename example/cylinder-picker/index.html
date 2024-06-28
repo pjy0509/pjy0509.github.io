@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Title</title>
     <!--    <script src="https://unpkg.com/cylinder-picker@latest/dist/index.umd.js"></script>-->
-    <script src="https://unpkg.com/cylinder-picker@1.0.45/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/cylinder-picker@1.0.61/dist/index.umd.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/go.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -69,6 +69,10 @@
             padding: 2px;
             font-size: 14px;
             display: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .date-picker-box:before {
@@ -79,7 +83,7 @@
             width: calc(100% - 4px);
             height: calc(100% - 4px);
             z-index: -1;
-            border: 1px solid rgba(0,0,0,0.2);
+            border: 1px solid rgba(0, 0, 0, 0.2);
             border-radius: 1px;
         }
 
@@ -89,6 +93,20 @@
             justify-content: space-between;
             gap: 0.5em;
             height: 11em;
+            position: relative;
+        }
+
+        .date-picker-container:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 92%;
+            height: 1.8em;
+            z-index: -1;
+            border-radius: 3px;
+            transform: translate(-50%, -50%);
+            background: rgba(100, 140, 255, 0.2);
         }
 
         .date-picker-container cylinder-picker li {
@@ -96,8 +114,9 @@
         }
 
         .date-picker-button-container {
+            height: 1em;
             display: flex;
-            padding: 0 20px 10px 20px;
+            margin: 0 20px 1em 20px;
             justify-content: space-between;
         }
 
@@ -161,6 +180,14 @@
         <li>Fourth</li>
     </cylinder-picker>
     <cylinder-picker class="common-picker" infinite>
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
         <li>First</li>
         <li>Second</li>
         <li>Third</li>
@@ -330,40 +357,25 @@ let month = currentMonth;
 let date = currentDate;
 let year = currentYear;
 
+const langFull = navigator.language || navigator.userLanguage;
+const langComponents = langFull.split('-');
+const langLong = [langComponents[0], langComponents[1]].filter(component => component).join('_');
+const langShort = langComponents[0];
+
 function initMonthPicker() {
-    let html = '';
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    for (const month of months) {
-        html += `&lt;li>${month}&lt;/li>`;
-    }
-
-    monthPicker.innerHTML += html;
+    monthPicker.list = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     monthPicker.value = currentMonth - 1;
     monthPicker.addEventListener('change', onMonthPickerChange);
 }
 
 function initDatePicker() {
-    const numberOfDate = getNumberOfDate();
-
-    let html = '';
-    for (let i = 1; i <= numberOfDate; i++) {
-        html += `&lt;li>${i}&lt;/li>`;
-    }
-    datePicker.innerHTML = html;
+    datePicker.list = Array.from({length: getNumberOfDate()}, (_, index) => String(index + 1));
     datePicker.value = currentDate - 1;
     datePicker.addEventListener('change', onDatePickerChange);
 }
 
 function initYearPicker(year = currentYear) {
-    const years = Array.from({length: 1 + 2 * yearPickerPadSize}, (e, i) => year - yearPickerPadSize + i);
-    let html = '';
-
-    for (const year of years) {
-        html += `$lt;li>${year}$lt;/li>`
-    }
-
-    yearPicker.innerHTML = html;
+    yearPicker.list = Array.from({length: 1 + 2 * yearPickerPadSize}, (e, i) => String(year - yearPickerPadSize + i));
     yearPicker.value = yearPickerPadSize;
     yearPicker.addEventListener('change', onYearPickerChange);
 }
@@ -394,35 +406,104 @@ function initInputDate() {
     }
 
     selectButton.onclick = () => {
-        inputDate.value = `${year}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')}`
+        monthPicker.stopInertia()
+        datePicker.stopInertia()
+        yearPicker.stopInertia()
+        inputDate.value = `${String(year).padStart(4, '0')}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')}`
         customDatePicker.style.display = 'none';
     }
 
     cancelButton.onclick = () => {
+        monthPicker.stopInertia()
+        datePicker.stopInertia()
+        yearPicker.stopInertia()
         customDatePicker.style.display = 'none';
+    }
+
+    switch (langShort) {
+        case 'ko':
+            todayButton.innerHTML = '오늘';
+            selectButton.innerHTML = '선택';
+            cancelButton.innerHTML = '취소';
+            break;
+        case 'ja':
+            todayButton.innerHTML = '今日';
+            selectButton.innerHTML = '選択';
+            cancelButton.innerHTML = 'キャンセル';
+            break;
+        case 'vi':
+            todayButton.innerHTML = 'hôm nay';
+            selectButton.innerHTML = 'lựa chọn';
+            cancelButton.innerHTML = 'hủy';
+            break;
+        case 'es':
+            todayButton.innerHTML = 'Plantilla:Hoy';
+            selectButton.innerHTML = 'Selección';
+            cancelButton.innerHTML = 'Cancelar';
+            break;
+        case 'fr':
+            todayButton.innerHTML = 'Aujourd\'hui';
+            selectButton.innerHTML = 'Sélection';
+            cancelButton.innerHTML = 'Annuler';
+            break;
+        case 'de':
+        case 'gsw':
+            todayButton.innerHTML = 'Heute';
+            selectButton.innerHTML = 'Auswahl';
+            cancelButton.innerHTML = 'Abbrechen';
+            break;
+        case 'ru':
+            todayButton.innerHTML = 'Сегодня';
+            selectButton.innerHTML = 'Выбрать';
+            cancelButton.innerHTML = 'Отменить';
+            break;
+        case 'zh':
+            switch (langLong) {
+                case 'zh-Hans':
+                    todayButton.innerHTML = '今天';
+                    selectButton.innerHTML = '选择';
+                    cancelButton.innerHTML = '取消';
+                    break;
+                case 'zh-Hant':
+                    todayButton.innerHTML = '今兒個';
+                    selectButton.innerHTML = '選擇';
+                    cancelButton.innerHTML = '取消';
+                    break;
+            }
+            break;
+        default:
+            todayButton.innerHTML = 'Today';
+            selectButton.innerHTML = 'Select';
+            cancelButton.innerHTML = 'Cancel';
     }
 }
 
 function setMonth(value) {
-    monthPicker.value = value - 1;
-    month = value;
-    updateDatePicker();
+    monthPicker.stopInertia().then(() => {
+        monthPicker.value = value - 1;
+        month = value;
+        updateDatePicker();
+    });
 }
 
 function setDate(value) {
-    datePicker.value = value - 1;
-    date = value;
+    datePicker.stopInertia().then(() => {
+        datePicker.value = value - 1;
+        date = value;
+    });
 }
 
 function setYear(value) {
-    const index = Array.from(document.querySelector('.year-picker').children).findIndex(child => child.innerText === String(value));
-    if (yearPicker.childElementCount - 3 < index || index < 3) {
-        initYearPicker(value);
-    } else {
-        yearPicker.value = index;
-    }
-    year = value;
-    updateDatePicker();
+    yearPicker.stopInertia().then(() => {
+        const index = Array.from(document.querySelector('.year-picker').children).findIndex(child => child.innerText === String(value));
+        if (yearPicker.childElementCount - 3 < index || index < 3) {
+            initYearPicker(value);
+        } else {
+            yearPicker.value = index;
+        }
+        year = value;
+        updateDatePicker();
+    });
 }
 
 function isLeapYear() {
@@ -447,19 +528,15 @@ function getNumberOfDate() {
 }
 
 function updateDatePicker() {
-    const previous = datePicker.value;
-    const numberOfDate = getNumberOfDate();
+    datePicker.stopInertia().then(() => {
+        const previous = datePicker.value;
+        const numberOfDate = getNumberOfDate();
 
-    datePicker.innerHTML = '';
+        datePicker.list = Array.from({length: numberOfDate}, (_, index) => String(index + 1));
+        datePicker.value = Math.min(previous, numberOfDate - 1);
 
-    let html = '';
-    for (let i = 1; i <= numberOfDate; i++) {
-        html += `&lt;li>${i}&lt;/li>`;
-    }
-    datePicker.innerHTML = html;
-    datePicker.value = Math.min(previous, numberOfDate - 1);
-
-    date = Math.min(previous, numberOfDate - 1) + 1;
+        date = Math.min(previous, numberOfDate - 1) + 1;
+    });
 }
 
 function onMonthPickerChange(event) {
@@ -482,10 +559,8 @@ function onYearPickerChange(event) {
             for (let i = delta; i > 0; i--) {
                 html += `&lt;li>${minYear - i}&lt;/li>`
             }
-            setTimeout(() => {
-                yearPicker.innerHTML = html + yearPicker.innerHTML;
-                yearPicker.value = yearPicker.value + delta;
-            });
+            yearPicker.innerHTML = html + yearPicker.innerHTML;
+            yearPicker.value = yearPicker.value + delta;
         }
     }
 
@@ -498,14 +573,20 @@ function onYearPickerChange(event) {
             for (let i = 1; i < delta; i++) {
                 html += `&lt;li>${maxYear + i}&lt;/li>`
             }
-            setTimeout(() => {
-                yearPicker.innerHTML += html;
-            });
+            yearPicker.innerHTML += html;
         }
     }
 
     year = Number(event.elementValue.innerText);
     updateDatePicker();
+}
+
+function stopAllInertia() {
+    return Promise.all([
+        monthPicker.stopInertia(),
+        datePicker.stopInertia(),
+        yearPicker.stopInertia()
+    ]);
 }
 
 initMonthPicker();
@@ -786,9 +867,9 @@ roll();
 
 	roll();
 
-    const monthPicker = document.querySelector('.month-picker');
-    const datePicker = document.querySelector('.date-picker');
-    const yearPicker = document.querySelector('.year-picker');
+	const monthPicker = document.querySelector('.month-picker');
+	const datePicker = document.querySelector('.date-picker');
+	const yearPicker = document.querySelector('.year-picker');
 
 	const yearPickerPadSize = 7;
 
@@ -807,49 +888,34 @@ roll();
 	let date = currentDate;
 	let year = currentYear;
 
+	const langFull = navigator.language || navigator.userLanguage;
+	const langComponents = langFull.split('-');
+	const langLong = [langComponents[0], langComponents[1]].filter(component => component).join('_');
+	const langShort = langComponents[0];
+
 	function initMonthPicker() {
-		let html = '';
-		const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-		for (const month of months) {
-			html += `<li>${month}</li>`;
-		}
-
-		monthPicker.innerHTML += html;
+		monthPicker.list = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 		monthPicker.value = currentMonth - 1;
 		monthPicker.addEventListener('change', onMonthPickerChange);
-    }
+	}
 
 	function initDatePicker() {
-		const numberOfDate = getNumberOfDate();
-
-		let html = '';
-		for (let i = 1; i <= numberOfDate; i++) {
-			html += `<li>${i}</li>`;
-		}
-		datePicker.innerHTML = html;
+		datePicker.list = Array.from({length: getNumberOfDate()}, (_, index) => String(index + 1));
 		datePicker.value = currentDate - 1;
 		datePicker.addEventListener('change', onDatePickerChange);
-    }
+	}
 
 	function initYearPicker(year = currentYear) {
-		const years = Array.from({length: 1 + 2 * yearPickerPadSize}, (e, i) => year - yearPickerPadSize + i);
-		let html = '';
-
-		for (const year of years) {
-			html += `<li>${year}</li>`
-		}
-
-		yearPicker.innerHTML = html;
+		yearPicker.list = Array.from({length: 1 + 2 * yearPickerPadSize}, (e, i) => String(year - yearPickerPadSize + i));
 		yearPicker.value = yearPickerPadSize;
 		yearPicker.addEventListener('change', onYearPickerChange);
-    }
+	}
 
 	function initInputDate() {
 		inputDate.onchange = inputDate.oninput = inputDate.onclick = (event) => {
 			event.preventDefault();
 
-            const dateValue = inputDate.valueAsDate;
+			const dateValue = inputDate.valueAsDate;
 			const inputRect = inputDate.getBoundingClientRect();
 			const x = inputRect.x + window.scrollX;
 			const y = inputRect.y + inputRect.height + window.scrollY;
@@ -858,7 +924,7 @@ roll();
 				setMonth(dateValue.getMonth() + 1);
 				setDate(dateValue.getDate());
 				setYear(dateValue.getFullYear());
-            }
+			}
 
 			customDatePicker.style.transform = 'translate(' + x + 'px,' + y + 'px)';
 			customDatePicker.style.display = 'flex';
@@ -871,36 +937,105 @@ roll();
 		}
 
 		selectButton.onclick = () => {
-			inputDate.value = `${year}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')}`
+			monthPicker.stopInertia()
+			datePicker.stopInertia()
+			yearPicker.stopInertia()
+			inputDate.value = `${String(year).padStart(4, '0')}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')}`
 			customDatePicker.style.display = 'none';
 		}
 
 		cancelButton.onclick = () => {
+			monthPicker.stopInertia()
+			datePicker.stopInertia()
+			yearPicker.stopInertia()
 			customDatePicker.style.display = 'none';
 		}
-    }
+
+		switch (langShort) {
+            case 'ko':
+				todayButton.innerHTML = '오늘';
+				selectButton.innerHTML = '선택';
+				cancelButton.innerHTML = '취소';
+				break;
+			case 'ja':
+				todayButton.innerHTML = '今日';
+				selectButton.innerHTML = '選択';
+				cancelButton.innerHTML = 'キャンセル';
+				break;
+			case 'vi':
+				todayButton.innerHTML = 'hôm nay';
+				selectButton.innerHTML = 'lựa chọn';
+				cancelButton.innerHTML = 'hủy';
+				break;
+			case 'es':
+				todayButton.innerHTML = 'Plantilla:Hoy';
+				selectButton.innerHTML = 'Selección';
+				cancelButton.innerHTML = 'Cancelar';
+				break;
+			case 'fr':
+				todayButton.innerHTML = 'Aujourd\'hui';
+				selectButton.innerHTML = 'Sélection';
+				cancelButton.innerHTML = 'Annuler';
+				break;
+			case 'de':
+			case 'gsw':
+				todayButton.innerHTML = 'Heute';
+				selectButton.innerHTML = 'Auswahl';
+				cancelButton.innerHTML = 'Abbrechen';
+				break;
+			case 'ru':
+				todayButton.innerHTML = 'Сегодня';
+				selectButton.innerHTML = 'Выбрать';
+				cancelButton.innerHTML = 'Отменить';
+				break;
+			case 'zh':
+				switch (langLong) {
+                    case 'zh-Hans':
+						todayButton.innerHTML = '今天';
+						selectButton.innerHTML = '选择';
+						cancelButton.innerHTML = '取消';
+						break;
+					case 'zh-Hant':
+						todayButton.innerHTML = '今兒個';
+						selectButton.innerHTML = '選擇';
+						cancelButton.innerHTML = '取消';
+						break;
+                }
+				break;
+            default:
+				todayButton.innerHTML = 'Today';
+				selectButton.innerHTML = 'Select';
+				cancelButton.innerHTML = 'Cancel';
+        }
+	}
 
 	function setMonth(value) {
-		monthPicker.value = value - 1;
-		month = value;
-		updateDatePicker();
-    }
+		monthPicker.stopInertia().then(() => {
+			monthPicker.value = value - 1;
+			month = value;
+			updateDatePicker();
+		});
+	}
 
 	function setDate(value) {
-		datePicker.value = value - 1;
-		date = value;
-    }
+		datePicker.stopInertia().then(() => {
+			datePicker.value = value - 1;
+			date = value;
+		});
+	}
 
 	function setYear(value) {
-		const index = Array.from(document.querySelector('.year-picker').children).findIndex(child => child.innerText === String(value));
-		if (yearPicker.childElementCount - 3 < index || index < 3) {
-			initYearPicker(value);
-        } else {
-			yearPicker.value = index;
-        }
-		year = value;
-		updateDatePicker();
-    }
+		yearPicker.stopInertia().then(() => {
+			const index = Array.from(document.querySelector('.year-picker').children).findIndex(child => child.innerText === String(value));
+			if (yearPicker.childElementCount - 3 < index || index < 3) {
+				initYearPicker(value);
+			} else {
+				yearPicker.value = index;
+			}
+			year = value;
+			updateDatePicker();
+		});
+	}
 
 	function isLeapYear() {
 		return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)
@@ -924,29 +1059,25 @@ roll();
 	}
 
 	function updateDatePicker() {
-		const previous = datePicker.value;
-		const numberOfDate = getNumberOfDate();
+		datePicker.stopInertia().then(() => {
+			const previous = datePicker.value;
+			const numberOfDate = getNumberOfDate();
 
-		datePicker.innerHTML = '';
+			datePicker.list = Array.from({length: numberOfDate}, (_, index) => String(index + 1));
+			datePicker.value = Math.min(previous, numberOfDate - 1);
 
-		let html = '';
-		for (let i = 1; i <= numberOfDate; i++) {
-			html += `<li>${i}</li>`;
-		}
-		datePicker.innerHTML = html;
-		datePicker.value = Math.min(previous, numberOfDate - 1);
-
-		date = Math.min(previous, numberOfDate - 1) + 1;
+			date = Math.min(previous, numberOfDate - 1) + 1;
+		});
 	}
 
 	function onMonthPickerChange(event) {
 		month = event.value + 1;
 		updateDatePicker();
-    }
+	}
 
 	function onDatePickerChange(event) {
 		date = Number(event.elementValue.innerText);
-    }
+	}
 
 	function onYearPickerChange(event) {
 		let html = '';
@@ -959,10 +1090,8 @@ roll();
 				for (let i = delta; i > 0; i--) {
 					html += `<li>${minYear - i}</li>`
 				}
-				setTimeout(() => {
-					yearPicker.innerHTML = html + yearPicker.innerHTML;
-					yearPicker.value = yearPicker.value + delta;
-                });
+				yearPicker.innerHTML = html + yearPicker.innerHTML;
+				yearPicker.value = yearPicker.value + delta;
 			}
 		}
 
@@ -975,14 +1104,20 @@ roll();
 				for (let i = 1; i < delta; i++) {
 					html += `<li>${maxYear + i}</li>`
 				}
-				setTimeout(() => {
-					yearPicker.innerHTML += html;
-                });
+				yearPicker.innerHTML += html;
 			}
 		}
 
 		year = Number(event.elementValue.innerText);
 		updateDatePicker();
+	}
+
+	function stopAllInertia() {
+		return Promise.all([
+			monthPicker.stopInertia(),
+			datePicker.stopInertia(),
+			yearPicker.stopInertia()
+		]);
 	}
 
 	initMonthPicker();
