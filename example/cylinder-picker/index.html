@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Title</title>
     <!--    <script src="https://unpkg.com/cylinder-picker@latest/dist/index.umd.js"></script>-->
-    <script src="https://unpkg.com/cylinder-picker@1.0.61/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/cylinder-picker@1.0.66/dist/index.umd.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/go.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -937,9 +937,9 @@ roll();
 		}
 
 		selectButton.onclick = () => {
-			monthPicker.stopInertia()
-			datePicker.stopInertia()
-			yearPicker.stopInertia()
+			monthPicker.stopInertia();
+			datePicker.stopInertia();
+			yearPicker.stopInertia();
 			inputDate.value = `${String(year).padStart(4, '0')}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')}`
 			customDatePicker.style.display = 'none';
 		}
@@ -1013,7 +1013,9 @@ roll();
 		monthPicker.stopInertia().then(() => {
 			monthPicker.value = value - 1;
 			month = value;
-			updateDatePicker();
+			if (!datePicker.isAnimating) {
+				updateDatePicker();
+			}
 		});
 	}
 
@@ -1021,6 +1023,9 @@ roll();
 		datePicker.stopInertia().then(() => {
 			datePicker.value = value - 1;
 			date = value;
+			datePicker.inertiaPanCallback = () => {
+				updateDatePicker();
+			}
 		});
 	}
 
@@ -1033,7 +1038,9 @@ roll();
 				yearPicker.value = index;
 			}
 			year = value;
-			updateDatePicker();
+			if (!datePicker.isAnimating) {
+				updateDatePicker();
+			}
 		});
 	}
 
@@ -1072,11 +1079,16 @@ roll();
 
 	function onMonthPickerChange(event) {
 		month = event.value + 1;
-		updateDatePicker();
+		if (!datePicker.isAnimating) {
+			updateDatePicker();
+		}
 	}
 
 	function onDatePickerChange(event) {
 		date = Number(event.elementValue.innerText);
+		datePicker.inertiaPanCallback = () => {
+			updateDatePicker();
+        }
 	}
 
 	function onYearPickerChange(event) {
@@ -1109,7 +1121,9 @@ roll();
 		}
 
 		year = Number(event.elementValue.innerText);
-		updateDatePicker();
+		if (!datePicker.isAnimating) {
+			updateDatePicker();
+		}
 	}
 
 	function stopAllInertia() {
