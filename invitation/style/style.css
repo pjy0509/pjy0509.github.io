@@ -10,7 +10,6 @@ body {
     margin: 0;
     padding: 0;
     background: rgb(231, 218, 231);
-    touch-action: pan-x;
     scroll-behavior: auto;
 }
 
