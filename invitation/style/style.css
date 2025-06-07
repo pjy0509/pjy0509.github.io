@@ -2,7 +2,6 @@
 
 html {
     -webkit-font-smoothing: antialiased;
-    touch-action: pan-x;
     scroll-behavior: auto;
     font-family: Suit, sans-serif;
 }
