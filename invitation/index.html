@@ -212,7 +212,6 @@
 <script type="text/javascript">
 	function openMap(type) {
 
-
 		switch (type) {
 			case "t":
 				new Native.App({
@@ -232,6 +231,19 @@
 			case "naver":
 				break;
 			case "kakao":
+				new Native.App({
+					"android": {
+						"scheme": "kakaomap://route?sp=37.53723,127.00551&ep=37.49795,127.027637&by=CAR",
+						"package": "net.daum.android.map",
+						"isOpenWebStore": true
+					},
+					"ios": {
+						"scheme": "kakaomap://route?sp=37.53723,127.00551&ep=37.49795,127.027637&by=CAR",
+						"trackId": "304608425",
+						"isOpenWebStore": true
+					}
+				})
+					.run();
 				break;
 		}
 	}
