@@ -34,6 +34,8 @@
 
     <link href="https://fonts.cdnfonts.com/css/heuristica" rel="stylesheet">
 
+    <!-- Native -->
+    <script src="https://unpkg.com/native-fn@latest/dist/index.umd.js"></script>
     <!-- Particles -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
     <!-- Carousel -->
@@ -47,13 +49,9 @@
 
 <div class="container">
     <div>
-        <div class="item-container" data-transaction>
-            <div class="item-title">
-                Intro
-            </div>
-
-            <div class="item-subtitle">
-                Photos of petal particles flying are included here.
+        <div class="item-container item-intro" id="particle" data-transaction>
+            <div class="background">
+                <img src="assets/images/i0.jpg" alt=""/>
             </div>
         </div>
 
@@ -205,15 +203,31 @@
                 </button>
             </div>
         </div>
+
+        <div class="driver shiny"></div>
     </div>
 </div>
 
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js" integrity="sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	function openMap(type) {
+
+
 		switch (type) {
 			case "t":
-				location.href = encodeURI("tmap://route?goaly=126.9044943&goalx=37.5213713&goalname=웨딩그룹위더스 영등포");
+				new Native.App({
+					"android": {
+						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
+						"package": "com.skt.tmap.ku",
+						"isOpenWebStore": true
+					},
+					"ios": {
+						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
+						"trackId": "431589174",
+						"isOpenWebStore": true
+					}
+				})
+					.run();
 				break;
 			case "naver":
 				break;
