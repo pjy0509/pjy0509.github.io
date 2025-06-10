@@ -283,6 +283,10 @@ body {
     display: none !important;
 }
 
+.item-location .map img[role="presentation"] {
+    filter: invert(0%) sepia(1600%) saturate(200%) hue-rotate(280deg) brightness(120%) contrast(105%) grayscale(0.4);
+}
+
 .item-navigation {
     display: grid;
     padding: 1rem 2rem;
@@ -317,16 +321,30 @@ body {
     border: 0;
 }
 
-.item-navigation > button:nth-child(1) {
+.item-navigation > button:nth-child(1),
+.item-navigation > button:nth-child(5) {
     background: rgb(255, 255, 255);
 }
 
 .item-navigation > button:nth-child(2) {
-    background: #00d136;
+    background: rgb(0, 209, 54);
 }
 
-.item-navigation > button:nth-child(3) {
-    background: #fae100;
+.item-navigation > button:nth-child(3),
+.item-navigation > button:nth-child(4) {
+    background: rgb(250, 225, 0);
+}
+
+.item-navigation > button:nth-child(6) {
+    background: rgb(22, 22, 23);
+    color: rgb(255, 255, 255);
+}
+
+body[data-os-name="MacOS"] .item-navigation > button:nth-child(1), body[data-os-name="Windows"] .item-navigation > button:nth-child(1),
+body[data-os-name="MacOS"] .item-navigation > button:nth-child(3), body[data-os-name="Windows"] .item-navigation > button:nth-child(3),
+body[data-os-name="MacOS"] .item-navigation > button:nth-child(4), body[data-os-name="Windows"] .item-navigation > button:nth-child(4),
+body[data-os-name="Android"] .item-navigation > button:nth-child(6), body[data-os-name="Windows"] .item-navigation > button:nth-child(6) {
+    display: none;
 }
 
 .item-navigation > button > img {

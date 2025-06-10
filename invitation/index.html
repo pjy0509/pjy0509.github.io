@@ -202,12 +202,16 @@
                     카카오 맵
                 </button>
                 <button onclick="openMap('kakao-navi')">
-                    <img src="assets/images/icon_kakaomap.png"/>
+                    <img src="assets/images/icon_kakaonavi.png"/>
                     카카오 내비
                 </button>
                 <button onclick="openMap('google-map')">
-                    <img src="assets/images/icon_kakaomap.png"/>
+                    <img src="assets/images/icon_googlemap.png"/>
                     구글 맵
+                </button>
+                <button onclick="openMap('apple-map')">
+                    <img src="assets/images/icon_applemap.png"/>
+                    지도
                 </button>
             </div>
         </div>
@@ -254,63 +258,8 @@
 </script>
 
 <script type="text/javascript">
-	function openMap(type) {
-		switch (type) {
-			case "t-map":
-				new Native.App({
-					"android": {
-						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
-						"package": "com.skt.tmap.ku",
-						"isOpenWebStore": false
-					},
-					"ios": {
-						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
-						"trackId": "431589174",
-						"isOpenWebStore": false
-					}
-				})
-					.run();
-				break;
-			case "naver-map":
-				break;
-			case "kakao-map":
-				new Native.App({
-					"android": {
-						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
-						"package": "net.daum.android.map",
-						"isOpenWebStore": false
-					},
-					"ios": {
-						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
-						"trackId": "304608425",
-						"isOpenWebStore": false
-					}
-				})
-					.run();
-				break;
-			case "google-map":
-				new Native.App({
-					"android": {
-						"fallback": "geo:37.5213713,126.9044943?q=웨딩그룹위더스 영등포",
-					},
-					"ios": {
-						"scheme": "comgooglemaps://?q=웨딩그룹위더스 영등포&center=37.5213713,126.9044943",
-						"trackId": "585027354",
-						"isOpenWebStore": false
-					}
-				})
-					.run();
-				break;
-            case "kakao-navi":
-				Kakao.Navi.start({
-					name: "웨딩그룹위더스 영등포",
-					x: 126.9044943,
-					y: 37.5213713,
-					coordType: "wgs84",
-				});
-				break;
-		}
-	}
+	document.onscroll = () => document.body.dataset.scroll = window.scrollY;
+	document.body.dataset.osName = Native.OS.name;
 
 	window.onload = function () {
 		// TIMER BEGIN
@@ -389,6 +338,100 @@
 		});
 		// CAROUSEL END
 	};
+
+	function openMap(type) {
+		switch (type) {
+			case "t-map":
+				new Native.App({
+					"android": {
+						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
+						"package": "com.skt.tmap.ku",
+						"isOpenWebStore": false
+					},
+					"ios": {
+						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
+						"trackId": "431589174",
+						"isOpenWebStore": false
+					}
+				})
+					.run();
+				break;
+			case "naver-map":
+				new Native.App({
+					"android": {
+						"scheme": "nmap://route/car?slat=37.3595953&slng=127.1053971&sname=%EA%B7%B8%EB%A6%B0%ED%8C%A9%ED%86%A0%EB%A6%AC&secoords=37.359761,127.10527&dlng=127.1267772&dlat=37.4200267&dname=%EC%84%B1%EB%82%A8%EC%8B%9C%EC%B2%AD&decoords=37.4189564,127.1256827&v1lng=126.9522394&v1lat=37.464007&v1name=%20%EC%84%9C%EC%9A%B8%EB%8C%80%ED%95%99%EA%B5%90&v1ecoords=37.466358,126.948357&appname=com.example.myapp",
+						"package": "com.nhn.android.nmap",
+						"isOpenWebStore": false
+					},
+					"ios": {
+						"scheme": "nmap://route/car?slat=37.3595953&slng=127.1053971&sname=%EA%B7%B8%EB%A6%B0%ED%8C%A9%ED%86%A0%EB%A6%AC&secoords=37.359761,127.10527&dlng=127.1267772&dlat=37.4200267&dname=%EC%84%B1%EB%82%A8%EC%8B%9C%EC%B2%AD&decoords=37.4189564,127.1256827&v1lng=126.9522394&v1lat=37.464007&v1name=%20%EC%84%9C%EC%9A%B8%EB%8C%80%ED%95%99%EA%B5%90&v1ecoords=37.466358,126.948357&appname=com.example.myapp",
+						"trackId": "311867728",
+						"isOpenWebStore": false
+					},
+					"windows": {
+						"fallback": "https://map.naver.com/p/directions/-/14126958.9801519,4512033.4307908,%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC,36957673,PLACE_POI/-/transit?c=15.00,0,0,0,dh"
+					},
+					"mac": {
+						"fallback": "https://map.naver.com/p/directions/-/14126958.9801519,4512033.4307908,%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC,36957673,PLACE_POI/-/transit?c=15.00,0,0,0,dh"
+					}
+				})
+					.run();
+				break;
+			case "kakao-map":
+				new Native.App({
+					"android": {
+						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
+						"package": "net.daum.android.map",
+						"isOpenWebStore": false
+					},
+					"ios": {
+						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
+						"trackId": "304608425",
+						"isOpenWebStore": false
+					}
+				})
+					.run();
+				break;
+			case "kakao-navi":
+				Kakao.Navi.start({
+					name: "웨딩그룹위더스 영등포",
+					x: 126.9044943,
+					y: 37.5213713,
+					coordType: "wgs84",
+				});
+				break;
+			case "google-map":
+				new Native.App({
+					"android": {
+						"fallback": "geo:37.5213713,126.9044943?q=웨딩그룹위더스 영등포",
+					},
+					"ios": {
+						"scheme": "comgooglemaps://?q=웨딩그룹위더스 영등포&center=37.5213713,126.9044943",
+						"trackId": "585027354",
+						"isOpenWebStore": false
+					},
+					"windows": {
+						"fallback": "https://www.google.co.kr/maps/dir//%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC+%EC%98%81%EB%93%B1%ED%8F%AC%EB%8F%99+%EC%98%81%EC%A4%91%EB%A1%9C+55+%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4+%EC%98%81%EB%93%B1%ED%8F%AC/data=!4m8!4m7!1m0!1m5!1m1!1s0x357c9ee48b115f91:0xdf7723842ce1441!2m2!1d126.9044943!2d37.5213713?entry=ttu&g_ep=EgoyMDI1MDYwNC4wIKXMDSoASAFQAw%3D%3D"
+					},
+					"mac": {
+						"fallback": "https://www.google.co.kr/maps/dir//%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC+%EC%98%81%EB%93%B1%ED%8F%AC%EB%8F%99+%EC%98%81%EC%A4%91%EB%A1%9C+55+%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4+%EC%98%81%EB%93%B1%ED%8F%AC/data=!4m8!4m7!1m0!1m5!1m1!1s0x357c9ee48b115f91:0xdf7723842ce1441!2m2!1d126.9044943!2d37.5213713?entry=ttu&g_ep=EgoyMDI1MDYwNC4wIKXMDSoASAFQAw%3D%3D"
+					}
+				})
+					.run();
+				break;
+			case "apple-map":
+				new Native.App({
+					"ios": {
+						"scheme": "maps://?daddr=37.5213713,126.9044943&dirflg=d",
+					},
+					"mac": {
+						"scheme": "maps://?daddr=37.5213713,126.9044943&dirflg=d",
+					}
+				})
+					.run();
+				break;
+		}
+	}
 </script>
 </body>
 </html>
