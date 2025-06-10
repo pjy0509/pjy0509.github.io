@@ -189,17 +189,25 @@
             </div>
 
             <div class="item-navigation">
-                <button onclick="openMap('t')">
+                <button onclick="openMap('t-map')">
                     <img src="assets/images/icon_tmap.png"/>
-                    T Map
+                    티 맵
                 </button>
-                <button onclick="openMap('naver')">
+                <button onclick="openMap('naver-map')">
                     <img src="assets/images/icon_navermap.png"/>
-                    네이버
+                    네이버 지도
                 </button>
-                <button onclick="openMap('kakao')">
+                <button onclick="openMap('kakao-map')">
                     <img src="assets/images/icon_kakaomap.png"/>
-                    카카오
+                    카카오 맵
+                </button>
+                <button onclick="openMap('kakao-navi')">
+                    <img src="assets/images/icon_kakaomap.png"/>
+                    카카오 내비
+                </button>
+                <button onclick="openMap('google-map')">
+                    <img src="assets/images/icon_kakaomap.png"/>
+                    구글 맵
                 </button>
             </div>
         </div>
@@ -212,11 +220,11 @@
 <script>Kakao.init("81d57ff9f2d2a5524e506d8a1d386fd5");</script>
 <a id="start-navigation" href="javascript:startNavigation()">
     <img src="https://developers.kakao.com/assets/img/about/buttons/navi/kakaonavi_btn_medium.png"
-         alt="길 안내하기 버튼" />
+         alt="길 안내하기 버튼"/>
 </a>
 <a id="kakaotalk-sharing-btn" href="javascript:;">
     <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-         alt="카카오톡 공유 보내기 버튼" />
+         alt="카카오톡 공유 보내기 버튼"/>
 </a>
 
 <script>
@@ -247,39 +255,61 @@
 
 <script type="text/javascript">
 	function openMap(type) {
-
 		switch (type) {
-			case "t":
+			case "t-map":
 				new Native.App({
 					"android": {
 						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
 						"package": "com.skt.tmap.ku",
-						"isOpenWebStore": true
+						"isOpenWebStore": false
 					},
 					"ios": {
 						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
 						"trackId": "431589174",
-						"isOpenWebStore": true
+						"isOpenWebStore": false
 					}
 				})
 					.run();
 				break;
-			case "naver":
+			case "naver-map":
 				break;
-			case "kakao":
+			case "kakao-map":
 				new Native.App({
 					"android": {
-						"scheme": "kakaomap://route?sp=37.53723,127.00551&ep=37.49795,127.027637&by=CAR",
+						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
 						"package": "net.daum.android.map",
-						"isOpenWebStore": true
+						"isOpenWebStore": false
 					},
 					"ios": {
-						"scheme": "kakaomap://route?sp=37.53723,127.00551&ep=37.49795,127.027637&by=CAR",
+						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
 						"trackId": "304608425",
-						"isOpenWebStore": true
+						"isOpenWebStore": false
 					}
 				})
 					.run();
+				break;
+			case "google-map":
+				new Native.App({
+					"android": {
+						"scheme": "geo:37.5213713,126.9044943?q=웨딩그룹위더스 영등포",
+						"package": "com.google.android.apps.maps",
+						"isOpenWebStore": false
+					},
+					"ios": {
+						"scheme": "comgooglemaps://?q=웨딩그룹위더스 영등포&center=37.5213713,126.9044943",
+						"trackId": "585027354",
+						"isOpenWebStore": false
+					}
+				})
+					.run();
+				break;
+            case "kakao-navi":
+				Kakao.Navi.start({
+					name: "웨딩그룹위더스 영등포",
+					x: 126.9044943,
+					y: 37.5213713,
+					coordType: "wgs84",
+				});
 				break;
 		}
 	}

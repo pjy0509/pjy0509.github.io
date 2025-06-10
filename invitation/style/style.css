@@ -284,9 +284,22 @@ body {
 }
 
 .item-navigation {
-    display: flex;
+    display: grid;
     padding: 1rem 2rem;
     gap: 1rem;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 310px) {
+    .item-navigation {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 440px) {
+    .item-navigation {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .item-navigation > button {
