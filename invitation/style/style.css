@@ -264,6 +264,7 @@ body {
 }
 
 .item-carousel-arrows button {
+    color: rgb(0, 0, 0);
     width: 5rem;
     background: transparent;
     border: none;
@@ -324,15 +325,18 @@ body {
 .item-navigation > button:nth-child(1),
 .item-navigation > button:nth-child(5) {
     background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
 }
 
 .item-navigation > button:nth-child(2) {
     background: rgb(0, 209, 54);
+    color: rgb(0, 0, 0);
 }
 
 .item-navigation > button:nth-child(3),
 .item-navigation > button:nth-child(4) {
     background: rgb(250, 225, 0);
+    color: rgb(0, 0, 0);
 }
 
 .item-navigation > button:nth-child(6) {
