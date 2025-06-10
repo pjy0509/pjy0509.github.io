@@ -209,6 +209,23 @@
 </div>
 
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js" integrity="sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6" crossorigin="anonymous"></script>
+<script>Kakao.init("dbe6916d9b38917550efa4c73a96654a");</script>
+<a id="start-navigation" href="javascript:startNavigation()">
+    <img src="https://developers.kakao.com/assets/img/about/buttons/navi/kakaonavi_btn_medium.png"
+         alt="길 안내하기 버튼" />
+</a>
+
+<script>
+	function startNavigation() {
+		Kakao.Navi.start({
+			name: '현대백화점 판교점',
+			x: 127.11205203011632,
+			y: 37.39279717586919,
+			coordType: 'wgs84',
+		});
+	}
+</script>
+
 <script type="text/javascript">
 	function openMap(type) {
 
