@@ -97,7 +97,7 @@ body {
     font-size: 1.5rem;
     color: rgb(17, 17, 17);
     opacity: .9;
-    padding: 0 2rem;
+    padding: 1.25rem 0;
 }
 
 .item-container .item-subtitle {
@@ -385,7 +385,6 @@ body {
 }
 
 body[data-os-name="MacOS"] .item-navigation > button[data-map-type="t-map"], body[data-os-name="Windows"] .item-navigation > button[data-map-type="t-map"],
-body[data-os-name="MacOS"] .item-navigation > button[data-map-type="kakao-map"], body[data-os-name="Windows"] .item-navigation > button[data-map-type="kakao-map"],
 body[data-os-name="MacOS"] .item-navigation > button[data-map-type="kakao-navi"], body[data-os-name="Windows"] .item-navigation > button[data-map-type="kakao-navi"],
 body[data-os-name="Android"] .item-navigation > button[data-map-type="apple-map"], body[data-os-name="Windows"] .item-navigation > button[data-map-type="apple-map"] {
     display: none;
@@ -414,22 +413,45 @@ body[data-os-name="Android"] .item-navigation > button[data-map-type="apple-map"
     visibility: visible;
 }
 
+[data-alert-id] .alert-header {
+    position: sticky;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    background: rgb(245, 245, 245);
+    transition: box-shadow 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+[data-alert-id]:not([data-scroll="0"]) .alert-header {
+    box-shadow: rgba(0, 0, 0, 0.125) 0 0 30px;
+}
+
+[data-alert-id]:not([data-scroll]) .alert-header {
+    box-shadow: unset;
+}
+
+[data-alert-id] .alert-content {
+    padding-bottom: 1.25rem;
+}
+
 [data-alert-id] > div {
     opacity: 0;
     width: 28rem;
     background: rgb(245, 245, 245);
     border-radius: .5rem;
     position: relative;
-    padding-top: 2rem;
     margin: 2rem;
     transition: opacity 0.2s linear;
+    max-height: calc(100% - 6rem);
+    overflow-y: scroll;
 }
 
 [data-alert-id].show > div {
     opacity: 1;
 }
 
-[data-alert-id] > div > .alert-close {
+[data-alert-id] .alert-close {
     font-size: 1.5rem;
     position: absolute;
     top: .5rem;
@@ -444,12 +466,12 @@ body[data-os-name="Android"] .item-navigation > button[data-map-type="apple-map"
     justify-content: center;
 }
 
-[data-alert-id] > div > .alert-close::after {
+[data-alert-id] .alert-close::after {
     content: '×';
 }
 
 [data-alert-id] .driver {
-    margin: 1rem 2rem;
+    margin: 0 1rem 1rem;
     background: unset;
 }
 
@@ -458,6 +480,8 @@ body[data-os-name="Android"] .item-navigation > button[data-map-type="apple-map"
     color: rgb(198, 204, 212);
     background: unset;
     padding: 0;
+    width: fit-content;
+    white-space:nowrap
 }
 
 [data-alert-id] .driver::before {
@@ -469,4 +493,6 @@ body[data-os-name="Android"] .item-navigation > button[data-map-type="apple-map"
     z-index: 1;
     color: rgba(0, 0, 0, 0);
     background: linear-gradient(90deg, rgba(245, 245, 245, 1) 0%, rgba(0, 0, 0, 0) 50%, rgba(245, 245, 245, 1) 100%);
+    width: fit-content;
+    white-space:nowrap
 }

@@ -221,80 +221,88 @@
 
 <div data-alert-id="navigation" onclick="closeAlert(this.dataset.alertId)">
     <div class="item-container" onclick="event.stopPropagation()">
-        <button class="alert-close" onclick="closeAlert(this.closest('[data-alert-id]').dataset.alertId)"></button>
+        <div class="alert-header">
+            <button class="alert-close" onclick="closeAlert(this.closest('[data-alert-id]').dataset.alertId)"></button>
 
-        <div class="item-alert-title">
-            찾아오시는 길
+            <div class="item-alert-title">
+                찾아오시는 길
+            </div>
         </div>
 
-        <div class="driver shiny"></div>
+        <div class="alert-content">
+            <div class="driver shiny"></div>
 
-        <div class="item-alert-subtitle">
-            웨딩그룹위더스 영등포
-        </div>
+            <div class="item-alert-subtitle">
+                웨딩그룹위더스 영등포
+            </div>
 
-        <div class="item-alert-description">
-            서울 영등포구 영중로 55
-        </div>
+            <div class="item-alert-description">
+                서울 영등포구 영중로 55
+            </div>
 
-        <div class="item-navigation">
-            <button data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
-                <img src="assets/images/icon_tmap.png" alt=""/>
-                티 맵
-            </button>
-            <button data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">
-                <img src="assets/images/icon_navermap.png" alt=""/>
-                네이버 지도
-            </button>
-            <button data-map-type="kakao-map" onclick="openMap(this.dataset.mapType)">
-                <img src="assets/images/icon_kakaomap.png" alt=""/>
-                카카오 맵
-            </button>
-            <button data-map-type="kakao-navi" onclick="openMap(this.dataset.mapType)">
-                <img src="assets/images/icon_kakaonavi.png" alt=""/>
-                카카오 내비
-            </button>
-            <button data-map-type="google-map" onclick="openMap(this.dataset.mapType)">
-                <img src="assets/images/icon_googlemap.png" alt=""/>
-                구글 맵
-            </button>
-            <button data-map-type="apple-map" onclick="openMap(this.dataset.mapType)">
-                <img src="assets/images/icon_applemap.png" alt=""/>
-                지도
-            </button>
+            <div class="item-navigation">
+                <button data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
+                    <img src="assets/images/icon_tmap.png" alt=""/>
+                    티 맵
+                </button>
+                <button data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">
+                    <img src="assets/images/icon_navermap.png" alt=""/>
+                    네이버 지도
+                </button>
+                <button data-map-type="kakao-map" onclick="openMap(this.dataset.mapType)">
+                    <img src="assets/images/icon_kakaomap.png" alt=""/>
+                    카카오 맵
+                </button>
+                <button data-map-type="kakao-navi" onclick="openMap(this.dataset.mapType)">
+                    <img src="assets/images/icon_kakaonavi.png" alt=""/>
+                    카카오 내비
+                </button>
+                <button data-map-type="google-map" onclick="openMap(this.dataset.mapType)">
+                    <img src="assets/images/icon_googlemap.png" alt=""/>
+                    구글 맵
+                </button>
+                <button data-map-type="apple-map" onclick="openMap(this.dataset.mapType)">
+                    <img src="assets/images/icon_applemap.png" alt=""/>
+                    지도
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
 <div data-alert-id="public" onclick="closeAlert(this.dataset.alertId)">
     <div class="item-container" onclick="event.stopPropagation()">
-        <button class="alert-close" onclick="closeAlert(this.closest('[data-alert-id]').dataset.alertId)"></button>
+        <div class="alert-header">
+            <button class="alert-close" onclick="closeAlert(this.closest('[data-alert-id]').dataset.alertId)"></button>
 
-        <div class="item-alert-title">
-            대중교통 정보
+            <div class="item-alert-title">
+                대중교통 정보
+            </div>
         </div>
 
-        <div class="driver shiny"></div>
+        <div class="alert-content">
+            <div class="driver shiny"></div>
 
-        <div class="item-alert-subtitle">
-            웨딩그룹위더스 영등포
-        </div>
+            <div class="item-alert-subtitle">
+                웨딩그룹위더스 영등포
+            </div>
 
-        <div class="item-alert-description">
-            서울 영등포구 영중로 55
-        </div>
+            <div class="item-alert-description">
+                서울 영등포구 영중로 55
+            </div>
 
-        <div class="item-location">
-            <div id="daumRoughmapContainer1749528679663" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
+            <div class="item-location">
+                <div id="daumRoughmapContainer1749528679663" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
 
-            <script charset="UTF-8">
-				new daum.roughmap.Lander({
-					"timestamp": "1749528679663",
-					"key": "3b9z8qmhafn",
-					"mapWidth": "360",
-					"mapHeight": "240"
-				}).render();
-            </script>
+                <script charset="UTF-8">
+					new daum.roughmap.Lander({
+						"timestamp": "1749528679663",
+						"key": "3b9z8qmhafn",
+						"mapWidth": "360",
+						"mapHeight": "240"
+					}).render();
+                </script>
+            </div>
         </div>
     </div>
 </div>
@@ -404,7 +412,6 @@
 	};
 
 	function openMap(type) {
-		console.log(type)
 		switch (type) {
 			case "t-map":
 				new Native.App({
@@ -453,6 +460,12 @@
 						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
 						"trackId": "304608425",
 						"isOpenWebStore": false
+					},
+					"windows": {
+						"fallback": "https://kko.kakao.com/j7PPZPyhS7"
+					},
+					"mac": {
+						"fallback": "https://kko.kakao.com/j7PPZPyhS7"
 					}
 				})
 					.run();
@@ -502,6 +515,8 @@
 		const alert = document.querySelector("[data-alert-id=" + id + "]");
 
 		alert.classList.add("show");
+
+		alert.firstElementChild.onscroll = () => alert.dataset.scroll = alert.firstElementChild.scrollTop.toString();
 	}
 
 	function closeAlert(id) {
