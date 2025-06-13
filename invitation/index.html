@@ -37,7 +37,8 @@
     <!-- Native -->
     <script src="https://unpkg.com/native-fn@latest/dist/index.umd.js"></script>
     <!-- Particles -->
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/3.8.1/tsparticles.bundle.min.js" integrity="sha512-jVSTKGAlpzOmImGnlVLSQbj+aH5DvrhWqnAQ1rkzYN1hKLs3w4clSVP4Y/8zszZIPhOl/sYFr23wVQMAHoojkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <!-- Carousel -->
     <script src="https://unpkg.com/@glidejs/glide"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
@@ -52,7 +53,7 @@
 
 <div class="container">
     <div>
-        <div class="item-container item-intro" id="particle" data-transaction>
+        <div class="item-container item-intro" id="particle">
             <div class="background">
                 <img src="assets/images/i0.jpg" alt=""/>
             </div>
@@ -177,12 +178,12 @@
             <div class="padding rem2"></div>
 
             <div class="item-location">
-                <div id="daumRoughmapContainer1749276011469" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
+                <div id="daumRoughmapContainer1749528679663" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
 
                 <script charset="UTF-8">
 					new daum.roughmap.Lander({
-						"timestamp": "1749276011469",
-						"key": "35scmj2tis4",
+						"timestamp": "1749528679663",
+						"key": "3b9z8qmhafn",
 						"mapWidth": "360",
 						"mapHeight": "240"
 					}).render();
@@ -202,16 +203,6 @@
                     </g>
                 </svg>
                 찾아오시는 길
-            </button>
-
-            <button class="item-button" onclick="showAlert('public')">
-                <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g>
-                        <path d="M8.28393 16.9C8.28393 16.4858 7.94815 16.15 7.53393 16.15C7.11972 16.15 6.78393 16.4858 6.78393 16.9H8.28393ZM7.53393 17.95H6.78393C6.78393 17.961 6.78417 17.972 6.78466 17.9829L7.53393 17.95ZM6.60378 19L6.56557 19.749C6.59128 19.7503 6.61705 19.7503 6.64276 19.749L6.60378 19ZM5.67266 17.95L6.42194 17.9829C6.42242 17.9719 6.42266 17.961 6.42266 17.95H5.67266ZM6.42266 16.713C6.42266 16.2988 6.08687 15.963 5.67266 15.963C5.25844 15.963 4.92266 16.2988 4.92266 16.713H6.42266ZM6.0851 16.0866C5.73914 15.8588 5.27403 15.9546 5.04624 16.3006C4.81846 16.6465 4.91426 17.1116 5.26022 17.3394L6.0851 16.0866ZM6.29276 16.9L6.29181 17.65H6.29276V16.9ZM17.4614 16.9L17.4614 17.65L17.4623 17.65L17.4614 16.9ZM18.4939 17.3394C18.8399 17.1116 18.9357 16.6465 18.7079 16.3006C18.4801 15.9546 18.015 15.8588 17.669 16.0866L18.4939 17.3394ZM5.24903 17.3319C5.59084 17.5659 6.05759 17.4784 6.29156 17.1366C6.52552 16.7948 6.4381 16.3281 6.09629 16.0941L5.24903 17.3319ZM5.05256 15.5L5.80256 15.512V15.5H5.05256ZM5.80256 10.2C5.80256 9.78579 5.46677 9.45 5.05256 9.45C4.63834 9.45 4.30256 9.78579 4.30256 10.2H5.80256ZM16.9712 16.9C16.9712 16.4858 16.6354 16.15 16.2212 16.15C15.807 16.15 15.4712 16.4858 15.4712 16.9H16.9712ZM16.2212 17.95L16.9678 18.0208C16.9701 17.9972 16.9712 17.9736 16.9712 17.95H16.2212ZM16.6584 18.8574L16.2554 19.4899L16.2554 19.4899L16.6584 18.8574ZM17.6452 18.8574L18.0483 19.4899L18.0483 19.4899L17.6452 18.8574ZM18.0825 17.95H17.3325C17.3325 17.9736 17.3336 17.9972 17.3358 18.0208L18.0825 17.95ZM18.8325 16.713C18.8325 16.2988 18.4967 15.963 18.0825 15.963C17.6682 15.963 17.3325 16.2988 17.3325 16.713H18.8325ZM17.6588 16.0941C17.317 16.3281 17.2296 16.7948 17.4636 17.1366C17.6975 17.4784 18.1643 17.5659 18.5061 17.3319L17.6588 16.0941ZM18.7026 15.5H17.9525L17.9527 15.512L18.7026 15.5ZM19.4526 10.2C19.4526 9.78579 19.1168 9.45 18.7026 9.45C18.2883 9.45 17.9526 9.78579 17.9526 10.2H19.4526ZM7.32723 12.65C6.91302 12.65 6.57723 12.9858 6.57723 13.4C6.57723 13.8142 6.91302 14.15 7.32723 14.15V12.65ZM8.08578 14.15C8.5 14.15 8.83578 13.8142 8.83578 13.4C8.83578 12.9858 8.5 12.65 8.08578 12.65V14.15ZM15.6693 12.65C15.2551 12.65 14.9193 12.9858 14.9193 13.4C14.9193 13.8142 15.2551 14.15 15.6693 14.15V12.65ZM16.4279 14.15C16.8421 14.15 17.1779 13.8142 17.1779 13.4C17.1779 12.9858 16.8421 12.65 16.4279 12.65V14.15ZM17.9526 10.2C17.9526 10.6142 18.2883 10.95 18.7026 10.95C19.1168 10.95 19.4526 10.6142 19.4526 10.2H17.9526ZM18.7026 5.4L19.4526 5.4L19.4526 5.39984L18.7026 5.4ZM18.5076 4.652L17.8451 5.00368C17.8479 5.00884 17.8507 5.01398 17.8535 5.01908L18.5076 4.652ZM17.4614 4L17.4767 3.25016C17.4716 3.25005 17.4665 3.25 17.4614 3.25V4ZM6.29374 4V3.25C6.28865 3.25 6.28356 3.25005 6.27847 3.25016L6.29374 4ZM5.24756 4.652L5.90159 5.01907C5.90446 5.01397 5.90726 5.00884 5.91 5.00368L5.24756 4.652ZM5.05256 5.4L4.30256 5.39984V5.4H5.05256ZM4.30256 10.2C4.30256 10.6142 4.63835 10.95 5.05256 10.95C5.46678 10.95 5.80256 10.6142 5.80256 10.2H4.30256ZM18.7026 10.95C19.1168 10.95 19.4526 10.6142 19.4526 10.2C19.4526 9.78579 19.1168 9.45 18.7026 9.45V10.95ZM5.05256 9.45C4.63835 9.45 4.30256 9.78579 4.30256 10.2C4.30256 10.6142 4.63835 10.95 5.05256 10.95V9.45ZM6.78393 16.9V17.95H8.28393V16.9H6.78393ZM6.78466 17.9829C6.79165 18.142 6.67489 18.2453 6.5648 18.251L6.64276 19.749C7.61037 19.6986 8.3248 18.8636 8.28321 17.9171L6.78466 17.9829ZM6.642 18.251C6.53186 18.2454 6.41495 18.1421 6.42194 17.9829L4.92338 17.9171C4.8818 18.8643 5.59724 19.6996 6.56557 19.749L6.642 18.251ZM6.42266 17.95V16.713H4.92266V17.95H6.42266ZM5.26022 17.3394C5.56644 17.541 5.92448 17.6495 6.29181 17.65L6.29371 16.15C6.22128 16.1499 6.14893 16.1286 6.0851 16.0866L5.26022 17.3394ZM6.29276 17.65H17.4614V16.15H6.29276V17.65ZM17.4623 17.65C17.8297 17.6495 18.1877 17.541 18.4939 17.3394L17.669 16.0866C17.6052 16.1286 17.5329 16.1499 17.4604 16.15L17.4623 17.65ZM6.09629 16.0941C5.91409 15.9694 5.79861 15.7518 5.80246 15.512L4.30265 15.488C4.29089 16.2205 4.64258 16.9168 5.24903 17.3319L6.09629 16.0941ZM5.80256 15.5V10.2H4.30256V15.5H5.80256ZM15.4712 16.9V17.95H16.9712V16.9H15.4712ZM15.4745 17.8792C15.4141 18.5163 15.7103 19.1426 16.2554 19.4899L17.0614 18.2249C17.0021 18.1871 16.9594 18.11 16.9678 18.0208L15.4745 17.8792ZM16.2554 19.4899C16.8034 19.8391 17.5003 19.8391 18.0483 19.4899L17.2422 18.2249C17.1859 18.2608 17.1177 18.2608 17.0614 18.2249L16.2554 19.4899ZM18.0483 19.4899C18.5933 19.1426 18.8895 18.5163 18.8291 17.8792L17.3358 18.0208C17.3443 18.11 17.3015 18.1871 17.2422 18.2249L18.0483 19.4899ZM18.8325 17.95V16.713H17.3325V17.95H18.8325ZM18.5061 17.3319C19.1125 16.9168 19.4642 16.2205 19.4525 15.488L17.9527 15.512C17.9565 15.7518 17.841 15.9694 17.6588 16.0941L18.5061 17.3319ZM19.4526 15.5V10.2H17.9526V15.5H19.4526ZM7.32723 14.15H8.08578V12.65H7.32723V14.15ZM15.6693 14.15H16.4279V12.65H15.6693V14.15ZM19.4526 10.2V5.4H17.9526V10.2H19.4526ZM19.4526 5.39984C19.4525 5.00963 19.3526 4.62525 19.1616 4.28492L17.8535 5.01908C17.9179 5.13382 17.9525 5.26529 17.9526 5.40016L19.4526 5.39984ZM19.17 4.30032C18.8363 3.67177 18.1928 3.26474 17.4767 3.25016L17.4461 4.74984C17.6051 4.75308 17.7602 4.84378 17.8451 5.00368L19.17 4.30032ZM17.4614 3.25H6.29374V4.75H17.4614V3.25ZM6.27847 3.25016C5.56228 3.26474 4.91882 3.67177 4.58513 4.30032L5.91 5.00368C5.99489 4.84378 6.15006 4.75308 6.30901 4.74984L6.27847 3.25016ZM4.59353 4.28493C4.40253 4.62525 4.30265 5.00963 4.30256 5.39984L5.80256 5.40016C5.80259 5.26529 5.83719 5.13382 5.90159 5.01907L4.59353 4.28493ZM4.30256 5.4V10.2H5.80256V5.4H4.30256ZM18.7026 9.45H5.05256V10.95H18.7026V9.45Z"
-                              fill="#000000"></path>
-                    </g>
-                </svg>
-                대중교통 정보
             </button>
         </div>
 
@@ -241,10 +232,6 @@
             </div>
 
             <div class="item-navigation">
-                <button data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
-                    <img src="assets/images/icon_tmap.png" alt=""/>
-                    티 맵
-                </button>
                 <button data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">
                     <img src="assets/images/icon_navermap.png" alt=""/>
                     네이버 지도
@@ -257,6 +244,10 @@
                     <img src="assets/images/icon_kakaonavi.png" alt=""/>
                     카카오 내비
                 </button>
+                <button data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
+                    <img src="assets/images/icon_tmap.png" alt=""/>
+                    티 맵
+                </button>
                 <button data-map-type="google-map" onclick="openMap(this.dataset.mapType)">
                     <img src="assets/images/icon_googlemap.png" alt=""/>
                     구글 맵
@@ -265,43 +256,6 @@
                     <img src="assets/images/icon_applemap.png" alt=""/>
                     지도
                 </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div data-alert-id="public" onclick="closeAlert(this.dataset.alertId)">
-    <div class="item-container" onclick="event.stopPropagation()">
-        <div class="alert-header">
-            <button class="alert-close" onclick="closeAlert(this.closest('[data-alert-id]').dataset.alertId)"></button>
-
-            <div class="item-alert-title">
-                대중교통 정보
-            </div>
-        </div>
-
-        <div class="alert-content">
-            <div class="driver shiny"></div>
-
-            <div class="item-alert-subtitle">
-                웨딩그룹위더스 영등포
-            </div>
-
-            <div class="item-alert-description">
-                서울 영등포구 영중로 55
-            </div>
-
-            <div class="item-location">
-                <div id="daumRoughmapContainer1749528679663" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
-
-                <script charset="UTF-8">
-					new daum.roughmap.Lander({
-						"timestamp": "1749528679663",
-						"key": "3b9z8qmhafn",
-						"mapWidth": "360",
-						"mapHeight": "240"
-					}).render();
-                </script>
             </div>
         </div>
     </div>
@@ -329,11 +283,39 @@
 </script>
 
 <script type="text/javascript">
-	document.querySelector(".item-intro").style.height = window.outerHeight + "px"
-	document.onscroll = () => document.body.dataset.scroll = window.scrollY;
-	document.body.dataset.osName = Native.OS.name;
+	const userAgent = navigator.userAgent;
+	let wv = "";
 
-	window.onload = function () {
+	function syncScrollY(removeHash) {
+		const y = +location.hash.split("#")[1];
+
+		if (!isNaN(y)) {
+			window.scrollY = y;
+		}
+
+		if (removeHash) {
+			history.pushState({}, "", "#");
+		}
+	}
+
+	document.querySelector(".item-intro").style.height = window.outerHeight + "px";
+	document.body.dataset.osName = Native.OS.name;
+	document.onscroll = function () {
+		document.body.dataset.scroll = window.scrollY.toString();
+	}
+
+	if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) {
+		document.body.dataset.wv = wv = "kakao";
+	}
+
+	syncScrollY(false);
+	document.onreadystatechange = function () {
+		syncScrollY(false);
+	}
+
+	window.onload = async function () {
+		syncScrollY(true);
+
 		// TIMER BEGIN
 		const target = new Date("2025-08-31 00:00:00");
 		const components = [document.getElementById("remain-date"), document.getElementById("days"), document.getElementById("hours"), document.getElementById("minutes"), document.getElementById("seconds")];
@@ -418,48 +400,48 @@
 					"android": {
 						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
 						"package": "com.skt.tmap.ku",
-						"aTarget": "_blank"
 					},
 					"ios": {
 						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
 						"trackId": "431589174",
-						"aTarget": "_blank"
 					}
 				})
-					.run();
+					.run()
+					.then(function (state) {
+						if (state === Native.App.State.Scheme && wv === "kakao") location.href = "kakaotalk://inappbrowser/close";
+					});
 				break;
 			case "naver-map":
 				new Native.App({
 					"android": {
 						"scheme": "nmap://navigation?dlat=37.5213713&dlng=126.9044943&dname=웨딩그룹위더스 영등포&appname=com.example.myapp",
 						"package": "com.nhn.android.nmap",
-						"aTarget": "_blank"
 					},
 					"ios": {
 						"scheme": "nmap://navigation?dlat=37.5213713&dlng=126.9044943&dname=웨딩그룹위더스 영등포&appname=com.example.myapp",
 						"trackId": "311867728",
-						"aTarget": "_blank"
 					},
 					"windows": {
-						"fallback": "https://map.naver.com/p/directions/-/14126958.9801519,4512033.4307908,%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC,36957673,PLACE_POI/-/transit?c=15.00,0,0,0,dh"
+						"fallback": "https://map.naver.com/p/directions/-/14126958.9801519,4512033.4307908,%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC,36957673,PLACE_POI/-/car?c=15.00,0,0,0,dh"
 					},
 					"mac": {
-						"fallback": "https://map.naver.com/p/directions/-/14126958.9801519,4512033.4307908,%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC,36957673,PLACE_POI/-/transit?c=15.00,0,0,0,dh"
+						"fallback": "https://map.naver.com/p/directions/-/14126958.9801519,4512033.4307908,%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC,36957673,PLACE_POI/-/car?c=15.00,0,0,0,dh"
 					}
 				})
-					.run();
+					.run()
+					.then(function (state) {
+						if (state === Native.App.State.Scheme && wv === "kakao") location.href = "kakaotalk://inappbrowser/close";
+					});
 				break;
 			case "kakao-map":
 				new Native.App({
 					"android": {
 						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
 						"package": "net.daum.android.map",
-						"aTarget": "_blank"
 					},
 					"ios": {
 						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
 						"trackId": "304608425",
-						"aTarget": "_blank"
 					},
 					"windows": {
 						"fallback": "https://kko.kakao.com/j7PPZPyhS7"
@@ -481,12 +463,11 @@
 			case "google-map":
 				new Native.App({
 					"android": {
-						"fallback": "geo:37.5213713,126.9044943?q=웨딩그룹위더스 영등포",
+						"fallback": "google.navigation:q=웨딩그룹위더스 영등포",
 					},
 					"ios": {
 						"scheme": "comgooglemaps://?q=웨딩그룹위더스 영등포&center=37.5213713,126.9044943",
 						"trackId": "585027354",
-						"aTarget": "_blank"
 					},
 					"windows": {
 						"fallback": "https://www.google.co.kr/maps/dir//%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC+%EC%98%81%EB%93%B1%ED%8F%AC%EB%8F%99+%EC%98%81%EC%A4%91%EB%A1%9C+55+%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4+%EC%98%81%EB%93%B1%ED%8F%AC/data=!4m8!4m7!1m0!1m5!1m1!1s0x357c9ee48b115f91:0xdf7723842ce1441!2m2!1d126.9044943!2d37.5213713?entry=ttu&g_ep=EgoyMDI1MDYwNC4wIKXMDSoASAFQAw%3D%3D"
@@ -495,7 +476,10 @@
 						"fallback": "https://www.google.co.kr/maps/dir//%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC+%EC%98%81%EB%93%B1%ED%8F%AC%EB%8F%99+%EC%98%81%EC%A4%91%EB%A1%9C+55+%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4+%EC%98%81%EB%93%B1%ED%8F%AC/data=!4m8!4m7!1m0!1m5!1m1!1s0x357c9ee48b115f91:0xdf7723842ce1441!2m2!1d126.9044943!2d37.5213713?entry=ttu&g_ep=EgoyMDI1MDYwNC4wIKXMDSoASAFQAw%3D%3D"
 					}
 				})
-					.run();
+					.run()
+					.then(function (state) {
+						if (state === Native.App.State.Scheme && wv === "kakao") location.href = "kakaotalk://inappbrowser/close";
+					});
 				break;
 			case "apple-map":
 				new Native.App({
@@ -515,16 +499,42 @@
 		const alert = document.querySelector("[data-alert-id=" + id + "]");
 
 		alert.classList.add("show");
-
 		alert.firstElementChild.onscroll = () => alert.dataset.scroll = alert.firstElementChild.scrollTop.toString();
+		history.pushState({}, "", "#" + window.scrollY.toString());
 	}
 
 	function closeAlert(id) {
-		console.log(id);
 		const alert = document.querySelector("[data-alert-id=" + id + "]");
 
 		alert.classList.remove("show");
+		history.pushState({}, "", "#");
 	}
+
+	history.pushState(null, null, document.URL);
+	window.addEventListener("popstate", function () {
+		const shownAlert = document.querySelector("[data-alert-id].show");
+
+		if (shownAlert) {
+			history.pushState(null, null, document.URL);
+			shownAlert.classList.remove("show");
+		}
+	});
+
+	const targets = document.querySelectorAll('[data-transaction]');
+
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting && entry.intersectionRect.height >= Math.min(250, entry.target.clientHeight)) {
+				entry.target.classList.add("show");
+			} else if (!entry.isIntersecting) {
+				entry.target.classList.remove("show");
+			}
+		});
+	}, {
+		threshold: Array.from({length: 21}, (_, i) => i * 0.05)
+	});
+
+	targets.forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
