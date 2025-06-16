@@ -100,7 +100,11 @@
             </div>
 
             <div class="item-weather" id="weather">
-		     🌞 🌝 🌛 🌜 🌚 🌕 🌖 🌗 🌘 🌑 🌒 🌓 🌔 🌙 🌎 🌍 🌏 🪐 💫 ⭐️ 🌟 ✨ ⚡️ ☄️ 💥 🔥 🌪 🌈 ☀️ 🌤 ⛅️ 🌥 ☁️ 🌦 🌧 ⛈ 🌩 🌨 ❄️ ☃️ ⛄️ 🌬 💨 💧 💦 ☔️ ☂️ 🌊 🌫
+		    <div id="weather-date"></div>
+		    <div id="icon"></div>
+		    <div id="temperature"></div>
+		    <div id="apparent-temperature"></div>
+		    <div id="precipitation-probability"></div>
             </div>
 
             <div class="driver"></div>
@@ -382,9 +386,11 @@
 	}
 
 	function initWeather() {
+		const target = new Date("2025-08-31");
+		const components = [document.getElementById("weather-date"), document.getElementById("icon"), document.getElementById("temperature"), document.getElementById("apparent-temperature"), document.getElementById("precipitation-probability")];
+		const calendar = document.getElementById("weather");
 		const forecast = 16;
 		const today = new Date();
-		const target = new Date("2025-08-31");
 		const max = new Date(today);
 		
 		max.setDate(today.getDate() + forecast - 1);
@@ -405,50 +411,58 @@
 		)
 		    .then(response => response.json())
 		    .then(data => {
-		        let i = data.hourly.time.indexOf("2025-08-31T12:00");
-		        if (i === -1) {
-		            i = data.hourly.time.length - 1;
-		        }
-		
-		        const weatherCodeMap = {
-		            0: {emoji: "☀️", detail: "맑음"},
-		            1: {emoji: "🌤", detail: "조금 흐림"},
-		            2: {emoji: "⛅️", detail: "부분 흐림"},
-		            3: {emoji: "🌥", detail: "많이 흐림"},
-		            45: {emoji: "🌫", detail: "안개"},
-		            48: {emoji: "🌫", detail: "서리 안개"},
-		            51: {emoji: "🌦", detail: "약한 이슬비"},
-		            53: {emoji: "🌦", detail: "이슬비"},
-		            55: {emoji: "🌦", detail: "많은 이슬비"},
-		            56: {emoji: "🌧", detail: "약한 어는 이슬비"},
-		            57: {emoji: "🌧", detail: "어는 이슬비"},
-		            61: {emoji: "🌧", detail: "약한 비"},
-		            63: {emoji: "🌧", detail: "비"},
-		            65: {emoji: "🌧", detail: "많은 비"},
-		            66: {emoji: "🌧", detail: "약한 어는 비"},
-		            67: {emoji: "🌧", detail: "어는 비"},
-		            71: {emoji: "🌨", detail: "약한 눈"},
-		            73: {emoji: "🌨", detail: "눈"},
-		            75: {emoji: "🌨", detail: "많은 눈"},
-		            77: {emoji: "🌨", detail: "진눈깨비"},
-		            80: {emoji: "🌧", detail: "약한 소나기"},
-		            81: {emoji: "🌧", detail: "소나기"},
-		            82: {emoji: "🌧", detail: "많은 소나기"},
-		            85: {emoji: "🌨", detail: "눈 소나기"},
-		            86: {emoji: "🌨", detail: "많은 눈 소나기"},
-		            95: {emoji: "⚡️", detail: "천둥"},
-		            96: {emoji: "🌩", detail: "약한 우박, 천둥"},
-		            99: {emoji: "🌩", detail: "우박, 천둥"},
-		        };
-		        
-		        console.log(data.hourly.time[i]);
-		        console.log(`기온: ${data.hourly.temperature_2m[i]} °C`);
-		        console.log(`체감온도: ${data.hourly.apparent_temperature[i]} °C`);
-		        console.log(`습도: ${data.hourly.relative_humidity_2m[i]} %`);
-		        console.log(`풍속: ${data.hourly.wind_speed_10m[i]} m/s`);
-		        console.log(`강수량: ${data.hourly.precipitation[i]} mm`);
-		        console.log(`강수 확률: ${data.hourly.precipitation_probability[i]} %`);
-		        console.log(`기상 코드: ${data.hourly.weathercode[i]}`);
+			    let i = data.hourly.time.indexOf(dateString + "T12:00");
+			    
+			    if (i === -1) {
+				    i = data.hourly.time.length - 1;
+			    }
+
+			    const weatherCodeMap = {
+				    0: {emoji: "☀️", detail: "맑음"},
+			            1: {emoji: "🌤", detail: "조금 흐림"},
+			            2: {emoji: "⛅️", detail: "부분 흐림"},
+			            3: {emoji: "🌥", detail: "많이 흐림"},
+			            45: {emoji: "🌫", detail: "안개"},
+			            48: {emoji: "🌫", detail: "서리 안개"},
+			            51: {emoji: "🌦", detail: "약한 이슬비"},
+			            53: {emoji: "🌦", detail: "이슬비"},
+			            55: {emoji: "🌦", detail: "많은 이슬비"},
+			            56: {emoji: "🌧", detail: "약한 어는 이슬비"},
+			            57: {emoji: "🌧", detail: "어는 이슬비"},
+			            61: {emoji: "🌧", detail: "약한 비"},
+			            63: {emoji: "🌧", detail: "비"},
+			            65: {emoji: "🌧", detail: "많은 비"},
+			            66: {emoji: "🌧", detail: "약한 어는 비"},
+			            67: {emoji: "🌧", detail: "어는 비"},
+			            71: {emoji: "🌨", detail: "약한 눈"},
+			            73: {emoji: "🌨", detail: "눈"},
+			            75: {emoji: "🌨", detail: "많은 눈"},
+			            77: {emoji: "🌨", detail: "진눈깨비"},
+			            80: {emoji: "🌧", detail: "약한 소나기"},
+			            81: {emoji: "🌧", detail: "소나기"},
+			            82: {emoji: "🌧", detail: "많은 소나기"},
+			            85: {emoji: "🌨", detail: "눈 소나기"},
+			            86: {emoji: "🌨", detail: "많은 눈 소나기"},
+			            95: {emoji: "⚡️", detail: "천둥"},
+			            96: {emoji: "🌩", detail: "약한 우박, 천둥"},
+			            99: {emoji: "🌩", detail: "우박, 천둥"}
+			    };
+
+			    const weatherCode = weatherCodeMap[data.hourly.weathercode[i]];
+			    
+			    components[0].innerText = dateString;
+			    components[1].innerText = weatherCode.emoji + " " + weatherCode.detail;
+			    components[2].innerText = data.hourly.temperature_2m[i] + " °C";
+			    components[0].innerText = data.hourly.apparent_temperature[i] + " °C";
+			    components[0].innerText = data.hourly.relative_humidity_2m[i] + " %";
+				    
+			    console.log(`기온: ${data.hourly.temperature_2m[i]} °C`);
+			    console.log(`체감온도: ${data.hourly.apparent_temperature[i]} °C`);
+			    console.log(`습도: ${data.hourly.relative_humidity_2m[i]} %`);
+			    console.log(`풍속: ${data.hourly.wind_speed_10m[i]} m/s`);
+			    console.log(`강수량: ${data.hourly.precipitation[i]} mm`);
+			    console.log(`강수 확률: ${data.hourly.precipitation_probability[i]} %`);
+			    console.log(`기상 코드: ${data.hourly.weathercode[i]}`);
 		  });
 	}
 
