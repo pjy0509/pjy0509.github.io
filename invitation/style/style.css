@@ -298,8 +298,10 @@ body {
 }
 
 .item-weather .weather-container .weather-icon #icon {
+    display: flex;
+    align-items: center;
     font-size: 48px;
-    height: 32px;
+    height: 48px;
 }
 
 .item-weather .weather-container .weather-icon #detail {
