@@ -100,13 +100,13 @@
             </div>
 
             <div class="item-weather" id="weather">
-		    <div>
-			    <div>
+		    <div class="weather-container">
+			    <div class="weather-icon">
 				    <div id="icon"></div>
 				    <div id="detail"></div>
 			    </div>
-			    <div>
-				    <div>
+			    <div class="weather-primary">
+				    <div class="weather-temperature">
 					    <div id="temperature"></div>
 					    <div id="apparent-temperature"></div>
 				    </div>
@@ -459,8 +459,8 @@
 
 			    const weatherCode = weatherCodeMap[data.hourly.weathercode[i]];
 			    
-			    components[0].innerText = weatherCode.emoji + " " + weatherCode.detail;
-			    components[1].innerText = weatherCode.emoji + " " + weatherCode.detail;
+			    components[0].innerText = weatherCode.emoji;
+			    components[1].innerText = weatherCode.detail;
 			    components[2].innerText = data.hourly.temperature_2m[i] + " °C";
 			    components[3].innerText = data.hourly.apparent_temperature[i] + " °C";
 			    components[4].innerText = data.hourly.relative_humidity_2m[i] + " %";
