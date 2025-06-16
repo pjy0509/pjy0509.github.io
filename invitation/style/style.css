@@ -289,6 +289,13 @@ body {
     align-items: center;
 }
 
+.item-weather .weather-container .weather-icon {
+    height: calc(48px + 3rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .item-weather .weather-container .weather-icon #icon {
     font-size: 48px;
     height: 32px;
@@ -305,9 +312,25 @@ body {
     flex-direction: column;
 }
 
-.item-weather .weather-primary .weather-temperature {
-    display: flex;
-    flex-direction: row;
+.item-weather .weather-primary #temperature {
+    font-size: 1.3rem;
+    font-weight: 900;
+}
+
+.item-weather .weather-primary #apparent-temperature, 
+.item-weather .weather-primary #precipitation-probability {
+    font-size: .8rem;
+    color: rgb(45 45 45);
+}
+
+.item-weather .weather-primary div#apparent-temperature::before {
+    content: "체감온도";
+    margin-right: .75rem;
+}
+
+.item-weather .weather-primary #precipitation-probability::before {
+    content: "강수확률";
+    margin-right: .75rem;
 }
 
 .item-weather #weather-date {
