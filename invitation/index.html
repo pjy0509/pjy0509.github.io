@@ -453,8 +453,8 @@
 			    components[0].innerText = dateString;
 			    components[1].innerText = weatherCode.emoji + " " + weatherCode.detail;
 			    components[2].innerText = data.hourly.temperature_2m[i] + " °C";
-			    components[0].innerText = data.hourly.apparent_temperature[i] + " °C";
-			    components[0].innerText = data.hourly.relative_humidity_2m[i] + " %";
+			    components[3].innerText = data.hourly.apparent_temperature[i] + " °C";
+			    components[4].innerText = data.hourly.relative_humidity_2m[i] + " %";
 				    
 			    console.log(`기온: ${data.hourly.temperature_2m[i]} °C`);
 			    console.log(`체감온도: ${data.hourly.apparent_temperature[i]} °C`);
