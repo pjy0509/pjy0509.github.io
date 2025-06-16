@@ -291,10 +291,10 @@ body {
 }
 
 .item-weather .weather-container .weather-icon {
-    height: calc(48px + 3rem);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: calc(48px + 3rem);
 }
 
 .item-weather .weather-container .weather-icon #icon {
@@ -313,6 +313,8 @@ body {
 .item-weather .weather-primary {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    height: calc(48px + 3rem);
 }
 
 .item-weather .weather-primary #temperature {
