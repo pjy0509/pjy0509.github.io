@@ -323,7 +323,7 @@ body {
 .item-weather .weather-primary #precipitation-probability {
     display: flex;
     align-items: center;
-    font-size: .8rem;
+    font-size: .7rem;
     color: rgb(45 45 45);
     height: 1rem;
 }
