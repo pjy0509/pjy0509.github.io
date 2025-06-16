@@ -148,6 +148,7 @@ body {
     color: rgb(85, 85, 85);
     opacity: .9;
     padding: 0 2rem;
+    line-height: 1.8rem;
 }
 
 .item-container .item-description {
@@ -329,12 +330,12 @@ body {
     margin-bottom: 1rem;
 }
 
-.item-weather .weather-primary #apparent-temperature, 
+.item-weather .weather-primary #apparent-temperature,
 .item-weather .weather-primary #precipitation-probability {
     display: flex;
     align-items: center;
     font-size: .7rem;
-    color: rgb(45 45 45);
+    color: rgb(78 78 78);
     height: 1rem;
 }
 
@@ -422,8 +423,12 @@ body {
     width: 100%;
 }
 
+/* Kakao Map Custom BEGIN */
 .item-location .map {
     width: 100% !important;
+}
+
+.item-location .map .wrap_map {
     pointer-events: none !important;
 }
 
@@ -439,6 +444,7 @@ body {
 .item-location .map .cont .section {
     margin: 0 2rem;
 }
+/* Kakao Map Custom END */
 
 .item-navigation {
     display: grid;
@@ -457,6 +463,40 @@ body {
     .item-navigation {
         grid-template-columns: repeat(3, 1fr);
     }
+}
+
+.item-park {
+    margin: 0 2rem;
+    padding: 20px 0;
+    border-top: 1px solid #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.item-park > strong {
+    font-size: 14px;
+    color: #222;
+    display: block;
+    line-height: 17px;
+    margin-bottom: 8px;
+}
+
+.item-park > div {
+    margin: 6px 0 6px 6px;
+    font-size: 13px;
+    color: #222;
+    float: left;
+    line-height: 16px;
+    text-align: left;
+}
+
+.item-park > div > strong {
+    font-size: 13px;
+    color: #222;
+    display: block;
+    line-height: 17px;
+    margin: 0 0 8px -6px;
 }
 
 .item-navigation > button {
@@ -594,7 +634,7 @@ body[data-os-name="Android"] .item-navigation > button[data-map-type="apple-map"
     background: unset;
     padding: 0;
     width: fit-content;
-    white-space:nowrap
+    white-space: nowrap;
 }
 
 [data-alert-id] .driver::before {
@@ -607,7 +647,7 @@ body[data-os-name="Android"] .item-navigation > button[data-map-type="apple-map"
     color: rgba(0, 0, 0, 0);
     background: linear-gradient(90deg, rgba(245, 245, 245, 1) 0%, rgba(0, 0, 0, 0) 50%, rgba(245, 245, 245, 1) 100%);
     width: fit-content;
-    white-space:nowrap
+    white-space: nowrap;
 }
 
 body:has([data-alert-id].show) {
