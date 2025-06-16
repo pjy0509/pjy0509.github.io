@@ -278,6 +278,11 @@ body {
 }
 
 .item-weather {
+    display: none;
+    flex-direction: column;
+}
+
+.item-weather.show {
     display: flex;
     flex-direction: column;
 }
