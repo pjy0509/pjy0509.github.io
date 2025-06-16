@@ -540,6 +540,44 @@
 	});
 
 	targets.forEach(el => observer.observe(el));
+
+	const forecast = 16;
+const today = new Date();
+const target = new Date("2025-08-31");
+const max = new Date(today);
+
+max.setDate(today.getDate() + forecast - 1);
+
+const date = (target <= max) ? target : max;
+const dateString = date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, '0') + "-" + String(date.getDate()).padStart(2, '0');
+
+fetch(
+    "https://api.open-meteo.com/v1/forecast?" 
+    + new URLSearchParams({
+        latitude: "37.5213713",
+        longitude: "126.9044943",
+        hourly: "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,precipitation_probability,apparent_temperature",
+        start_date: dateString,
+        end_date: dateString,
+        timezone: "Asia/Seoul"
+    })
+)
+    .then(response => response.json())
+    .then(data => {
+        let i = data.hourly.time.indexOf("2025-08-31T12:00");
+        if (i === -1) {
+            i = data.hourly.time.length - 1;
+        }
+        
+        console.log(data.hourly.time[i]);
+        console.log(`기온: ${data.hourly.temperature_2m[i]} °C`);
+        console.log(`체감온도: ${data.hourly.apparent_temperature[i]} °C`);
+        console.log(`습도: ${data.hourly.relative_humidity_2m[i]} %`);
+        console.log(`풍속: ${data.hourly.wind_speed_10m[i]} m/s`);
+        console.log(`강수량: ${data.hourly.precipitation[i]} mm`);
+        console.log(`강수 확률: ${data.hourly.precipitation_probability[i]} %`);
+  })
+  .catch(err => console.error("에러:", err));
 </script>
 </body>
 </html>
