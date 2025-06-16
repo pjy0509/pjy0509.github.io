@@ -307,6 +307,7 @@ body {
     align-items: center;
     font-size: 48px;
     height: 48px;
+    filter: brightness(0) invert(0.25);
 }
 
 .item-weather .weather-container .weather-icon #detail {
