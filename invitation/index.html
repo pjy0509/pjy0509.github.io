@@ -100,11 +100,20 @@
             </div>
 
             <div class="item-weather" id="weather">
+		    <div>
+			    <div>
+				    <div id="icon"></div>
+				    <div id="detail"></div>
+			    </div>
+			    <div>
+				    <div>
+					    <div id="temperature"></div>
+					    <div id="apparent-temperature"></div>
+				    </div>
+				    <div id="precipitation-probability"></div>
+			    </div>
+		    </div>
 		    <div id="weather-date"></div>
-		    <div id="icon"></div>
-		    <div id="temperature"></div>
-		    <div id="apparent-temperature"></div>
-		    <div id="precipitation-probability"></div>
             </div>
 
             <div class="driver"></div>
@@ -387,7 +396,7 @@
 
 	function initWeather() {
 		const target = new Date("2025-08-31");
-		const components = [document.getElementById("weather-date"), document.getElementById("icon"), document.getElementById("temperature"), document.getElementById("apparent-temperature"), document.getElementById("precipitation-probability")];
+		const components = [document.getElementById("icon"), document.getElementById("detail"), document.getElementById("temperature"), document.getElementById("apparent-temperature"), document.getElementById("precipitation-probability"), document.getElementById("weather-date")];
 		const calendar = document.getElementById("weather");
 		const forecast = 16;
 		const today = new Date();
@@ -450,11 +459,12 @@
 
 			    const weatherCode = weatherCodeMap[data.hourly.weathercode[i]];
 			    
-			    components[0].innerText = dateString;
+			    components[0].innerText = weatherCode.emoji + " " + weatherCode.detail;
 			    components[1].innerText = weatherCode.emoji + " " + weatherCode.detail;
 			    components[2].innerText = data.hourly.temperature_2m[i] + " °C";
 			    components[3].innerText = data.hourly.apparent_temperature[i] + " °C";
 			    components[4].innerText = data.hourly.relative_humidity_2m[i] + " %";
+			    components[5].innerText = dateString;
 				    
 			    console.log(`기온: ${data.hourly.temperature_2m[i]} °C`);
 			    console.log(`체감온도: ${data.hourly.apparent_temperature[i]} °C`);
