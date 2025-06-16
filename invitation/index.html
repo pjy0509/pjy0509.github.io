@@ -111,7 +111,6 @@
 				    <div id="precipitation-probability"></div>
 			    </div>
 		    </div>
-		    <div id="weather-date"></div>
             </div>
 
             <div class="driver"></div>
@@ -394,7 +393,7 @@
 
 	function initWeather() {
 		const target = new Date("2025-08-31");
-		const components = [document.getElementById("icon"), document.getElementById("detail"), document.getElementById("temperature"), document.getElementById("apparent-temperature"), document.getElementById("precipitation-probability"), document.getElementById("weather-date")];
+		const components = [document.getElementById("icon"), document.getElementById("detail"), document.getElementById("temperature"), document.getElementById("apparent-temperature"), document.getElementById("precipitation-probability")];
 		const weather = document.getElementById("weather");
 		const dateString = target.getFullYear() + "-" + String(target.getMonth() + 1).padStart(2, '0') + "-" + String(target.getDate()).padStart(2, '0');
 		
