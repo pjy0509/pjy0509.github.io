@@ -291,7 +291,7 @@
 	const userAgent = navigator.userAgent;
 	let wv = "";
 
-	function syncScrollY(removeHash) {
+	function syncScrollY(removeHash = false) {
 		const y = +location.hash.split("#")[1];
 
 		if (!isNaN(y)) {
@@ -313,16 +313,22 @@
 		document.body.dataset.wv = wv = "kakao";
 	}
 
-	syncScrollY(false);
+	syncScrollY();
 	document.onreadystatechange = function () {
-		syncScrollY(false);
+		syncScrollY();
 	}
 
 	window.onload = async function () {
 		syncScrollY(true);
+		
+		initCalendar();
+		initCarousel();
+		initWeather();
+	};
 
+	function initCalendar() {
 		// TIMER BEGIN
-		const target = new Date("2025-08-31 00:00:00");
+		const target = new Date("2025-08-31 12:20:00");
 		const components = [document.getElementById("remain-date"), document.getElementById("days"), document.getElementById("hours"), document.getElementById("minutes"), document.getElementById("seconds")];
 		const calendar = document.getElementById("calendar");
 
@@ -373,7 +379,80 @@
 			components[4].textContent = seconds.toString();
 		}, 1000);
 		// TIMER END
+	}
 
+	function initWeather() {
+		const forecast = 16;
+		const today = new Date();
+		const target = new Date("2025-08-31");
+		const max = new Date(today);
+		
+		max.setDate(today.getDate() + forecast - 1);
+		
+		const date = (target <= max) ? target : max;
+		const dateString = date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, '0') + "-" + String(date.getDate()).padStart(2, '0');
+		
+		fetch(
+		    "https://api.open-meteo.com/v1/forecast?" 
+		    + new URLSearchParams({
+		        latitude: "37.5213713",
+		        longitude: "126.9044943",
+		        hourly: "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,precipitation_probability,apparent_temperature,weathercode",
+		        start_date: dateString,
+		        end_date: dateString,
+		        timezone: "Asia/Seoul"
+		    })
+		)
+		    .then(response => response.json())
+		    .then(data => {
+		        let i = data.hourly.time.indexOf("2025-08-31T12:00");
+		        if (i === -1) {
+		            i = data.hourly.time.length - 1;
+		        }
+		
+		        const weatherCodeMap = {
+		            0: {emoji: "☀️", detail: "맑음"},
+		            1: {emoji: "🌤", detail: "조금 흐림"},
+		            2: {emoji: "⛅️", detail: "부분 흐림"},
+		            3: {emoji: "🌥", detail: "많이 흐림"},
+		            45: {emoji: "🌫", detail: "안개"},
+		            48: {emoji: "🌫", detail: "서리 안개"},
+		            51: {emoji: "🌦", detail: "약한 이슬비"},
+		            53: {emoji: "🌦", detail: "이슬비"},
+		            55: {emoji: "🌦", detail: "많은 이슬비"},
+		            56: {emoji: "🌧", detail: "약한 어는 이슬비"},
+		            57: {emoji: "🌧", detail: "어는 이슬비"},
+		            61: {emoji: "🌧", detail: "약한 비"},
+		            63: {emoji: "🌧", detail: "비"},
+		            65: {emoji: "🌧", detail: "많은 비"},
+		            66: {emoji: "🌧", detail: "약한 어는 비"},
+		            67: {emoji: "🌧", detail: "어는 비"},
+		            71: {emoji: "🌨", detail: "약한 눈"},
+		            73: {emoji: "🌨", detail: "눈"},
+		            75: {emoji: "🌨", detail: "많은 눈"},
+		            77: {emoji: "🌨", detail: "진눈깨비"},
+		            80: {emoji: "🌧", detail: "약한 소나기"},
+		            81: {emoji: "🌧", detail: "소나기"},
+		            82: {emoji: "🌧", detail: "많은 소나기"},
+		            85: {emoji: "🌨", detail: "눈 소나기"},
+		            86: {emoji: "🌨", detail: "많은 눈 소나기"},
+		            95: {emoji: "⚡️", detail: "천둥"},
+		            96: {emoji: "🌩", detail: "약한 우박, 천둥"},
+		            99: {emoji: "🌩", detail: "우박, 천둥"},
+		        };
+		        
+		        console.log(data.hourly.time[i]);
+		        console.log(`기온: ${data.hourly.temperature_2m[i]} °C`);
+		        console.log(`체감온도: ${data.hourly.apparent_temperature[i]} °C`);
+		        console.log(`습도: ${data.hourly.relative_humidity_2m[i]} %`);
+		        console.log(`풍속: ${data.hourly.wind_speed_10m[i]} m/s`);
+		        console.log(`강수량: ${data.hourly.precipitation[i]} mm`);
+		        console.log(`강수 확률: ${data.hourly.precipitation_probability[i]} %`);
+		        console.log(`기상 코드: ${data.hourly.weathercode[i]}`);
+		  });
+	}
+
+	function initCarousel() {
 		// CAROUSEL BEGIN
 		const carouselElement = document.querySelector(".item-carousel");
 		const carousel = new Glide(".item-carousel", {
@@ -396,7 +475,7 @@
 			current.textContent = (carousel.index + 1).toString();
 		});
 		// CAROUSEL END
-	};
+	}
 
 	function openMap(type) {
 		switch (type) {
@@ -540,44 +619,6 @@
 	});
 
 	targets.forEach(el => observer.observe(el));
-
-	const forecast = 16;
-const today = new Date();
-const target = new Date("2025-08-31");
-const max = new Date(today);
-
-max.setDate(today.getDate() + forecast - 1);
-
-const date = (target <= max) ? target : max;
-const dateString = date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, '0') + "-" + String(date.getDate()).padStart(2, '0');
-
-fetch(
-    "https://api.open-meteo.com/v1/forecast?" 
-    + new URLSearchParams({
-        latitude: "37.5213713",
-        longitude: "126.9044943",
-        hourly: "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,precipitation_probability,apparent_temperature",
-        start_date: dateString,
-        end_date: dateString,
-        timezone: "Asia/Seoul"
-    })
-)
-    .then(response => response.json())
-    .then(data => {
-        let i = data.hourly.time.indexOf("2025-08-31T12:00");
-        if (i === -1) {
-            i = data.hourly.time.length - 1;
-        }
-        
-        console.log(data.hourly.time[i]);
-        console.log(`기온: ${data.hourly.temperature_2m[i]} °C`);
-        console.log(`체감온도: ${data.hourly.apparent_temperature[i]} °C`);
-        console.log(`습도: ${data.hourly.relative_humidity_2m[i]} %`);
-        console.log(`풍속: ${data.hourly.wind_speed_10m[i]} m/s`);
-        console.log(`강수량: ${data.hourly.precipitation[i]} mm`);
-        console.log(`강수 확률: ${data.hourly.precipitation_probability[i]} %`);
-  })
-  .catch(err => console.error("에러:", err));
 </script>
 </body>
 </html>
