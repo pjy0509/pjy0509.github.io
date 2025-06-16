@@ -277,6 +277,45 @@ body {
     height: 3rem;
 }
 
+.item-weather {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-weather .weather-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-weather .weather-container .weather-icon #icon {
+    font-size: 48px;
+    height: 32px;
+}
+
+.item-weather .weather-container .weather-icon #detail {
+    font-size: .6rem;
+    font-weight: 600;
+    color: rgb(177 177 177);
+}
+
+.item-weather .weather-primary {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-weather .weather-primary .weather-temperature {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-weather #weather-date {
+    font-size: .75rem;
+    font-weight: 600;
+    color: rgb(71 71 71);
+}
+
 .item-calendar {
     font-weight: 200;
     padding: 0 2rem;
