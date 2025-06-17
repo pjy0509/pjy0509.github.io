@@ -1,17 +1,1172 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta id="viewportTag" name="viewport" content="width=device-width, initial-scale=1.0, maximun-scale=1.0, user-scalable=no">
+
+    <meta name="author" content="박준영❤️최영은 결혼합니다">
+    <meta name="keywords" content="박준영❤️최영은 결혼합니다">
+    <meta name="description" content="2025년 8월 31일 일요일 웨딩그룹위더스 영등포">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="박준영❤️최영은 결혼합니다">
+    <meta property="og:description" content="2025년 8월 31일 일요일 웨딩그룹위더스 영등포">
+    <meta property="og:image" content="https://raw.githubusercontent.com/pjy0509/pjy0509.github.io/refs/heads/main/invitation/assets/images/i0.jpg">
+    <meta property="og:url" content="https://pjy0509.github.io/invitation">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="박준영❤️최영은 결혼합니다">
+    <meta name="twitter:description" content="2025년 8월 31일 일요일 웨딩그룹위더스 영등포">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/pjy0509/pjy0509.github.io/refs/heads/main/invitation/assets/images/i0.jpg">
+
+    <meta name="format-detection" content="telephone=no">
+
+    <title>박준영❤️최영은 결혼합니다</title>
+
+    <link rel="icon" href="FAVICON" type="image/x-icon">
+    <link rel="shortcut icon" href="FAVICON" type="image/x-icon">
+
+    <link href="https://fonts.cdnfonts.com/css/heuristica" rel="stylesheet">
+
+    <!-- Native -->
+    <script src="https://unpkg.com/native-fn@latest/dist/index.umd.js"></script>
+    <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.8.1/tsparticles.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/shape-image@3.8.1/tsparticles.shape.image.min.js"></script>
+    <!-- Carousel -->
+    <script src="https://unpkg.com/@glidejs/glide"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+
+    <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js" integrity="sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6" crossorigin="anonymous"></script>
+    <script>Kakao.init("81d57ff9f2d2a5524e506d8a1d386fd5");</script>
 </head>
 <body>
-</body>
-<script>
-	if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(navigator.userAgent)) {
-		history.replaceState({}, "", "/invitation");
-		location.reload();
+
+<div class="container">
+    <div>
+        <div class="item-container item-intro" id="particle">
+            <div class="background">
+                <img src="assets/images/i0.jpg" alt=""/>
+            </div>
+        </div>
+
+        <div class="item-container" data-transaction>
+            <div class="item-content">
+                서로의 마음에 피어난 작은 설렘이 어느새<br/>
+                큰 사랑이 되어 평생을 함께할 약속으로 이어졌습니다.<br/>
+                모든 날, 모든 순간을 아름답게 만들어가고<br/>
+                이끌어주고, 응원해주는 서로가 되겠습니다.<br/>
+                새로 시작하는 이 자리에 오셔서<br/>
+                축복이 가득하길 함께 기원해 주시기 바랍니다.<br/>
+            </div>
+
+            <div class="padding rem1"></div>
+
+            <div class="item-description2">
+                신랑 박준영 · 신부 최영은
+            </div>
+        </div>
+
+        <div class="padding rem3"></div>
+
+        <div class="item-container item-bg-dark" data-transaction>
+            <div class="item-title">
+                WEDDING DAY
+            </div>
+
+            <div class="item-subtitle">
+                2025년 8월 31일 토요일 | 오후 12시
+            </div>
+
+            <div class="item-description">
+                Saturday, August 31, 2025 | PM 12:00
+            </div>
+
+            <div class="item-weather" id="weather">
+                <div class="padding rem1"></div>
+
+                <div class="weather-container">
+                    <div class="weather-icon">
+                        <div id="icon"></div>
+                        <div id="detail"></div>
+                    </div>
+                    <div class="weather-primary">
+                        <div id="temperature"></div>
+                        <div id="apparent-temperature"></div>
+                        <div id="precipitation-probability"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="driver"></div>
+
+            <div class="button-list">
+                <button class="button" data-map-type="kakao-talkcalendar" onclick="createSchedule()">
+                    <img src="assets/images/icon_kakaotalkcalendar.png" alt=""/>
+                    일정 등록하기
+                </button>
+            </div>
+
+            <div class="item-calendar" id="calendar">
+            </div>
+
+            <div class="driver"></div>
+
+            <div class="item-countdown">
+                <div id="days">0</div>
+                <div id="hours">0</div>
+                <div id="minutes">0</div>
+                <div id="seconds">0</div>
+            </div>
+
+            <div class="padding rem3"></div>
+
+            <div class="item-description2">
+                D-<span id="remain-date">0일</span>
+            </div>
+        </div>
+
+        <div class="item-container" data-transaction>
+            <div class="item-title">
+                GALLERY
+            </div>
+
+            <div class="item-description">
+                사진을 클릭하시면 전체 화면 보기가 가능합니다
+            </div>
+
+            <div class="padding rem2"></div>
+
+            <div class="glide item-carousel">
+                <div class="glide__track" data-glide-el="track">
+                    <ul class="glide__slides">
+                        <li class="glide__slide"><img src="assets/images/i1.jpeg" alt=""></li>
+                        <li class="glide__slide"><img src="assets/images/i2.jpeg" alt=""></li>
+                        <li class="glide__slide"><img src="assets/images/i3.jpeg" alt=""></li>
+                        <li class="glide__slide"><img src="assets/images/i4.jpeg" alt=""></li>
+                        <li class="glide__slide"><img src="assets/images/i5.jpg" alt=""></li>
+                    </ul>
+                </div>
+
+                <div class="glide__arrows item-carousel-arrows" data-glide-el="controls">
+                    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+                        <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)">
+                            <path id="Vector" d="M11 9L14 12L11 15" stroke="rgb(85, 85, 85)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                    <div>
+                        <span id="carousel-current">0</span> / <span id="carousel-total">0</span>
+                    </div>
+                    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+                        <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" transform="matrix(1, 0, 0, 1, 0, 0)">
+                            <path id="Vector" d="M11 9L14 12L11 15" stroke="rgb(85, 85, 85)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="driver shiny"></div>
+
+        <div class="item-container" data-transaction>
+            <div class="item-title">
+                LOCATION
+            </div>
+
+            <div class="item-subtitle">
+                웨딩그룹위더스 영등포
+            </div>
+
+            <div class="item-description">
+                서울 영등포구 영중로 55
+            </div>
+
+            <div class="padding rem2"></div>
+
+            <div class="item-location">
+                <div id="daumRoughmapContainer1749528679663" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
+
+                <script charset="UTF-8">
+					new daum.roughmap.Lander({
+						"timestamp": "1749528679663",
+						"key": "3b9z8qmhafn",
+						"mapWidth": "360",
+						"mapHeight": "240"
+					}).render();
+                </script>
+            </div>
+
+            <div class="item-park">
+                <strong>주차장</strong>
+
+                <div>
+                    <strong>건물 주차장</strong>
+                    주차 수용 대수: 600<br/>
+                    무료: 2시간<br/>
+                    유료: 500원 / 10분<br/>
+                </div>
+
+                <div>
+                    <strong>영남 주차장</strong>
+                    주차 수용 대수: 570<br/>
+                    무료: 0시간<br/>
+                    유료: 160원 / 5분<br/>
+                </div>
+            </div>
+
+            <div class="item-routes">
+                <div class="button-grid">
+                    <button class="button" data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_navermap.png" alt=""/>
+                        네이버 지도
+                    </button>
+                    <button class="button" data-map-type="kakao-map" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_kakaomap.png" alt=""/>
+                        카카오 맵
+                    </button>
+                    <button class="button" data-map-type="kakao-navi" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_kakaonavi.png" alt=""/>
+                        카카오 내비
+                    </button>
+                    <button class="button" data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_tmap.png" alt=""/>
+                        티 맵
+                    </button>
+                    <button class="button" data-map-type="google-map" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_googlemap.png" alt=""/>
+                        구글 맵
+                    </button>
+                    <button class="button" data-map-type="apple-map" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_applemap.png" alt=""/>
+                        지도
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="driver shiny"></div>
+
+        <div class="item-container" data-transaction>
+            <div class="item-title">
+                CONTACT
+            </div>
+
+            <div class="item-subtitle">
+                연락처
+            </div>
+
+            <div class="item-description">
+                신랑 & 신부에게 축하의 인사를 전달 해보세요.
+            </div>
+
+            <div class="padding rem2"></div>
+        </div>
+
+        <div class="driver shiny"></div>
+
+        <div class="item-container" data-transaction>
+            <div class="item-title">
+                SEND GIFT
+            </div>
+
+            <div class="item-subtitle">
+                마음 전하실 곳
+            </div>
+
+            <div class="item-description">
+                신랑 & 신부에게 축하의 마음을 전달 해보세요.
+            </div>
+
+            <div class="padding rem2"></div>
+        </div>
+
+        <div class="button-list">
+            <button class="button" data-map-type="kakao-talkcalendar" onclick="doShareKakaoTalk()">
+                공유하기
+            </button>
+        </div>
+    </div>
+</div>
+
+<div data-alert-id="schedule" onclick="closeAlert(this.dataset.alertId)">
+    <div class="item-container" onclick="event.stopPropagation()">
+        <div class="alert-header">
+            <button class="alert-close" onclick="closeAlert(this.closest('[data-alert-id]').dataset.alertId)"></button>
+
+            <div class="item-alert-title">
+                일정 등록
+            </div>
+        </div>
+
+        <div class="alert-content">
+            <div class="driver shiny"></div>
+
+            <div class="item-alert-description">
+                일정 등록이 완료되었습니다.
+            </div>
+
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="item-container" data-fullscreen="route">
+    <div class="padding rem2"></div>
+
+    <div class="item-title">
+        LOCATION
+    </div>
+
+    <div class="item-subtitle">
+        웨딩그룹위더스 영등포
+    </div>
+
+    <div class="item-description">
+        서울 영등포구 영중로 55
+    </div>
+
+    <div class="padding rem2"></div>
+
+    <div class="item-location">
+        <div id="daumRoughmapContainer1750165976255" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
+    </div>
+
+    <div class="item-park">
+        <strong>주차장</strong>
+
+        <div>
+            <strong>건물 주차장</strong>
+            주차 수용 대수: 600<br/>
+            무료: 2시간<br/>
+            유료: 500원 / 10분<br/>
+        </div>
+
+        <div>
+            <strong>영남 주차장</strong>
+            주차 수용 대수: 570<br/>
+            무료: 0시간<br/>
+            유료: 160원 / 5분<br/>
+        </div>
+    </div>
+
+    <div class="item-routes">
+        <div class="button-grid">
+            <button class="button" data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_navermap.png" alt=""/>
+                네이버 지도
+            </button>
+            <button class="button" data-map-type="kakao-map" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_kakaomap.png" alt=""/>
+                카카오 맵
+            </button>
+            <button class="button" data-map-type="kakao-navi" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_kakaonavi.png" alt=""/>
+                카카오 내비
+            </button>
+            <button class="button" data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_tmap.png" alt=""/>
+                티 맵
+            </button>
+            <button class="button" data-map-type="google-map" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_googlemap.png" alt=""/>
+                구글 맵
+            </button>
+            <button class="button" data-map-type="apple-map" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_applemap.png" alt=""/>
+                지도
+            </button>
+        </div>
+    </div>
+
+    <div class="padding rem2"></div>
+</div>
+
+<div class="item-container" data-fullscreen="schedule">
+</div>
+
+<script type="text/javascript">
+    // CONSTANT BEGIN
+    const LATITUDE = "37.5213713";
+	const LONGITUDE = "126.9044943";
+	const PLACE_NAME = "웨딩그룹위더스 영등포";
+	const PLACE_ADDRESS = "서울 영등포구 영중로 55";
+	const TIMEZONE = "Asia/Seoul";
+	const WEDDING_DATE_TIME_START_ISO_STRING = "2025-08-31T03:20:00Z";
+	const WEDDING_DATE_TIME_END_ISO_STRING = "2025-08-31T04:30:00Z";
+	const WEDDING_DATE_ISO_STRING = "2025-08-31";
+	const WEDDING_DATE_TIME_START = new Date(WEDDING_DATE_TIME_START_ISO_STRING);
+	const WEDDING_DATE_TIME_END = new Date(WEDDING_DATE_TIME_END_ISO_STRING);
+	const WEDDING_DATE = new Date(WEDDING_DATE_ISO_STRING);
+	const GROOM = "박준영";
+    const BRIDE = "최영은";
+	const META_TITLE = document.querySelector("meta[property=\"og:title\"]").content;
+	const META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
+    // CONSTANT END
+
+	initUserAgent();
+
+	const search = new URLSearchParams(location.search);
+	const isMode = search.has("mode");
+
+	if (isMode) {
+		const mode = search.get("mode");
+
+		document.querySelector("[data-fullscreen=\"" + mode + "\"]").classList.add("show");
+
+		if (mode === "schedule") {
+			createSchedule(true);
+		}
+
+		if (mode === "route") {
+			new daum.roughmap.Lander({
+				"timestamp" : "1750165976255",
+				"key" : "3pycungqfsg",
+				"mapWidth" : "360",
+				"mapHeight" : "240"
+			}).render();
+		}
+	} else {
+		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
+
+		syncScrollY();
+		document.onreadystatechange = function () {
+			syncScrollY();
+		}
+
+		window.onload = async function () {
+			syncScrollY(true);
+
+			initTsparticle();
+			initCalendar();
+			initCarousel();
+			initWeather();
+		};
+    }
+
+	function initUserAgent() {
+		const userAgent = navigator.userAgent;
+		let wv = "";
+		document.body.dataset.osName = Native.OS.name;
+
+		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = wv = "kakao";
+    }
+
+	function syncScrollY(removeHash = false) {
+		const y = +location.hash.split("#")[1];
+
+		if (!isNaN(y)) window.scrollY = y;
+		if (removeHash) history.pushState({}, "", "#");
 	}
+
+	function initTsparticle() {
+		loadImageShape(tsParticles)
+			.then(function () {
+				tsParticles.load({
+					id: "particle",
+					options: {
+						fullScreen: {
+							enable: false
+						},
+						detectRetina: true,
+						fpsLimit: 60,
+						particles: {
+							number: {
+								value: 130,
+								limit: {
+									mode: "delete",
+									value: 0
+								},
+								density: {
+									enable: true,
+									width: 1920,
+									height: 1080
+								}
+							},
+							shape: {
+								type: ["image", "image", "image", "image"],
+								options: {
+									image: [
+										{src: "./assets/images/p1.png"},
+										{src: "./assets/images/p2.png"},
+										{src: "./assets/images/p3.png"},
+										{src: "./assets/images/p4.png"},
+									]
+								},
+							},
+							size: {
+								"value": {
+									"min": 5,
+									"max": 6
+								},
+								"animation": {
+									"enable": false,
+									"speed": 5,
+									"sync": false,
+									"mode": "auto",
+									"startValue": "random",
+									"destroy": "none"
+								}
+							},
+							shadow: {
+								"blur": 0,
+								"color": {
+									"value": "#000"
+								},
+								"enable": false,
+							},
+							rotate: {
+								"value": {
+									"min": 180,
+									"max": 360
+								},
+								"animation": {
+									"enable": true,
+									"speed": 60,
+									"sync": false
+								},
+								"direction": "random",
+								"path": false
+							},
+							reduceDuplicates: false,
+							opacity: {
+								"value": 1,
+								"animation": {
+									"enable": false,
+									"speed": 0.3,
+									"sync": true,
+									"mode": "auto",
+									"startValue": "max",
+									"destroy": "min"
+								}
+							},
+							move: {
+								"angle": {
+									"offset": 0,
+									"value": 90
+								},
+								"attract": {
+									"distance": 200,
+									"enable": false,
+									"rotate": {
+										"x": 3000,
+										"y": 3000
+									}
+								},
+								"center": {
+									"x": 50,
+									"y": 50,
+									"mode": "percent",
+									"radius": 0
+								},
+								"decay": 0,
+								"distance": {},
+								"direction": "bottom-left",
+								"drift": 0,
+								"enable": true,
+								"gravity": {
+									"acceleration": 9.81,
+									"enable": false,
+									"inverse": false,
+									"maxSpeed": 50
+								},
+								"path": {
+									"clamp": true,
+									"delay": {
+										"value": 0
+									},
+									"enable": false,
+									"options": {}
+								},
+								"outModes": {
+									"default": "out",
+									"bottom": "out",
+									"left": "out",
+									"right": "out",
+									"top": "out"
+								},
+								"random": false,
+								"size": true,
+								"speed": {
+									"min": 1,
+									"max": 4
+								},
+								"spin": {
+									"acceleration": 0,
+									"enable": false
+								},
+								"straight": false,
+								"trail": {
+									"enable": false,
+									"length": 10,
+									"fill": {}
+								},
+								"vibrate": false,
+								"warp": false
+							},
+							life: {
+								"count": 0,
+								"delay": {
+									"value": 0,
+									"sync": false
+								},
+								"duration": {
+									"value": 0,
+									"sync": false
+								}
+							},
+							effect: {
+								"close": true,
+								"fill": true,
+								"options": {},
+								"type": []
+							},
+							color: {
+								"value": "#fff",
+							},
+							collisions: {
+								"absorb": {
+									"speed": 2
+								},
+								"bounce": {
+									"horizontal": {
+										"value": 1
+									},
+									"vertical": {
+										"value": 1
+									}
+								},
+								"enable": false,
+								"maxSpeed": 50,
+								"mode": "bounce",
+								"overlap": {
+									"enable": true,
+									"retries": 0
+								}
+							},
+						},
+					}
+				});
+			});
+	}
+
+	function initCalendar() {
+		// TIMER BEGIN
+		const components = [document.getElementById("remain-date"), document.getElementById("days"), document.getElementById("hours"), document.getElementById("minutes"), document.getElementById("seconds")];
+		const calendar = document.getElementById("calendar");
+
+		calendar.innerHTML = "";
+
+		const startDay = new Date(WEDDING_DATE_TIME_START.getFullYear(), WEDDING_DATE_TIME_START.getMonth()).getDay();
+		const lastDate = new Date(WEDDING_DATE_TIME_START.getFullYear(), WEDDING_DATE_TIME_START.getMonth() + 1, 0).getDate();
+		const targetDate = WEDDING_DATE_TIME_START.getDate();
+		const grid = document.createElement("div");
+
+		['일', '월', '화', '수', '목', '금', '토'].forEach(d => {
+			const weekday = document.createElement("div");
+			const el = document.createElement("p");
+
+			el.innerText = d;
+			weekday.appendChild(el);
+			grid.appendChild(weekday);
+		});
+
+		for (let i = 0; i < startDay; i++) grid.appendChild(document.createElement("div"));
+
+		for (let d = 1; d <= lastDate; d++) {
+			const day = document.createElement("div");
+			const el = document.createElement("p");
+
+			if (d === targetDate) day.id = "target";
+
+			el.innerText = d.toString();
+			day.appendChild(el);
+			grid.appendChild(day);
+		}
+
+		calendar.appendChild(grid);
+
+		const targetTimestamp = +WEDDING_DATE_TIME_START;
+
+		setInterval(function () {
+			let subtract = Math.floor((targetTimestamp - Date.now()) / 1000);
+
+			const days = Math.floor(subtract / 86400);
+			const hours = Math.floor((subtract %= 86400) / 3600);
+			const minutes = Math.floor((subtract %= 3600) / 60);
+			const seconds = subtract % 60;
+
+			components[0].textContent = (days + 1).toString() + "일";
+			components[1].textContent = days.toString();
+			components[2].textContent = hours.toString();
+			components[3].textContent = minutes.toString();
+			components[4].textContent = seconds.toString();
+		}, 1000);
+		// TIMER END
+	}
+
+	function initWeather() {
+		const components = [document.getElementById("icon"), document.getElementById("detail"), document.getElementById("temperature"), document.getElementById("apparent-temperature"), document.getElementById("precipitation-probability")];
+		const weather = document.getElementById("weather");
+
+		fetch(
+			"https://api.open-meteo.com/v1/forecast?"
+			+ new URLSearchParams({
+				latitude: LATITUDE,
+				longitude: LONGITUDE,
+				hourly: "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,precipitation_probability,apparent_temperature,weathercode",
+				start_date: WEDDING_DATE_ISO_STRING,
+				end_date: WEDDING_DATE_ISO_STRING,
+				timezone: TIMEZONE
+			})
+		)
+			.then(response => response.json())
+			.then(data => {
+				let i = data.hourly.time.indexOf(WEDDING_DATE_ISO_STRING + "T12:00");
+
+				if (i === -1) return;
+
+				const weatherCodeMap = {
+					0: {emoji: "☀️", detail: "맑음"},
+					1: {emoji: "🌤", detail: "조금 흐림"},
+					2: {emoji: "⛅️", detail: "흐림"},
+					3: {emoji: "🌥", detail: "흐림"},
+					45: {emoji: "🌫", detail: "안개"},
+					48: {emoji: "🌫", detail: "서리 안개"},
+					51: {emoji: "🌦", detail: "이슬비"},
+					53: {emoji: "🌦", detail: "이슬비"},
+					55: {emoji: "🌦", detail: "이슬비"},
+					56: {emoji: "🌧", detail: "어는 이슬비"},
+					57: {emoji: "🌧", detail: "어는 이슬비"},
+					61: {emoji: "🌧", detail: "비"},
+					63: {emoji: "🌧", detail: "비"},
+					65: {emoji: "🌧", detail: "비"},
+					66: {emoji: "🌧", detail: "어는 비"},
+					67: {emoji: "🌧", detail: "어는 비"},
+					71: {emoji: "🌨", detail: "눈"},
+					73: {emoji: "🌨", detail: "눈"},
+					75: {emoji: "🌨", detail: "눈"},
+					77: {emoji: "🌨", detail: "진눈깨비"},
+					80: {emoji: "🌧", detail: "소나기"},
+					81: {emoji: "🌧", detail: "소나기"},
+					82: {emoji: "🌧", detail: "소나기"},
+					85: {emoji: "🌨", detail: "눈 소나기"},
+					86: {emoji: "🌨", detail: "눈 소나기"},
+					95: {emoji: "⚡️", detail: "천둥"},
+					96: {emoji: "🌩", detail: "우박, 천둥"},
+					99: {emoji: "🌩", detail: "우박, 천둥"}
+				};
+
+				const weatherCode = weatherCodeMap[data.hourly.weathercode[i]];
+
+				components[0].innerText = weatherCode.emoji;
+				components[1].innerText = weatherCode.detail;
+				components[2].innerText = data.hourly.temperature_2m[i] + " °C";
+				components[3].innerText = data.hourly.apparent_temperature[i] + " °C";
+				components[4].innerText = data.hourly.relative_humidity_2m[i] + " %";
+
+				weather.classList.add("show");
+
+				console.log(`기온: ${data.hourly.temperature_2m[i]} °C`);
+				console.log(`체감온도: ${data.hourly.apparent_temperature[i]} °C`);
+				console.log(`습도: ${data.hourly.relative_humidity_2m[i]} %`);
+				console.log(`풍속: ${data.hourly.wind_speed_10m[i]} m/s`);
+				console.log(`강수량: ${data.hourly.precipitation[i]} mm`);
+				console.log(`강수 확률: ${data.hourly.precipitation_probability[i]} %`);
+				console.log(`기상 코드: ${data.hourly.weathercode[i]}`);
+			});
+	}
+
+	function initCarousel() {
+		// CAROUSEL BEGIN
+		const carousel = new Glide(
+			".item-carousel",
+			{
+				type: "carousel",
+				perView: 1,
+				gap: 16,
+				autoplay: 5000,
+				hoverpause: true,
+				animationDuration: 1200,
+			}
+		)
+			.mount();
+
+		const current = document.getElementById("carousel-current");
+		const total = document.getElementById("carousel-total");
+
+		total.textContent = carousel._c.Html.slides.length.toString();
+		current.textContent = (carousel.index + 1).toString();
+
+		carousel.on(
+			"move",
+			function () {
+				current.textContent = (carousel.index + 1).toString();
+			}
+		);
+		// CAROUSEL END
+	}
+
+	function openMap(type) {
+		let scheme;
+		let fallback;
+
+		switch (type) {
+			case "t-map":
+				scheme = "tmap://route"
+					+ "?goaly=" + encodeURIComponent(LATITUDE)
+					+ "&goalx=" + encodeURIComponent(LONGITUDE)
+					+ "&goalname=" + encodeURIComponent(PLACE_NAME);
+
+				new Native.App({
+					android: {
+						scheme: scheme,
+						package: "com.skt.tmap.ku",
+					},
+					ios: {
+						scheme: scheme,
+						trackId: "431589174",
+					}
+				})
+                    .run();
+				break;
+			case "naver-map":
+				scheme = "nmap://navigation"
+					+ "?dlat=" + encodeURIComponent(LATITUDE)
+					+ "&dlng=" + encodeURIComponent(LONGITUDE)
+					+ "&dname=" + encodeURIComponent(PLACE_NAME)
+                    + "&appname=" + encodeURIComponent(location.origin);
+
+				fallback = "http://map.naver.com/index.nhn"
+					+ "?elat=" + encodeURIComponent(LATITUDE)
+					+ "&elng=" + encodeURIComponent(LONGITUDE)
+					+ "&etext=" + encodeURIComponent(PLACE_NAME)
+					+ "&menu=" + encodeURIComponent("route")
+					+ "&pathType=" + encodeURIComponent("0");
+
+				new Native.App({
+					android: {
+						scheme: scheme,
+						package: "com.nhn.android.nmap",
+					},
+					ios: {
+						scheme: scheme,
+						trackId: "311867728",
+					},
+					windows: {
+						fallback: fallback
+                    },
+					mac: {
+						fallback: fallback
+                    }
+				})
+					.run();
+				break;
+			case "kakao-map":
+				scheme = "kakaomap://route"
+					+ "?ep=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
+					+ "&by=" + encodeURIComponent("CAR");
+
+				fallback = "https://map.kakao.com/link/to/"
+                    + encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE);
+
+				new Native.App({
+					android: {
+						scheme: scheme,
+						package: "net.daum.android.map",
+					},
+					ios: {
+						scheme: scheme,
+						trackId: "304608425",
+					},
+					windows: {
+						fallback: fallback
+					},
+					mac: {
+						fallback: fallback
+					}
+				})
+					.run();
+				break;
+			case "kakao-navi":
+				Kakao.Navi.start({
+					name: PLACE_NAME,
+					x: LONGITUDE,
+					y: LATITUDE,
+					coordType: "wgs84",
+				});
+				break;
+			case "google-map":
+				scheme = "comgooglemaps://"
+					+ "?q=" + encodeURIComponent(PLACE_NAME)
+					+ "&center=" + encodeURIComponent(LATITUDE + "," + LONGITUDE);
+
+				fallback = "https://www.google.co.kr/maps/dir//"
+					+ encodeURIComponent(PLACE_ADDRESS + " " + PLACE_NAME);
+
+				new Native.App({
+					android: {
+						fallback: "google.navigation:q=" + encodeURIComponent(PLACE_NAME),
+					},
+					ios: {
+						scheme: scheme,
+						trackId: "585027354",
+					},
+					windows: {
+						fallback: fallback
+					},
+					mac: {
+						fallback: fallback
+					}
+				})
+					.run();
+				break;
+			case "apple-map":
+				scheme = "maps://"
+					+ "?daddr=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
+					+ "&dirflg=" + encodeURIComponent("d");
+
+				new Native.App({
+					ios: {
+						scheme: scheme,
+					},
+					mac: {
+						scheme: scheme,
+					}
+				})
+					.run();
+				break;
+		}
+	}
+
+	function createSchedule(closeBrowser = false) {
+		let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
+
+		if (!kakaoAccessToken) {
+			init();
+		} else {
+			create();
+		}
+
+		function fetchWithAuthRetry(input, options) {
+			return fetch(input, options).then(async (response) => {
+				if (response.status === 401) {
+					localStorage.removeItem("kakaoAccessToken");
+					kakaoAccessToken = null;
+					init();
+				}
+				return response;
+			});
+		}
+
+		function init() {
+			const search = new URLSearchParams(location.search);
+			const clientId = encodeURIComponent("7c29ec39d56410088e1ba66176d61b4b");
+			const redirectURI = encodeURIComponent(location.origin + location.pathname + "?mode=schedule");
+
+			if (search.has("code")) {
+				const grantType = encodeURIComponent("authorization_code");
+				const code = search.get("code");
+
+				window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + "?mode=schedule" + location.hash);
+
+				fetch(
+					"https://kauth.kakao.com/oauth/token"
+					+ "?grant_type=" + grantType
+					+ "&client_id=" + clientId
+					+ "&redirect_uri=" + redirectURI
+					+ "&code=" + code,
+					{
+						method: "POST"
+					}
+				)
+					.then(response => response.json())
+					.then(response => {
+						localStorage.setItem("kakaoAccessToken", kakaoAccessToken = response.access_token);
+						createSchedule();
+					});
+			} else {
+				const responseType = encodeURIComponent("code");
+				const scope = encodeURIComponent("talk_calendar");
+
+				location.href = "https://kauth.kakao.com/oauth/authorize"
+					+ "?client_id=" + clientId
+					+ "&redirect_uri=" + redirectURI
+					+ "&response_type=" + responseType
+					+ "&scope=" + scope;
+			}
+		}
+
+		function create() {
+			const body = {
+				title: META_TITLE,
+				time: {
+					start_at: WEDDING_DATE_TIME_START_ISO_STRING,
+					end_at: WEDDING_DATE_TIME_END_ISO_STRING,
+					time_zone: TIMEZONE,
+					all_day: false,
+					lunar: false
+				},
+				description: GROOM + "❤️" + BRIDE + " 결혼식",
+				location: {
+					name: PLACE_NAME,
+					location_id: 24250591,
+					address: PLACE_ADDRESS,
+					latitude: LATITUDE,
+					longitude: LONGITUDE
+				},
+				reminders: [60, 120],
+				color: "PINK"
+			};
+
+			fetchWithAuthRetry(
+				"https://kapi.kakao.com/v2/api/calendar/events"
+				+ "?from=" + encodeURIComponent(WEDDING_DATE_TIME_START_ISO_STRING)
+				+ "&to=" + encodeURIComponent(WEDDING_DATE_TIME_END_ISO_STRING),
+				{
+					headers: {
+						"Authorization": "Bearer " + kakaoAccessToken,
+					}
+				}
+			)
+				.then(response => response.json())
+				.then(response => {
+					const matched = response.events.find(e => e.title === body.title);
+
+					if (!matched) {
+						const bodyString = JSON.stringify(body);
+
+						return fetchWithAuthRetry(
+							"https://kapi.kakao.com/v2/api/calendar/create/event",
+							{
+								method: "POST",
+								headers: {
+									"Authorization": "Bearer " + kakaoAccessToken,
+									"Content-Type": "application/x-www-form-urlencoded"
+								},
+								body: "event=" + encodeURIComponent(bodyString),
+							}
+						)
+							.then(response => response.json())
+							.then(response => onsuccess(response.event_id));
+					} else {
+						return onsuccess(matched.id);
+					}
+				});
+		}
+
+		function onsuccess(id) {
+			window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
+
+			return fetchWithAuthRetry(
+				"https://kapi.kakao.com/v2/api/calendar/event"
+				+ "?event_id=" + encodeURIComponent(id),
+				{
+					headers: {
+						"Authorization": "Bearer " + kakaoAccessToken,
+					}
+				}
+			)
+				.then(response => response.json())
+				.then(() => {
+					if (closeBrowser) {
+						location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
+						closeKakaoTalkInAppBrowser();
+					} else {
+						history.pushState({}, "", "#" + window.scrollY.toString());
+						alert("일정이 등록되었습니다.");
+						location.reload();
+					}
+				});
+		}
+	}
+
+	function closeKakaoTalkInAppBrowser() {
+		if (wv !== "kakao") return;
+		if (Native.OS.name === "iOS") return location.href = "kakaoweb://closeBrowser";
+		return location.href = "kakaotalk://inappbrowser/close";
+	}
+
+	function doShareKakaoTalk() {
+		Kakao.Share.sendDefault({
+			objectType: "feed",
+			content: {
+				title: "자세히 보기",
+				description: "https://pjy0509.github.io/invitation",
+				imageUrl: "https://raw.githubusercontent.com/pjy0509/pjy0509.github.io/refs/heads/main/invitation/assets/images/i0.jpg",
+				link: {
+					mobileWebUrl: "https://pjy0509.github.io/invitation",
+					webUrl: "https://pjy0509.github.io/invitation",
+				},
+			},
+			itemContent: {
+				profileText: META_TITLE,
+			},
+			buttons: [
+				{
+					title: "찾아오는 길",
+					link: {
+						mobileWebUrl: "https://pjy0509.github.io/invitation?mode=route",
+						webUrl: "https://pjy0509.github.io/invitation?mode=route",
+					},
+				},
+				{
+					title: "일정 등록",
+					link: {
+						mobileWebUrl: "https://pjy0509.github.io/invitation?mode=schedule",
+						webUrl: "https://pjy0509.github.io/invitation?mode=schedule",
+					},
+				}
+			],
+		});
+    }
+
+	function showAlert(id) {
+		const alert = document.querySelector("[data-alert-id=" + id + "]");
+
+		alert.classList.add("show");
+		alert.firstElementChild.onscroll = () => alert.dataset.scroll = alert.firstElementChild.scrollTop.toString();
+		history.pushState({}, "", "#" + window.scrollY.toString());
+	}
+
+	function closeAlert(id) {
+		const alert = document.querySelector("[data-alert-id=" + id + "]");
+
+		alert.classList.remove("show");
+		history.pushState({}, "", "#");
+	}
+
+	history.pushState(null, null, document.URL);
+	window.addEventListener("popstate", function () {
+		const shownAlert = document.querySelector("[data-alert-id].show");
+
+		if (shownAlert) {
+			history.pushState(null, null, document.URL);
+			shownAlert.classList.remove("show");
+		}
+	});
+
+	const targets = document.querySelectorAll('[data-transaction]');
+
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting && entry.intersectionRect.height >= Math.min(250, entry.target.clientHeight)) entry.target.classList.add("show");
+			else if (!entry.isIntersecting) entry.target.classList.remove("show");
+		});
+	}, {
+		threshold: Array.from({length: 21}, (_, i) => i * 0.05)
+	});
+
+	targets.forEach(el => observer.observe(el));
 </script>
+</body>
 </html>
