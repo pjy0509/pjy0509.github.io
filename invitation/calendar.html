@@ -52,83 +52,102 @@
 <body>
 <script type="text/javascript">
     window.onload = function () {
-        const search = new URLSearchParams(location.search);
-        const clientId = encodeURIComponent("7c29ec39d56410088e1ba66176d61b4b");
-        const redirectURI = encodeURIComponent("https://pjy0509.github.io/invitation/calendar");
+        createSchedule();
+    }
 
-        if (search.has("code")) {
-            const grantType = encodeURIComponent("authorization_code");
-            const code = search.get("code");
-            const url = location.protocol + "//" + location.host + location.pathname + location.hash;
-            
-            window.history.replaceState(null, '', url);
-            
-            fetch(
-                "https://kauth.kakao.com/oauth/token"
-                + "?grant_type=" + grantType 
-                + "&client_id=" + clientId 
-                + "&redirect_uri=" + redirectURI 
-                + "&code=" + code,
-                {
-                    method: "POST"
-                }
-            )
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (response) {
-                const accessToken = response.access_token;
-                const body = JSON.stringify({
-                    "title": "박준영❤️최영은 결혼식",
-                    "time": {
-                        "start_at": "2025-08-31T03:20:00Z",
-                        "end_at": "2025-08-31T04:30:00Z",
-                        "time_zone": "Asia/Seoul",
-                        "all_day": false,
-                        "lunar": false
-                    },
-                    "description": "2025년 8월 31일 일요일 웨딩그룹위더스 영등포",
-                    "location": {
-                        "name": "웨딩그룹위더스 영등포",
-                        "location_id": 24250591,
-                        "address": "서울 영등포구 영중로 55",
-                        "latitude": 37.5213713,
-                        "longitude": 126.9044943
-                    },
-                    "reminders": [
-                        60,
-                        120
-                    ],
-                    "color": "RED"
-                });
+    function createSchedule() {
+        let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
+        
+        if (kakaoAccessToken != null) {
+            initKakao();
+        } else {
+            createSchedule();
+        }
+
+        function initKakao() {
+            const search = new URLSearchParams(location.search);
+            const clientId = encodeURIComponent("7c29ec39d56410088e1ba66176d61b4b");
+            const redirectURI = encodeURIComponent("https://pjy0509.github.io/invitation/calendar");
+    
+            if (search.has("code")) {
+                const grantType = encodeURIComponent("authorization_code");
+                const code = search.get("code");
+                const url = location.protocol + "//" + location.host + location.pathname + location.hash;
+                
+                window.history.replaceState(null, '', url);
                 
                 fetch(
-                    "https://kapi.kakao.com/v2/api/calendar/create/event",
+                    "https://kauth.kakao.com/oauth/token"
+                    + "?grant_type=" + grantType 
+                    + "&client_id=" + clientId 
+                    + "&redirect_uri=" + redirectURI 
+                    + "&code=" + code,
                     {
-                        method: "POST",
-                        headers : {
-                            "Authorization" : "Bearer " + accessToken,
-                            "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                        body: "event=" + encodeURIComponent(body),
+                        method: "POST"
                     }
                 )
-                    .then(function (response) {
-                        return response.json();
-                    })
-                    .then(function (response) {
-                        console.log(response);
-                    });
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (response) {
+                    localStorage.setItem("kakaoAccessToken", kakaoAccessToken = response.access_token);
+
+                    createSchedule();
+                });
+            } else {
+                const responseType = encodeURIComponent("code");
+                const scope = encodeURIComponent("talk_calendar");
+                
+                location.href = "https://kauth.kakao.com/oauth/authorize" 
+                    + "?client_id=" + clientId 
+                    + "&redirect_uri=" + redirectURI 
+                    + "&response_type=" + responseType 
+                    + "&scope=" + scope;
+            }
+        }
+
+        function createSchedule() {
+            const body = JSON.stringify({
+                "title": "박준영❤️최영은 결혼식",
+                "time": {
+                    "start_at": "2025-08-31T03:20:00Z",
+                    "end_at": "2025-08-31T04:30:00Z",
+                    "time_zone": "Asia/Seoul",
+                    "all_day": false,
+                    "lunar": false
+                },
+                "description": "2025년 8월 31일 일요일 웨딩그룹위더스 영등포",
+                "location": {
+                    "name": "웨딩그룹위더스 영등포",
+                    "location_id": 24250591,
+                    "address": "서울 영등포구 영중로 55",
+                    "latitude": 37.5213713,
+                    "longitude": 126.9044943
+                },
+                "reminders": [
+                    60,
+                    120
+                ],
+                "color": "RED"
             });
-        } else {
-            const responseType = encodeURIComponent("code");
-            const scope = encodeURIComponent("talk_calendar");
             
-            location.href = "https://kauth.kakao.com/oauth/authorize" 
-                + "?client_id=" + clientId 
-                + "&redirect_uri=" + redirectURI 
-                + "&response_type=" + responseType 
-                + "&scope=" + scope;
+            fetch(
+                "https://kapi.kakao.com/v2/api/calendar/create/event",
+                {
+                    method: "POST",
+                    headers : {
+                        "Authorization" : "Bearer " + kakaoAccessToken,
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: "event=" + encodeURIComponent(body),
+                }
+            )
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (response) {
+                    console.log(response);
+                });
         }
     }
 </script>
