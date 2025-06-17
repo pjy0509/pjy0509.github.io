@@ -989,8 +989,9 @@
         )
         .then(response => response.json())
         .then(response => {
-            console.log("📅 Event Detail:", response);
-		showAlert("schedule");
+            // console.log("📅 Event Detail:", response);
+		// showAlert("schedule");
+		location.href = "kakaotalk://calendar";
         });
     }
 }
