@@ -59,12 +59,12 @@
         let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
         
         if (kakaoAccessToken != null) {
-            initKakao();
+            init();
         } else {
-            createSchedule();
+            create();
         }
 
-        function initKakao() {
+        function init() {
             const search = new URLSearchParams(location.search);
             const clientId = encodeURIComponent("7c29ec39d56410088e1ba66176d61b4b");
             const redirectURI = encodeURIComponent("https://pjy0509.github.io/invitation/calendar");
@@ -106,8 +106,10 @@
             }
         }
 
-        function createSchedule() {
-            const body = JSON.stringify({
+        function create() {
+            const startAt = "2025-08-31T03:20:00Z";
+            const endAt = "2025-08-31T04:30:00Z";
+            const body = {
                 "title": "박준영❤️최영은 결혼식",
                 "time": {
                     "start_at": "2025-08-31T03:20:00Z",
@@ -129,24 +131,49 @@
                     120
                 ],
                 "color": "RED"
-            });
+            };
             
             fetch(
-                "https://kapi.kakao.com/v2/api/calendar/create/event",
+                "https://kapi.kakao.com/v2/api/calendar/events" 
+                + "?from=" + encodeURIComponent(startAt) 
+                + "&to=" + encodeURIComponent(endAt),
                 {
-                    method: "POST",
                     headers : {
                         "Authorization" : "Bearer " + kakaoAccessToken,
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: "event=" + encodeURIComponent(body),
+                    }
                 }
             )
                 .then(function (response) {
                     return response.json();
                 })
                 .then(function (response) {
-                    console.log(response);
+                    const duplicated = response.events.findIndex(function (event) {
+                        return event.title === body.title;
+                    }) !== -1;
+
+                    if (!duplicated) {
+                        const bodyString = JSON.stringify(body);
+                
+                        fetch(
+                            "https://kapi.kakao.com/v2/api/calendar/create/event",
+                            {
+                                method: "POST",
+                                headers : {
+                                    "Authorization" : "Bearer " + kakaoAccessToken,
+                                    "Content-Type": "application/x-www-form-urlencoded"
+                                },
+                                body: "event=" + encodeURIComponent(bodyString),
+                            }
+                        )
+                            .then(function (response) {
+                                return response.json();
+                            })
+                            .then(function (response) {
+                                console.log(response.event_id);
+                            });
+                    } else {
+                        console.log(response.events[0].id);
+                    }
                 });
         }
     }
