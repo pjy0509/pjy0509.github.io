@@ -261,56 +261,32 @@
     </div>
 </div>
 
-<!--<div data-alert-id="navigation" onclick="closeAlert(this.dataset.alertId)">-->
-<!--    <div class="item-container" onclick="event.stopPropagation()">-->
-<!--        <div class="alert-header">-->
-<!--            <button class="alert-close" onclick="closeAlert(this.closest('[data-alert-id]').dataset.alertId)"></button>-->
+<div data-alert-id="schedule" onclick="closeAlert(this.dataset.alertId)">
+    <div class="item-container" onclick="event.stopPropagation()">
+        <div class="alert-header">
+            <button class="alert-close" onclick="closeAlert(this.closest('[data-alert-id]').dataset.alertId)"></button>
 
-<!--            <div class="item-alert-title">-->
-<!--                찾아오시는 길-->
-<!--            </div>-->
-<!--        </div>-->
+            <div class="item-alert-title">
+                찾아오시는 길
+            </div>
+        </div>
 
-<!--        <div class="alert-content">-->
-<!--            <div class="driver shiny"></div>-->
+        <div class="alert-content">
+            <div class="driver shiny"></div>
 
-<!--            <div class="item-alert-subtitle">-->
-<!--                웨딩그룹위더스 영등포-->
-<!--            </div>-->
+            <div class="item-alert-subtitle">
+                일정 등록
+            </div>
 
-<!--            <div class="item-alert-description">-->
-<!--                서울 영등포구 영중로 55-->
-<!--            </div>-->
+            <div class="item-alert-description">
+                서울 영등포구 영중로 55
+            </div>
 
-<!--            <div class="item-navigation">-->
-<!--                <button data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">-->
-<!--                    <img src="assets/images/icon_navermap.png" alt=""/>-->
-<!--                    네이버 지도-->
-<!--                </button>-->
-<!--                <button data-map-type="kakao-map" onclick="openMap(this.dataset.mapType)">-->
-<!--                    <img src="assets/images/icon_kakaomap.png" alt=""/>-->
-<!--                    카카오 맵-->
-<!--                </button>-->
-<!--                <button data-map-type="kakao-navi" onclick="openMap(this.dataset.mapType)">-->
-<!--                    <img src="assets/images/icon_kakaonavi.png" alt=""/>-->
-<!--                    카카오 내비-->
-<!--                </button>-->
-<!--                <button data-map-type="t-map" onclick="openMap(this.dataset.mapType)">-->
-<!--                    <img src="assets/images/icon_tmap.png" alt=""/>-->
-<!--                    티 맵-->
-<!--                </button>-->
-<!--                <button data-map-type="google-map" onclick="openMap(this.dataset.mapType)">-->
-<!--                    <img src="assets/images/icon_googlemap.png" alt=""/>-->
-<!--                    구글 맵-->
-<!--                </button>-->
-<!--                <button data-map-type="apple-map" onclick="openMap(this.dataset.mapType)">-->
-<!--                    <img src="assets/images/icon_applemap.png" alt=""/>-->
-<!--                    지도-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <a id="kakaotalk-sharing-btn" href="javascript:;">
     <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
@@ -959,15 +935,20 @@
                             .then(function (response) {
                                 console.log(response.event_id);
                 
-                		window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
+			    onsuccess();
                             });
                     } else {
                         console.log(response.events[0].id);
-                
-                	window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
+
+			    onsuccess();
                     }
                 });
         }
+
+	    function onsuccess() {
+		    showAlert("schedule");
+                	window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
+	    }
     }
 
 	function showAlert(id) {
