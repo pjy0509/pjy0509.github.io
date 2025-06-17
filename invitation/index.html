@@ -830,8 +830,8 @@
     }
 
     function fetchWithAuthRetry(input, options) {
-        return fetch(input, options).then(async (res) => {
-            if (res.status === 401) {
+        return fetch(input, options).then(async (response) => {
+            if (response.status === 401) {
                 localStorage.removeItem("kakaoAccessToken");
                 kakaoAccessToken = null;
                 init();
@@ -861,9 +861,9 @@
                     method: "POST"
                 }
             )
-            .then(res => res.json())
-            .then(res => {
-                localStorage.setItem("kakaoAccessToken", kakaoAccessToken = res.access_token);
+            .then(response => response.json())
+            .then(response => {
+                localStorage.setItem("kakaoAccessToken", kakaoAccessToken = response.access_token);
                 createSchedule();
             });
         } else {
@@ -912,9 +912,9 @@
                 }
             }
         )
-        .then(res => res.json())
-        .then(res => {
-            const matched = res.events.find(e => e.title === body.title);
+        .then(response => response.json())
+        .then(response => {
+            const matched = response.events.find(e => e.title === body.title);
 
             if (!matched) {
                 const bodyString = JSON.stringify(body);
@@ -930,8 +930,8 @@
                         body: "event=" + encodeURIComponent(bodyString),
                     }
                 )
-                .then(res => res.json())
-                .then(res => onsuccess(res.event_id));
+                .then(response => response.json())
+                .then(response => onsuccess(response.event_id));
             } else {
                 return onsuccess(matched.id);
             }
@@ -948,9 +948,9 @@
                 }
             }
         )
-        .then(res => res.json())
-        .then(res => {
-            console.log("📅 Event Detail:", res);
+        .then(response => response.json())
+        .then(response => {
+            console.log("📅 Event Detail:", response);
 		showAlert("schedule");
         });
     }
