@@ -109,6 +109,13 @@
 
             <div class="driver"></div>
 
+            <div class="button-list">
+                <button class="button" data-map-type="kakao-talkcalendar" onclick="createSchedule()">
+                    <img src="assets/images/icon_kakaotalkcalendar.png" alt=""/>
+                    일정 등록하기
+                </button>
+            </div>
+
             <div class="item-calendar" id="calendar">
             </div>
 
@@ -216,45 +223,34 @@
                 </div>
             </div>
 
-            <div class="item-navigation">
-                <button data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">
-                    <img src="assets/images/icon_navermap.png" alt=""/>
-                    네이버 지도
-                </button>
-                <button data-map-type="kakao-map" onclick="openMap(this.dataset.mapType)">
-                    <img src="assets/images/icon_kakaomap.png" alt=""/>
-                    카카오 맵
-                </button>
-                <button data-map-type="kakao-navi" onclick="openMap(this.dataset.mapType)">
-                    <img src="assets/images/icon_kakaonavi.png" alt=""/>
-                    카카오 내비
-                </button>
-                <button data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
-                    <img src="assets/images/icon_tmap.png" alt=""/>
-                    티 맵
-                </button>
-                <button data-map-type="google-map" onclick="openMap(this.dataset.mapType)">
-                    <img src="assets/images/icon_googlemap.png" alt=""/>
-                    구글 맵
-                </button>
-                <button data-map-type="apple-map" onclick="openMap(this.dataset.mapType)">
-                    <img src="assets/images/icon_applemap.png" alt=""/>
-                    지도
-                </button>
+            <div class="item-routes">
+                <div class="button-grid">
+                    <button class="button" data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_navermap.png" alt=""/>
+                        네이버 지도
+                    </button>
+                    <button class="button" data-map-type="kakao-map" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_kakaomap.png" alt=""/>
+                        카카오 맵
+                    </button>
+                    <button class="button" data-map-type="kakao-navi" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_kakaonavi.png" alt=""/>
+                        카카오 내비
+                    </button>
+                    <button class="button" data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_tmap.png" alt=""/>
+                        티 맵
+                    </button>
+                    <button class="button" data-map-type="google-map" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_googlemap.png" alt=""/>
+                        구글 맵
+                    </button>
+                    <button class="button" data-map-type="apple-map" onclick="openMap(this.dataset.mapType)">
+                        <img src="assets/images/icon_applemap.png" alt=""/>
+                        지도
+                    </button>
+                </div>
             </div>
-
-            <!--            <button class="item-button" onclick="showAlert('navigation')">-->
-            <!--                <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-            <!--                    <g>-->
-            <!--                        <path fill-rule="evenodd" clip-rule="evenodd"-->
-            <!--                              d="M5.27097 8.214C6.02074 6.312 6.92262 5 8.96427 5H14.4369C16.4766 5 17.3795 6.312 18.1302 8.214L18.88 10.249C19.4387 10.2559 19.9519 10.5661 20.2284 11.064C20.3911 11.3476 20.4763 11.6709 20.4751 12V14.624C20.4824 15.2367 20.1808 15.8098 19.6776 16.14C19.4382 16.2929 19.162 16.3739 18.88 16.374H4.52022C4.23827 16.3739 3.96199 16.2929 3.72267 16.14C3.21939 15.8098 2.91786 15.2367 2.92512 14.624V12C2.92406 11.6713 3.00927 11.3483 3.17179 11.065C3.44833 10.5671 3.96155 10.2569 4.52022 10.25L5.27097 8.214Z"-->
-            <!--                              stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>-->
-            <!--                        <path d="M6.86629 16.375C6.86629 15.9608 6.53051 15.625 6.11629 15.625C5.70208 15.625 5.36629 15.9608 5.36629 16.375H6.86629ZM6.11629 17.688H5.36629C5.36629 17.6958 5.36641 17.7036 5.36666 17.7114L6.11629 17.688ZM4.91899 19L4.89219 19.7495C4.90986 19.7502 4.92754 19.7502 4.9452 19.7496L4.91899 19ZM3.72267 17.687L4.47228 17.711C4.47254 17.703 4.47267 17.695 4.47267 17.687L3.72267 17.687ZM4.47267 16.14C4.47267 15.7258 4.13688 15.39 3.72267 15.39C3.30845 15.39 2.97267 15.7258 2.97267 16.14H4.47267ZM4.52022 9.49902C4.106 9.49902 3.77022 9.83481 3.77022 10.249C3.77022 10.6632 4.106 10.999 4.52022 10.999V9.49902ZM18.88 10.999C19.2942 10.999 19.63 10.6632 19.63 10.249C19.63 9.83481 19.2942 9.49902 18.88 9.49902V10.999ZM18.0349 16.374C18.0349 15.9598 17.6991 15.624 17.2849 15.624C16.8707 15.624 16.5349 15.9598 16.5349 16.374H18.0349ZM17.2849 17.687L18.0335 17.7336C18.0344 17.7181 18.0349 17.7026 18.0349 17.687H17.2849ZM17.8602 18.8173L18.2561 18.1803L18.2561 18.1803L17.8602 18.8173ZM19.1033 18.8173L18.7074 18.1803L18.7074 18.1803L19.1033 18.8173ZM19.6785 17.687H18.9285C18.9285 17.7026 18.929 17.7181 18.93 17.7336L19.6785 17.687ZM20.4285 16.14C20.4285 15.7258 20.0928 15.39 19.6785 15.39C19.2643 15.39 18.9285 15.7258 18.9285 16.14H20.4285ZM5.85012 12.75C5.4359 12.75 5.10012 13.0858 5.10012 13.5C5.10012 13.9142 5.4359 14.25 5.85012 14.25V12.75ZM6.82512 14.25C7.23933 14.25 7.57512 13.9142 7.57512 13.5C7.57512 13.0858 7.23933 12.75 6.82512 12.75V14.25ZM16.5751 12.75C16.1609 12.75 15.8251 13.0858 15.8251 13.5C15.8251 13.9142 16.1609 14.25 16.5751 14.25V12.75ZM17.5501 14.25C17.9643 14.25 18.3001 13.9142 18.3001 13.5C18.3001 13.0858 17.9643 12.75 17.5501 12.75V14.25ZM5.36629 16.375V17.688H6.86629V16.375H5.36629ZM5.36666 17.7114C5.37622 18.0175 5.14582 18.2416 4.89278 18.2505L4.9452 19.7496C6.05927 19.7106 6.90017 18.7608 6.86593 17.6646L5.36666 17.7114ZM4.94579 18.2505C4.69273 18.2415 4.46248 18.0171 4.47228 17.711L2.97305 17.663C2.93793 18.7592 3.77813 19.7097 4.89219 19.7495L4.94579 18.2505ZM4.47267 17.687V16.14H2.97267V17.687H4.47267ZM4.52022 10.999H18.88V9.49902H4.52022V10.999ZM16.5349 16.374V17.687H18.0349V16.374H16.5349ZM16.5364 17.6404C16.4912 18.3667 16.8425 19.0678 17.4642 19.4543L18.2561 18.1803C18.1138 18.0919 18.0217 17.9219 18.0335 17.7336L16.5364 17.6404ZM17.4642 19.4543C18.0887 19.8424 18.8747 19.8424 19.4992 19.4543L18.7074 18.1803C18.5678 18.2671 18.3957 18.2671 18.2561 18.1803L17.4642 19.4543ZM19.4992 19.4543C20.121 19.0678 20.4723 18.3667 20.4271 17.6404L18.93 17.7336C18.9417 17.9219 18.8497 18.0919 18.7074 18.1803L19.4992 19.4543ZM20.4285 17.687V16.14H18.9285V17.687H20.4285ZM5.85012 14.25H6.82512V12.75H5.85012V14.25ZM16.5751 14.25H17.5501V12.75H16.5751V14.25Z"-->
-            <!--                              fill="#000000"></path>-->
-            <!--                    </g>-->
-            <!--                </svg>-->
-            <!--                찾아오시는 길-->
-            <!--            </button>-->
         </div>
 
         <div class="driver shiny"></div>
@@ -265,7 +261,7 @@
             </div>
 
             <div class="item-subtitle">
-		    연락처
+                연락처
             </div>
 
             <div class="item-description">
@@ -291,6 +287,12 @@
             </div>
 
             <div class="padding rem2"></div>
+        </div>
+
+        <div class="button-list">
+            <button class="button" data-map-type="kakao-talkcalendar" onclick="doShareKakaoTalk()">
+                공유하기
+            </button>
         </div>
     </div>
 </div>
@@ -318,47 +320,99 @@
     </div>
 </div>
 
-<a id="kakaotalk-sharing-btn" href="javascript:;">
-    <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-         alt="카카오톡 공유 보내기 버튼"/>
-</a>
+<div class="item-container" data-fullscreen="route">
+    <div class="padding rem2"></div>
 
-<script>
-	Kakao.Share.createDefaultButton({
-		container: "#kakaotalk-sharing-btn",
-		// objectType: "calendar",
-		// idType: "event",
-		// id: "6850bd344d8e4404f0153399",
-		objectType: "feed",
-		content: {
-			title: "박준영❤️최영은 결혼합니다",
-			description: "2025년 8월 31일 일요일 웨딩그룹위더스 영등포",
-			imageUrl: "https://raw.githubusercontent.com/pjy0509/pjy0509.github.io/refs/heads/main/invitation/assets/images/i0.jpg",
-			link: {
-				mobileWebUrl: "https://pjy0509.github.io/invitation",
-				webUrl: "https://pjy0509.github.io/invitation",
-			},
-		},
-		buttons: [
-			{
-				title: '자세히 보기',
-		        	link: {
-					mobileWebUrl: "https://pjy0509.github.io/invitation",
-					webUrl: "https://pjy0509.github.io/invitation",
-				},
-			},
-			{
-				title: '일정 등록',
-		        	link: {
-					mobileWebUrl: "https://pjy0509.github.io/invitation?mode=schedule",
-					webUrl: "https://pjy0509.github.io/invitation?mode=schedule",
-				},
-			}
-		    ],
-	});
-</script>
+    <div class="item-title">
+        LOCATION
+    </div>
+
+    <div class="item-subtitle">
+        웨딩그룹위더스 영등포
+    </div>
+
+    <div class="item-description">
+        서울 영등포구 영중로 55
+    </div>
+
+    <div class="padding rem2"></div>
+
+    <div class="item-location">
+        <div id="daumRoughmapContainer1750165976255" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
+    </div>
+
+    <div class="item-park">
+        <strong>주차장</strong>
+
+        <div>
+            <strong>건물 주차장</strong>
+            주차 수용 대수: 600<br/>
+            무료: 2시간<br/>
+            유료: 500원 / 10분<br/>
+        </div>
+
+        <div>
+            <strong>영남 주차장</strong>
+            주차 수용 대수: 570<br/>
+            무료: 0시간<br/>
+            유료: 160원 / 5분<br/>
+        </div>
+    </div>
+
+    <div class="item-routes">
+        <div class="button-grid">
+            <button class="button" data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_navermap.png" alt=""/>
+                네이버 지도
+            </button>
+            <button class="button" data-map-type="kakao-map" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_kakaomap.png" alt=""/>
+                카카오 맵
+            </button>
+            <button class="button" data-map-type="kakao-navi" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_kakaonavi.png" alt=""/>
+                카카오 내비
+            </button>
+            <button class="button" data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_tmap.png" alt=""/>
+                티 맵
+            </button>
+            <button class="button" data-map-type="google-map" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_googlemap.png" alt=""/>
+                구글 맵
+            </button>
+            <button class="button" data-map-type="apple-map" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_applemap.png" alt=""/>
+                지도
+            </button>
+        </div>
+    </div>
+
+    <div class="padding rem2"></div>
+</div>
+
+<div class="item-container" data-fullscreen="schedule">
+</div>
 
 <script type="text/javascript">
+    // CONSTANT BEGIN
+    const LATITUDE = "37.5213713";
+	const LONGITUDE = "126.9044943";
+	const PLACE_NAME = "웨딩그룹위더스 영등포";
+	const PLACE_ADDRESS = "서울 영등포구 영중로 55";
+	const TIMEZONE = "Asia/Seoul";
+	const WEDDING_DATE_TIME_START_ISO_STRING = "2025-08-31T03:20:00Z";
+	const WEDDING_DATE_TIME_END_ISO_STRING = "2025-08-31T04:30:00Z";
+	const WEDDING_DATE_ISO_STRING = "2025-08-31";
+	const WEDDING_DATE_TIME_START = new Date(WEDDING_DATE_TIME_START_ISO_STRING);
+	const WEDDING_DATE_TIME_END = new Date(WEDDING_DATE_TIME_END_ISO_STRING);
+	const WEDDING_DATE = new Date(WEDDING_DATE_ISO_STRING);
+	const GROOM = "박준영";
+    const BRIDE = "최영은";
+	const META_TITLE = document.querySelector("meta[property=\"og:title\"]").content;
+	const META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
+    // CONSTANT END
+
 	const userAgent = navigator.userAgent;
 	let wv = "";
 
@@ -369,39 +423,46 @@
 		if (removeHash) history.pushState({}, "", "#");
 	}
 
-	document.querySelector(".item-intro").style.height = window.outerHeight + "px";
-	document.body.dataset.osName = Native.OS.name;
-	document.onscroll = function () {
-		document.body.dataset.scroll = window.scrollY.toString();
-	}
-
-	if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = wv = "kakao";
-
-	syncScrollY();
-	document.onreadystatechange = function () {
-		syncScrollY();
-	}
-
 	const search = new URLSearchParams(location.search);
-	
-	if (search.has("mode")) {
-		document.body.style.display = "none";
-		
-		const mode = search.get("mode");
-		
-		if (mode === "schedule") {
-			createSchedule();
-		}
-	}
+	const isMode = search.has("mode");
 
-	window.onload = async function () {
-		syncScrollY(true);
-		
-		initTsparticle();
-		initCalendar();
-		initCarousel();
-		initWeather();
-	};
+	if (isMode) {
+		const mode = search.get("mode");
+
+		document.querySelector("[data-fullscreen=\"" + mode + "\"]").classList.add("show");
+
+		if (mode === "schedule") {
+			createSchedule(true);
+		}
+
+		if (mode === "route") {
+			new daum.roughmap.Lander({
+				"timestamp" : "1750165976255",
+				"key" : "3pycungqfsg",
+				"mapWidth" : "360",
+				"mapHeight" : "240"
+			}).render();
+		}
+	} else {
+		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
+		document.body.dataset.osName = Native.OS.name;
+
+		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = wv = "kakao";
+
+		syncScrollY();
+		document.onreadystatechange = function () {
+			syncScrollY();
+		}
+
+		window.onload = async function () {
+			syncScrollY(true);
+
+			initTsparticle();
+			initCalendar();
+			initCarousel();
+			initWeather();
+		};
+    }
 
 	function initTsparticle() {
 		loadImageShape(tsParticles)
@@ -596,21 +657,20 @@
 
 	function initCalendar() {
 		// TIMER BEGIN
-		const target = new Date("2025-08-31 12:20:00");
 		const components = [document.getElementById("remain-date"), document.getElementById("days"), document.getElementById("hours"), document.getElementById("minutes"), document.getElementById("seconds")];
 		const calendar = document.getElementById("calendar");
 
 		calendar.innerHTML = "";
 
-		const startDay = new Date(target.getFullYear(), target.getMonth()).getDay();
-		const lastDate = new Date(target.getFullYear(), target.getMonth() + 1, 0).getDate();
-		const targetDate = target.getDate();
+		const startDay = new Date(WEDDING_DATE_TIME_START.getFullYear(), WEDDING_DATE_TIME_START.getMonth()).getDay();
+		const lastDate = new Date(WEDDING_DATE_TIME_START.getFullYear(), WEDDING_DATE_TIME_START.getMonth() + 1, 0).getDate();
+		const targetDate = WEDDING_DATE_TIME_START.getDate();
 		const grid = document.createElement("div");
 
 		['일', '월', '화', '수', '목', '금', '토'].forEach(d => {
 			const weekday = document.createElement("div");
 			const el = document.createElement("p");
-			
+
 			el.innerText = d;
 			weekday.appendChild(el);
 			grid.appendChild(weekday);
@@ -621,9 +681,9 @@
 		for (let d = 1; d <= lastDate; d++) {
 			const day = document.createElement("div");
 			const el = document.createElement("p");
-			
+
 			if (d === targetDate) day.id = "target";
-			
+
 			el.innerText = d.toString();
 			day.appendChild(el);
 			grid.appendChild(day);
@@ -631,7 +691,7 @@
 
 		calendar.appendChild(grid);
 
-		const targetTimestamp = +target;
+		const targetTimestamp = +WEDDING_DATE_TIME_START;
 
 		setInterval(function () {
 			let subtract = Math.floor((targetTimestamp - Date.now()) / 1000);
@@ -651,25 +711,23 @@
 	}
 
 	function initWeather() {
-		const target = new Date("2025-08-31");
 		const components = [document.getElementById("icon"), document.getElementById("detail"), document.getElementById("temperature"), document.getElementById("apparent-temperature"), document.getElementById("precipitation-probability")];
 		const weather = document.getElementById("weather");
-		const dateString = target.getFullYear() + "-" + String(target.getMonth() + 1).padStart(2, '0') + "-" + String(target.getDate()).padStart(2, '0');
 
 		fetch(
 			"https://api.open-meteo.com/v1/forecast?"
 			+ new URLSearchParams({
-				latitude: "37.5213713",
-				longitude: "126.9044943",
+				latitude: LATITUDE,
+				longitude: LONGITUDE,
 				hourly: "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,precipitation_probability,apparent_temperature,weathercode",
-				start_date: dateString,
-				end_date: dateString,
-				timezone: "Asia/Seoul"
+				start_date: WEDDING_DATE_ISO_STRING,
+				end_date: WEDDING_DATE_ISO_STRING,
+				timezone: TIMEZONE
 			})
 		)
 			.then(response => response.json())
 			.then(data => {
-				let i = data.hourly.time.indexOf(dateString + "T12:00");
+				let i = data.hourly.time.indexOf(WEDDING_DATE_ISO_STRING + "T12:00");
 
 				if (i === -1) return;
 
@@ -726,11 +784,10 @@
 
 	function initCarousel() {
 		// CAROUSEL BEGIN
-		const carouselElement = document.querySelector(".item-carousel");
 		const carousel = new Glide(
-			".item-carousel", 
+			".item-carousel",
 			{
-				type: 'carousel',
+				type: "carousel",
 				perView: 1,
 				gap: 16,
 				autoplay: 5000,
@@ -747,7 +804,7 @@
 		current.textContent = (carousel.index + 1).toString();
 
 		carousel.on(
-			"move", 
+			"move",
 			function () {
 				current.textContent = (carousel.index + 1).toString();
 			}
@@ -756,100 +813,130 @@
 	}
 
 	function openMap(type) {
+		let scheme;
+		let fallback;
+
 		switch (type) {
 			case "t-map":
+				scheme = "tmap://route"
+					+ "?goaly=" + encodeURIComponent(LATITUDE)
+					+ "&goalx=" + encodeURIComponent(LONGITUDE)
+					+ "&goalname=" + encodeURIComponent(PLACE_NAME);
+
 				new Native.App({
-					"android": {
-						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
-						"package": "com.skt.tmap.ku",
+					android: {
+						scheme: scheme,
+						package: "com.skt.tmap.ku",
 					},
-					"ios": {
-						"scheme": "tmap://route?goaly=37.5213713&goalx=126.9044943&goalname=웨딩그룹위더스 영등포",
-						"trackId": "431589174",
+					ios: {
+						scheme: scheme,
+						trackId: "431589174",
 					}
 				})
-					.run()
-					.then(function (state) {
-						if (state === Native.App.State.Scheme && wv === "kakao") location.href = "kakaotalk://inappbrowser/close";
-					});
+                    .run();
 				break;
 			case "naver-map":
+				scheme = "nmap://navigation"
+					+ "?dlat=" + encodeURIComponent(LATITUDE)
+					+ "&dlng=" + encodeURIComponent(LONGITUDE)
+					+ "&dname=" + encodeURIComponent(PLACE_NAME)
+                    + "&appname=" + encodeURIComponent(location.origin);
+
+				fallback = "http://map.naver.com/index.nhn"
+					+ "?elat=" + encodeURIComponent(LATITUDE)
+					+ "&elng=" + encodeURIComponent(LONGITUDE)
+					+ "&etext=" + encodeURIComponent(PLACE_NAME)
+					+ "&menu=" + encodeURIComponent("route")
+					+ "&pathType=" + encodeURIComponent("0");
+
 				new Native.App({
-					"android": {
-						"scheme": "nmap://navigation?dlat=37.5213713&dlng=126.9044943&dname=웨딩그룹위더스 영등포&appname=com.example.myapp",
-						"package": "com.nhn.android.nmap",
+					android: {
+						scheme: scheme,
+						package: "com.nhn.android.nmap",
 					},
-					"ios": {
-						"scheme": "nmap://navigation?dlat=37.5213713&dlng=126.9044943&dname=웨딩그룹위더스 영등포&appname=com.example.myapp",
-						"trackId": "311867728",
+					ios: {
+						scheme: scheme,
+						trackId: "311867728",
 					},
-					"windows": {
-						"fallback": "https://map.naver.com/p/directions/-/14126958.9801519,4512033.4307908,%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC,36957673,PLACE_POI/-/car?c=15.00,0,0,0,dh"
-					},
-					"mac": {
-						"fallback": "https://map.naver.com/p/directions/-/14126958.9801519,4512033.4307908,%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC,36957673,PLACE_POI/-/car?c=15.00,0,0,0,dh"
-					}
+					windows: {
+						fallback: fallback
+                    },
+					mac: {
+						fallback: fallback
+                    }
 				})
-					.run()
-					.then(function (state) {
-						if (state === Native.App.State.Scheme && wv === "kakao") location.href = "kakaotalk://inappbrowser/close";
-					});
+					.run();
 				break;
 			case "kakao-map":
+				scheme = "kakaomap://route"
+					+ "?ep=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
+					+ "&by=" + encodeURIComponent("CAR");
+
+				fallback = "https://map.kakao.com/link/to/"
+                    + encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE);
+
 				new Native.App({
-					"android": {
-						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
-						"package": "net.daum.android.map",
+					android: {
+						scheme: scheme,
+						package: "net.daum.android.map",
 					},
-					"ios": {
-						"scheme": "kakaomap://route?ep=37.5213713,126.9044943&by=CAR",
-						"trackId": "304608425",
+					ios: {
+						scheme: scheme,
+						trackId: "304608425",
 					},
-					"windows": {
-						"fallback": "https://kko.kakao.com/j7PPZPyhS7"
+					windows: {
+						fallback: fallback
 					},
-					"mac": {
-						"fallback": "https://kko.kakao.com/j7PPZPyhS7"
+					mac: {
+						fallback: fallback
 					}
 				})
 					.run();
 				break;
 			case "kakao-navi":
 				Kakao.Navi.start({
-					name: "웨딩그룹위더스 영등포",
-					x: 126.9044943,
-					y: 37.5213713,
+					name: PLACE_NAME,
+					x: LONGITUDE,
+					y: LATITUDE,
 					coordType: "wgs84",
 				});
 				break;
 			case "google-map":
+				scheme = "comgooglemaps://"
+					+ "?q=" + encodeURIComponent(PLACE_NAME)
+					+ "&center=" + encodeURIComponent(LATITUDE + "," + LONGITUDE);
+
+				fallback = "https://www.google.co.kr/maps/dir//"
+					+ encodeURIComponent(PLACE_ADDRESS + " " + PLACE_NAME);
+
 				new Native.App({
-					"android": {
-						"fallback": "google.navigation:q=웨딩그룹위더스 영등포",
+					android: {
+						fallback: "google.navigation:q=" + encodeURIComponent(PLACE_NAME),
 					},
-					"ios": {
-						"scheme": "comgooglemaps://?q=웨딩그룹위더스 영등포&center=37.5213713,126.9044943",
-						"trackId": "585027354",
+					ios: {
+						scheme: scheme,
+						trackId: "585027354",
 					},
-					"windows": {
-						"fallback": "https://www.google.co.kr/maps/dir//%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC+%EC%98%81%EB%93%B1%ED%8F%AC%EB%8F%99+%EC%98%81%EC%A4%91%EB%A1%9C+55+%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4+%EC%98%81%EB%93%B1%ED%8F%AC/data=!4m8!4m7!1m0!1m5!1m1!1s0x357c9ee48b115f91:0xdf7723842ce1441!2m2!1d126.9044943!2d37.5213713?entry=ttu&g_ep=EgoyMDI1MDYwNC4wIKXMDSoASAFQAw%3D%3D"
+					windows: {
+						fallback: fallback
 					},
-					"mac": {
-						"fallback": "https://www.google.co.kr/maps/dir//%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%98%81%EB%93%B1%ED%8F%AC%EA%B5%AC+%EC%98%81%EB%93%B1%ED%8F%AC%EB%8F%99+%EC%98%81%EC%A4%91%EB%A1%9C+55+%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4+%EC%98%81%EB%93%B1%ED%8F%AC/data=!4m8!4m7!1m0!1m5!1m1!1s0x357c9ee48b115f91:0xdf7723842ce1441!2m2!1d126.9044943!2d37.5213713?entry=ttu&g_ep=EgoyMDI1MDYwNC4wIKXMDSoASAFQAw%3D%3D"
+					mac: {
+						fallback: fallback
 					}
 				})
-					.run()
-					.then(function (state) {
-						if (state === Native.App.State.Scheme && wv === "kakao") location.href = "kakaotalk://inappbrowser/close";
-					});
+					.run();
 				break;
 			case "apple-map":
+				scheme = "maps://"
+					+ "?daddr=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
+					+ "&dirflg=" + encodeURIComponent("d");
+
 				new Native.App({
-					"ios": {
-						"scheme": "maps://?daddr=37.5213713,126.9044943&dirflg=d",
+					ios: {
+						scheme: scheme,
 					},
-					"mac": {
-						"scheme": "maps://?daddr=37.5213713,126.9044943&dirflg=d",
+					mac: {
+						scheme: scheme,
 					}
 				})
 					.run();
@@ -857,147 +944,147 @@
 		}
 	}
 
-	
-    function createSchedule() {
-	    let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
-	
-	    if (!kakaoAccessToken) {
-	        init();
-	    } else {
-	        create();
-	    }
-	
-	    function fetchWithAuthRetry(input, options) {
-	        return fetch(input, options).then(async (response) => {
-	            if (response.status === 401) {
-	                localStorage.removeItem("kakaoAccessToken");
-	                kakaoAccessToken = null;
-	                init();
-	            }
-	            return response;
-	        });
-	    }
-	
-	    function init() {
-	        const search = new URLSearchParams(location.search);
-	        const clientId = encodeURIComponent("7c29ec39d56410088e1ba66176d61b4b");
-	        const redirectURI = encodeURIComponent("https://pjy0509.github.io/invitation?mode=schedule");
-	
-	        if (search.has("code")) {
-	            const grantType = encodeURIComponent("authorization_code");
-	            const code = search.get("code");
-	
-	            window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + "?mode=schedule" + location.hash);
-	
-	            fetch(
-	                "https://kauth.kakao.com/oauth/token"
-	                + "?grant_type=" + grantType 
-	                + "&client_id=" + clientId 
-	                + "&redirect_uri=" + redirectURI 
-	                + "&code=" + code,
-	                {
-	                    method: "POST"
-	                }
-	            )
-	            .then(response => response.json())
-	            .then(response => {
-	                localStorage.setItem("kakaoAccessToken", kakaoAccessToken = response.access_token);
-	                createSchedule();
-	            });
-	        } else {
-	            const responseType = encodeURIComponent("code");
-	            const scope = encodeURIComponent("talk_calendar");
-	
-	            location.href = "https://kauth.kakao.com/oauth/authorize" 
-	                + "?client_id=" + clientId 
-	                + "&redirect_uri=" + redirectURI 
-	                + "&response_type=" + responseType 
-	                + "&scope=" + scope;
-	        }
-	    }
-	
-	    function create() {
-	        const startAt = "2025-08-31T03:20:00Z";
-	        const endAt = "2025-08-31T04:30:00Z";
-	        const body = {
-	            "title": "박준영❤️최영은 결혼식",
-	            "time": {
-	                "start_at": startAt,
-	                "end_at": endAt,
-	                "time_zone": "Asia/Seoul",
-	                "all_day": false,
-	                "lunar": false
-	            },
-	            "description": "2025년 8월 31일 일요일 웨딩그룹위더스 영등포",
-	            "location": {
-	                "name": "웨딩그룹위더스 영등포",
-	                "location_id": 24250591,
-	                "address": "서울 영등포구 영중로 55",
-	                "latitude": 37.5213713,
-	                "longitude": 126.9044943
-	            },
-	            "reminders": [60, 120],
-	            "color": "RED"
-	        };
-	
-	        fetchWithAuthRetry(
-	            "https://kapi.kakao.com/v2/api/calendar/events" 
-	            + "?from=" + encodeURIComponent(startAt) 
-	            + "&to=" + encodeURIComponent(endAt),
-	            {
-	                headers: {
-	                    "Authorization": "Bearer " + kakaoAccessToken,
-	                }
-	            }
-	        )
-	        .then(response => response.json())
-	        .then(response => {
-	            const matched = response.events.find(e => e.title === body.title);
-	
-	            if (!matched) {
-	                const bodyString = JSON.stringify(body);
-			    
-	                return fetchWithAuthRetry(
-	                    "https://kapi.kakao.com/v2/api/calendar/create/event",
-	                    {
-	                        method: "POST",
-	                        headers: {
-	                            "Authorization": "Bearer " + kakaoAccessToken,
-	                            "Content-Type": "application/x-www-form-urlencoded"
-	                        },
-	                        body: "event=" + encodeURIComponent(bodyString),
-	                    }
-	                )
-	                .then(response => response.json())
-	                .then(response => onsuccess(response.event_id));
-	            } else {
-	                return onsuccess(matched.id);
-	            }
-	        });
-	    }
+	function createSchedule(closeBrowser = false) {
+		let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
 
-	    function onsuccess(id) {
-	            window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
-		    
-	        return fetchWithAuthRetry(
-	            "https://kapi.kakao.com/v2/api/calendar/event" 
-			+ "?event_id=" + encodeURIComponent(id),
-	            {
-	                headers: {
-	                    "Authorization": "Bearer " + kakaoAccessToken,
-	                }
-	            }
-	        )
-	        .then(response => response.json())
-	        .then(response => {
-	            // console.log("📅 Event Detail:", response);
-			// showAlert("schedule");
-			// location.href = "kakaotalk://calendar?id=" + response.event.id;
-			// location.href = "kakaotalk://calendar?event_id=" + response.event.id;
-			location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
-			closeKakaoTalkInAppBrowser();
-	        });
-	    }
+		if (!kakaoAccessToken) {
+			init();
+		} else {
+			create();
+		}
+
+		function fetchWithAuthRetry(input, options) {
+			return fetch(input, options).then(async (response) => {
+				if (response.status === 401) {
+					localStorage.removeItem("kakaoAccessToken");
+					kakaoAccessToken = null;
+					init();
+				}
+				return response;
+			});
+		}
+
+		function init() {
+			const search = new URLSearchParams(location.search);
+			const clientId = encodeURIComponent("7c29ec39d56410088e1ba66176d61b4b");
+			const redirectURI = encodeURIComponent(location.origin + "?mode=schedule");
+
+			if (search.has("code")) {
+				const grantType = encodeURIComponent("authorization_code");
+				const code = search.get("code");
+
+				window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + "?mode=schedule" + location.hash);
+
+				fetch(
+					"https://kauth.kakao.com/oauth/token"
+					+ "?grant_type=" + grantType
+					+ "&client_id=" + clientId
+					+ "&redirect_uri=" + redirectURI
+					+ "&code=" + code,
+					{
+						method: "POST"
+					}
+				)
+					.then(response => response.json())
+					.then(response => {
+						localStorage.setItem("kakaoAccessToken", kakaoAccessToken = response.access_token);
+						createSchedule();
+					});
+			} else {
+				const responseType = encodeURIComponent("code");
+				const scope = encodeURIComponent("talk_calendar");
+
+				location.href = "https://kauth.kakao.com/oauth/authorize"
+					+ "?client_id=" + clientId
+					+ "&redirect_uri=" + redirectURI
+					+ "&response_type=" + responseType
+					+ "&scope=" + scope;
+			}
+		}
+
+		function create() {
+			const body = {
+				title: META_TITLE,
+				time: {
+					start_at: WEDDING_DATE_TIME_START_ISO_STRING,
+					end_at: WEDDING_DATE_TIME_END_ISO_STRING,
+					time_zone: TIMEZONE,
+					all_day: false,
+					lunar: false
+				},
+				description: GROOM + "❤️" + BRIDE + " 결혼식",
+				location: {
+					name: PLACE_NAME,
+					location_id: 24250591,
+					address: PLACE_ADDRESS,
+					latitude: LATITUDE,
+					longitude: LONGITUDE
+				},
+				reminders: [60, 120],
+				color: "PINK"
+			};
+
+			fetchWithAuthRetry(
+				"https://kapi.kakao.com/v2/api/calendar/events"
+				+ "?from=" + encodeURIComponent(WEDDING_DATE_TIME_START_ISO_STRING)
+				+ "&to=" + encodeURIComponent(WEDDING_DATE_TIME_END_ISO_STRING),
+				{
+					headers: {
+						"Authorization": "Bearer " + kakaoAccessToken,
+					}
+				}
+			)
+				.then(response => response.json())
+				.then(response => {
+					const matched = response.events.find(e => e.title === body.title);
+
+					if (!matched) {
+						const bodyString = JSON.stringify(body);
+
+						return fetchWithAuthRetry(
+							"https://kapi.kakao.com/v2/api/calendar/create/event",
+							{
+								method: "POST",
+								headers: {
+									"Authorization": "Bearer " + kakaoAccessToken,
+									"Content-Type": "application/x-www-form-urlencoded"
+								},
+								body: "event=" + encodeURIComponent(bodyString),
+							}
+						)
+							.then(response => response.json())
+							.then(response => onsuccess(response.event_id));
+					} else {
+						return onsuccess(matched.id);
+					}
+				});
+		}
+
+		function onsuccess(id) {
+			window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
+
+			if (closeBrowser) {
+				location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
+				closeKakaoTalkInAppBrowser();
+			} else {
+                alert("일정이 등록되었습니다.");
+            }
+
+			// return fetchWithAuthRetry(
+			// 	"https://kapi.kakao.com/v2/api/calendar/event"
+			// 	+ "?event_id=" + encodeURIComponent(id),
+			// 	{
+			// 		headers: {
+			// 			"Authorization": "Bearer " + kakaoAccessToken,
+			// 		}
+			// 	}
+			// )
+			// 	.then(response => response.json())
+			// 	.then(() => {
+			// 		location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
+			// 		closeKakaoTalkInAppBrowser();
+			// 	});
+		}
 	}
 
 	function closeKakaoTalkInAppBrowser() {
@@ -1005,6 +1092,40 @@
 		if (Native.OS.name === "iOS") return location.href = "kakaoweb://closeBrowser";
 		return location.href = "kakaotalk://inappbrowser/close";
 	}
+
+	function doShareKakaoTalk() {
+		Kakao.Share.sendDefault({
+			objectType: "feed",
+			content: {
+				title: "자세히 보기",
+				description: "https://pjy0509.github.io/invitation",
+				imageUrl: "https://raw.githubusercontent.com/pjy0509/pjy0509.github.io/refs/heads/main/invitation/assets/images/i0.jpg",
+				link: {
+					mobileWebUrl: "https://pjy0509.github.io/invitation",
+					webUrl: "https://pjy0509.github.io/invitation",
+				},
+			},
+			itemContent: {
+				profileText: META_TITLE,
+			},
+			buttons: [
+				{
+					title: "찾아오는 길",
+					link: {
+						mobileWebUrl: "https://pjy0509.github.io/invitation?mode=route",
+						webUrl: "https://pjy0509.github.io/invitation?mode=route",
+					},
+				},
+				{
+					title: "일정 등록",
+					link: {
+						mobileWebUrl: "https://pjy0509.github.io/invitation?mode=schedule",
+						webUrl: "https://pjy0509.github.io/invitation?mode=schedule",
+					},
+				}
+			],
+		});
+    }
 
 	function showAlert(id) {
 		const alert = document.querySelector("[data-alert-id=" + id + "]");
