@@ -341,13 +341,8 @@
 	function syncScrollY(removeHash = false) {
 		const y = +location.hash.split("#")[1];
 
-		if (!isNaN(y)) {
-			window.scrollY = y;
-		}
-
-		if (removeHash) {
-			history.pushState({}, "", "#");
-		}
+		if (!isNaN(y)) window.scrollY = y;
+		if (removeHash) history.pushState({}, "", "#");
 	}
 
 	document.querySelector(".item-intro").style.height = window.outerHeight + "px";
@@ -356,9 +351,7 @@
 		document.body.dataset.scroll = window.scrollY.toString();
 	}
 
-	if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) {
-		document.body.dataset.wv = wv = "kakao";
-	}
+	if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = wv = "kakao";
 
 	syncScrollY();
 	document.onreadystatechange = function () {
@@ -581,19 +574,20 @@
 		['일', '월', '화', '수', '목', '금', '토'].forEach(d => {
 			const weekday = document.createElement("div");
 			const el = document.createElement("p");
+			
 			el.innerText = d;
 			weekday.appendChild(el);
 			grid.appendChild(weekday);
 		});
 
-		for (let i = 0; i < startDay; i++) {
-			grid.appendChild(document.createElement("div"));
-		}
+		for (let i = 0; i < startDay; i++) grid.appendChild(document.createElement("div"));
 
 		for (let d = 1; d <= lastDate; d++) {
 			const day = document.createElement("div");
 			const el = document.createElement("p");
+			
 			if (d === targetDate) day.id = "target";
+			
 			el.innerText = d.toString();
 			day.appendChild(el);
 			grid.appendChild(day);
@@ -641,9 +635,7 @@
 			.then(data => {
 				let i = data.hourly.time.indexOf(dateString + "T12:00");
 
-				if (i === -1) {
-					return;
-				}
+				if (i === -1) return;
 
 				const weatherCodeMap = {
 					0: {emoji: "☀️", detail: "맑음"},
@@ -699,14 +691,17 @@
 	function initCarousel() {
 		// CAROUSEL BEGIN
 		const carouselElement = document.querySelector(".item-carousel");
-		const carousel = new Glide(".item-carousel", {
-			type: 'carousel',
-			perView: 1,
-			gap: 16,
-			autoplay: 5000,
-			hoverpause: true,
-			animationDuration: 1200,
-		})
+		const carousel = new Glide(
+			".item-carousel", 
+			{
+				type: 'carousel',
+				perView: 1,
+				gap: 16,
+				autoplay: 5000,
+				hoverpause: true,
+				animationDuration: 1200,
+			}
+		)
 			.mount();
 
 		const current = document.getElementById("carousel-current");
@@ -715,9 +710,12 @@
 		total.textContent = carousel._c.Html.slides.length.toString();
 		current.textContent = (carousel.index + 1).toString();
 
-		carousel.on("move", function () {
-			current.textContent = (carousel.index + 1).toString();
-		});
+		carousel.on(
+			"move", 
+			function () {
+				current.textContent = (carousel.index + 1).toString();
+			}
+		);
 		// CAROUSEL END
 	}
 
@@ -852,11 +850,8 @@
 
 	const observer = new IntersectionObserver((entries) => {
 		entries.forEach(entry => {
-			if (entry.isIntersecting && entry.intersectionRect.height >= Math.min(250, entry.target.clientHeight)) {
-				entry.target.classList.add("show");
-			} else if (!entry.isIntersecting) {
-				entry.target.classList.remove("show");
-			}
+			if (entry.isIntersecting && entry.intersectionRect.height >= Math.min(250, entry.target.clientHeight)) entry.target.classList.add("show");
+			else if (!entry.isIntersecting) entry.target.classList.remove("show");
 		});
 	}, {
 		threshold: Array.from({length: 21}, (_, i) => i * 0.05)
