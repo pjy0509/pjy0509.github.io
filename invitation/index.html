@@ -350,7 +350,7 @@
 			{
 				title: '일정 등록',
 		        	link: {
-					mobileWebUrl: "https://pjy0509.github.io/invitation?schedule",
+					mobileWebUrl: "https://pjy0509.github.io/invitation?mode=schedule",
 					webUrl: "https://pjy0509.github.io/invitation?mode=schedule",
 				},
 			}
@@ -881,7 +881,7 @@
 	    function init() {
 	        const search = new URLSearchParams(location.search);
 	        const clientId = encodeURIComponent("7c29ec39d56410088e1ba66176d61b4b");
-	        const redirectURI = encodeURIComponent("https://pjy0509.github.io/invitation?schedule");
+	        const redirectURI = encodeURIComponent("https://pjy0509.github.io/invitation?mode=schedule");
 	
 	        if (search.has("code")) {
 	            const grantType = encodeURIComponent("authorization_code");
