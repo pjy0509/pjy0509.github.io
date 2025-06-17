@@ -344,8 +344,8 @@
 			{
 				title: '일정 등록',
 		        	link: {
-					mobileWebUrl: "https://pjy0509.github.io/invitation/calendar",
-					webUrl: "https://pjy0509.github.io/invitation/calendar",
+					mobileWebUrl: "https://pjy0509.github.io/invitation?schedule",
+					webUrl: "https://pjy0509.github.io/invitation?schedule",
 				},
 			},
 		    ],
@@ -379,6 +379,10 @@
 	window.onload = async function () {
 		syncScrollY(true);
 
+		if (new URLSearchParams(location.search).has("schedule")) {
+			createSchedule();
+		}
+		
 		initTsparticle();
 		initCalendar();
 		initCarousel();
@@ -838,6 +842,130 @@
 				break;
 		}
 	}
+
+	
+    function createSchedule() {
+        let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
+        
+        if (!kakaoAccessToken) {
+            init();
+        } else {
+            create();
+        }
+
+        function init() {
+            const search = new URLSearchParams(location.search);
+            const clientId = encodeURIComponent("7c29ec39d56410088e1ba66176d61b4b");
+            const redirectURI = encodeURIComponent("https://pjy0509.github.io/invitation?schedule");
+    
+            if (search.has("code")) {
+                const grantType = encodeURIComponent("authorization_code");
+                const code = search.get("code");
+                const url = location.protocol + "//" + location.host + location.pathname + location.hash;
+                
+                window.history.replaceState(null, '', url);
+                
+                fetch(
+                    "https://kauth.kakao.com/oauth/token"
+                    + "?grant_type=" + grantType 
+                    + "&client_id=" + clientId 
+                    + "&redirect_uri=" + redirectURI 
+                    + "&code=" + code,
+                    {
+                        method: "POST"
+                    }
+                )
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (response) {
+                    localStorage.setItem("kakaoAccessToken", kakaoAccessToken = response.access_token);
+
+                    createSchedule();
+                });
+            } else {
+                const responseType = encodeURIComponent("code");
+                const scope = encodeURIComponent("talk_calendar");
+                
+                location.href = "https://kauth.kakao.com/oauth/authorize" 
+                    + "?client_id=" + clientId 
+                    + "&redirect_uri=" + redirectURI 
+                    + "&response_type=" + responseType 
+                    + "&scope=" + scope;
+            }
+        }
+
+        function create() {
+            const startAt = "2025-08-31T03:20:00Z";
+            const endAt = "2025-08-31T04:30:00Z";
+            const body = {
+                "title": "박준영❤️최영은 결혼식",
+                "time": {
+                    "start_at": "2025-08-31T03:20:00Z",
+                    "end_at": "2025-08-31T04:30:00Z",
+                    "time_zone": "Asia/Seoul",
+                    "all_day": false,
+                    "lunar": false
+                },
+                "description": "2025년 8월 31일 일요일 웨딩그룹위더스 영등포",
+                "location": {
+                    "name": "웨딩그룹위더스 영등포",
+                    "location_id": 24250591,
+                    "address": "서울 영등포구 영중로 55",
+                    "latitude": 37.5213713,
+                    "longitude": 126.9044943
+                },
+                "reminders": [
+                    60,
+                    120
+                ],
+                "color": "RED"
+            };
+            
+            fetch(
+                "https://kapi.kakao.com/v2/api/calendar/events" 
+                + "?from=" + encodeURIComponent(startAt) 
+                + "&to=" + encodeURIComponent(endAt),
+                {
+                    headers : {
+                        "Authorization" : "Bearer " + kakaoAccessToken,
+                    }
+                }
+            )
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (response) {
+                    const duplicated = response.events.findIndex(function (event) {
+                        return event.title === body.title;
+                    }) !== -1;
+
+                    if (!duplicated) {
+                        const bodyString = JSON.stringify(body);
+                
+                        fetch(
+                            "https://kapi.kakao.com/v2/api/calendar/create/event",
+                            {
+                                method: "POST",
+                                headers : {
+                                    "Authorization" : "Bearer " + kakaoAccessToken,
+                                    "Content-Type": "application/x-www-form-urlencoded"
+                                },
+                                body: "event=" + encodeURIComponent(bodyString),
+                            }
+                        )
+                            .then(function (response) {
+                                return response.json();
+                            })
+                            .then(function (response) {
+                                console.log(response.event_id);
+                            });
+                    } else {
+                        console.log(response.events[0].id);
+                    }
+                });
+        }
+    }
 
 	function showAlert(id) {
 		const alert = document.querySelector("[data-alert-id=" + id + "]");
