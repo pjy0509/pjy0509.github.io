@@ -52,7 +52,13 @@
 <body>
 <script type="text/javascript">
     window.onload = function () {
-        
+        const search = new URLSearchParams(location.search);
+
+        if (search.has("code")) {
+            console.log(search.get("code"));
+        } else {
+            location.href = "https://kauth.kakao.com/oauth/authorize?client_id=7c29ec39d56410088e1ba66176d61b4b&redirect_uri=https%3A%2F%2Fpjy0509.github.io%2Finvitation&response_type=code&scope=talk_calendar";
+        }
     }
 </script>
 </body>
