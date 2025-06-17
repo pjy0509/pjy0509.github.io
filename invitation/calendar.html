@@ -53,11 +53,34 @@
 <script type="text/javascript">
     window.onload = function () {
         const search = new URLSearchParams(location.search);
+        const clientId = encodeURIComponent("7c29ec39d56410088e1ba66176d61b4b");
+        const redirectURI = encodeURIComponent("https://pjy0509.github.io/invitation/calendar");
 
         if (search.has("code")) {
-            console.log(search.get("code"));
+            const grantType = encodeURIComponent("authorization_code");
+            const code = search.get("code");
+
+            fetch(
+                "https://kauth.kakao.com/oauth/token"
+                + "?grant_type=" + grantType 
+                + "&client_id=" + clientId 
+                + "&redirect_uri=" + redirectURI 
+                + "&code=" + code,
+                {
+                    method: "POST"
+                }
+            )
+            .then(response => response.json())
+            .then(console.log)
         } else {
-            location.href = "https://kauth.kakao.com/oauth/authorize?client_id=7c29ec39d56410088e1ba66176d61b4b&redirect_uri=https%3A%2F%2Fpjy0509.github.io%2Finvitation%2Fcalendar&response_type=code&scope=talk_calendar";
+            const responseType = encodeURIComponent("code");
+            const scope = encodeURIComponent("talk_calendar");
+            
+            location.href = "https://kauth.kakao.com/oauth/authorize" 
+                + "?client_id=" + clientId 
+                + "&redirect_uri=" + redirectURI 
+                + "&response_type=" + responseType 
+                + "&scope=" + scope;
         }
     }
 </script>
