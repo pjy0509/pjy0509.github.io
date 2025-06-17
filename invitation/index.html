@@ -1067,27 +1067,26 @@
 		function onsuccess(id) {
 			window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
 
-			if (closeBrowser) {
-				location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
-				closeKakaoTalkInAppBrowser();
-			} else {
-                alert("일정이 등록되었습니다.");
-            }
-
-			// return fetchWithAuthRetry(
-			// 	"https://kapi.kakao.com/v2/api/calendar/event"
-			// 	+ "?event_id=" + encodeURIComponent(id),
-			// 	{
-			// 		headers: {
-			// 			"Authorization": "Bearer " + kakaoAccessToken,
-			// 		}
-			// 	}
-			// )
-			// 	.then(response => response.json())
-			// 	.then(() => {
-			// 		location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
-			// 		closeKakaoTalkInAppBrowser();
-			// 	});
+			return fetchWithAuthRetry(
+				"https://kapi.kakao.com/v2/api/calendar/event"
+				+ "?event_id=" + encodeURIComponent(id),
+				{
+					headers: {
+						"Authorization": "Bearer " + kakaoAccessToken,
+					}
+				}
+			)
+				.then(response => response.json())
+				.then(() => {
+					if (closeBrowser) {
+						location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
+						closeKakaoTalkInAppBrowser();
+					} else {
+						history.pushState({}, "", "#" + window.scrollY.toString());
+						alert("일정이 등록되었습니다.");
+						location.reload();
+					}
+				});
 		}
 	}
 
