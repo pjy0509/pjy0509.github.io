@@ -887,7 +887,7 @@
 	            const grantType = encodeURIComponent("authorization_code");
 	            const code = search.get("code");
 	
-	            window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + "?schedule" + location.hash);
+	            window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + "?mode=schedule" + location.hash);
 	
 	            fetch(
 	                "https://kauth.kakao.com/oauth/token"
