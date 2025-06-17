@@ -413,15 +413,7 @@
 	const META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
     // CONSTANT END
 
-	const userAgent = navigator.userAgent;
-	let wv = "";
-
-	function syncScrollY(removeHash = false) {
-		const y = +location.hash.split("#")[1];
-
-		if (!isNaN(y)) window.scrollY = y;
-		if (removeHash) history.pushState({}, "", "#");
-	}
+	initUserAgent();
 
 	const search = new URLSearchParams(location.search);
 	const isMode = search.has("mode");
@@ -445,9 +437,6 @@
 		}
 	} else {
 		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
-		document.body.dataset.osName = Native.OS.name;
-
-		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = wv = "kakao";
 
 		syncScrollY();
 		document.onreadystatechange = function () {
@@ -463,6 +452,21 @@
 			initWeather();
 		};
     }
+
+	function initUserAgent() {
+		const userAgent = navigator.userAgent;
+		let wv = "";
+		document.body.dataset.osName = Native.OS.name;
+
+		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = wv = "kakao";
+    }
+
+	function syncScrollY(removeHash = false) {
+		const y = +location.hash.split("#")[1];
+
+		if (!isNaN(y)) window.scrollY = y;
+		if (removeHash) history.pushState({}, "", "#");
+	}
 
 	function initTsparticle() {
 		loadImageShape(tsParticles)
