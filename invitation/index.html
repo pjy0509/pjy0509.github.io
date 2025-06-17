@@ -967,7 +967,7 @@
 		function init() {
 			const search = new URLSearchParams(location.search);
 			const clientId = encodeURIComponent("7c29ec39d56410088e1ba66176d61b4b");
-			const redirectURI = encodeURIComponent(location.origin + "?mode=schedule");
+			const redirectURI = encodeURIComponent(location.origin + location.pathname + "?mode=schedule");
 
 			if (search.has("code")) {
 				const grantType = encodeURIComponent("authorization_code");
