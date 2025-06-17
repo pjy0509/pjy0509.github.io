@@ -351,14 +351,14 @@
 				title: '일정 등록',
 		        	link: {
 					mobileWebUrl: "https://pjy0509.github.io/invitation?schedule",
-					webUrl: "https://pjy0509.github.io/invitation?schedule",
+					webUrl: "https://pjy0509.github.io/invitation?mode=schedule",
 				},
 			},
 			{
 				title: '찾아오시는 길',
 		        	link: {
 					mobileWebUrl: "https://pjy0509.github.io/invitation?route",
-					webUrl: "https://pjy0509.github.io/invitation?route",
+					webUrl: "https://pjy0509.github.io/invitation?mode=route",
 				},
 			},
 		    ],
@@ -389,12 +389,20 @@
 		syncScrollY();
 	}
 
-	window.onload = async function () {
-		syncScrollY(true);
-
-		if (new URLSearchParams(location.search).has("schedule")) {
+	const search = new URLSearchParams(location.search);
+	
+	if (search.has("mode")) {
+		document.body.style.display = "none";
+		
+		const mode = search.get("mode");
+		
+		if (mode === "schedule") {
 			createSchedule();
 		}
+	}
+
+	window.onload = async function () {
+		syncScrollY(true);
 		
 		initTsparticle();
 		initCalendar();
@@ -992,9 +1000,16 @@
             // console.log("📅 Event Detail:", response);
 		// showAlert("schedule");
 		location.href = "kakaotalk://calendar";
+		closeKakaoTalkInAppBrowser();
         });
     }
 }
+
+	function closeKakaoTalkInAppBrowser() {
+		if (wv !== "kakao") return;
+		if (Native.OS.name === "iOS") return location.href = "kakaoweb://closeBrowser";
+		return location.href = "kakaotalk://inappbrowser/close";
+	}
 
 	function showAlert(id) {
 		const alert = document.querySelector("[data-alert-id=" + id + "]");
