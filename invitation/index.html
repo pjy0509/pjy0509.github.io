@@ -935,6 +935,8 @@
     }
 
     function onsuccess(id) {
+            window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
+	    
         return fetchWithAuthRetry(
             "https://kapi.kakao.com/v2/api/calendar/event" 
 		+ "?event_id=" + encodeURIComponent(id),
