@@ -861,9 +861,8 @@
             if (search.has("code")) {
                 const grantType = encodeURIComponent("authorization_code");
                 const code = search.get("code");
-                const url = location.protocol + "//" + location.host + location.pathname + location.hash;
                 
-                window.history.replaceState(null, '', url);
+                window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + "?schedule" + location.hash);
                 
                 fetch(
                     "https://kauth.kakao.com/oauth/token"
@@ -959,9 +958,13 @@
                             })
                             .then(function (response) {
                                 console.log(response.event_id);
+                
+                		window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
                             });
                     } else {
                         console.log(response.events[0].id);
+                
+                	window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
                     }
                 });
         }
