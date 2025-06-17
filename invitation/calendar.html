@@ -58,7 +58,7 @@
     function createSchedule() {
         let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
         
-        if (kakaoAccessToken != null) {
+        if (!kakaoAccessToken) {
             init();
         } else {
             create();
