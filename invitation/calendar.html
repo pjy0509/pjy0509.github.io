@@ -59,7 +59,10 @@
         if (search.has("code")) {
             const grantType = encodeURIComponent("authorization_code");
             const code = search.get("code");
-
+            const url = location.protocol + "//" + location.host + location.pathname + location.hash;
+            
+            window.history.replaceState(null, '', url);
+            
             fetch(
                 "https://kauth.kakao.com/oauth/token"
                 + "?grant_type=" + grantType 
