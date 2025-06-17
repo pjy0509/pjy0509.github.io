@@ -104,7 +104,8 @@
                     {
                         method: "POST",
                         headers : {
-                            Authorization : "Bearer " + accessToken
+                            "Authorization" : "Bearer " + accessToken,
+                            "Content-Type": "application/x-www-form-urlencoded"
                         },
                         body: "event=" + encodeURIComponent(body),
                     }
