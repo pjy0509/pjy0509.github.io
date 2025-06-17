@@ -7,6 +7,11 @@
 	<title>Portfolio</title>
 </head>
 <body>
-  <p>Hello, World!</p>
 </body>
+<script>
+	if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(navigator.userAgent)) {
+		history.replaceState({}, "", "/invitation");
+		location.reload();
+	}
+</script>
 </html>
