@@ -419,23 +419,7 @@
 		document.querySelector("[data-fullscreen=\"" + mode + "\"]").classList.add("show");
 
 		if (mode === "schedule") {
-			createSchedule(true);
-
-			function onfocus() {
-				document.body.innerText += "\nfocus";
-			}
-
-			function onblur() {
-				document.body.innerText += "\nblur";
-			}
-
-			function onvisibilitychange() {
-				document.body.innerText += "\nvisibilitychange, visibilityState: " + document.visibilityState + ", " + "hidden: " + document.hidden;
-			}
-			
-			window.addEventListener("focus", onfocus);
-			window.addEventListener("blur", onblur);
-			document.addEventListener("visibilitychange", onvisibilitychange);
+			createSchedule();
 		}
 
 		if (mode === "route") {
@@ -1090,15 +1074,13 @@
 				.then(response => response.json())
 				.then(() => {
 					function onvisibilitychange () {
-						if (document.hidden === false || document.webkitHidden === false) document.removeEventListener("visibilitychange", onvisibilitychange);
-						window.removeEventListener("focus", onvisibilitychange);
+						if (document.visibilityState === "visible") document.removeEventListener("visibilitychange", onvisibilitychange);
 						closeKakaoTalkInAppBrowser();
 					}
 					
-					window.addEventListener("focus", onvisibilitychange);
 					document.addEventListener("visibilitychange", onvisibilitychange);
 					
-					location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
+					location.href = "kakaotalk://calendar/home?date=" + WEDDING_DATE_ISO_STRING;
 					closeKakaoTalkInAppBrowser();
 				});
 		}
