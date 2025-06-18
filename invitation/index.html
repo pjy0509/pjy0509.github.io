@@ -472,15 +472,21 @@
     	}
 
 	function initScrollbar() {
+		function setHeight() {
+			body.style.height = window.innerHeight + "px";
+		}
+		
+		setHeight();
+		
 		const body = document.body;
 		const ps = new PerfectScrollbar(body);
 		let delay = 300;
 		let timer = null;
 
-		window.addEventListener('resize', function(){
+		window.addEventListener('resize', function() {
 			clearTimeout(timer);
 			timer = setTimeout(function() {
-				body.style.height = window.innerHeight + "px";
+				setHeight();
 				ps.update();
 			}, delay);
 		});
