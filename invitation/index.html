@@ -427,6 +427,7 @@
 		window.onload = async function () {
 			syncScrollY(true);
 
+			initScrollbar();
 			initModal();
 			initTransaction();
 			initTsparticle();
@@ -470,11 +471,19 @@
 		window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", detectColorScheme);
     	}
 
-	function syncScrollY(removeHash = false) {
-		const y = +location.hash.split("#")[1];
+	function initScrollbar() {
+		const body = document.body;
+		const ps = new PerfectScrollbar(body);
+		let delay = 300;
+		let timer = null;
 
-		if (!isNaN(y)) window.scrollY = y;
-		if (removeHash) history.pushState({}, "", "#");
+		window.addEventListener('resize', function(){
+			clearTimeout(timer);
+			timer = setTimeout(function() {
+				body.style.height = window.innerHeight + "px";
+				ps.update();
+			}, delay);
+		});
 	}
 
 	function initModal() {
@@ -872,6 +881,13 @@
 			}
 		);
 		// CAROUSEL END
+	}
+
+	function syncScrollY(removeHash = false) {
+		const y = +location.hash.split("#")[1];
+
+		if (!isNaN(y)) window.scrollY = y;
+		if (removeHash) history.pushState({}, "", "#");
 	}
 
 	function openMap(type) {
