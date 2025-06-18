@@ -42,6 +42,9 @@
     <!-- Carousel -->
     <script src="https://unpkg.com/@glidejs/glide"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+    <!-- SimpleScrollbar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style/style.css">
 
@@ -51,7 +54,7 @@
 
 <!-- 	<style>img { filter: blur(10px) !important; }</style> -->
 </head>
-<body>
+<body ss-container>
 
 <div class="container">
     <div>
@@ -276,7 +279,7 @@
     </div>
 </div>
 
-<div data-modal-id="schedule" onclick="closeModal(this)">
+<div data-modal-id="schedule" onclick="closeModal(this)" ss-container>
     <div onclick="event.stopPropagation()">
         <div class="modal-header">
             <button class="modal-close" onclick="closeModal(this)"></button>
