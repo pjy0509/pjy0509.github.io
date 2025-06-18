@@ -1081,7 +1081,11 @@
 				}
 			})
 				.run()
-				.then(() => closeKakaoTalkInAppBrowser());
+				.then(result => {
+					document.body.innerText += document.body.dataset.wv;
+					document.body.innerText += "\n" + result;
+					closeKakaoTalkInAppBrowser();
+				});
 
 			// return fetchWithAuthRetry(
 			// 	"https://kapi.kakao.com/v2/api/calendar/event"
