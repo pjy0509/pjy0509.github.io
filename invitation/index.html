@@ -1075,10 +1075,15 @@
 				.then(() => {
 					location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
 					closeKakaoTalkInAppBrowser();
-					document.addEventListener("visibilitychange", function onvisibilitychange () {
+
+					function onvisibilitychange () {
 						document.removeEventListener("visibilitychange", onvisibilitychange);
+						window.removeEventListener("focus", onvisibilitychange);
 						closeKakaoTalkInAppBrowser();
-					});
+					}
+					
+					window.addEventListener("focus", onvisibilitychange);
+					document.addEventListener("visibilitychange", onvisibilitychange);
 				});
 		}
 	}
