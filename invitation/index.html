@@ -373,8 +373,8 @@
 <div class="item-container" data-fullscreen="schedule"></div>
 
 <script type="text/javascript">
-    // CONSTANT BEGIN
-    const LATITUDE = "37.5213713";
+    	// CONSTANT BEGIN
+    	const LATITUDE = "37.5213713";
 	const LONGITUDE = "126.9044943";
 	const PLACE_NAME = "웨딩그룹위더스 영등포";
 	const PLACE_ADDRESS = "서울 영등포구 영중로 55";
@@ -386,13 +386,12 @@
 	const WEDDING_DATE_TIME_END = new Date(WEDDING_DATE_TIME_END_ISO_STRING);
 	const WEDDING_DATE = new Date(WEDDING_DATE_ISO_STRING);
 	const GROOM = "박준영";
-    const BRIDE = "최영은";
+    	const BRIDE = "최영은";
 	const META_TITLE = document.querySelector("meta[property=\"og:title\"]").content;
 	const META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
-    // CONSTANT END
+    	// CONSTANT END
 
 	initUserAgent();
-	detectColorScheme().then(alert);
 
 	const search = new URLSearchParams(location.search);
 	const isMode = search.has("mode");
@@ -430,20 +429,26 @@
 			initCarousel();
 			initWeather();
 		};
-    }
+    	}
 
-	function detectColorScheme() {
-		return new Promise(resolve => {
+	function initUserAgent() {
+		const userAgent = navigator.userAgent;
+
+		// OS
+		document.body.dataset.osName = Native.OS.name;
+
+		// WebView
+		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = "kakao";
+
+		// Color Scheme
+		new Promise(resolve => {
 			if (navigator.userAgent.match(/Samsung/i) || window.matchMedia === undefined) {
 				const img = new Image();
 				
         			img.onload = function() {
             				const ctx = document.createElement("canvas").getContext("2d");
-					
             				ctx.drawImage(img, 0, 0);
-					
 					const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
-
 					resolve((r & b & g) < 255 ? "dark" : "light");
 				}
 				
@@ -451,16 +456,9 @@
 			} else {
 				resolve(window.matchMedia('(prefers-color-scheme:dark)').matches ? "dark" : "light");
 			}
-		});
-	}
-
-	function initUserAgent() {
-		const userAgent = navigator.userAgent;
-		
-		document.body.dataset.osName = Native.OS.name;
-
-		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = "kakao";
-    }
+		})
+			.then(scheme => {});
+    	}
 
 	function syncScrollY(removeHash = false) {
 		const y = +location.hash.split("#")[1];
