@@ -514,6 +514,7 @@ body {
 }
 
 .button {
+    font-family: Suit, Tossface, sans-serif;
     display: flex;
     height: 2rem;
     padding: 0 1rem 0 .5rem;
