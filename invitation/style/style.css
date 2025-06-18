@@ -95,17 +95,6 @@ body {
     background: rgb(255, 255, 255);
 }
 
-.item-container[data-transaction] {
-    opacity: 0;
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-    transform: translateY(30px);
-}
-
-.item-container[data-transaction].show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 .item-container:nth-child(n + 2) {
     padding-top: 3rem;
 }
@@ -253,6 +242,10 @@ body {
     opacity: 0;
 }
 
+.padding.rem-half {
+    height: .5rem;
+}
+
 .padding.rem1 {
     height: 1rem;
 }
@@ -372,7 +365,7 @@ body {
 }
 
 .item-calendar > div > div#target > p {
-    background: rgb(231, 218, 231);
+    background: rgb(170, 125, 170);
     color: white;
     border-radius: 50%;
     font-weight: 400;
@@ -431,6 +424,7 @@ body {
 .item-location .map .cont .section {
     margin: 0 2rem;
 }
+
 /* Kakao Map Custom END */
 
 .item-park {
@@ -725,6 +719,29 @@ body:has([data-modal-id].show) {
 
 [data-fullscreen].show {
     display: block;
+}
+
+[data-fullscreen="carousel"].show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+[data-fullscreen="carousel"] [data-glide] {
+    max-width: 600px;
+}
+
+[data-fullscreen="carousel"] .item-carousel {
+    display: flex;
+    height: inherit;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+[data-fullscreen="carousel"] [data-glide-el="track"] li img {
+    scale: 1;
+    transform: translate(0px, 0px);
+    transition: scale 0.2s ease-out, transform 0.2s ease-out;
 }
 
 body:has([data-fullscreen].show) {

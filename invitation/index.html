@@ -34,25 +34,29 @@
 
     <link href="https://fonts.cdnfonts.com/css/heuristica" rel="stylesheet">
 
+    <!-- Kakao -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js" integrity="sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6" crossorigin="anonymous"></script>
+    <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
     <!-- Native -->
     <script src="https://unpkg.com/native-fn@latest/dist/index.umd.js"></script>
+    <!-- Eventlistener Manager -->
+    <script src="https://unpkg.com/eventlistener-manager@latest/dist/index.umd.js"></script>
     <!-- Particles -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.8.1/tsparticles.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tsparticles/shape-image@3.8.1/tsparticles.shape.image.min.js"></script>
     <!-- Carousel -->
-    <script src="https://unpkg.com/@glidejs/glide"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
-    <!-- Perfect Scrollbar -->
-    <script src="https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.5.6/dist/perfect-scrollbar.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.5.6/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@glidejs/glide"></script>
+    <!-- SimpleBar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style/style.css">
 
-    <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js" integrity="sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6" crossorigin="anonymous"></script>
-    <script>Kakao.init("81d57ff9f2d2a5524e506d8a1d386fd5");</script>
-
-	<style>img { filter: blur(50px) !important; }</style>
+    <!--TODO: 스크롤바, 파티클, 아코디언, iOS 스토어 이동, 전화, 메세지, 웨딩홀 전화, 웨딩홀 주소 복사, 계좌 복사, 카카오 즉시 송금, 토스 즉시 송금, 공유하기, Alert, Panel -->
 </head>
 <body>
 
@@ -64,17 +68,30 @@
             </div>
         </div>
 
-        <div class="item-container" data-transaction>
+        <div
+                class="item-container"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out"
+        >
+
+            <div class="padding rem2"></div>
+
             <div class="item-content">
                 서로의 마음에 피어난 작은 설렘이 어느새<br/>
+                <div class="padding rem-half"></div>
                 큰 사랑이 되어 평생을 함께할 약속으로 이어졌습니다.<br/>
+                <div class="padding rem-half"></div>
                 모든 날, 모든 순간을 아름답게 만들어가고<br/>
+                <div class="padding rem-half"></div>
                 이끌어주고, 응원해주는 서로가 되겠습니다.<br/>
+                <div class="padding rem-half"></div>
                 새로 시작하는 이 자리에 오셔서<br/>
+                <div class="padding rem-half"></div>
                 축복이 가득하길 함께 기원해 주시기 바랍니다.<br/>
             </div>
 
-            <div class="padding rem1"></div>
+            <div class="padding rem3"></div>
 
             <div class="item-description2">
                 신랑 박준영 · 신부 최영은
@@ -83,7 +100,12 @@
 
         <div class="padding rem3"></div>
 
-        <div class="item-container item-bg-dark" data-transaction>
+        <div
+                class="item-container item-bg-dark"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out"
+        >
             <div class="item-title">
                 WEDDING DAY
             </div>
@@ -133,7 +155,12 @@
             </div>
         </div>
 
-        <div class="item-container" data-transaction>
+        <div
+                class="item-container"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out"
+        >
             <div class="item-title">
                 GALLERY
             </div>
@@ -144,14 +171,14 @@
 
             <div class="padding rem2"></div>
 
-            <div class="glide item-carousel">
-                <div class="glide__track" data-glide-el="track">
+            <div class="glide item-carousel" data-glide>
+                <div class="glide__track" data-glide-el="track" onclick="setFullscreenCarousel()">
                     <ul class="glide__slides">
-                        <li class="glide__slide"><img src="assets/images/i1.jpeg" alt=""></li>
-                        <li class="glide__slide"><img src="assets/images/i2.jpeg" alt=""></li>
-                        <li class="glide__slide"><img src="assets/images/i3.jpeg" alt=""></li>
-                        <li class="glide__slide"><img src="assets/images/i4.jpeg" alt=""></li>
-                        <li class="glide__slide"><img src="assets/images/i5.jpg" alt=""></li>
+                        <li class="glide__slide"><img src="assets/images/i1.jpeg" alt="" data-image-index="0"></li>
+                        <li class="glide__slide"><img src="assets/images/i2.jpeg" alt="" data-image-index="1"></li>
+                        <li class="glide__slide"><img src="assets/images/i3.jpeg" alt="" data-image-index="2"></li>
+                        <li class="glide__slide"><img src="assets/images/i4.jpeg" alt="" data-image-index="3"></li>
+                        <li class="glide__slide"><img src="assets/images/i5.jpg" alt="" data-image-index="4"></li>
                     </ul>
                 </div>
 
@@ -173,9 +200,20 @@
             </div>
         </div>
 
-        <div class="driver shiny"></div>
+        <div
+                class="driver shiny"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out"
+        >
+        </div>
 
-        <div class="item-container" data-transaction>
+        <div
+                class="item-container"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out"
+        >
             <div class="item-title">
                 LOCATION
             </div>
@@ -191,16 +229,17 @@
             <div class="padding rem2"></div>
 
             <div class="item-location">
-		<div id="daumRoughmapContainer1750215057190" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
+                <div id="daumRoughmapContainer1750215057190" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
 
-		<script charset="UTF-8">
-			new daum.roughmap.Lander({
-				"timestamp" : "1750215057190",
-				"key" : "3r29hec3887",
-				"mapWidth" : "360",
-				"mapHeight" : "240"
-			}).render();
-		</script>
+                <script charset="UTF-8">
+					new daum.roughmap.Lander({
+						timestamp: "1750215057190",
+						key: "3r29hec3887",
+						mapWidth: "360",
+						mapHeight: "240"
+					})
+						.render();
+                </script>
             </div>
 
             <div class="padding rem1"></div>
@@ -235,9 +274,20 @@
             </div>
         </div>
 
-        <div class="driver shiny"></div>
+        <div
+                class="driver shiny"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out"
+        >
+        </div>
 
-        <div class="item-container" data-transaction>
+        <div
+                class="item-container"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out"
+        >
             <div class="item-title">
                 CONTACT
             </div>
@@ -246,16 +296,40 @@
                 연락처
             </div>
 
+            <div class="padding rem1"></div>
+
             <div class="item-description">
-                신랑 & 신부에게 축하의 인사를 전달 해보세요.
+                축하의 뜻을 따로 전하시고자 하시는 분들을 위해 연락처를 기재하였습니다.<br/>
+                <div class="padding rem-half"></div>
+                진심 어린 축하에 깊이 감사드립니다.
             </div>
 
             <div class="padding rem2"></div>
+
+            <div data-accordion>
+                <div class="accordion-header">
+                    신랑측
+                </div>
+                <div class="accordion-content">
+                    010-7195-6148
+                </div>
+            </div>
         </div>
 
-        <div class="driver shiny"></div>
+        <div
+                class="driver shiny"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out"
+        >
+        </div>
 
-        <div class="item-container" data-transaction>
+        <div
+                class="item-container"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out"
+        >
             <div class="item-title">
                 SEND GIFT
             </div>
@@ -264,11 +338,24 @@
                 마음 전하실 곳
             </div>
 
+            <div class="padding rem1"></div>
+
             <div class="item-description">
-                신랑 & 신부에게 축하의 마음을 전달 해보세요.
+                직접 축하 자리에 함께하시기 어려운 분들을 위해 준비했습니다.<br/>
+                <div class="padding rem-half"></div>
+                넓은 아량으로 이해해 주시고 따뜻한 마음으로 축복해 주세요.
             </div>
 
             <div class="padding rem2"></div>
+
+            <div data-accordion>
+                <div class="accordion-header">
+                    신랑측
+                </div>
+                <div class="accordion-content">
+                    010-7195-6148
+                </div>
+            </div>
         </div>
 
         <div class="button-list">
@@ -375,9 +462,13 @@
 
 <div class="item-container" data-fullscreen="schedule"></div>
 
+<div class="item-container" data-fullscreen="carousel"></div>
+
+<script>Kakao.init("81d57ff9f2d2a5524e506d8a1d386fd5");</script>
+<script>AOS.init();</script>
 <script type="text/javascript">
-    	// CONSTANT BEGIN
-    	const LATITUDE = "37.5213713";
+	// CONSTANT BEGIN
+	const LATITUDE = "37.5213713";
 	const LONGITUDE = "126.9044943";
 	const PLACE_NAME = "웨딩그룹위더스 영등포";
 	const PLACE_ADDRESS = "서울 영등포구 영중로 55";
@@ -389,10 +480,10 @@
 	const WEDDING_DATE_TIME_END = new Date(WEDDING_DATE_TIME_END_ISO_STRING);
 	const WEDDING_DATE = new Date(WEDDING_DATE_ISO_STRING);
 	const GROOM = "박준영";
-    	const BRIDE = "최영은";
+	const BRIDE = "최영은";
 	const META_TITLE = document.querySelector("meta[property=\"og:title\"]").content;
 	const META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
-    	// CONSTANT END
+	// CONSTANT END
 
 	initUserAgent();
 
@@ -404,17 +495,79 @@
 
 		document.querySelector("[data-fullscreen=\"" + mode + "\"]").classList.add("show");
 
-		if (mode === "schedule") {
-			createSchedule();
-		}
+		switch (mode) {
+			case "schedule":
+				createSchedule();
+				break;
+			case "route":
+				new daum.roughmap.Lander({
+					timestamp: "1750165976255",
+					key: "3pycungqfsg",
+					mapWidth: "360",
+					mapHeight: "240"
+				})
+					.render();
+				break;
+			case "carousel":
+				const glide = document.querySelector("[data-glide]");
+				let track = glide.querySelector("[data-glide-el=\"track\"]");
+				let images;
 
-		if (mode === "route") {
-			new daum.roughmap.Lander({
-				"timestamp" : "1750165976255",
-				"key" : "3pycungqfsg",
-				"mapWidth" : "360",
-				"mapHeight" : "240"
-			}).render();
+				track.onclick = undefined;
+
+				document.querySelector("[data-fullscreen=\"carousel\"]").append(glide);
+
+				const carousel = initCarousel();
+
+				track = document.querySelector("[data-glide] [data-glide-el=\"track\"]");
+
+				carousel.on("move.after", function () {
+					images = track.querySelectorAll("[data-image-index=\"" + carousel.index + "\"]");
+				});
+
+				EventManager.on(glide, ['touchpinchmove'], e => {
+					const dp = e.paths.slice(-2);
+
+					if (dp.length < 2) return;
+
+					const dd = dp.reduce((curr, prev) => curr.distance - prev.distance);
+					const dx = dp.reduce((curr, prev) => curr.center.x - prev.center.x);
+					const dy = dp.reduce((curr, prev) => curr.center.y - prev.center.y);
+
+					images.forEach(image => {
+						const scale = image.style.scale;
+						const transform = image.style.transform;
+						const px = transform.indexOf("px");
+						const py = transform.lastIndexOf("px");
+
+						image.style.scale = Math.max(0.33, Math.min(3, scale - dd / 125)).toString();
+						image.style.transform = "translate(" + (Number(transform.substring(10, px)) - dx * 1.25) + "px, " + (Number(transform.substring(px + 3, py)) - dy * 1.25) + "px)"
+					});
+				});
+
+				EventManager.on(glide, ['touchpinchstart'], () => {
+					carousel.disable();
+				});
+
+				EventManager.on(glide, ['touchpinchend'], () => {
+					images.forEach(image => {
+						image.style.scale = "1";
+						image.style.transform = "translate(0px, 0px)";
+					});
+
+					carousel.enable();
+					carousel.update({animationDuration: 0});
+					carousel.go("=" + carousel.index);
+					carousel.update({animationDuration: 200});
+					setTimeout(() => {
+						carousel.enable();
+						carousel.update({animationDuration: 0});
+						carousel.go("=" + carousel.index);
+						carousel.update({animationDuration: 200});
+					});
+				});
+
+				break;
 		}
 	} else {
 		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
@@ -428,13 +581,12 @@
 			syncScrollY(true);
 
 			initModal();
-			initTransaction();
 			initTsparticle();
 			initCalendar();
 			initCarousel();
 			initWeather();
 		};
-    	}
+	}
 
 	function initUserAgent() {
 		const userAgent = navigator.userAgent;
@@ -450,15 +602,15 @@
 			new Promise(resolve => {
 				if (navigator.userAgent.match(/Samsung/i) || window.matchMedia === undefined) {
 					const img = new Image();
-					
-	        			img.onload = function() {
-	            				const ctx = document.createElement("canvas").getContext("2d");
-	            				ctx.drawImage(img, 0, 0);
+
+					img.onload = function () {
+						const ctx = document.createElement("canvas").getContext("2d");
+						ctx.drawImage(img, 0, 0);
 						const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
 						resolve((r & b & g) < 255 ? "dark" : "light");
 					}
-					
-	        			img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IndoaXRlIi8+PC9zdmc+';
+
+					img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IndoaXRlIi8+PC9zdmc+';
 				} else {
 					resolve(window.matchMedia('(prefers-color-scheme:dark)').matches ? "dark" : "light");
 				}
@@ -468,35 +620,37 @@
 
 		detectColorScheme();
 		window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", detectColorScheme);
-    	}
+	}
 
 	function initModal() {
 		history.pushState(null, null, document.URL);
-		
+
 		window.addEventListener("popstate", function () {
 			const shownModal = document.querySelector("[data-modal-id].show");
-	
+
 			if (shownModal) {
 				history.pushState(null, null, document.URL);
 				shownModal.classList.remove("show");
-			}
+			} else {
+				closeKakaoTalkInAppBrowser();
+            }
 		});
-		
+
 		function showModal(id) {
-			const modal = id instanceof HTMLElement 
-				? id.closest("[data-modal-id]") 
+			const modal = id instanceof HTMLElement
+				? id.closest("[data-modal-id]")
 				: document.querySelector("[data-modal-id=" + id + "]");
-	
+
 			modal.classList.add("show");
 			modal.firstElementChild.onscroll = () => modal.dataset.scroll = modal.firstElementChild.scrollTop.toString();
 			history.pushState({}, "", "#" + window.scrollY.toString());
 		}
-		
+
 		function closeModal(id) {
-			const modal = id instanceof HTMLElement 
-				? id.closest("[data-modal-id]") 
+			const modal = id instanceof HTMLElement
+				? id.closest("[data-modal-id]")
 				: document.querySelector("[data-modal-id=" + id + "]");
-	
+
 			modal.classList.remove("show");
 			history.pushState({}, "", "#");
 		}
@@ -504,21 +658,7 @@
 		window.showModal = showModal.bind(window);
 		window.closeModal = closeModal.bind(window);
 	}
-	
-	function initTransaction() {
-		const targets = document.querySelectorAll('[data-transaction]');
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting && entry.intersectionRect.height >= Math.min(250, entry.target.clientHeight)) entry.target.classList.add("show");
-				else if (!entry.isIntersecting) entry.target.classList.remove("show");
-			});
-		}, {
-			threshold: Array.from({length: 21}, (_, i) => i * 0.05)
-		});
-		
-		targets.forEach(el => observer.observe(el));
-	}
-	
+
 	function initTsparticle() {
 		loadImageShape(tsParticles)
 			.then(function () {
@@ -709,7 +849,7 @@
 				});
 			});
 	}
-	
+
 	function initCalendar() {
 		// TIMER BEGIN
 		const components = [document.getElementById("remain-date"), document.getElementById("days"), document.getElementById("hours"), document.getElementById("minutes"), document.getElementById("seconds")];
@@ -839,17 +979,14 @@
 
 	function initCarousel() {
 		// CAROUSEL BEGIN
-		const carousel = new Glide(
-			".item-carousel",
-			{
-				type: "carousel",
-				perView: 1,
-				gap: 16,
-				autoplay: 5000,
-				hoverpause: true,
-				animationDuration: 1200,
-			}
-		)
+		const carousel = new Glide(".item-carousel", {
+			type: "carousel",
+			perView: 1,
+			gap: 16,
+			autoplay: 0,
+			hoverpause: true,
+			animationDuration: 200,
+		})
 			.mount();
 
 		const current = document.getElementById("carousel-current");
@@ -858,12 +995,11 @@
 		total.textContent = carousel._c.Html.slides.length.toString();
 		current.textContent = (carousel.index + 1).toString();
 
-		carousel.on(
-			"move",
-			function () {
-				current.textContent = (carousel.index + 1).toString();
-			}
-		);
+		carousel.on("move", function () {
+			current.textContent = (carousel.index + 1).toString();
+		});
+
+		return carousel;
 		// CAROUSEL END
 	}
 
@@ -872,6 +1008,10 @@
 
 		if (!isNaN(y)) window.scrollY = y;
 		if (removeHash) history.pushState({}, "", "#");
+	}
+
+	function setFullscreenCarousel() {
+		location.href = location.origin + location.pathname + "?mode=carousel"
 	}
 
 	function openMap(type) {
@@ -895,14 +1035,14 @@
 						trackId: "431589174",
 					}
 				})
-                    			.run();
+					.run();
 				break;
 			case "naver-map":
 				scheme = "nmap://navigation"
 					+ "?dlat=" + encodeURIComponent(LATITUDE)
 					+ "&dlng=" + encodeURIComponent(LONGITUDE)
 					+ "&dname=" + encodeURIComponent(PLACE_NAME)
-                    			+ "&appname=" + encodeURIComponent(location.origin);
+					+ "&appname=" + encodeURIComponent(location.origin);
 
 				fallback = "http://map.naver.com/index.nhn"
 					+ "?elat=" + encodeURIComponent(LATITUDE)
@@ -925,7 +1065,7 @@
 					},
 					mac: {
 						fallback: fallback
-                    			}
+					}
 				})
 					.run();
 				break;
@@ -935,7 +1075,7 @@
 					+ "&by=" + encodeURIComponent("CAR");
 
 				fallback = "https://map.kakao.com/link/to/"
-                    			+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE);
+					+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE);
 
 				new Native.App({
 					android: {
@@ -1115,20 +1255,20 @@
 							}
 						)
 							.then(response => response.json())
-							.then(response => onsuccess(response.event_id));
+							.then(() => onsuccess());
 					} else {
-						return onsuccess(matched.id);
+						return onsuccess();
 					}
 				});
 		}
 
-		function onsuccess(id) {
-			const scheme =  "kakaotalk://calendar/home"
-					+ "?date=" + encodeURIComponent(WEDDING_DATE_ISO_STRING);
+		function onsuccess() {
+			const scheme = "kakaotalk://calendar/home"
+				+ "?date=" + encodeURIComponent(WEDDING_DATE_ISO_STRING);
 
 			const fallback = "https://calendar.kakao.com/"
-					+ "?date=" + encodeURIComponent(WEDDING_DATE_ISO_STRING);
-			
+				+ "?date=" + encodeURIComponent(WEDDING_DATE_ISO_STRING);
+
 			new Native.App({
 				android: {
 					scheme: scheme,
@@ -1151,21 +1291,9 @@
 					closeKakaoTalkInAppBrowser();
 				}
 			}
-			
+
 			document.addEventListener("visibilitychange", onvisibilitychange);
 			closeKakaoTalkInAppBrowser();
-			
-			// return fetchWithAuthRetry(
-			// 	"https://kapi.kakao.com/v2/api/calendar/event"
-			// 	+ "?event_id=" + encodeURIComponent(id),
-			// 	{
-			// 		headers: {
-			// 			"Authorization": "Bearer " + kakaoAccessToken,
-			// 		}
-			// 	}
-			// )
-			// 	.then(response => response.json())
-			// 	.then(response => {});
 		}
 	}
 
@@ -1207,9 +1335,10 @@
 				}
 			],
 		});
-    	}
+	}
 
 	let alertId = 0;
+
 	function showAlert(content) {
 		const alert = document.createElement("div");
 
