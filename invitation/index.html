@@ -392,6 +392,7 @@
     // CONSTANT END
 
 	initUserAgent();
+	detectColorScheme().then(alert);
 
 	const search = new URLSearchParams(location.search);
 	const isMode = search.has("mode");
@@ -430,6 +431,28 @@
 			initWeather();
 		};
     }
+
+	function detectColorScheme() {
+		return new Promise(resolve => {
+			if (navigator.userAgent.match(/Samsung/i) || window.matchMedia === undefined) {
+				const img = new Image();
+				
+        			img.onload = function() {
+            				const ctx = document.createElement("canvas").getContext("2d");
+					
+            				ctx.drawImage(img, 0, 0);
+					
+					const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+
+					resolve((r & b & g) < 255 ? "dark" : "light");
+				}
+				
+        			img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IndoaXRlIi8+PC9zdmc+';
+			} else {
+				resolve(window.matchMedia('(prefers-color-scheme:dark)').matches ? "dark" : "light");
+			}
+		});
+	}
 
 	function initUserAgent() {
 		const userAgent = navigator.userAgent;
