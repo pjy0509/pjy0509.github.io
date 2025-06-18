@@ -276,20 +276,20 @@
     </div>
 </div>
 
-<div data-alert-id="schedule" onclick="closeAlert(this.dataset.alertId)">
+<div data-modal-id="schedule" onclick="closeModal(this)">
     <div class="item-container" onclick="event.stopPropagation()">
-        <div class="alert-header">
-            <button class="alert-close" onclick="closeAlert(this.closest('[data-alert-id]').dataset.alertId)"></button>
+        <div class="modal-header">
+            <button class="modal-close" onclick="closeModal(this)"></button>
 
-            <div class="item-alert-title">
+            <div class="item-modal-title">
                 일정 등록
             </div>
         </div>
 
-        <div class="alert-content">
+        <div class="modal-content">
             <div class="driver shiny"></div>
 
-            <div class="item-alert-description">
+            <div class="item-modal-description">
                 일정 등록이 완료되었습니다.
             </div>
 
@@ -424,7 +424,7 @@
 		window.onload = async function () {
 			syncScrollY(true);
 
-			initAlert();
+			initModal();
 			initTransaction();
 			initTsparticle();
 			initCalendar();
@@ -474,35 +474,39 @@
 		if (removeHash) history.pushState({}, "", "#");
 	}
 
-	function initAlert() {
+	function initModal() {
 		history.pushState(null, null, document.URL);
 		
 		window.addEventListener("popstate", function () {
-			const shownAlert = document.querySelector("[data-alert-id].show");
+			const shownModal = document.querySelector("[data-modal-id].show");
 	
-			if (shownAlert) {
+			if (shownModal) {
 				history.pushState(null, null, document.URL);
-				shownAlert.classList.remove("show");
+				shownModal.classList.remove("show");
 			}
 		});
 		
-		function showAlert(id) {
-			const alert = document.querySelector("[data-alert-id=" + id + "]");
+		function showModal(id) {
+			const modal = id instanceof HTMLElement 
+				? id.closest("[data-modal-id]") 
+				: document.querySelector("[data-modal-id=" + id + "]");
 	
-			alert.classList.add("show");
-			alert.firstElementChild.onscroll = () => alert.dataset.scroll = alert.firstElementChild.scrollTop.toString();
+			modal.classList.add("show");
+			modal.firstElementChild.onscroll = () => modal.dataset.scroll = modal.firstElementChild.scrollTop.toString();
 			history.pushState({}, "", "#" + window.scrollY.toString());
 		}
 		
-		function closeAlert(id) {
-			const alert = document.querySelector("[data-alert-id=" + id + "]");
+		function closeModal(id) {
+			const modal = id instanceof HTMLElement 
+				? id.closest("[data-modal-id]") 
+				: document.querySelector("[data-modal-id=" + id + "]");
 	
-			alert.classList.remove("show");
+			modal.classList.remove("show");
 			history.pushState({}, "", "#");
 		}
 
-		window.showAlert = showAlert.bind(window);
-		window.closeAlert = closeAlert.bind(window);
+		window.showModal = showModal.bind(window);
+		window.closeModal = closeModal.bind(window);
 	}
 	
 	function initTransaction() {
