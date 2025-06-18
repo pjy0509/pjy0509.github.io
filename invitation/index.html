@@ -458,6 +458,8 @@
     </div>
 
     <div class="padding rem2"></div>
+
+    <div id="tt"></div>
 </div>
 
 <div class="item-container" data-fullscreen="schedule"></div>
@@ -484,7 +486,11 @@
 	const META_TITLE = document.querySelector("meta[property=\"og:title\"]").content;
 	const META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
 	// CONSTANT END
+	function onvisibilitychange() {
+		document.getElementById("tt").innerText += "\n" + document.visibilityState;
+	}
 
+	document.addEventListener("visibilitychange", onvisibilitychange);
 	initUserAgent();
 
 	const search = new URLSearchParams(location.search);
