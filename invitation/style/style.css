@@ -1,136 +1,5 @@
 @import "font.css";
 
-:root {
-    --color-background-light: rgb(231, 218, 231);
-    --color-surface-light: white;
-    --color-shadow-light: rgba(0, 0, 0, 0.1);
-    --color-bg-alt-light: rgb(248, 248, 248);
-    --color-text-primary-light: rgb(17, 17, 17);
-    --color-text-secondary-light: rgb(85, 85, 85);
-    --color-text-tertiary-light: rgb(68, 68, 68);
-    --color-button-primary-light: rgb(190, 157, 190);
-    --color-button-text-light: white;
-    --color-countdown-light: rgb(177, 137, 177);
-    --color-divider-light: rgba(226, 232, 240, 1);
-    --color-divider-shiny-light: rgba(255, 255, 255, 1);
-    --color-divider-icon-light: rgb(226, 232, 240);
-    --color-shadow-weather-light: rgb(0, 0, 0);
-    --color-weather-detail-light: rgb(177, 177, 177);
-    --color-weather-secondary-light: rgb(78, 78, 78);
-    --color-weather-date-light: rgb(71, 71, 71);
-    --color-calendar-weekend-light: rgb(128, 128, 128);
-    --color-calendar-sunday-light: rgb(255, 128, 128);
-    --color-button-map-default-bg-light: rgb(255, 255, 255);
-    --color-button-map-default-text-light: rgb(0, 0, 0);
-    --color-button-map-naver-bg-light: rgb(0, 209, 54);
-    --color-button-map-naver-text-light: rgb(0, 0, 0);
-    --color-button-map-kakao-bg-light: rgb(250, 225, 0);
-    --color-button-map-kakao-text-light: rgb(0, 0, 0);
-    --color-button-map-kakaotalkcalendar-bg-light: rgb(254, 229, 0);
-    --color-button-map-kakaotalkcalendar-text-light: rgb(0, 0, 0);
-    --color-button-map-apple-bg-light: rgb(22, 22, 23);
-    --color-button-map-apple-text-light: rgb(255, 255, 255);
-    --color-overlay-light: rgba(0, 0, 0, .75);
-    --color-alert-bg-light: rgb(245, 245, 245);
-    --color-alert-shadow-light: rgba(0, 0, 0, 0.125);
-    --color-alert-driver-icon-light: rgb(198, 204, 212);
-    --color-alert-driver-bg-light: rgba(245, 245, 245, 1);
-    --color-park-border-light: #f2f2f2;
-    --color-park-text-light: #222;
-
-    /* Default (light) mode variables */
-    --color-background: var(--color-background-light);
-    --color-surface: var(--color-surface-light);
-    --color-shadow: var(--color-shadow-light);
-    --color-bg-alt: var(--color-bg-alt-light);
-    --color-text-primary: var(--color-text-primary-light);
-    --color-text-secondary: var(--color-text-secondary-light);
-    --color-text-tertiary: var(--color-text-tertiary-light);
-    --color-button-primary: var(--color-button-primary-light);
-    --color-button-text: var(--color-button-text-light);
-    --color-countdown: var(--color-countdown-light);
-    --color-divider: var(--color-divider-light);
-    --color-divider-shiny: var(--color-divider-shiny-light);
-    --color-divider-icon: var(--color-divider-icon-light);
-    --color-shadow-weather: var(--color-shadow-weather-light);
-    --color-weather-detail: var(--color-weather-detail-light);
-    --color-weather-secondary: var(--color-weather-secondary-light);
-    --color-weather-date: var(--color-weather-date-light);
-    --color-calendar-weekend: var(--color-calendar-weekend-light);
-    --color-calendar-sunday: var(--color-calendar-sunday-light);
-    --color-button-map-default-bg: var(--color-button-map-default-bg-light);
-    --color-button-map-default-text: var(--color-button-map-default-text-light);
-    --color-button-map-naver-bg: var(--color-button-map-naver-bg-light);
-    --color-button-map-naver-text: var(--color-button-map-naver-text-light);
-    --color-button-map-kakao-bg: var(--color-button-map-kakao-bg-light);
-    --color-button-map-kakao-text: var(--color-button-map-kakao-text-light);
-    --color-button-map-kakaotalkcalendar-bg: var(--color-button-map-kakaotalkcalendar-bg-light);
-    --color-button-map-kakaotalkcalendar-text: var(--color-button-map-kakaotalkcalendar-text-light);
-    --color-button-map-apple-bg: var(--color-button-map-apple-bg-light);
-    --color-button-map-apple-text: var(--color-button-map-apple-text-light);
-    --color-overlay: var(--color-overlay-light);
-    --color-alert-bg: var(--color-alert-bg-light);
-    --color-alert-shadow: var(--color-alert-shadow-light);
-    --color-alert-driver-icon: var(--color-alert-driver-icon-light);
-    --color-alert-driver-bg: var(--color-alert-driver-bg-light);
-    --color-park-border: var(--color-park-border-light);
-    --color-park-text: var(--color-park-text-light);
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-background: rgb(30, 30, 30);
-        --color-surface: rgb(45, 45, 45);
-        --color-shadow: rgba(255, 255, 255, 0.1);
-        --color-bg-alt: rgb(55, 55, 55);
-        --color-text-primary: rgb(240, 240, 240);
-        --color-text-secondary: rgb(170, 170, 170);
-        --color-text-tertiary: rgb(150, 150, 150);
-        --color-button-primary: rgb(100, 70, 100);
-        --color-button-text: white;
-        --color-countdown: rgb(150, 110, 150);
-        --color-divider: rgba(80, 80, 80, 1);
-        --color-divider-shiny: rgba(60, 60, 60, 1);
-        --color-divider-icon: rgb(80, 80, 80);
-        --color-shadow-weather: rgb(255, 255, 255);
-        --color-weather-detail: rgb(100, 100, 100);
-        --color-weather-secondary: rgb(120, 120, 120);
-        --color-weather-date: rgb(130, 130, 130);
-        --color-calendar-weekend: rgb(150, 150, 150);
-        --color-calendar-sunday: rgb(255, 180, 180);
-        --color-button-map-default-bg: rgb(60, 60, 60);
-        --color-button-map-default-text: rgb(240, 240, 240);
-        --color-button-map-naver-bg: rgb(0, 150, 40);
-        --color-button-map-naver-text: rgb(240, 240, 240);
-        --color-button-map-kakao-bg: rgb(180, 160, 0);
-        --color-button-map-kakao-text: rgb(240, 240, 240);
-        --color-button-map-kakaotalkcalendar-bg: rgb(180, 160, 0);
-        --color-button-map-kakaotalkcalendar-text: rgb(240, 240, 240);
-        --color-button-map-apple-bg: rgb(200, 200, 200);
-        --color-button-map-apple-text: rgb(30, 30, 30);
-        --color-overlay: rgba(0, 0, 0, .85);
-        --color-alert-bg: rgb(40, 40, 40);
-        --color-alert-shadow: rgba(255, 255, 255, 0.125);
-        --color-alert-driver-icon: rgb(80, 80, 80);
-        --color-alert-driver-bg: rgba(40, 40, 40, 1);
-        --color-park-border: #444;
-        --color-park-text: #ddd;
-
-        /* Dark mode specific filters for images */
-        .item-location .map img[role="presentation"] {
-            filter: invert(1) hue-rotate(180deg) brightness(0.8) contrast(1.2);
-        }
-
-        /* For map type buttons, if they contain images/SVGs that are brand logos, */
-        /* we need to be careful not to distort their original colors. */
-        /* The existing `filter: invert(1);` on `svg` is assumed to be for generic icons. */
-        /* If there are `img` elements within these buttons that are logos, */
-        /* a general filter to ensure visibility without color distortion is complex. */
-        /* For now, assuming the existing `svg` filter is sufficient for icons. */
-        /* If specific `img` elements need filtering, they would need to be targeted individually. */
-    }
-}
-
 html {
     -webkit-font-smoothing: antialiased;
     scroll-behavior: auto;
@@ -140,7 +9,7 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background: var(--color-background);
+    background: rgb(231, 218, 231);
     scroll-behavior: auto;
 }
 
@@ -183,9 +52,9 @@ body {
     overflow: hidden;
     margin: 0 auto;
     min-height: 100vh;
-    background: var(--color-surface);
+    background: white;
     max-width: 28rem;
-    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, var(--color-shadow) 0 20px 25px -5px, var(--color-shadow) 0 8px 10px -6px;
+    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0.1) 0 20px 25px -5px, rgba(0, 0, 0, 0.1) 0 8px 10px -6px;
 }
 
 .item-intro {
@@ -215,7 +84,7 @@ body {
     display: flex;
     row-gap: .5rem;
     flex-direction: column;
-    background: var(--color-surface);
+    background: rgb(255, 255, 255);
 }
 
 .item-container[data-transaction] {
@@ -234,7 +103,7 @@ body {
 }
 
 .item-bg-dark {
-    background: var(--color-bg-alt);
+    background: rgb(248, 248, 248);
     padding: 3rem 0;
 }
 
@@ -245,7 +114,7 @@ body {
     text-transform: uppercase;
     line-height: 2.5rem;
     letter-spacing: -.025em;
-    color: var(--color-text-primary);
+    color: rgb(17, 17, 17);
     opacity: 1;
 
     translate: none;
@@ -257,53 +126,53 @@ body {
 
 .item-container .item-alert-title {
     font-size: 1.5rem;
-    color: var(--color-text-primary);
+    color: rgb(17, 17, 17);
     opacity: .9;
     padding: 1.25rem 0;
 }
 
 .item-container .item-subtitle {
-    color: var(--color-text-primary);
+    color: rgb(17, 17, 17);
     opacity: .9;
     padding: 0 2rem;
 }
 
 .item-container .item-alert-subtitle {
-    color: var(--color-text-primary);
+    color: rgb(17, 17, 17);
     opacity: .9;
     padding: 0 2rem;
     font-size: .85rem;
 }
 
 .item-container .item-content {
-    color: var(--color-text-secondary);
+    color: rgb(85, 85, 85);
     opacity: .9;
     padding: 0 2rem;
     line-height: 1.8rem;
 }
 
 .item-container .item-description {
-    color: var(--color-text-tertiary);
+    color: rgb(68, 68, 68);
     opacity: .5;
     padding: 0 2rem;
 }
 
 .item-container .item-alert-description {
-    color: var(--color-text-tertiary);
+    color: rgb(68, 68, 68);
     opacity: .5;
     padding: 0 2rem;
     font-size: .85rem;
 }
 
 .item-container .item-description2 {
-    color: var(--color-text-primary);
+    color: rgb(17, 17, 17);
     font-size: .8rem;
     padding: 0 2rem;
 }
 
 .item-container > .item-button {
     border: 0;
-    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, var(--color-shadow) 0 10px 15px -3px, var(--color-shadow) 0 4px 6px -4px;
+    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.1) 0 4px 6px -4px;
     margin: 0 2rem;
     padding: .5rem;
     display: flex;
@@ -311,8 +180,8 @@ body {
     justify-content: center;
     gap: 1rem;
     border-radius: .5rem;
-    background: var(--color-button-primary);
-    color: var(--color-button-text);
+    background: rgb(190, 157, 190);
+    color: white;
     font-weight: 500;
 }
 
@@ -328,10 +197,10 @@ body {
 }
 
 .item-countdown > div {
-    background: var(--color-surface);
+    background: rgb(255, 255, 255);
     border-radius: .5rem;
     padding: 1rem 0;
-    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, var(--color-shadow) 0 10px 15px -3px, var(--color-shadow) 0 4px 6px -4px;
+    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.1) 0 4px 6px -4px;
     flex: 1;
     font-size: 1.5rem;
     line-height: 2rem;
@@ -364,29 +233,29 @@ body {
 }
 
 .item-countdown #remain-date {
-    color: var(--color-countdown);
+    color: rgb(177, 137, 177);
 }
 
 .driver {
     height: 1px;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, var(--color-divider) 5%, var(--color-divider) 95%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(226, 232, 240, 1) 5%, rgba(226, 232, 240, 1) 95%, rgba(0, 0, 0, 0) 100%);
     margin: 3rem 2rem;
     position: relative;
 }
 
 .driver.shiny {
-    background: var(--color-divider);
+    background: rgba(226, 232, 240, 1);
 }
 
 .driver.shiny::after {
     content: "✦";
     font-size: 0.75rem;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, var(--color-divider-shiny) 30%, var(--color-divider-shiny) 70%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 1) 70%, rgba(0, 0, 0, 0) 100%);
     padding: 0 2.5rem;
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: var(--color-divider-icon);
+    color: rgb(226, 232, 240);
 }
 
 .driver.shiny + .item-container {
@@ -439,13 +308,13 @@ body {
     align-items: center;
     font-size: 48px;
     height: 48px;
-    filter: drop-shadow(2px 2px 0px var(--color-shadow-weather));
+    filter: drop-shadow(2px 2px 0px rgb(0, 0, 0));
 }
 
 .item-weather .weather-container .weather-icon #detail {
     font-size: .6rem;
     font-weight: 600;
-    color: var(--color-weather-detail);
+    color: rgb(177 177 177);
 }
 
 .item-weather .weather-primary {
@@ -466,7 +335,7 @@ body {
     display: flex;
     align-items: center;
     font-size: .7rem;
-    color: var(--color-weather-secondary);
+    color: rgb(78 78 78);
     height: 1rem;
 }
 
@@ -483,7 +352,7 @@ body {
 .item-weather #weather-date {
     font-size: .75rem;
     font-weight: 600;
-    color: var(--color-weather-date);
+    color: rgb(71 71 71);
 }
 
 .item-calendar {
@@ -516,18 +385,18 @@ body {
 }
 
 .item-calendar > div > div#target > p {
-    background: var(--color-background);
-    color: var(--color-button-text);
+    background: rgb(231, 218, 231);
+    color: white;
     border-radius: 50%;
     font-weight: 400;
 }
 
 .item-calendar > div > div:nth-child(7n) {
-    color: var(--color-calendar-weekend);
+    color: rgb(128, 128, 128);
 }
 
 .item-calendar > div > div:nth-child(7n + 1) {
-    color: var(--color-calendar-sunday);
+    color: rgb(255, 128, 128);
 }
 
 .item-carousel {
@@ -540,11 +409,11 @@ body {
     justify-content: space-between;
     align-items: center;
     font-size: 0.875rem;
-    color: var(--color-text-secondary);
+    color: rgb(85, 85, 85);
 }
 
 .item-carousel-arrows button {
-    color: var(--color-text-primary);
+    color: rgb(0, 0, 0);
     width: 5rem;
     background: transparent;
     border: none;
@@ -580,7 +449,7 @@ body {
 .item-park {
     margin: 0 2rem;
     padding: 20px 0;
-    border-top: 1px solid var(--color-park-border);
+    border-top: 1px solid #f2f2f2;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -588,7 +457,7 @@ body {
 
 .item-park > strong {
     font-size: 14px;
-    color: var(--color-park-text);
+    color: #222;
     display: block;
     line-height: 17px;
     margin-bottom: 8px;
@@ -597,7 +466,7 @@ body {
 .item-park > div {
     margin: 6px 0 6px 6px;
     font-size: 13px;
-    color: var(--color-park-text);
+    color: #222;
     float: left;
     line-height: 16px;
     text-align: left;
@@ -605,7 +474,7 @@ body {
 
 .item-park > div > strong {
     font-size: 13px;
-    color: var(--color-park-text);
+    color: #222;
     display: block;
     line-height: 17px;
     margin: 0 0 8px -6px;
@@ -655,7 +524,7 @@ body {
     align-items: center;
     gap: 1rem;
     flex: 1;
-    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, var(--color-shadow) 0 10px 15px -3px, var(--color-shadow) 0 4px 6px -4px;
+    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.1) 0 4px 6px -4px;
     border: 0;
 }
 
@@ -666,29 +535,29 @@ body {
 
 .button[data-map-type="t-map"],
 .button[data-map-type="google-map"] {
-    background: var(--color-button-map-default-bg);
-    color: var(--color-button-map-default-text);
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
 }
 
 .button[data-map-type="naver-map"] {
-    background: var(--color-button-map-naver-bg);
-    color: var(--color-button-map-naver-text);
+    background: rgb(0, 209, 54);
+    color: rgb(0, 0, 0);
 }
 
 .button[data-map-type="kakao-map"],
 .button[data-map-type="kakao-navi"] {
-    background: var(--color-button-map-kakao-bg);
-    color: var(--color-button-map-kakao-text);
+    background: rgb(250, 225, 0);
+    color: rgb(0, 0, 0);
 }
 
 .button[data-map-type="kakao-talkcalendar"] {
-    background: var(--color-button-map-kakaotalkcalendar-bg);
-    color: var(--color-button-map-kakaotalkcalendar-text);
+    background: rgb(254, 229, 0);
+    color: rgb(0, 0, 0);
 }
 
 .button[data-map-type="apple-map"] {
-    background: var(--color-button-map-apple-bg);
-    color: var(--color-button-map-apple-text);
+    background: rgb(22, 22, 23);
+    color: rgb(255, 255, 255);
 }
 
 body[data-os-name="MacOS"] .button[data-map-type="t-map"], body[data-os-name="Windows"] .button[data-map-type="t-map"],
@@ -699,7 +568,7 @@ body[data-os-name="Android"] .button[data-map-type="apple-map"], body[data-os-na
 
 [data-alert-id] {
     visibility: hidden;
-    background: var(--color-overlay);
+    background: rgba(0, 0, 0, .75);
     position: fixed;
     top: 0;
     left: 0;
@@ -721,22 +590,26 @@ body[data-os-name="Android"] .button[data-map-type="apple-map"], body[data-os-na
     top: 0;
     left: 0;
     z-index: 9;
-    background: var(--color-alert-bg);
+    background: rgb(245, 245, 245);
     transition: box-shadow 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 
 [data-alert-id]:not([data-scroll="0"]) .alert-header {
-    box-shadow: var(--color-alert-shadow) 0 0 30px;
+    box-shadow: rgba(0, 0, 0, 0.125) 0 0 30px;
 }
 
 [data-alert-id]:not([data-scroll]) .alert-header {
     box-shadow: unset;
 }
 
+[data-alert-id] .alert-content {
+    padding-bottom: 1.25rem;
+}
+
 [data-alert-id] > div {
     opacity: 0;
     width: 28rem;
-    background: var(--color-alert-bg);
+    background: rgb(245, 245, 245);
     border-radius: .5rem;
     position: relative;
     margin: 2rem;
@@ -776,7 +649,7 @@ body[data-os-name="Android"] .button[data-map-type="apple-map"], body[data-os-na
 
 [data-alert-id] .driver::after {
     content: "•  •  •  •  •  •  •";
-    color: var(--color-alert-driver-icon);
+    color: rgb(198, 204, 212);
     background: unset;
     padding: 0;
     width: fit-content;
@@ -790,7 +663,8 @@ body[data-os-name="Android"] .button[data-map-type="apple-map"], body[data-os-na
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    background: linear-gradient(90deg, var(--color-alert-driver-bg) 0%, rgba(0, 0, 0, 0) 50%, var(--color-alert-driver-bg) 100%);
+    color: rgba(0, 0, 0, 0);
+    background: linear-gradient(90deg, rgba(245, 245, 245, 1) 0%, rgba(0, 0, 0, 0) 50%, rgba(245, 245, 245, 1) 100%);
     width: fit-content;
     white-space: nowrap;
 }
@@ -821,4 +695,3 @@ body:has([data-fullscreen].show) {
 body:has([data-fullscreen].show) .container {
     display: none;
 }
-
