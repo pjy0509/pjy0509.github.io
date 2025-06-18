@@ -412,6 +412,7 @@
 
 	const search = new URLSearchParams(location.search);
 	const isMode = search.has("mode");
+	let wv;
 
 	if (isMode) {
 		const mode = search.get("mode");
@@ -450,9 +451,10 @@
 
 	function initUserAgent() {
 		const userAgent = navigator.userAgent;
+		
 		document.body.dataset.osName = Native.OS.name;
 
-		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = "kakao";
+		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = wv = "kakao";
     }
 
 	function syncScrollY(removeHash = false) {
@@ -1086,7 +1088,7 @@
 	}
 
 	function closeKakaoTalkInAppBrowser() {
-		if (document.body.dataset.wv !== "kakao") return;
+		if (wv !== "kakao") return;
 		if (Native.OS.name === "iOS") return location.href = "kakaoweb://closeBrowser";
 		return location.href = "kakaotalk://inappbrowser/close";
 	}
