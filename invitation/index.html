@@ -48,6 +48,8 @@
     <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js" integrity="sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6" crossorigin="anonymous"></script>
     <script>Kakao.init("81d57ff9f2d2a5524e506d8a1d386fd5");</script>
+
+	<style>img { filter: blur(10px) !important; }</style>
 </head>
 <body>
 
@@ -108,13 +110,6 @@
             </div>
 
             <div class="driver"></div>
-
-            <div class="button-list">
-                <button class="button" data-map-type="kakao-talkcalendar" onclick="createSchedule()">
-                    <img src="assets/images/icon_kakaotalkcalendar.png" alt=""/>
-                    일정 등록하기
-                </button>
-            </div>
 
             <div class="item-calendar" id="calendar">
             </div>
@@ -948,7 +943,7 @@
 		}
 	}
 
-	function createSchedule(closeBrowser = false) {
+	function createSchedule() {
 		let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
 
 		if (!kakaoAccessToken) {
@@ -1078,14 +1073,12 @@
 			)
 				.then(response => response.json())
 				.then(() => {
-					if (closeBrowser) {
-						location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
+					location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
+					closeKakaoTalkInAppBrowser();
+					document.addEventListener("visibilitychange", function onvisibilitychange () {
+						document.removeEventListener("visibilitychange", onvisibilitychange);
 						closeKakaoTalkInAppBrowser();
-					} else {
-						history.pushState({}, "", "#" + window.scrollY.toString());
-						alert("일정이 등록되었습니다.");
-						location.reload();
-					}
+					});
 				});
 		}
 	}
