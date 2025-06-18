@@ -420,6 +420,22 @@
 
 		if (mode === "schedule") {
 			createSchedule(true);
+
+			function onfocus() {
+				document.body.innerText += "\nfocus";
+			}
+
+			function onblur() {
+				document.body.innerText += "\nblur";
+			}
+
+			function onvisibilitychange() {
+				document.body.innerText += "\nvisibilitychange, visibilityState: " + document.visibilityState + ", " + "hidden: " + document.hidden;
+			}
+			
+			window.addEventListener("focus", onfocus);
+			window.addEventListener("blur", onblur);
+			document.addEventListener("visibilitychange", onvisibilitychange);
 		}
 
 		if (mode === "route") {
