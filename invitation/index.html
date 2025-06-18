@@ -424,6 +424,8 @@
 		window.onload = async function () {
 			syncScrollY(true);
 
+			initAlert();
+			initTransaction();
 			initTsparticle();
 			initCalendar();
 			initCarousel();
@@ -472,6 +474,48 @@
 		if (removeHash) history.pushState({}, "", "#");
 	}
 
+	function initAlert() {
+		history.pushState(null, null, document.URL);
+		
+		window.addEventListener("popstate", function () {
+			const shownAlert = document.querySelector("[data-alert-id].show");
+	
+			if (shownAlert) {
+				history.pushState(null, null, document.URL);
+				shownAlert.classList.remove("show");
+			}
+		});
+		
+		window.showAlert = function showAlert(id) {
+			const alert = document.querySelector("[data-alert-id=" + id + "]");
+	
+			alert.classList.add("show");
+			alert.firstElementChild.onscroll = () => alert.dataset.scroll = alert.firstElementChild.scrollTop.toString();
+			history.pushState({}, "", "#" + window.scrollY.toString());
+		}
+		
+		window.closeAlert = function closeAlert(id) {
+			const alert = document.querySelector("[data-alert-id=" + id + "]");
+	
+			alert.classList.remove("show");
+			history.pushState({}, "", "#");
+		}
+	}
+	
+	function initTransaction() {
+		const targets = document.querySelectorAll('[data-transaction]');
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting && entry.intersectionRect.height >= Math.min(250, entry.target.clientHeight)) entry.target.classList.add("show");
+				else if (!entry.isIntersecting) entry.target.classList.remove("show");
+			});
+		}, {
+			threshold: Array.from({length: 21}, (_, i) => i * 0.05)
+		});
+		
+		targets.forEach(el => observer.observe(el));
+	}
+	
 	function initTsparticle() {
 		loadImageShape(tsParticles)
 			.then(function () {
@@ -662,7 +706,7 @@
 				});
 			});
 	}
-
+	
 	function initCalendar() {
 		// TIMER BEGIN
 		const components = [document.getElementById("remain-date"), document.getElementById("days"), document.getElementById("hours"), document.getElementById("minutes"), document.getElementById("seconds")];
@@ -841,14 +885,14 @@
 						trackId: "431589174",
 					}
 				})
-                    .run();
+                    			.run();
 				break;
 			case "naver-map":
 				scheme = "nmap://navigation"
 					+ "?dlat=" + encodeURIComponent(LATITUDE)
 					+ "&dlng=" + encodeURIComponent(LONGITUDE)
 					+ "&dname=" + encodeURIComponent(PLACE_NAME)
-                    + "&appname=" + encodeURIComponent(location.origin);
+                    			+ "&appname=" + encodeURIComponent(location.origin);
 
 				fallback = "http://map.naver.com/index.nhn"
 					+ "?elat=" + encodeURIComponent(LATITUDE)
@@ -868,10 +912,10 @@
 					},
 					windows: {
 						fallback: fallback
-                    },
+					},
 					mac: {
 						fallback: fallback
-                    }
+                    			}
 				})
 					.run();
 				break;
@@ -881,7 +925,7 @@
 					+ "&by=" + encodeURIComponent("CAR");
 
 				fallback = "https://map.kakao.com/link/to/"
-                    + encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE);
+                    			+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE);
 
 				new Native.App({
 					android: {
@@ -1153,45 +1197,7 @@
 				}
 			],
 		});
-    }
-
-	function showAlert(id) {
-		const alert = document.querySelector("[data-alert-id=" + id + "]");
-
-		alert.classList.add("show");
-		alert.firstElementChild.onscroll = () => alert.dataset.scroll = alert.firstElementChild.scrollTop.toString();
-		history.pushState({}, "", "#" + window.scrollY.toString());
-	}
-
-	function closeAlert(id) {
-		const alert = document.querySelector("[data-alert-id=" + id + "]");
-
-		alert.classList.remove("show");
-		history.pushState({}, "", "#");
-	}
-
-	history.pushState(null, null, document.URL);
-	window.addEventListener("popstate", function () {
-		const shownAlert = document.querySelector("[data-alert-id].show");
-
-		if (shownAlert) {
-			history.pushState(null, null, document.URL);
-			shownAlert.classList.remove("show");
-		}
-	});
-
-	const targets = document.querySelectorAll('[data-transaction]');
-
-	const observer = new IntersectionObserver((entries) => {
-		entries.forEach(entry => {
-			if (entry.isIntersecting && entry.intersectionRect.height >= Math.min(250, entry.target.clientHeight)) entry.target.classList.add("show");
-			else if (!entry.isIntersecting) entry.target.classList.remove("show");
-		});
-	}, {
-		threshold: Array.from({length: 21}, (_, i) => i * 0.05)
-	});
-
-	targets.forEach(el => observer.observe(el));
+    	}
 </script>
 </body>
 </html>
