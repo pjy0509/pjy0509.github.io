@@ -460,7 +460,7 @@
 					resolve(window.matchMedia('(prefers-color-scheme:dark)').matches ? "dark" : "light");
 				}
 			})
-				.then(scheme => document.documentElement.setAttribute("data-color-scheme", scheme));
+				.then(scheme => document.documentElement.dataset.colorScheme = scheme);
 		}
 
 		detectColorScheme();
