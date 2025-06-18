@@ -1074,14 +1074,15 @@
 				.then(response => response.json())
 				.then(() => {
 					function onvisibilitychange () {
-						if (document.visibilityState === "visible") document.removeEventListener("visibilitychange", onvisibilitychange);
-						closeKakaoTalkInAppBrowser();
+						if (document.visibilityState === "visible") {
+							document.removeEventListener("visibilitychange", onvisibilitychange);
+							closeKakaoTalkInAppBrowser();
+						}
 					}
 					
 					document.addEventListener("visibilitychange", onvisibilitychange);
 					
 					location.href = "kakaotalk://calendar/home?date=" + WEDDING_DATE_ISO_STRING;
-					closeKakaoTalkInAppBrowser();
 				});
 		}
 	}
