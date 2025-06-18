@@ -487,7 +487,11 @@
 	const META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
 	// CONSTANT END
 	function onvisibilitychange() {
+		// if (document.visibilityState === "hidden") {
+		// 	location.reload();
+		// }
 		document.getElementById("tt").innerText += "\n" + document.visibilityState;
+		document.getElementById("tt").innerText += "\n" + (document.hasFocus() ? "focus" : "blur");
 	}
 
 	document.addEventListener("visibilitychange", onvisibilitychange);
