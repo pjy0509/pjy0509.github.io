@@ -372,8 +372,6 @@
 
 <div class="item-container" data-fullscreen="schedule"></div>
 
-<div class="item-container" data-fullscreen="debug"></div>
-
 <script type="text/javascript">
     // CONSTANT BEGIN
     const LATITUDE = "37.5213713";
@@ -414,10 +412,6 @@
 				"mapWidth" : "360",
 				"mapHeight" : "240"
 			}).render();
-		}
-
-		if (mode === "debug") {
-			document.body.innerText += window.matchMedia('(prefers-color-scheme: dark)').matches;
 		}
 	} else {
 		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
