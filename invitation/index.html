@@ -1081,8 +1081,17 @@
 				}
 			})
 				.run();
+
+			function onvisibilitychange() {
+				if (document.visibilityState === "visible") {
+					document.removeEventListener("visibilitychange", onvisibilitychange);
+					closeKakaoTalkInAppBrowser();
+				}
+			}
 			
+			document.addEventListener("visibilitychange", onvisibilitychange);
 			closeKakaoTalkInAppBrowser();
+			
 			// return fetchWithAuthRetry(
 			// 	"https://kapi.kakao.com/v2/api/calendar/event"
 			// 	+ "?event_id=" + encodeURIComponent(id),
