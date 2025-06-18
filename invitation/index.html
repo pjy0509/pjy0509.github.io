@@ -486,7 +486,7 @@
 			}
 		});
 		
-		window.showAlert = function showAlert(id) {
+		function showAlert(id) {
 			const alert = document.querySelector("[data-alert-id=" + id + "]");
 	
 			alert.classList.add("show");
@@ -494,12 +494,15 @@
 			history.pushState({}, "", "#" + window.scrollY.toString());
 		}
 		
-		window.closeAlert = function closeAlert(id) {
+		function closeAlert(id) {
 			const alert = document.querySelector("[data-alert-id=" + id + "]");
 	
 			alert.classList.remove("show");
 			history.pushState({}, "", "#");
 		}
+
+		window.showAlert = showAlert.bind(window);
+		window.closeAlert = closeAlert.bind(window);
 	}
 	
 	function initTransaction() {
