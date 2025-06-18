@@ -1061,11 +1061,11 @@
 
 		function onsuccess(id) {
 			function onvisibilitychange () {
-				document.body.innerText += document.visibilityState + "1";
+				document.body.innerText += document.visibilityState + "2";
 				
 				if (document.visibilityState === "visible") {
 					document.removeEventListener("visibilitychange", onvisibilitychange);
-					closeKakaoTalkInAppBrowser();
+					document.body.innerText += closeKakaoTalkInAppBrowser();
 				}
 			}
 			
