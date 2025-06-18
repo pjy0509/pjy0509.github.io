@@ -414,6 +414,10 @@
 				"mapHeight" : "240"
 			}).render();
 		}
+
+		if (mode === "debug") {
+			document.body.innerText += window.matchMedia('(prefers-color-scheme: dark)').matches;
+		}
 	} else {
 		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
 
