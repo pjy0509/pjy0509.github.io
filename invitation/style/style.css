@@ -625,8 +625,8 @@ body[data-os-name="Android"] .button[data-map-type="apple-map"], body[data-os-na
 
 [data-modal-id] > div {
     opacity: 0;
-    width: 28rem;
-    max-width: calc(100% - 4rem);
+    min-width: min(28rem, 100%);
+    width: calc(100% - 4rem);
     max-height: calc(100% - 6rem);
     background: rgb(245, 245, 245);
     border-radius: .5rem;
