@@ -427,7 +427,6 @@
 		window.onload = async function () {
 			syncScrollY(true);
 
-			initScrollbar();
 			initModal();
 			initTransaction();
 			initTsparticle();
@@ -470,26 +469,6 @@
 		detectColorScheme();
 		window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", detectColorScheme);
     	}
-
-	function initScrollbar() {
-		const ps = new PerfectScrollbar(document.body);
-		let delay = 100;
-		let timer = null;
-		
-		function setHeight() {
-			document.body.style.height = window.innerHeight + "px";
-		}
-		
-		setHeight();
-
-		window.addEventListener('resize', function() {
-			clearTimeout(timer);
-			timer = setTimeout(function() {
-				setHeight();
-				ps.update();
-			}, delay);
-		});
-	}
 
 	function initModal() {
 		history.pushState(null, null, document.URL);
