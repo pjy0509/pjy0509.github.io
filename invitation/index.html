@@ -1080,13 +1080,9 @@
 					fallback: fallback
 				}
 			})
-				.run()
-				.then(result => {
-					document.body.innerText += document.body.dataset.wv;
-					document.body.innerText += "\n" + result;
-					closeKakaoTalkInAppBrowser();
-				});
-
+				.run();
+			
+			closeKakaoTalkInAppBrowser();
 			// return fetchWithAuthRetry(
 			// 	"https://kapi.kakao.com/v2/api/calendar/event"
 			// 	+ "?event_id=" + encodeURIComponent(id),
