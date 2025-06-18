@@ -1073,17 +1073,17 @@
 			)
 				.then(response => response.json())
 				.then(() => {
-					location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
-					closeKakaoTalkInAppBrowser();
-
 					function onvisibilitychange () {
-						document.removeEventListener("visibilitychange", onvisibilitychange);
+						if (document.hidden === false || document.webkitHidden === false) document.removeEventListener("visibilitychange", onvisibilitychange);
 						window.removeEventListener("focus", onvisibilitychange);
 						closeKakaoTalkInAppBrowser();
 					}
 					
 					window.addEventListener("focus", onvisibilitychange);
 					document.addEventListener("visibilitychange", onvisibilitychange);
+					
+					location.href = "kakaotalk://calendar/home?date=" + "2025-08-31";
+					closeKakaoTalkInAppBrowser();
 				});
 		}
 	}
