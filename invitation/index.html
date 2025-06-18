@@ -1060,30 +1060,30 @@
 		}
 
 		function onsuccess(id) {
-			window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + location.hash);
-
-			return fetchWithAuthRetry(
-				"https://kapi.kakao.com/v2/api/calendar/event"
-				+ "?event_id=" + encodeURIComponent(id),
-				{
-					headers: {
-						"Authorization": "Bearer " + kakaoAccessToken,
-					}
+			function onvisibilitychange () {
+				document.body.innerText += document.visibilityState + "1";
+				
+				if (document.visibilityState === "visible") {
+					document.removeEventListener("visibilitychange", onvisibilitychange);
+					closeKakaoTalkInAppBrowser();
 				}
-			)
-				.then(response => response.json())
-				.then(() => {
-					function onvisibilitychange () {
-						if (document.visibilityState === "visible") {
-							document.removeEventListener("visibilitychange", onvisibilitychange);
-							closeKakaoTalkInAppBrowser();
-						}
-					}
-					
-					document.addEventListener("visibilitychange", onvisibilitychange);
-					
-					location.href = "kakaotalk://calendar/home?date=" + WEDDING_DATE_ISO_STRING;
-				});
+			}
+			
+			document.addEventListener("visibilitychange", onvisibilitychange);
+			
+			location.href = "kakaotalk://calendar/home?date=" + WEDDING_DATE_ISO_STRING;
+
+			// return fetchWithAuthRetry(
+			// 	"https://kapi.kakao.com/v2/api/calendar/event"
+			// 	+ "?event_id=" + encodeURIComponent(id),
+			// 	{
+			// 		headers: {
+			// 			"Authorization": "Bearer " + kakaoAccessToken,
+			// 		}
+			// 	}
+			// )
+			// 	.then(response => response.json())
+			// 	.then(response => {});
 		}
 	}
 
