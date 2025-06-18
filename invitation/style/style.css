@@ -567,6 +567,18 @@ body[data-os-name="Android"] .button[data-map-type="apple-map"], body[data-os-na
     text-overflow: ellipsis;
 }
 
+[data-alert-id] .title {
+    color: rgb(17, 17, 17);
+    opacity: .9;
+    font-size: .85rem;
+}
+
+[data-alert-id] .description {
+    color: rgb(68, 68, 68);
+    opacity: .5;
+    font-size: .85rem;
+}
+
 [data-modal-id] {
     visibility: hidden;
     background: rgba(0, 0, 0, .75);
@@ -579,6 +591,10 @@ body[data-os-name="Android"] .button[data-map-type="apple-map"], body[data-os-na
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    text-wrap: pretty;
+    row-gap: .5rem;
+    flex-direction: column;
 }
 
 [data-modal-id].show {
@@ -674,7 +690,6 @@ body:has([data-modal-id].show) {
     overflow: hidden;
 }
 
-[data-alert-id] .title,
 [data-modal-id] .title {
     font-size: 1.5rem;
     color: rgb(17, 17, 17);
@@ -682,7 +697,6 @@ body:has([data-modal-id].show) {
     padding: 1.25rem 0;
 }
 
-[data-alert-id] .subtitle,
 [data-modal-id] .subtitle {
     color: rgb(17, 17, 17);
     opacity: .9;
@@ -690,7 +704,6 @@ body:has([data-modal-id].show) {
     font-size: .85rem;
 }
 
-[data-alert-id] .description,
 [data-modal-id] .description {
     color: rgb(68, 68, 68);
     opacity: .5;
