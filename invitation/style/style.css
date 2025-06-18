@@ -1,5 +1,13 @@
 @import "font.css";
 
+:root[data-color-scheme="dark"] {
+    --white-1: rgb(0, 0, 0);
+}
+
+:root[data-color-scheme="light"] {
+    --white-1: rgb(255, 255, 255);
+}
+
 html {
     -webkit-font-smoothing: antialiased;
     scroll-behavior: auto;
@@ -84,7 +92,7 @@ body {
     display: flex;
     row-gap: .5rem;
     flex-direction: column;
-    background: rgb(255, 255, 255);
+    background: var(--white-1);
 }
 
 .item-container[data-transaction] {
