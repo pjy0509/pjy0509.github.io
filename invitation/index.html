@@ -472,16 +472,16 @@
     	}
 
 	function initScrollbar() {
+		const body = document.body;
+		const ps = new PerfectScrollbar(body);
+		let delay = 300;
+		let timer = null;
+		
 		function setHeight() {
 			body.style.height = window.innerHeight + "px";
 		}
 		
 		setHeight();
-		
-		const body = document.body;
-		const ps = new PerfectScrollbar(body);
-		let delay = 300;
-		let timer = null;
 
 		window.addEventListener('resize', function() {
 			clearTimeout(timer);
