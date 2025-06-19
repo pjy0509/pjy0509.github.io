@@ -1160,7 +1160,7 @@
 		iframeDoc.write("\<script>");
 		iframeDoc.write("window.Native = parent.Native;");
 		iframeDoc.write(runApp.toString() + ";");
-		iframeDoc.write("runApp(" + type + ");");
+		iframeDoc.write("runApp(\"" + type + "\");");
 		iframeDoc.write("\<\/script>");
 		iframeDoc.close();
 		
