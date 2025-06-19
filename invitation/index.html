@@ -230,16 +230,6 @@
 
             <div class="item-location">
                 <div id="daumRoughmapContainer1750215057190" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
-
-                <script charset="UTF-8">
-					new daum.roughmap.Lander({
-						timestamp: "1750215057190",
-						key: "3r29hec3887",
-						mapWidth: "360",
-						mapHeight: "240"
-					})
-						.render();
-                </script>
             </div>
 
             <div class="padding rem1"></div>
@@ -491,10 +481,20 @@
 		// 	location.reload();
 		// }
 		document.getElementById("tt").innerText += "\n" + document.visibilityState;
-		document.getElementById("tt").innerText += "\n" + (document.hasFocus() ? "focus" : "blur");
+	}
+
+	function onfocus() {
+		document.getElementById("tt").innerText += "\n" + "focus";
+	}
+
+	function onblur() {
+		document.getElementById("tt").innerText += "\n" + "blur";
 	}
 
 	document.addEventListener("visibilitychange", onvisibilitychange);
+	window.onfocus = onfocus;
+	window.onblur = onblur;
+	
 	initUserAgent();
 
 	const search = new URLSearchParams(location.search);
@@ -581,6 +581,14 @@
 		}
 	} else {
 		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
+
+		new daum.roughmap.Lander({
+			timestamp: "1750215057190",
+			key: "3r29hec3887",
+			mapWidth: "360",
+			mapHeight: "240"
+		})
+			.render();
 
 		syncScrollY();
 		document.onreadystatechange = function () {
