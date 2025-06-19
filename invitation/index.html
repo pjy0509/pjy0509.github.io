@@ -432,6 +432,10 @@
                 <img src="assets/images/icon_kakaonavi.png" alt=""/>
                 카카오 내비
             </button>
+            <button class="button" data-map-type="kakao-taxi" onclick="openMap(this.dataset.mapType)">
+                <img src="assets/images/icon_kakaonavi.png" alt=""/>
+                카카오 택시
+            </button>
             <button class="button" data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
                 <img src="assets/images/icon_tmap.png" alt=""/>
                 티 맵
@@ -1141,6 +1145,28 @@
 					y: +LATITUDE,
 					coordType: "wgs84",
 				});
+				return;
+			case "kakao-taxi":
+				intent = createIntent(
+					scheme = "kakaot://taxi"
+						+ "?dest_lat=" + encodeURIComponent(LATITUDE)
+						+ "&dest_lng=" + encodeURIComponent(LONGITUDE), 
+					packageName = "com.kakao.taxi"
+				);
+				
+				if (Native.OS.name === "Android") {
+					location.href = intent;
+					return;
+				}
+
+				new Native.App({
+					ios: {
+						scheme: scheme,
+						trackId: "981110422",
+					}
+				})
+					.run();
+				return;
 				return;
 			case "google-map":
 				scheme = "comgooglemaps://"
