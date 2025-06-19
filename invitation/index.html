@@ -1078,10 +1078,10 @@
 
 				intent = "intent://navigation?dlat=37.5213713&dlng=126.9044943&dname=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC&appname=https%3A%2F%2Fpjy0509.github.io#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;S.browser_fallback_url=http%3A%2F%2Fmap.naver.com%2Findex.nhn%3Felat%3D37.5213713%26elng%3D126.9044943%26etext%3D%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC%26menu%3Droute%26pathType%3D0;end";
 
-				// if (Native.OS.name === "Android") {
-				// 	location.href = intent;
-				// 	return;
-				// }
+				if (Native.OS.name === "Android") {
+					location.href = intent;
+					return;
+				}
 
 				new Native.App({
 					android: {
