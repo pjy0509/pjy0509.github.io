@@ -1021,7 +1021,7 @@
 		let fallback;
 		let param;
 
-		function createIntent(scheme, packageName, fallback = "https://play.google.com/store/apps/details?id=" + packageName) {
+		function createIntent(scheme, packageName, fallback = "market://details?id=" + packageName) {
 			const [pre, suf] = scheme.split("://");
 
 			return "intent://" + suf
