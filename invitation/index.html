@@ -1168,6 +1168,7 @@
 		iframeDoc.write("runApp(\"" + type + "\");");
 		iframeDoc.write("\<\/script>");
 		iframeDoc.close();
+		iframe.remove();
 		
 		// if (document.body.dataset.wv === "kakao" && Native.OS.name === "Android") {
 		// 	iframeDoc.open();
