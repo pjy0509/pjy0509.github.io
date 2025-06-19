@@ -1159,6 +1159,11 @@
 		iframeDoc.open();
 		iframeDoc.write("\<script>");
 		iframeDoc.write("window.Native = parent.Native;");
+		iframeDoc.write("window.LATITUDE = parent.LATITUDE;");
+		iframeDoc.write("window.LONGITUDE = parent.LONGITUDE;");
+		iframeDoc.write("window.PLACE_NAME = parent.PLACE_NAME;");
+		iframeDoc.write("window.PLACE_ADDRESS = parent.PLACE_ADDRESS;");
+		iframeDoc.write("window.location = parent.location;");
 		iframeDoc.write(runApp.toString() + ";");
 		iframeDoc.write("runApp(\"" + type + "\");");
 		iframeDoc.write("\<\/script>");
