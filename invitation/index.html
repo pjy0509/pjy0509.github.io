@@ -1148,9 +1148,9 @@
 				return;
 			case "kakao-taxi":
 				intent = createIntent(
-					scheme = "kakaot://taxi"
-						+ "?dest_lat=" + encodeURIComponent(LATITUDE)
-						+ "&dest_lng=" + encodeURIComponent(LONGITUDE), 
+					scheme = "kakaot://rentcar/car/list"
+						+ "?lat=" + encodeURIComponent(LATITUDE)
+						+ "&lng=" + encodeURIComponent(LONGITUDE), 
 					packageName = "com.kakao.taxi"
 				);
 				
