@@ -480,97 +480,28 @@
 	initUserAgent();
 
 	const search = new URLSearchParams(location.search);
-	const isMode = search.has("mode");
 
-	if (isMode) {
+	if (search.has("mode")) {
 		const mode = search.get("mode");
-
-		document.querySelector("[data-fullscreen=\"" + mode + "\"]").classList.add("show");
-
+		const element = document.querySelector("[data-fullscreen=\"" + mode + "\"]");
+		
+		if (element !== null) {
+			element.classList.add("show");
+		}
+		
 		switch (mode) {
 			case "schedule":
 				createSchedule();
 				break;
 			case "route":
-				new daum.roughmap.Lander({
-					timestamp: "1750165976255",
-					key: "3pycungqfsg",
-					mapWidth: "360",
-					mapHeight: "240"
-				})
-					.render();
+				initMap(true);
 				break;
 			case "carousel":
-				const glide = document.querySelector("[data-glide]");
-				let track = glide.querySelector("[data-glide-el=\"track\"]");
-				let images;
-
-				track.onclick = undefined;
-
-				document.querySelector("[data-fullscreen=\"carousel\"]").append(glide);
-
-				const carousel = initCarousel();
-
-				track = document.querySelector("[data-glide] [data-glide-el=\"track\"]");
-
-				carousel.on("move.after", function () {
-					images = track.querySelectorAll("[data-image-index=\"" + carousel.index + "\"]");
-				});
-
-				EventManager.on(glide, ['touchpinchmove'], e => {
-					const dp = e.paths.slice(-2);
-
-					if (dp.length < 2) return;
-
-					const dd = dp.reduce((curr, prev) => curr.distance - prev.distance);
-					const dx = dp.reduce((curr, prev) => curr.center.x - prev.center.x);
-					const dy = dp.reduce((curr, prev) => curr.center.y - prev.center.y);
-
-					images.forEach(image => {
-						const scale = image.style.scale;
-						const transform = image.style.transform;
-						const px = transform.indexOf("px");
-						const py = transform.lastIndexOf("px");
-
-						image.style.scale = Math.max(0.33, Math.min(3, scale - dd / 125)).toString();
-						image.style.transform = "translate(" + (Number(transform.substring(10, px)) - dx * 1.25) + "px, " + (Number(transform.substring(px + 3, py)) - dy * 1.25) + "px)"
-					});
-				});
-
-				EventManager.on(glide, ['touchpinchstart'], () => {
-					carousel.disable();
-				});
-
-				EventManager.on(glide, ['touchpinchend'], () => {
-					images.forEach(image => {
-						image.style.scale = "1";
-						image.style.transform = "translate(0px, 0px)";
-					});
-
-					carousel.enable();
-					carousel.update({animationDuration: 0});
-					carousel.go("=" + carousel.index);
-					carousel.update({animationDuration: 200});
-					setTimeout(() => {
-						carousel.enable();
-						carousel.update({animationDuration: 0});
-						carousel.go("=" + carousel.index);
-						carousel.update({animationDuration: 200});
-					});
-				});
-
+				initCarousel(true);
 				break;
 		}
 	} else {
 		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
-
-		new daum.roughmap.Lander({
-			timestamp: "1750215057190",
-			key: "3r29hec3887",
-			mapWidth: "360",
-			mapHeight: "240"
-		})
-			.render();
 
 		syncScrollY();
 		document.onreadystatechange = function () {
@@ -583,8 +514,9 @@
 			initModal();
 			initTsparticle();
 			initCalendar();
-			initCarousel();
 			initWeather();
+			initCarousel();
+			initMap();
 		};
 	}
 
@@ -631,9 +563,7 @@
 			if (shownModal) {
 				history.pushState(null, null, document.URL);
 				shownModal.classList.remove("show");
-			} else {
-				closeKakaoTalkInAppBrowser();
-            }
+			}
 		});
 
 		function showModal(id) {
@@ -977,7 +907,15 @@
 			});
 	}
 
-	function initCarousel() {
+	function initCarousel(fullscreen = false) {
+		const glide = document.querySelector("[data-glide]");
+		let track = glide.querySelector("[data-glide-el=\"track\"]");
+		
+		if (fullscreen) {
+			track.onclick = undefined;
+			document.querySelector("[data-fullscreen=\"carousel\"]").append(glide);
+		}
+		
 		// CAROUSEL BEGIN
 		const carousel = new Glide(".item-carousel", {
 			type: "carousel",
@@ -999,6 +937,59 @@
 			current.textContent = (carousel.index + 1).toString();
 		});
 
+		if (fullscreen) {
+			let images;
+
+			track = document.querySelector("[data-glide] [data-glide-el=\"track\"]");
+
+			carousel.on("move.after", function () {
+				images = track.querySelectorAll("[data-image-index=\"" + carousel.index + "\"]");
+			});
+	
+			EventManager.on(glide, ['touchpinchmove'], e => {
+				const dp = e.paths.slice(-2);
+	
+				if (dp.length < 2) return;
+	
+				const dd = dp.reduce((curr, prev) => curr.distance - prev.distance);
+				const dx = dp.reduce((curr, prev) => curr.center.x - prev.center.x);
+				const dy = dp.reduce((curr, prev) => curr.center.y - prev.center.y);
+	
+				images.forEach(image => {
+					const scale = image.style.scale;
+					const transform = image.style.transform;
+					const px = transform.indexOf("px");
+					const py = transform.lastIndexOf("px");
+	
+					image.style.scale = Math.max(0.33, Math.min(3, scale - dd / 125)).toString();
+					image.style.transform = "translate(" + (Number(transform.substring(10, px)) - dx * 1.25) + "px, " + (Number(transform.substring(px + 3, py)) - dy * 1.25) + "px)"
+				});
+			});
+	
+			EventManager.on(glide, ['touchpinchstart'], () => {
+				carousel.disable();
+			});
+	
+			EventManager.on(glide, ['touchpinchend'], () => {
+				images.forEach(image => {
+					image.style.scale = "1";
+					image.style.transform = "translate(0px, 0px)";
+				});
+	
+				carousel.enable();
+				carousel.update({animationDuration: 0});
+				carousel.go("=" + carousel.index);
+				carousel.update({animationDuration: 200});
+				setTimeout(() => {
+					carousel.enable();
+					carousel.update({animationDuration: 0});
+					carousel.go("=" + carousel.index);
+					carousel.update({animationDuration: 200});
+				});
+			});
+
+		}
+		
 		return carousel;
 		// CAROUSEL END
 	}
@@ -1012,6 +1003,26 @@
 
 	function setFullscreenCarousel() {
 		location.href = location.origin + location.pathname + "?mode=carousel"
+	}
+
+	function initMap(fullscreen = false) {
+		if (fullscreen) {
+			new daum.roughmap.Lander({
+				timestamp: "1750165976255",
+				key: "3pycungqfsg",
+				mapWidth: "360",
+				mapHeight: "240"
+			})
+				.render();
+		} else {
+			new daum.roughmap.Lander({
+				timestamp: "1750215057190",
+				key: "3r29hec3887",
+				mapWidth: "360",
+				mapHeight: "240"
+			})
+				.render();
+		}
 	}
 
 	function openMap(type) {
