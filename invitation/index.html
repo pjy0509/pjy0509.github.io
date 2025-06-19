@@ -1016,19 +1016,37 @@
 
 	function openMap(type) {
 		let scheme;
+		let packageName;
+		let intent;
 		let fallback;
+		let param;
+
+		function createIntent(scheme, packageName, fallback = "https://play.google.com/store/apps/details?id=" + packageName) {
+			const [pre, suf] = scheme.split("://");
+
+			return "intent://" + suf
+				+ "#Intent;"
+				+ "scheme=" + pre + ";"
+				+ "action=android.intent.action.VIEW;"
+				+ "category=android.intent.category.BROWSABLE;"
+				+ "package=" + packageName + ";"
+				+ "S.browser_fallback_url=" + encodeURIComponent(fallback)
+				+ "end";
+		}
 		
 		switch (type) {
 			case "t-map":
-				scheme = "tmap://route"
-					+ "?goaly=" + encodeURIComponent(LATITUDE)
-					+ "&goalx=" + encodeURIComponent(LONGITUDE)
-					+ "&goalname=" + encodeURIComponent(PLACE_NAME);
+				intent = createIntent(
+					scheme = "tmap://route"
+						+ "?goaly=" + encodeURIComponent(LATITUDE)
+						+ "&goalx=" + encodeURIComponent(LONGITUDE)
+						+ "&goalname=" + encodeURIComponent(PLACE_NAME), 
+					packageName = "com.skt.tmap.ku"
+				);
 
 				new Native.App({
 					android: {
-						scheme: scheme,
-						package: "com.skt.tmap.ku",
+						intent: intent,
 					},
 					ios: {
 						scheme: scheme,
@@ -1038,23 +1056,24 @@
 					.run();
 				break;
 			case "naver-map":
-				scheme = "nmap://navigation"
-					+ "?dlat=" + encodeURIComponent(LATITUDE)
-					+ "&dlng=" + encodeURIComponent(LONGITUDE)
-					+ "&dname=" + encodeURIComponent(PLACE_NAME)
-					+ "&appname=" + encodeURIComponent(location.origin);
-
-				fallback = "http://map.naver.com/index.nhn"
-					+ "?elat=" + encodeURIComponent(LATITUDE)
-					+ "&elng=" + encodeURIComponent(LONGITUDE)
-					+ "&etext=" + encodeURIComponent(PLACE_NAME)
-					+ "&menu=" + encodeURIComponent("route")
-					+ "&pathType=" + encodeURIComponent("0");
+				intent = createIntent(
+					scheme = "nmap://navigation"
+						+ "?dlat=" + encodeURIComponent(LATITUDE)
+						+ "&dlng=" + encodeURIComponent(LONGITUDE)
+						+ "&dname=" + encodeURIComponent(PLACE_NAME)
+						+ "&appname=" + encodeURIComponent(location.origin), 
+					packageName = "com.nhn.android.nmap",
+					fallback = "http://map.naver.com/index.nhn"
+						+ "?elat=" + encodeURIComponent(LATITUDE)
+						+ "&elng=" + encodeURIComponent(LONGITUDE)
+						+ "&etext=" + encodeURIComponent(PLACE_NAME)
+						+ "&menu=" + encodeURIComponent("route")
+						+ "&pathType=" + encodeURIComponent("0")
+				);
 
 				new Native.App({
 					android: {
-						scheme: scheme,
-						package: "com.nhn.android.nmap",
+						intent: intent,
 					},
 					ios: {
 						scheme: scheme,
@@ -1070,17 +1089,18 @@
 					.run();
 				break;
 			case "kakao-map":
-				scheme = "kakaomap://route"
-					+ "?ep=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
-					+ "&by=" + encodeURIComponent("CAR");
-
-				fallback = "https://map.kakao.com/link/to/"
-					+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE);
+				intent = createIntent(
+					scheme = "kakaomap://route"
+						+ "?ep=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
+						+ "&by=" + encodeURIComponent("CAR"),
+					packageName = "net.daum.android.map",
+					fallback = "https://map.kakao.com/link/to/"
+						+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE)
+				);
 
 				new Native.App({
 					android: {
-						scheme: scheme,
-						package: "net.daum.android.map",
+						intent: intent,
 					},
 					ios: {
 						scheme: scheme,
