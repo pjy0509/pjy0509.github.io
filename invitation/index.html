@@ -1205,22 +1205,6 @@
 			});
 		}
 
-		function getLocationID() {
-			return fetch(
-				"https://dapi.kakao.com/v2/local/search/keyword.JSON"
-				+ "?query=" + encodeURIComponent(PLACE_NAME)
-				+ "&x=" + encodeURIComponent(LONGITUDE)
-				+ "&y=" + encodeURIComponent(LATITUDE),
-				{
-					headers: {
-						"Authorization": "KakaoAK " + KAKAO_REST_API_KEY,
-					}
-				}
-			)
-		                .then(response => response.json())
-		                .then(response => response.documents[0].id);
-		}
-
 		function init() {
 			const search = new URLSearchParams(location.search);
 			const clientId = encodeURIComponent(KAKAO_REST_API_KEY);
@@ -1260,8 +1244,21 @@
 		}
 
 		function create() {
-			getLocationID()
-				.then(locationID => {
+			fetch(
+				"https://dapi.kakao.com/v2/local/search/keyword.JSON"
+				+ "?query=" + encodeURIComponent(PLACE_NAME)
+				+ "&x=" + encodeURIComponent(LONGITUDE)
+				+ "&y=" + encodeURIComponent(LATITUDE),
+				{
+					headers: {
+						"Authorization": "KakaoAK " + KAKAO_REST_API_KEY,
+					}
+				}
+			)
+		                .then(response => response.json())
+		                .then(response => {
+					const locationID = response.documents[0].id;
+
 					const body = {
 						title: GROOM + "❤️" + BRIDE + " 결혼식",
 						time: {
