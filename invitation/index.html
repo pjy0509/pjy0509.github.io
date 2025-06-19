@@ -1147,10 +1147,24 @@
 				});
 				return;
 			case "kakao-taxi":
+				function encodeUnicode(convertString) {
+					var unicodeString = '';
+					for (var i = 0; i < convertString.length; i++) {
+						var theUnicode = convertString.charCodeAt(i).toString(16).toUpperCase();
+				
+						while (theUnicode.length < 4) theUnicode = '0' + theUnicode;
+						theUnicode = '\\u' + theUnicode;
+						unicodeString += theUnicode;
+					}
+				
+					return unicodeString;
+				}
+				
 				intent = createIntent(
-					scheme = "kakaot://taxi"
-						+ "?lat=" + encodeURIComponent(LATITUDE)
-						+ "&lng=" + encodeURIComponent(LONGITUDE), 
+					scheme = "kakaot://parking/recommend"
+						+ "?dest_lat=" + encodeURIComponent(LATITUDE)
+						+ "&dest_lng=" + encodeURIComponent(LONGITUDE)
+						+ "&dest_name" + encodeUnicode(PLACE_NAME), 
 					packageName = "com.kakao.taxi"
 				);
 				
