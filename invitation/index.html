@@ -453,7 +453,50 @@
 
     <div class="padding rem2"></div>
 
-    <div id="tt"></div>
+    <div class="button-container">
+        <h2>목적지 정보 포함 스키마 (가장 유력)</h2>
+        <button onclick="window.location.href=\'kakaotaxi://call?dest_lat=37.52137722994085&dest_lng=126.90459301926333&dest_name=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC\'">
+            택시 호출 (kakaotaxi://call)
+            <div class="schema-url">kakaotaxi://call?dest_lat=37.52137722994085&dest_lng=126.90459301926333&dest_name=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC</div>
+        </button>
+
+        <button onclick="window.location.href=\'kakaotaxi://main?dest_lat=37.52137722994085&dest_lng=126.90459301926333&dest_name=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC\'">
+            택시 메인 (kakaotaxi://main)
+            <div class="schema-url">kakaotaxi://main?dest_lat=37.52137722994085&dest_lng=126.90459301926333&dest_name=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC</div>
+        </button>
+
+        <h2>기존 추론 스키마 (재확인)</h2>
+        <button onclick="window.location.href=\'kakaot://taxi?dest_lat=37.52137722994085&dest_lng=126.90459301926333&dest_name=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC\'">
+            택시 호출 (kakaot://taxi)
+            <div class="schema-url">kakaot://taxi?dest_lat=37.52137722994085&dest_lng=126.90459301926333&dest_name=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC</div>
+        </button>
+
+        <button onclick="window.location.href=\'kakaot://taxi/call?dest_lat=37.52137722994085&dest_lng=126.90459301926333&dest_name=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC\'">
+            택시 호출 (kakaot://taxi/call)
+            <div class="schema-url">kakaot://taxi/call?dest_lat=37.52137722994085&dest_lng=126.90459301926333&dest_name=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC</div>
+        </button>
+
+        <h2>기타 관련 스키마</h2>
+        <button onclick="window.location.href=\'kakaot://location_search2\'">
+            위치 검색 화면
+            <div class="schema-url">kakaot://location_search2</div>
+        </button>
+
+        <button onclick="window.location.href=\'kakaot://map_search\'">
+            지도 검색 화면
+            <div class="schema-url">kakaot://map_search</div>
+        </button>
+
+        <button onclick="window.location.href=\'kakaot://launch?page=home&tab=MYCAR\'">
+            카카오T 홈 (MYCAR 탭)
+            <div class="schema-url">kakaot://launch?page=home&tab=MYCAR</div>
+        </button>
+
+        <button onclick="window.location.href=\'kakaot://parking/recommend?dest_lat=37.52137722994085&dest_lng=126.90459301926333&dest_name=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC\'">
+            주차장 추천 (목적지 포함)
+            <div class="schema-url">kakaot://parking/recommend?dest_lat=37.52137722994085&dest_lng=126.90459301926333&dest_name=%EC%9B%A8%EB%94%A9%EA%B7%B8%EB%A3%B9%EC%9C%84%EB%8D%94%EC%8A%A4%20%EC%98%81%EB%93%B1%ED%8F%AC</div>
+        </button>
+    </div>
 </div>
 
 <div class="item-container" data-fullscreen="schedule"></div>
