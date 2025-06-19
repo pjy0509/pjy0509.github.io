@@ -908,6 +908,7 @@
 	}
 
 	function initCarousel(fullscreen = false) {
+		// CAROUSEL BEGIN
 		const glide = document.querySelector("[data-glide]");
 		let track = glide.querySelector("[data-glide-el=\"track\"]");
 		
@@ -916,7 +917,6 @@
 			document.querySelector("[data-fullscreen=\"carousel\"]").append(glide);
 		}
 		
-		// CAROUSEL BEGIN
 		const carousel = new Glide(".item-carousel", {
 			type: "carousel",
 			perView: 1,
@@ -1006,6 +1006,7 @@
 	}
 
 	function initMap(fullscreen = false) {
+		// KAKAO MAP BEGIN
 		if (fullscreen) {
 			new daum.roughmap.Lander({
 				timestamp: "1750165976255",
@@ -1023,14 +1024,14 @@
 			})
 				.render();
 		}
+		// KAKAO MAP END
 	}
 
 	function openMap(type) {
-		let scheme;
-		let packageName;
-		let intent;
-		let fallback;
-		let param;
+		let scheme, 
+			packageName, 
+			intent, 
+			fallback;
 
 		function createIntent(scheme, packageName, fallback = "market://details?id=" + packageName) {
 			const [pre, suf] = scheme.split("://");
@@ -1181,18 +1182,6 @@
 					.run();
 				return;
 		}
-		
-		// if (document.body.dataset.wv === "kakao" && Native.OS.name === "Android") {
-		// 	iframeDoc.open();
-		// 	iframeDoc.write("\<script>");
-		// 	iframeDoc.write("window.Native = parent.Native;");
-		// 	iframeDoc.write(runApp.toString() + ";");
-		// 	iframeDoc.write("runApp(" + type + ");");
-		// 	iframeDoc.write("\<\/script>");
-		// 	iframeDoc.close();
-		// } else {
-		// 	runApp(type);
-		// }
 	}
 
 	function createSchedule() {
