@@ -448,21 +448,9 @@
                 <img src="assets/images/icon_kakaonavi.png" alt=""/>
                 카카오 택시
             </button>
-            <button class="button" data-map-type="test1" onclick="openMap(this.dataset.mapType)">
+            <button class="button" data-map-type="test" onclick="openMap(this.dataset.mapType)">
                 <img src="assets/images/icon_kakaonavi.png" alt=""/>
-                TEST1
-            </button>
-            <button class="button" data-map-type="test2" onclick="openMap(this.dataset.mapType)">
-                <img src="assets/images/icon_kakaonavi.png" alt=""/>
-                TEST2
-            </button>
-            <button class="button" data-map-type="test3" onclick="openMap(this.dataset.mapType)">
-                <img src="assets/images/icon_kakaonavi.png" alt=""/>
-                TEST3
-            </button>
-            <button class="button" data-map-type="test4" onclick="openMap(this.dataset.mapType)">
-                <img src="assets/images/icon_kakaonavi.png" alt=""/>
-                TEST4
+                TEST
             </button>
         </div>
     </div>
@@ -1222,75 +1210,9 @@
 				})
 					.run();
 				return;
-			case "test1":
+			case "test":
 				intent = createIntent(
-					scheme = "kakaotaxi://call"
-						+ "?dest_lat=" + encodeURIComponent(LATITUDE)
-						+ "&dest_lng=" + encodeURIComponent(LONGITUDE)
-						+ "&dest_name" + encodeURIComponent(PLACE_NAME), 
-					packageName = "com.kakao.taxi"
-				);
-				
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return;
-				}
-
-				new Native.App({
-					ios: {
-						scheme: scheme,
-						trackId: "981110422",
-					}
-				})
-					.run();
-				return;
-			case "test2":
-				intent = createIntent(
-					scheme = "kakaotaxi://main"
-						+ "?dest_lat=" + encodeURIComponent(LATITUDE)
-						+ "&dest_lng=" + encodeURIComponent(LONGITUDE)
-						+ "&dest_name" + encodeURIComponent(PLACE_NAME), 
-					packageName = "com.kakao.taxi"
-				);
-				
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return;
-				}
-
-				new Native.App({
-					ios: {
-						scheme: scheme,
-						trackId: "981110422",
-					}
-				})
-					.run();
-				return;
-			case "test3":
-				intent = createIntent(
-					scheme = "kakaot://call"
-						+ "?dest_lat=" + encodeURIComponent(LATITUDE)
-						+ "&dest_lng=" + encodeURIComponent(LONGITUDE)
-						+ "&dest_name" + encodeURIComponent(PLACE_NAME), 
-					packageName = "com.kakao.taxi"
-				);
-				
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return;
-				}
-
-				new Native.App({
-					ios: {
-						scheme: scheme,
-						trackId: "981110422",
-					}
-				})
-					.run();
-				return;
-			case "test4":
-				intent = createIntent(
-					scheme = "kakaot://main"
+					scheme = "kakaot://"
 						+ "?dest_lat=" + encodeURIComponent(LATITUDE)
 						+ "&dest_lng=" + encodeURIComponent(LONGITUDE)
 						+ "&dest_name" + encodeURIComponent(PLACE_NAME), 
