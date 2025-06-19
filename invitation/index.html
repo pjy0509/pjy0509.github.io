@@ -1017,7 +1017,7 @@
 	function openMap(type) {
 		let scheme;
 		let fallback;
-
+		
 		switch (type) {
 			case "t-map":
 				scheme = "tmap://route"
@@ -1027,7 +1027,7 @@
 
 				new Native.App({
 					android: {
-						scheme: scheme,
+						scheme: "kakaotalk://web/openExternal?url=" + encodeURIComponent(scheme),
 						package: "com.skt.tmap.ku",
 					},
 					ios: {
@@ -1053,7 +1053,7 @@
 
 				new Native.App({
 					android: {
-						scheme: scheme,
+						scheme: "kakaotalk://web/openExternal?url=" + encodeURIComponent(scheme),
 						package: "com.nhn.android.nmap",
 					},
 					ios: {
@@ -1079,7 +1079,7 @@
 
 				new Native.App({
 					android: {
-						scheme: scheme,
+						scheme: "kakaotalk://web/openExternal?url=" + encodeURIComponent(scheme),
 						package: "net.daum.android.map",
 					},
 					ios: {
