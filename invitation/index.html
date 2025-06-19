@@ -1155,17 +1155,26 @@
 			}
 		}
 
-		if (document.body.dataset.wv === "kakao" && Native.OS.name === "Android") {
-			iframeDoc.open();
-			iframeDoc.write("\<script>");
-			iframeDoc.write("window.Native = parent.Native;");
-			iframeDoc.write(runApp.toString() + ";");
-			iframeDoc.write("runApp(" + type + ");");
-			iframeDoc.write("\<\/script>");
-			iframeDoc.close();
-		} else {
-			runApp(type);
-		}
+		
+		iframeDoc.open();
+		iframeDoc.write("\<script>");
+		iframeDoc.write("window.Native = parent.Native;");
+		iframeDoc.write(runApp.toString() + ";");
+		iframeDoc.write("runApp(" + type + ");");
+		iframeDoc.write("\<\/script>");
+		iframeDoc.close();
+		
+		// if (document.body.dataset.wv === "kakao" && Native.OS.name === "Android") {
+		// 	iframeDoc.open();
+		// 	iframeDoc.write("\<script>");
+		// 	iframeDoc.write("window.Native = parent.Native;");
+		// 	iframeDoc.write(runApp.toString() + ";");
+		// 	iframeDoc.write("runApp(" + type + ");");
+		// 	iframeDoc.write("\<\/script>");
+		// 	iframeDoc.close();
+		// } else {
+		// 	runApp(type);
+		// }
 	}
 
 	function createSchedule() {
