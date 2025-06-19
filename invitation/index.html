@@ -1051,10 +1051,11 @@
 					+ "&menu=" + encodeURIComponent("route")
 					+ "&pathType=" + encodeURIComponent("0");
 
+				location.href = "intent://navigation?dlat=37.5665&dlng=126.9780&dname=%EC%84%9C%EC%9A%B8%EC%8B%9C%EC%B2%AD&appname=https%3A%2F%2Fyourdomain.com#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nhn.android.nmap;end";
+				
 				new Native.App({
 					android: {
-						scheme: "intent://navigation?dlat=37.5665&dlng=126.9780&dname=%EC%84%9C%EC%9A%B8%EC%8B%9C%EC%B2%AD&appname=https%3A%2F%2Fyourdomain.com#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nhn.android.nmap;end"
-						// scheme: scheme,
+						scheme: scheme,
 						package: "com.nhn.android.nmap",
 					},
 					ios: {
