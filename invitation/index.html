@@ -1044,6 +1044,8 @@
 					packageName = "com.skt.tmap.ku"
 				);
 
+				console.log(intent);
+
 				if (Native.OS.name === "Android") {
 					location.href = "intent://route?goaly=37.5665&goalx=126.9780&goalname=%EC%84%9C%EC%9A%B8%EC%8B%9C%EC%B2%AD#Intent;scheme=tmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.skt.tmap.ku;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.skt.tmap.ku;end";
 					return;
@@ -1076,6 +1078,8 @@
 						+ "&pathType=" + encodeURIComponent("0")
 				);
 
+				console.log(intent);
+
 				if (Native.OS.name === "Android") {
 					location.href = intent;
 					return;
@@ -1107,6 +1111,8 @@
 					fallback = "https://map.kakao.com/link/to/"
 						+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE)
 				);
+
+				console.log(intent);
 
 				if (Native.OS.name === "Android") {
 					location.href = intent;
