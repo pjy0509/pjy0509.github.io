@@ -476,24 +476,6 @@
 	const META_TITLE = document.querySelector("meta[property=\"og:title\"]").content;
 	const META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
 	// CONSTANT END
-	function onvisibilitychange() {
-		// if (document.visibilityState === "hidden") {
-		// 	location.reload();
-		// }
-		document.getElementById("tt").innerText += "\n" + document.visibilityState;
-	}
-
-	function onpagehide() {
-		document.getElementById("tt").innerText += "\npagehide";
-	}
-
-	function onpageshow() {
-		document.getElementById("tt").innerText += "\npageshow";
-	}
-
-	document.addEventListener("visibilitychange", onvisibilitychange);
-	window.addEventListener("pagehide", onpagehide);
-	window.addEventListener("pageshow", onpageshow);
 	
 	initUserAgent();
 
@@ -1033,134 +1015,156 @@
 	}
 
 	function openMap(type) {
-		let scheme;
-		let fallback;
+		const iframe = document.createElement("iframe");
 
-		switch (type) {
-			case "t-map":
-				scheme = "tmap://route"
-					+ "?goaly=" + encodeURIComponent(LATITUDE)
-					+ "&goalx=" + encodeURIComponent(LONGITUDE)
-					+ "&goalname=" + encodeURIComponent(PLACE_NAME);
+		iframe.style.display = "none";
+  		document.body.appendChild(iframe);
+		
+		const iframeWin = iframe.contentWindow || iframe,
+			iframeDoc = iframe.contentDocument || iframeWin.document;
 
-				new Native.App({
-					android: {
-						scheme: scheme,
-						package: "com.skt.tmap.ku",
-					},
-					ios: {
-						scheme: scheme,
-						trackId: "431589174",
-					}
-				})
-					.run();
-				break;
-			case "naver-map":
-				scheme = "nmap://navigation"
-					+ "?dlat=" + encodeURIComponent(LATITUDE)
-					+ "&dlng=" + encodeURIComponent(LONGITUDE)
-					+ "&dname=" + encodeURIComponent(PLACE_NAME)
-					+ "&appname=" + encodeURIComponent(location.origin);
+		function runApp(type) {
+			let scheme;
+			let fallback;
+	
+			switch (type) {
+				case "t-map":
+					scheme = "tmap://route"
+						+ "?goaly=" + encodeURIComponent(LATITUDE)
+						+ "&goalx=" + encodeURIComponent(LONGITUDE)
+						+ "&goalname=" + encodeURIComponent(PLACE_NAME);
+	
+					new Native.App({
+						android: {
+							scheme: scheme,
+							package: "com.skt.tmap.ku",
+						},
+						ios: {
+							scheme: scheme,
+							trackId: "431589174",
+						}
+					})
+						.run();
+					break;
+				case "naver-map":
+					scheme = "nmap://navigation"
+						+ "?dlat=" + encodeURIComponent(LATITUDE)
+						+ "&dlng=" + encodeURIComponent(LONGITUDE)
+						+ "&dname=" + encodeURIComponent(PLACE_NAME)
+						+ "&appname=" + encodeURIComponent(location.origin);
+	
+					fallback = "http://map.naver.com/index.nhn"
+						+ "?elat=" + encodeURIComponent(LATITUDE)
+						+ "&elng=" + encodeURIComponent(LONGITUDE)
+						+ "&etext=" + encodeURIComponent(PLACE_NAME)
+						+ "&menu=" + encodeURIComponent("route")
+						+ "&pathType=" + encodeURIComponent("0");
+	
+					new Native.App({
+						android: {
+							scheme: scheme,
+							package: "com.nhn.android.nmap",
+						},
+						ios: {
+							scheme: scheme,
+							trackId: "311867728",
+						},
+						windows: {
+							fallback: fallback
+						},
+						mac: {
+							fallback: fallback
+						}
+					})
+						.run();
+					break;
+				case "kakao-map":
+					scheme = "kakaomap://route"
+						+ "?ep=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
+						+ "&by=" + encodeURIComponent("CAR");
+	
+					fallback = "https://map.kakao.com/link/to/"
+						+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE);
+	
+					new Native.App({
+						android: {
+							scheme: scheme,
+							package: "net.daum.android.map",
+						},
+						ios: {
+							scheme: scheme,
+							trackId: "304608425",
+						},
+						windows: {
+							fallback: fallback
+						},
+						mac: {
+							fallback: fallback
+						}
+					})
+						.run();
+					break;
+				case "kakao-navi":
+					Kakao.Navi.start({
+						name: PLACE_NAME,
+						x: LONGITUDE,
+						y: LATITUDE,
+						coordType: "wgs84",
+					});
+					break;
+				case "google-map":
+					scheme = "comgooglemaps://"
+						+ "?q=" + encodeURIComponent(PLACE_NAME)
+						+ "&center=" + encodeURIComponent(LATITUDE + "," + LONGITUDE);
+	
+					fallback = "https://www.google.co.kr/maps/dir//"
+						+ encodeURIComponent(PLACE_ADDRESS + " " + PLACE_NAME);
+	
+					new Native.App({
+						android: {
+							fallback: "google.navigation:q=" + encodeURIComponent(PLACE_NAME),
+						},
+						ios: {
+							scheme: scheme,
+							trackId: "585027354",
+						},
+						windows: {
+							fallback: fallback
+						},
+						mac: {
+							fallback: fallback
+						}
+					})
+						.run();
+					break;
+				case "apple-map":
+					scheme = "maps://"
+						+ "?daddr=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
+						+ "&dirflg=" + encodeURIComponent("d");
+	
+					new Native.App({
+						ios: {
+							scheme: scheme,
+						},
+						mac: {
+							scheme: scheme,
+						}
+					})
+						.run();
+					break;
+			}
+		}
 
-				fallback = "http://map.naver.com/index.nhn"
-					+ "?elat=" + encodeURIComponent(LATITUDE)
-					+ "&elng=" + encodeURIComponent(LONGITUDE)
-					+ "&etext=" + encodeURIComponent(PLACE_NAME)
-					+ "&menu=" + encodeURIComponent("route")
-					+ "&pathType=" + encodeURIComponent("0");
-
-				new Native.App({
-					android: {
-						scheme: scheme,
-						package: "com.nhn.android.nmap",
-					},
-					ios: {
-						scheme: scheme,
-						trackId: "311867728",
-					},
-					windows: {
-						fallback: fallback
-					},
-					mac: {
-						fallback: fallback
-					}
-				})
-					.run();
-				break;
-			case "kakao-map":
-				scheme = "kakaomap://route"
-					+ "?ep=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
-					+ "&by=" + encodeURIComponent("CAR");
-
-				fallback = "https://map.kakao.com/link/to/"
-					+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE);
-
-				new Native.App({
-					android: {
-						scheme: scheme,
-						package: "net.daum.android.map",
-					},
-					ios: {
-						scheme: scheme,
-						trackId: "304608425",
-					},
-					windows: {
-						fallback: fallback
-					},
-					mac: {
-						fallback: fallback
-					}
-				})
-					.run();
-				break;
-			case "kakao-navi":
-				Kakao.Navi.start({
-					name: PLACE_NAME,
-					x: LONGITUDE,
-					y: LATITUDE,
-					coordType: "wgs84",
-				});
-				break;
-			case "google-map":
-				scheme = "comgooglemaps://"
-					+ "?q=" + encodeURIComponent(PLACE_NAME)
-					+ "&center=" + encodeURIComponent(LATITUDE + "," + LONGITUDE);
-
-				fallback = "https://www.google.co.kr/maps/dir//"
-					+ encodeURIComponent(PLACE_ADDRESS + " " + PLACE_NAME);
-
-				new Native.App({
-					android: {
-						fallback: "google.navigation:q=" + encodeURIComponent(PLACE_NAME),
-					},
-					ios: {
-						scheme: scheme,
-						trackId: "585027354",
-					},
-					windows: {
-						fallback: fallback
-					},
-					mac: {
-						fallback: fallback
-					}
-				})
-					.run();
-				break;
-			case "apple-map":
-				scheme = "maps://"
-					+ "?daddr=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
-					+ "&dirflg=" + encodeURIComponent("d");
-
-				new Native.App({
-					ios: {
-						scheme: scheme,
-					},
-					mac: {
-						scheme: scheme,
-					}
-				})
-					.run();
-				break;
+		if (document.body.dataset.wv === "kakao" && Native.OS.name === "Android") {
+			iframeDoc.open();
+			iframeDoc.write("\<script>");
+			iframeDoc.write("window.Native = parent.Native;");
+			iframeDoc.write(runApp.toString() + ";");
+			iframeDoc.write("runApp(" + type + ");");
+			iframeDoc.write("\<\/script>");
+			iframeDoc.close();
+		} else {
+			runApp(type);
 		}
 	}
 
