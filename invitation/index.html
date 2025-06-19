@@ -1030,8 +1030,8 @@
 				+ "action=android.intent.action.VIEW;"
 				+ "category=android.intent.category.BROWSABLE;"
 				+ "package=" + packageName + ";"
-				+ "S.browser_fallback_url=" + fallback
-				+ "end;";
+				+ "S.browser_fallback_url=" + fallback + ";"
+				+ "end";
 		}
 		
 		switch (type) {
@@ -1044,10 +1044,10 @@
 					packageName = "com.skt.tmap.ku"
 				);
 
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return;
-				}
+				// if (Native.OS.name === "Android") {
+				// 	location.href = intent;
+				// 	return;
+				// }
 
 				new Native.App({
 					android: {
@@ -1076,10 +1076,10 @@
 						+ "&pathType=" + encodeURIComponent("0")
 				);
 
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return;
-				}
+				// if (Native.OS.name === "Android") {
+				// 	location.href = intent;
+				// 	return;
+				// }
 
 				new Native.App({
 					android: {
@@ -1108,10 +1108,10 @@
 						+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE)
 				);
 
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return;
-				}
+				// if (Native.OS.name === "Android") {
+				// 	location.href = intent;
+				// 	return;
+				// }
 
 				new Native.App({
 					android: {
