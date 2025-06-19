@@ -1044,6 +1044,11 @@
 					packageName = "com.skt.tmap.ku"
 				);
 
+				if (Native.OS.name === "Android") {
+					location.href = intent;
+					return;
+				}
+
 				new Native.App({
 					android: {
 						intent: intent,
@@ -1054,7 +1059,7 @@
 					}
 				})
 					.run();
-				break;
+				return;
 			case "naver-map":
 				intent = createIntent(
 					scheme = "nmap://navigation"
@@ -1070,6 +1075,11 @@
 						+ "&menu=" + encodeURIComponent("route")
 						+ "&pathType=" + encodeURIComponent("0")
 				);
+
+				if (Native.OS.name === "Android") {
+					location.href = intent;
+					return;
+				}
 
 				new Native.App({
 					android: {
@@ -1087,7 +1097,7 @@
 					}
 				})
 					.run();
-				break;
+				return;
 			case "kakao-map":
 				intent = createIntent(
 					scheme = "kakaomap://route"
@@ -1097,6 +1107,11 @@
 					fallback = "https://map.kakao.com/link/to/"
 						+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE)
 				);
+
+				if (Native.OS.name === "Android") {
+					location.href = intent;
+					return;
+				}
 
 				new Native.App({
 					android: {
@@ -1114,7 +1129,7 @@
 					}
 				})
 					.run();
-				break;
+				return;
 			case "kakao-navi":
 				Kakao.Navi.start({
 					name: PLACE_NAME,
@@ -1122,7 +1137,7 @@
 					y: LATITUDE,
 					coordType: "wgs84",
 				});
-				break;
+				return;
 			case "google-map":
 				scheme = "comgooglemaps://"
 					+ "?q=" + encodeURIComponent(PLACE_NAME)
@@ -1147,7 +1162,7 @@
 					}
 				})
 					.run();
-				break;
+				return;
 			case "apple-map":
 				scheme = "maps://"
 					+ "?daddr=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
@@ -1162,7 +1177,7 @@
 					}
 				})
 					.run();
-				break;
+				return;
 		}
 		
 		// if (document.body.dataset.wv === "kakao" && Native.OS.name === "Android") {
