@@ -483,17 +483,17 @@
 		document.getElementById("tt").innerText += "\n" + document.visibilityState;
 	}
 
-	function onfocus() {
-		document.getElementById("tt").innerText += "\n" + "focus";
+	function onpagehide() {
+		document.getElementById("tt").innerText += "\npagehide";
 	}
 
-	function onblur() {
-		document.getElementById("tt").innerText += "\n" + "blur";
+	function onpageshow() {
+		document.getElementById("tt").innerText += "\npageshow";
 	}
 
 	document.addEventListener("visibilitychange", onvisibilitychange);
-	window.onfocus = onfocus;
-	window.onblur = onblur;
+	window.addEventListener("pagehide", onpagehide);
+	window.addEventListener("pageshow", onpageshow);
 	
 	initUserAgent();
 
