@@ -562,22 +562,6 @@
 				break;
 		}
 	} else {
-		function onDOMContentLoaded(callback) {
-			if (document.readyState !== "loading") {
-				callback();
-			} else {
-				document.addEventListener('DOMContentLoaded', callback);
-			} 
-		}
-
-		onDOMContentLoaded(
-			function () {
-				if (document.body.dataset.wv === "kakao") {
-					location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(location.href);
-				}
-			}
-		);
-		
 		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
 
 		new daum.roughmap.Lander({
