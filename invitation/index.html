@@ -1044,6 +1044,11 @@
 					packageName = "com.skt.tmap.ku"
 				);
 
+				if (Native.OS.name === "Android") {
+					location.href = intent;
+					return;
+				}
+
 				new Native.App({
 					android: {
 						intent: intent,
@@ -1071,6 +1076,11 @@
 						+ "&pathType=" + encodeURIComponent("0")
 				);
 
+				if (Native.OS.name === "Android") {
+					location.href = intent;
+					return;
+				}
+
 				new Native.App({
 					android: {
 						intent: intent,
@@ -1097,6 +1107,11 @@
 					fallback = "https://map.kakao.com/link/to/"
 						+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE)
 				);
+
+				if (Native.OS.name === "Android") {
+					location.href = intent;
+					return;
+				}
 
 				new Native.App({
 					android: {
