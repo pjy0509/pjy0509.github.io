@@ -429,7 +429,7 @@ body {
 
 .item-park {
     margin: 0 2rem;
-    padding: 20px 0;
+    padding: 20px 0 0;
     border-top: 1px solid #f2f2f2;
     display: flex;
     flex-direction: column;
@@ -461,6 +461,16 @@ body {
     margin: 0 0 8px -6px;
 }
 
+.button-list {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem 2rem;
+}
+
+.item-routes {
+    height: 19rem;
+}
+
 .button-grid {
     display: grid;
     padding: 1rem 2rem;
@@ -468,19 +478,21 @@ body {
     grid-template-columns: repeat(1, 1fr);
 }
 
-.button-list {
-    display: grid;
-    gap: 1rem;
-    padding: 1rem 2rem;
-}
-
 @media (min-width: 380px) {
+    .item-routes {
+        height: 10rem;
+    }
+
     .button-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (min-width: 500px) {
+    .item-routes {
+        height: 7rem;
+    }
+
     .button-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -541,9 +553,25 @@ body {
     color: rgb(255, 255, 255);
 }
 
-body[data-os-name="MacOS"] .button[data-map-type="t-map"], body[data-os-name="Windows"] .button[data-map-type="t-map"],
-body[data-os-name="MacOS"] .button[data-map-type="kakao-navi"], body[data-os-name="Windows"] .button[data-map-type="kakao-navi"],
-body[data-os-name="Android"] .button[data-map-type="apple-map"], body[data-os-name="Windows"] .button[data-map-type="apple-map"] {
+.button[data-map-type="uber-taxi"] {
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+/* BY OS */
+[data-os-name="MacOS"] [data-map-type="t-map"],
+[data-os-name="Windows"] [data-map-type="t-map"],
+[data-os-name="MacOS"] [data-map-type="kakao-navi"],
+[data-os-name="Windows"] [data-map-type="kakao-navi"],
+[data-os-name="Android"] [data-map-type="apple-map"],
+[data-os-name="Windows"] [data-map-type="apple-map"],
+/* BY METHOD */
+[data-method="car"] [data-map-type="uber-taxi"],
+[data-method="public"] [data-map-type="t-map"],
+[data-method="public"] [data-map-type="kakao-navi"],
+[data-method="walk"] [data-map-type="t-map"],
+[data-method="walk"] [data-map-type="kakao-navi"],
+[data-method="walk"] [data-map-type="uber-taxi"] {
     display: none;
 }
 
@@ -750,4 +778,40 @@ body:has([data-fullscreen].show) {
 
 body:has([data-fullscreen].show) .container {
     display: none;
+}
+
+ul[data-selector] {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0;
+    list-style: none;
+    margin: 0 2rem;
+    border-radius: 4px;
+    background: rgb(248, 248, 248);
+    color: rgb(68, 68, 68);
+    font-size: .75rem;
+}
+
+ul[data-selector] li {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex: 1;
+    position: relative;
+    border-radius: 4px;
+    padding: .25rem 0;
+    opacity: .75;
+}
+
+ul[data-selector] li svg {
+    width: .8rem;
+    height: .8rem;
+}
+
+ul[data-selector] li.selected {
+    background: rgb(233, 203, 207);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
+    font-weight: 600;
+    opacity: 1;
 }
