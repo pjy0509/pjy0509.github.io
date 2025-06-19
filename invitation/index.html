@@ -1021,7 +1021,7 @@
 		let fallback;
 		let param;
 
-		function createIntent(scheme, packageName, fallback = "https://play.google.com/store/apps/details?id=" + packageName) {
+		function createIntent(scheme, packageName, fallback = encodeURIComponent("https://play.google.com/store/apps/details?id=" + packageName)) {
 			const [pre, suf] = scheme.split("://");
 
 			return "intent://" + suf
@@ -1030,8 +1030,8 @@
 				+ "action=android.intent.action.VIEW;"
 				+ "category=android.intent.category.BROWSABLE;"
 				+ "package=" + packageName + ";"
-				+ "S.browser_fallback_url=" + encodeURIComponent(fallback)
-				+ "end";
+				+ "S.browser_fallback_url=" + fallback
+				+ "end;";
 		}
 		
 		switch (type) {
