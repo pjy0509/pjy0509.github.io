@@ -567,8 +567,8 @@ body {
 [data-os-name="Windows"] [data-map-type="apple-map"],
 /* BY METHOD */
 [data-method="car"] [data-map-type="uber-taxi"],
-[data-method="public"] [data-map-type="t-map"],
-[data-method="public"] [data-map-type="kakao-navi"],
+[data-method="transit"] [data-map-type="t-map"],
+[data-method="transit"] [data-map-type="kakao-navi"],
 [data-method="walk"] [data-map-type="t-map"],
 [data-method="walk"] [data-map-type="kakao-navi"],
 [data-method="walk"] [data-map-type="uber-taxi"] {
