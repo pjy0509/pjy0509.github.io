@@ -1300,6 +1300,18 @@
 					packageName = "com.ubercab"
 				);
 
+				fallback = "https://m.uber.com/go/home"
+					+ "?drop%5B0%5D=" + encodeURIComponent(
+						JSON.stringify({
+								addressLine1: PLACE_NAME,
+								addressLine2: PLACE_ADDRESS,
+								latitude: LATITUDE,
+								longitude: LONGITUDE,
+								source: "SEARCH",
+								provider: "tmap_places"
+							})
+					);
+
 				if (Native.OS.name === "Android") {
 					location.href = intent;
 					return;
@@ -1309,6 +1321,12 @@
 					ios: {
 						scheme: scheme,
 						trackId: "431589174",
+					},
+					windows: {
+						fallback: fallback
+					},
+					mac: {
+						fallback: fallback
 					}
 				})
 					.run();
