@@ -441,11 +441,11 @@ body {
     color: #222;
     display: block;
     line-height: 17px;
-    margin-bottom: 8px;
+    margin-bottom: .5rem;
 }
 
 .item-park > div {
-    margin: 6px 0 6px 6px;
+    margin: .5rem 0 1rem .5rem;
     font-size: 13px;
     color: #222;
     float: left;
@@ -458,7 +458,21 @@ body {
     color: #222;
     display: block;
     line-height: 17px;
-    margin: 0 0 8px -6px;
+    margin: 0 0 .75rem -.5rem;
+}
+
+.item-park > div > br {
+    height: .25rem;
+}
+
+.item-park > div > p {
+    margin: 0;
+    font-size: 11px;
+    opacity: .75;
+}
+
+.item-park > div > p:first-of-type {
+    margin-top: .2rem;
 }
 
 .button-list {
