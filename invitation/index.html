@@ -1085,7 +1085,9 @@
 
 			const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
 			const ul = document.querySelector("[data-selector]");
-			const method = localStorage.getItem("method");
+			let method = localStorage.getItem("method");
+
+			if (method === null) method = "car";
 
 			function onclick() {
 				ul.childNodes.forEach(node => {
