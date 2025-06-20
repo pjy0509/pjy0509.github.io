@@ -772,7 +772,8 @@ body:has([data-modal-id].show) {
     transition: scale 0.2s ease-out, transform 0.2s ease-out;
 }
 
-body:has([data-fullscreen].show) {
+body:has([data-fullscreen].show),
+body:has([data-loader="true"]) {
     overflow: hidden;
 }
 
