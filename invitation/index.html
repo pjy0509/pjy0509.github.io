@@ -600,7 +600,7 @@
 								const distance = document.createElement("p");
 								const time = document.createElement("p");
 
-								name.innerText = park.name.replace(//g);
+								name.innerText = park.name.replace(/주차장$/g, "") + "주차장";
 								count.innerText = "주차 수용 대수: " + park.count;
 								container.append(
 									name,
