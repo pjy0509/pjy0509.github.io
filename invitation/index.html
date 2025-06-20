@@ -1559,12 +1559,12 @@
 	const Loader = {
 		el: null,
 		show: function () {
-			if (el === null) el = document.querySelector("[data-loader]");
-			el.dataset.loader = "true";
+			if (this.el === null) this.el = document.querySelector("[data-loader]");
+			this.el.dataset.loader = "true";
 		},
 		close: function () {
-			if (el === null) el = document.querySelector("[data-loader]");
-			el.dataset.loader = "false";
+			if (this.el === null) this.el = document.querySelector("[data-loader]");
+			this.el.dataset.loader = "false";
 		}
 	}
 
