@@ -817,7 +817,7 @@ ul[data-selector] li.selected {
 }
 
 [data-indicator] {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -827,7 +827,11 @@ ul[data-selector] li.selected {
     z-index: 999;
 }
 
-[data-indicator]::after {
+[data-indicator="true"] {
+    display: flex;
+}
+
+[data-indicator="true"]::after {
     content: ' ';
     width: 50px;
     aspect-ratio: 1;
