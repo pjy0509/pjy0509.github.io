@@ -1085,6 +1085,7 @@
 
 			const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
 			const ul = document.querySelector("[data-selector]");
+			const method = localStorage.getItem("method");
 
 			function onclick() {
 				ul.childNodes.forEach(node => {
@@ -1094,11 +1095,21 @@
 					}
 				});
 
-				routes.dataset.method = this.dataset.value;
+				const newMethod = this.dataset.value;
+
+				routes.dataset.method = newMethod;
+				localStorage.setItem("method", newMethod);
 			}
 
 			ul.childNodes.forEach(node => {
-				if (node instanceof HTMLElement) node.onclick = onclick.bind(node);
+				if (node instanceof HTMLElement) {
+					node.onclick = onclick.bind(node);
+
+					if (node.dataset.value === method) {
+						node.classList.add("selected");
+						routes.dataset.method = method;
+					}
+				}
 			});
 
 		} else {
