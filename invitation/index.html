@@ -528,6 +528,7 @@
 	// CONSTANT END
 
 	initUserAgent();
+	initConstant();
 
 	const search = new URLSearchParams(location.search);
 
@@ -602,6 +603,18 @@
 
 		detectColorScheme();
 		window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", detectColorScheme);
+	}
+
+	function initConstant() {
+		dayjs.extend(dayjs_plugin_advancedFormat);
+		
+		const date = dayjs(WEDDING_DATE_TIME_START);
+		
+		document.querySelectorAll("[data-wedding-date-time]").forEach(el => el.textContent = date.locale(el.dataset.weddingDateTimeLocale).format(el.dataset.weddingDateTime));
+		document.querySelectorAll("[data-groom]").forEach(el => el.textContent = GROOM);
+		document.querySelectorAll("[data-bride]").forEach(el => el.textContent = BRIDE);
+		document.querySelectorAll("[data-place-name]").forEach(el => el.textContent = PLACE_NAME);
+		document.querySelectorAll("[data-place-address]").forEach(el => el.textContent = PLACE_ADDRESS);
 	}
 
 	function initModal() {
