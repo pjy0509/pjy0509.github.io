@@ -1304,8 +1304,8 @@
 					+ "?drop%5B0%5D=" + encodeURIComponent(
 						JSON.stringify({
 								addressLine1: PLACE_NAME,
-								latitude: LATITUDE,
-								longitude: LONGITUDE,
+								latitude: +LATITUDE,
+								longitude: +LONGITUDE,
 								source: "SEARCH",
 								provider: "tmap_places"
 							})
