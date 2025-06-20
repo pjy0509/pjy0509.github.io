@@ -479,6 +479,10 @@
                 <img src="assets/images/icon_google_map.png" alt=""/>
                 구글 맵
             </button>
+            <button class="button" data-map-type="i-navi">
+                <img src="assets/images/icon_i_navi.png" alt=""/>
+                아이나비
+            </button>
             <button class="button" data-map-type="apple-map">
                 <img src="assets/images/icon_apple_map.png" alt=""/>
                 지도
@@ -536,14 +540,52 @@
 	const Navigation = {
 		method: null,
 		init: function (fullscreen = false) {
+			const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
+
 			document.querySelectorAll("[data-map-type]").forEach(el => {
+				if (el.dataset.mapType === "i-navi" && !("geolocation" in navigator)) {
+					el.style.display = "none";
+				}
+
 				el.onclick = function () {
 					Navigation.open(this.dataset.mapType);
 				}
 			});
 
+			function setHeight(container) {
+				const width = window.innerWidth;
+				const columns = width >= 500 ? 3 : width >= 380 ? 2 : 1;
+
+				function maxHeight(items) {
+					console.log(items, columns)
+
+					return Math.ceil(items / columns) * 3 + 1;
+				}
+
+				switch (Native.OS.name) {
+					case "Android":
+						return container.style.height = maxHeight(6) + "rem";
+					case "iOS":
+						return container.style.height = maxHeight(7) + "rem";
+					case "Windows":
+						return container.style.height = maxHeight(4) + "rem";
+					case "MacOS":
+						return container.style.height = maxHeight(5) + "rem";
+				}
+			}
+
+			let delay = 300,
+				timer = null;
+
+			setHeight(routes);
+			window.addEventListener("resize", function () {
+				clearTimeout(timer);
+				timer = setTimeout(function () {
+					setHeight(routes);
+				}, delay)
+			});
+
 			if (fullscreen) {
-				const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
 
 				new daum.roughmap.Lander({
 					timestamp: "1750165976255",
@@ -853,6 +895,33 @@
 						}
 					})
 						.run();
+					return;
+				case "i-navi":
+					navigator.geolocation.getCurrentPosition(position => {
+						intent = createIntent(
+							scheme = "autorunair://thinkware.com/navigation.req"
+								+ "?method=" + encodeURIComponent("routesearch")
+								+ "&start=" + encodeURIComponent(position.coords.latitude + "," + position.coords.longitude)
+								+ "&dest=" + encodeURIComponent(Constant.LATITUDE + "," + Constant.LONGITUDE)
+								+ "&appid=" + encodeURIComponent(Constant.PLACE_NAME)
+								+ "&appscheme=" + encodeURIComponent("runinavi")
+								+ "&appos=" + encodeURIComponent(Native.OS.name.toLowerCase()),
+							packageName = "com.thinkware.inaviair"
+						);
+
+						if (Native.OS.name === "Android") {
+							location.href = intent;
+							return;
+						}
+
+						new Native.App({
+							ios: {
+								scheme: scheme,
+								trackId: "431589174",
+							}
+						})
+							.run();
+					});
 					return;
 				case "uber-taxi":
 					intent = createIntent(

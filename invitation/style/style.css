@@ -545,7 +545,8 @@ body {
 }
 
 .button[data-map-type="t-map"],
-.button[data-map-type="google-map"] {
+.button[data-map-type="google-map"],
+.button[data-map-type="i-navi"] {
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
 }
@@ -566,11 +567,7 @@ body {
     color: rgb(0, 0, 0);
 }
 
-.button[data-map-type="apple-map"] {
-    background: rgb(22, 22, 23);
-    color: rgb(255, 255, 255);
-}
-
+.button[data-map-type="apple-map"],
 .button[data-map-type="uber-taxi"] {
     background: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
@@ -579,6 +576,8 @@ body {
 /* BY OS */
 [data-os-name="MacOS"] [data-map-type="t-map"],
 [data-os-name="Windows"] [data-map-type="t-map"],
+[data-os-name="MacOS"] [data-map-type="i-navi"],
+[data-os-name="Windows"] [data-map-type="i-navi"],
 [data-os-name="MacOS"] [data-map-type="kakao-navi"],
 [data-os-name="Windows"] [data-map-type="kakao-navi"],
 [data-os-name="Android"] [data-map-type="apple-map"],
@@ -587,8 +586,10 @@ body {
 [data-method="car"] [data-map-type="uber-taxi"],
 [data-method="transit"] [data-map-type="t-map"],
 [data-method="transit"] [data-map-type="kakao-navi"],
+[data-method="transit"] [data-map-type="i-navi"],
 [data-method="walk"] [data-map-type="t-map"],
 [data-method="walk"] [data-map-type="kakao-navi"],
+[data-method="walk"] [data-map-type="i-navi"],
 [data-method="walk"] [data-map-type="uber-taxi"] {
     display: none;
 }
@@ -860,18 +861,40 @@ ul[data-selector] li.selected {
 }
 
 @keyframes l20-1 {
-    0%    {clip-path: polygon(50% 50%,0       0,  50%   0%,  50%    0%, 50%    0%, 50%    0%, 50%    0% )}
-    12.5% {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100%   0%, 100%   0%, 100%   0% )}
-    25%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 100% 100%, 100% 100% )}
-    50%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
-    62.5% {clip-path: polygon(50% 50%,100%    0, 100%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
-    75%   {clip-path: polygon(50% 50%,100% 100%, 100% 100%,  100% 100%, 100% 100%, 50%  100%, 0%   100% )}
-    100%  {clip-path: polygon(50% 50%,50%  100%,  50% 100%,   50% 100%,  50% 100%, 50%  100%, 0%   100% )}
+    0% {
+        clip-path: polygon(50% 50%, 0 0, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%)
+    }
+    12.5% {
+        clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%)
+    }
+    25% {
+        clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 100% 100%, 100% 100%)
+    }
+    50% {
+        clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%)
+    }
+    62.5% {
+        clip-path: polygon(50% 50%, 100% 0, 100% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%)
+    }
+    75% {
+        clip-path: polygon(50% 50%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 50% 100%, 0% 100%)
+    }
+    100% {
+        clip-path: polygon(50% 50%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 0% 100%)
+    }
 }
 
-@keyframes l20-2{
-    0%    {transform:scaleY(1)  rotate(0deg)}
-    49.99%{transform:scaleY(1)  rotate(135deg)}
-    50%   {transform:scaleY(-1) rotate(0deg)}
-    100%  {transform:scaleY(-1) rotate(-135deg)}
+@keyframes l20-2 {
+    0% {
+        transform: scaleY(1) rotate(0deg)
+    }
+    49.99% {
+        transform: scaleY(1) rotate(135deg)
+    }
+    50% {
+        transform: scaleY(-1) rotate(0deg)
+    }
+    100% {
+        transform: scaleY(-1) rotate(-135deg)
+    }
 }
