@@ -816,7 +816,7 @@ ul[data-selector] li.selected {
     opacity: 1;
 }
 
-[data-indicator] {
+[data-loader] {
     display: none;
     justify-content: center;
     align-items: center;
@@ -827,11 +827,11 @@ ul[data-selector] li.selected {
     z-index: 999;
 }
 
-[data-indicator="true"] {
+[data-loader="true"] {
     display: flex;
 }
 
-[data-indicator="true"]::after {
+[data-loader="true"]::after {
     content: ' ';
     width: 50px;
     aspect-ratio: 1;
