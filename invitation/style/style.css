@@ -453,6 +453,10 @@ body {
     text-align: left;
 }
 
+.item-park > div:last-child {
+    margin: .5rem 0 0 .5rem;
+}
+
 .item-park > div > strong {
     font-size: 13px;
     color: #222;
