@@ -53,6 +53,12 @@
     <!-- AOS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Day -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/timezone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/advancedFormat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/ko.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/en.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style/style.css">
 
@@ -94,7 +100,7 @@
             <div class="padding rem3"></div>
 
             <div class="item-description2">
-                신랑 박준영 · 신부 최영은
+                신랑 <span data-groom></span> · 신부 <span data-bride></span>
             </div>
         </div>
 
@@ -111,11 +117,11 @@
             </div>
 
             <div class="item-subtitle">
-                2025년 8월 31일 토요일 | 오후 12시
+		<span data-wedding-date-time="YYYY년 M월 D일 dddd | A h시" data-wedding-date-time-locale="ko"></span>
             </div>
 
             <div class="item-description">
-                Saturday, August 31, 2025 | PM 12:00
+		<span data-wedding-date-time="dddd, MMMM D, YYYY | A hh:mm" data-wedding-date-time-locale="en"></span>
             </div>
 
             <div class="item-weather" id="weather">
@@ -219,11 +225,11 @@
             </div>
 
             <div class="item-subtitle">
-                웨딩그룹위더스 영등포
+                <span data-place-name></span>
             </div>
 
             <div class="item-description">
-                서울 영등포구 영중로 55
+                <span data-place-address></span>
             </div>
 
             <div class="padding rem1"></div>
@@ -393,11 +399,11 @@
     </div>
 
     <div class="item-subtitle">
-        웨딩그룹위더스 영등포
+	<span data-place-name></span>
     </div>
 
     <div class="item-description">
-        서울 영등포구 영중로 55
+	<span data-place-address></span>
     </div>
 
     <div class="padding rem2"></div>
