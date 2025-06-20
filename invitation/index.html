@@ -54,7 +54,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- Day -->
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/timezone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/Constant.TIMEZONE.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/advancedFormat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/ko.js"></script>
@@ -100,7 +100,7 @@
             <div class="padding rem3"></div>
 
             <div class="item-description2">
-                신랑 <span data-groom></span> · 신부 <span data-bride></span>
+                신랑 <span data-Constant.GROOM></span> · 신부 <span data-Constant.BRIDE></span>
             </div>
         </div>
 
@@ -511,28 +511,28 @@
 
 <script type="text/javascript">
 	// CONSTANT BEGIN
-	const LATITUDE = "37.52137722994085";
-	const LONGITUDE = "126.90459301926333";
-	const PLACE_NAME = "웨딩그룹위더스 영등포";
-	const PLACE_ADDRESS = "서울 영등포구 영중로 55";
-	const TIMEZONE = "Asia/Seoul";
-	const WEDDING_DATE_TIME_START_ISO_STRING = "2025-08-31T03:20:00Z";
-	const WEDDING_DATE_TIME_END_ISO_STRING = "2025-08-31T04:30:00Z";
-	const WEDDING_DATE_ISO_STRING = "2025-08-31";
-	const WEDDING_DATE_TIME_START = new Date(WEDDING_DATE_TIME_START_ISO_STRING);
-	const WEDDING_DATE_TIME_END = new Date(WEDDING_DATE_TIME_END_ISO_STRING);
-	const WEDDING_DATE = new Date(WEDDING_DATE_ISO_STRING);
-	const GROOM = "박준영";
-	const BRIDE = "최영은";
-	const META_TITLE = document.querySelector("meta[property=\"og:title\"]").content;
-	const META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
-	const KAKAO_REST_API_KEY = "7c29ec39d56410088e1ba66176d61b4b";
+	const Constant.LATITUDE = "37.52137722994085";
+	const Constant.LONGITUDE = "126.90459301926333";
+	const Constant.PLACE_NAME = "웨딩그룹위더스 영등포";
+	const Constant.PLACE_ADDRESS = "서울 영등포구 영중로 55";
+	const Constant.TIMEZONE = "Asia/Seoul";
+	const Constant.WEDDING_DATE_TIME_START_ISO_STRING = "2025-08-31T03:20:00Z";
+	const Constant.WEDDING_DATE_TIME_END_ISO_STRING = "2025-08-31T04:30:00Z";
+	const Constant.WEDDING_DATE_ISO_STRING = "2025-08-31";
+	const Constant.WEDDING_DATE_TIME_START = new Date(Constant.WEDDING_DATE_TIME_START_ISO_STRING);
+	const Constant.WEDDING_DATE_TIME_END = new Date(Constant.WEDDING_DATE_TIME_END_ISO_STRING);
+	const Constant.WEDDING_DATE = new Date(Constant.WEDDING_DATE_ISO_STRING);
+	const Constant.GROOM = "박준영";
+	const Constant.BRIDE = "최영은";
+	const Constant.META_TITLE = document.querySelector("meta[property=\"og:title\"]").content;
+	const Constant.META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
+	const KakaoTalk.RestAPIKey = "7c29ec39d56410088e1ba66176d61b4b";
 	// CONSTANT END
 
 	initUserAgent();
-	initConstant();
 	
 	KakaoTalk.init();
+	Constant.init();
 	Modal.init();
 	Loader.init();
 
@@ -609,18 +609,6 @@
 
 		detectColorScheme();
 		window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", detectColorScheme);
-	}
-
-	function initConstant() {
-		dayjs.extend(dayjs_plugin_advancedFormat);
-		
-		const date = dayjs(WEDDING_DATE_TIME_START);
-		
-		document.querySelectorAll("[data-wedding-date-time]").forEach(el => el.textContent = date.locale(el.dataset.weddingDateTimeLocale).format(el.dataset.weddingDateTime));
-		document.querySelectorAll("[data-groom]").forEach(el => el.textContent = GROOM);
-		document.querySelectorAll("[data-bride]").forEach(el => el.textContent = BRIDE);
-		document.querySelectorAll("[data-place-name]").forEach(el => el.textContent = PLACE_NAME);
-		document.querySelectorAll("[data-place-address]").forEach(el => el.textContent = PLACE_ADDRESS);
 	}
 
 	function initTsparticle() {
@@ -821,9 +809,9 @@
 
 		calendar.innerHTML = "";
 
-		const startDay = new Date(WEDDING_DATE_TIME_START.getFullYear(), WEDDING_DATE_TIME_START.getMonth()).getDay();
-		const lastDate = new Date(WEDDING_DATE_TIME_START.getFullYear(), WEDDING_DATE_TIME_START.getMonth() + 1, 0).getDate();
-		const targetDate = WEDDING_DATE_TIME_START.getDate();
+		const startDay = new Date(Constant.WEDDING_DATE_TIME_START.getFullYear(), Constant.WEDDING_DATE_TIME_START.getMonth()).getDay();
+		const lastDate = new Date(Constant.WEDDING_DATE_TIME_START.getFullYear(), Constant.WEDDING_DATE_TIME_START.getMonth() + 1, 0).getDate();
+		const targetDate = Constant.WEDDING_DATE_TIME_START.getDate();
 		const grid = document.createElement("div");
 
 		['일', '월', '화', '수', '목', '금', '토'].forEach(d => {
@@ -850,7 +838,7 @@
 
 		calendar.appendChild(grid);
 
-		const targetTimestamp = +WEDDING_DATE_TIME_START;
+		const targetTimestamp = +Constant.WEDDING_DATE_TIME_START;
 
 		setInterval(function () {
 			let subtract = Math.floor((targetTimestamp - Date.now()) / 1000);
@@ -876,17 +864,17 @@
 		fetch(
 			"https://api.open-meteo.com/v1/forecast?"
 			+ new URLSearchParams({
-				latitude: LATITUDE,
-				longitude: LONGITUDE,
+				Constant.LATITUDE: Constant.LATITUDE,
+				Constant.LONGITUDE: Constant.LONGITUDE,
 				hourly: "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,precipitation_probability,apparent_temperature,weathercode",
-				start_date: WEDDING_DATE_ISO_STRING,
-				end_date: WEDDING_DATE_ISO_STRING,
-				timezone: TIMEZONE
+				start_date: Constant.WEDDING_DATE_ISO_STRING,
+				end_date: Constant.WEDDING_DATE_ISO_STRING,
+				Constant.TIMEZONE: Constant.TIMEZONE
 			})
 		)
 			.then(response => response.json())
 			.then(data => {
-				let i = data.hourly.time.indexOf(WEDDING_DATE_ISO_STRING + "T12:00");
+				let i = data.hourly.time.indexOf(Constant.WEDDING_DATE_ISO_STRING + "T12:00");
 
 				if (i === -1) return;
 
@@ -1039,8 +1027,37 @@
 		location.href = location.origin + location.pathname + "?mode=carousel";
 	}
 
+	const Constant = {
+		LATITUDE: "37.52137722994085",
+		LONGITUDE: "126.90459301926333",
+		PLACE_NAME: "웨딩그룹위더스 영등포",
+		PLACE_ADDRESS: "서울 영등포구 영중로 55",
+		TIMEZONE: "Asia/Seoul",
+		WEDDING_DATE_TIME_START_ISO_STRING: "2025-08-31T03:20:00Z",
+		WEDDING_DATE_TIME_END_ISO_STRING: "2025-08-31T04:30:00Z",
+		WEDDING_DATE_ISO_STRING: "2025-08-31",
+		WEDDING_DATE_TIME_START: new Date(Constant.WEDDING_DATE_TIME_START_ISO_STRING),
+		WEDDING_DATE_TIME_END: new Date(Constant.WEDDING_DATE_TIME_END_ISO_STRING),
+		WEDDING_DATE: new Date(Constant.WEDDING_DATE_ISO_STRING),
+		GROOM: "박준영",
+		BRIDE: "최영은",
+		META_TITLE: document.querySelector("meta[property=\"og:title\"]").content,
+		META_DESCRIPTION: document.querySelector("meta[property=\"og:description\"]").content,
+		init: function () {
+			dayjs.extend(dayjs_plugin_advancedFormat);
+			
+			const date = dayjs(Constant.WEDDING_DATE_TIME_START);
+			
+			document.querySelectorAll("[data-wedding-date-time]").forEach(el => el.textContent = date.locale(el.dataset.weddingDateTimeLocale).format(el.dataset.weddingDateTime));
+			document.querySelectorAll("[data-Constant.GROOM]").forEach(el => el.textContent = Constant.GROOM);
+			document.querySelectorAll("[data-Constant.BRIDE]").forEach(el => el.textContent = Constant.BRIDE);
+			document.querySelectorAll("[data-place-name]").forEach(el => el.textContent = Constant.PLACE_NAME);
+			document.querySelectorAll("[data-place-address]").forEach(el => el.textContent = Constant.PLACE_ADDRESS);
+		}
+	}
+
 	const Map = {
-		routes: null,
+		method: null,
 		init: function (fullscreen = false) {
 			document.querySelectorAll("[data-map-type]").forEach(el => {
 				el.onclick = function () {
@@ -1049,7 +1066,7 @@
 			});
 			
 			if (fullscreen) {
-				this.routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
+				const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
 				
 				new daum.roughmap.Lander({
 					timestamp: "1750165976255",
@@ -1074,7 +1091,7 @@
 	
 					const newMethod = this.dataset.value;
 	
-					this.routes.dataset.method = newMethod;
+					routes.dataset.method = this.method = newMethod;
 					localStorage.setItem("method", newMethod);
 				}
 	
@@ -1084,12 +1101,14 @@
 	
 						if (node.dataset.value === method) {
 							node.classList.add("selected");
-							this.routes.dataset.method = method;
+							routes.dataset.method = this.method = method;
 						}
 					}
 				});
 	
 			} else {
+				this.method = "car";
+				
 				new daum.roughmap.Lander({
 					timestamp: "1750215057190",
 					key: "3r29hec3887",
@@ -1102,8 +1121,7 @@
 		open: function (type) {
 			Loader.show();
 			
-			let method = this.routes.dataset.method,
-				scheme,
+			let scheme,
 				packageName,
 				intent,
 				fallback;
@@ -1125,9 +1143,9 @@
 				case "t-map":
 					intent = createIntent(
 						scheme = "tmap://route"
-							+ "?goaly=" + encodeURIComponent(LATITUDE)
-							+ "&goalx=" + encodeURIComponent(LONGITUDE)
-							+ "&goalname=" + encodeURIComponent(PLACE_NAME),
+							+ "?goaly=" + encodeURIComponent(Constant.LATITUDE)
+							+ "&goalx=" + encodeURIComponent(Constant.LONGITUDE)
+							+ "&goalname=" + encodeURIComponent(Constant.PLACE_NAME),
 						packageName = "com.skt.tmap.ku"
 					);
 	
@@ -1148,18 +1166,18 @@
 				case "naver-map":
 					intent = createIntent(
 						scheme = "nmap://"
-							+ (method === "car" ? "navigation" : method === "transit" ? "route/public" : method === "walk" ? "route/walk" : "")
-							+ "?dlat=" + encodeURIComponent(LATITUDE)
-							+ "&dlng=" + encodeURIComponent(LONGITUDE)
-							+ "&dname=" + encodeURIComponent(PLACE_NAME)
+							+ (this.method === "car" ? "navigation" : this.method === "transit" ? "route/public" : this.method === "walk" ? "route/walk" : "")
+							+ "?dlat=" + encodeURIComponent(Constant.LATITUDE)
+							+ "&dlng=" + encodeURIComponent(Constant.LONGITUDE)
+							+ "&dname=" + encodeURIComponent(Constant.PLACE_NAME)
 							+ "&appname=" + encodeURIComponent(location.origin),
 						packageName = "com.nhn.android.nmap",
 						fallback = "http://map.naver.com/index.nhn"
-							+ "?elat=" + encodeURIComponent(LATITUDE)
-							+ "&elng=" + encodeURIComponent(LONGITUDE)
-							+ "&etext=" + encodeURIComponent(PLACE_NAME)
+							+ "?elat=" + encodeURIComponent(Constant.LATITUDE)
+							+ "&elng=" + encodeURIComponent(Constant.LONGITUDE)
+							+ "&etext=" + encodeURIComponent(Constant.PLACE_NAME)
 							+ "&menu=" + encodeURIComponent("route")
-							+ "&pathType=" + encodeURIComponent(method === "car" ? "0" : method === "transit" ? "1" : method === "walk" ? "3" : "")
+							+ "&pathType=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "1" : this.method === "walk" ? "3" : "")
 					);
 	
 					if (Native.OS.name === "Android") {
@@ -1185,11 +1203,11 @@
 				case "kakao-map":
 					intent = createIntent(
 						scheme = "kakaomap://route"
-							+ "?ep=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
-							+ "&by=" + encodeURIComponent(method === "car" ? "0" : method === "transit" ? "PUBLICTRANSIT" : method === "walk" ? "FOOT" : ""),
+							+ "?ep=" + encodeURIComponent(Constant.LATITUDE + "," + Constant.LONGITUDE)
+							+ "&by=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "PUBLICTRANSIT" : this.method === "walk" ? "FOOT" : ""),
 						packageName = "net.daum.android.map",
 						fallback = "https://map.kakao.com/link/to/"
-							+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE)
+							+ encodeURIComponent(Constant.PLACE_NAME + "," + Constant.LATITUDE + "," + Constant.LONGITUDE)
 					);
 	
 					if (Native.OS.name === "Android") {
@@ -1214,26 +1232,26 @@
 					return;
 				case "kakao-navi":
 					Kakao.Navi.start({
-						name: PLACE_NAME,
-						x: +LONGITUDE,
-						y: +LATITUDE,
+						name: Constant.PLACE_NAME,
+						x: +Constant.LONGITUDE,
+						y: +Constant.LATITUDE,
 						coordType: "wgs84",
 					});
 					return;
 				case "google-map":
 					if (Native.OS.name === "Android") {
-						if (method === "transit") {
+						if (this.method === "transit") {
 							location.href = createIntent(
 								"https://maps.google.com/maps"
-									+ "?daddr=" + encodeURIComponent(PLACE_NAME)
+									+ "?daddr=" + encodeURIComponent(Constant.PLACE_NAME)
 									+ "&directionsmode=" + encodeURIComponent("transit"),
 								"com.google.android.apps.maps"
 							);
 						} else {
 							location.href = createIntent(
 								"google.navigation://maps.google.com/maps"
-									+ "?q=" + encodeURIComponent(PLACE_NAME)
-									+ "&mode=" + encodeURIComponent(method === "car" ? "d" : method === "walk" ? "w" : ""),
+									+ "?q=" + encodeURIComponent(Constant.PLACE_NAME)
+									+ "&mode=" + encodeURIComponent(this.method === "car" ? "d" : this.method === "walk" ? "w" : ""),
 								"com.google.android.apps.maps"
 							);
 						}
@@ -1242,12 +1260,12 @@
 					}
 	
 					scheme = "comgooglemaps://"
-						+ "?daddr=" + encodeURIComponent(PLACE_NAME)
-						+ "&center=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
-						+ "&directionsmode=" + encodeURIComponent(method === "car" ? "driving" : method === "transit" ? "transit" : method === "walk" ? "walking" : "");
+						+ "?daddr=" + encodeURIComponent(Constant.PLACE_NAME)
+						+ "&center=" + encodeURIComponent(Constant.LATITUDE + "," + Constant.LONGITUDE)
+						+ "&directionsmode=" + encodeURIComponent(this.method === "car" ? "driving" : this.method === "transit" ? "transit" : this.method === "walk" ? "walking" : "");
 	
 					fallback = "https://www.google.co.kr/maps/dir//"
-						+ encodeURIComponent(PLACE_ADDRESS + " " + PLACE_NAME);
+						+ encodeURIComponent(Constant.PLACE_ADDRESS + " " + Constant.PLACE_NAME);
 	
 					new Native.App({
 						ios: {
@@ -1266,8 +1284,8 @@
 					return;
 				case "apple-map":
 					scheme = "maps://"
-						+ "?daddr=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
-						+ "&dirflg=" + encodeURIComponent(method === "car" ? "d" : method === "transit" ? "r" : method === "walk" ? "w" : "");
+						+ "?daddr=" + encodeURIComponent(Constant.LATITUDE + "," + Constant.LONGITUDE)
+						+ "&dirflg=" + encodeURIComponent(this.method === "car" ? "d" : this.method === "transit" ? "r" : this.method === "walk" ? "w" : "");
 	
 					new Native.App({
 						ios: {
@@ -1285,18 +1303,18 @@
 						scheme = "uber://"
 							+ "?action=setPickup"
 							+ "&pickup=my_location"
-							+ "&dropoff[latitude]=" + encodeURIComponent(LATITUDE)
-							+ "&dropoff[longitude]=" + encodeURIComponent(LONGITUDE)
-							+ "&dropoff[nickname]=" + encodeURIComponent(PLACE_NAME),
+							+ "&dropoff[Constant.LATITUDE]=" + encodeURIComponent(Constant.LATITUDE)
+							+ "&dropoff[Constant.LONGITUDE]=" + encodeURIComponent(Constant.LONGITUDE)
+							+ "&dropoff[nickname]=" + encodeURIComponent(Constant.PLACE_NAME),
 						packageName = "com.ubercab"
 					);
 	
 					fallback = "https://m.uber.com/go/home"
 						+ "?drop%5B0%5D=" + encodeURIComponent(
 							JSON.stringify({
-									addressLine1: PLACE_NAME,
-									latitude: +LATITUDE,
-									longitude: +LONGITUDE,
+									addressLine1: Constant.PLACE_NAME,
+									Constant.LATITUDE: +Constant.LATITUDE,
+									Constant.LONGITUDE: +Constant.LONGITUDE,
 									source: "SEARCH",
 									provider: "tmap_places"
 								})
@@ -1330,15 +1348,16 @@
 
 	const KakaoTalk = {
 		JSKey: "81d57ff9f2d2a5524e506d8a1d386fd5",
+		RestAPIKey: "7c29ec39d56410088e1ba66176d61b4b",
 		init: function () {
 			Kakao.init("81d57ff9f2d2a5524e506d8a1d386fd5");
 		},
 		openCalendar: function () {
 			const scheme = "kakaotalk://calendar/home"
-				+ "?date=" + encodeURIComponent(WEDDING_DATE_ISO_STRING);
+				+ "?date=" + encodeURIComponent(Constant.WEDDING_DATE_ISO_STRING);
 
 			const fallback = "https://calendar.kakao.com/"
-				+ "?date=" + encodeURIComponent(WEDDING_DATE_ISO_STRING);
+				+ "?date=" + encodeURIComponent(Constant.WEDDING_DATE_ISO_STRING);
 
 			new Native.App({
 				android: {
@@ -1388,7 +1407,7 @@
 	
 			function init() {
 				const search = new URLSearchParams(location.search);
-				const clientId = encodeURIComponent(KAKAO_REST_API_KEY);
+				const clientId = encodeURIComponent(KakaoTalk.RestAPIKey);
 				const redirectURI = encodeURIComponent(location.origin + location.pathname + "?mode=schedule");
 	
 				if (search.has("code")) {
@@ -1427,12 +1446,12 @@
 			function create() {
 				fetch(
 					"https://dapi.kakao.com/v2/local/search/keyword.JSON"
-					+ "?query=" + encodeURIComponent(PLACE_NAME)
-					+ "&x=" + encodeURIComponent(LONGITUDE)
-					+ "&y=" + encodeURIComponent(LATITUDE),
+					+ "?query=" + encodeURIComponent(Constant.PLACE_NAME)
+					+ "&x=" + encodeURIComponent(Constant.LONGITUDE)
+					+ "&y=" + encodeURIComponent(Constant.LATITUDE),
 					{
 						headers: {
-							"Authorization": "KakaoAK " + KAKAO_REST_API_KEY,
+							"Authorization": "KakaoAK " + KakaoTalk.RestAPIKey,
 						}
 					}
 				)
@@ -1441,21 +1460,21 @@
 						const locationID = response.documents[0].id;
 	
 						const body = {
-							title: GROOM + "❤️" + BRIDE + " 결혼식",
+							title: Constant.GROOM + "❤️" + Constant.BRIDE + " 결혼식",
 							time: {
-								start_at: WEDDING_DATE_TIME_START_ISO_STRING,
-								end_at: WEDDING_DATE_TIME_END_ISO_STRING,
-								time_zone: TIMEZONE,
+								start_at: Constant.WEDDING_DATE_TIME_START_ISO_STRING,
+								end_at: Constant.WEDDING_DATE_TIME_END_ISO_STRING,
+								time_zone: Constant.TIMEZONE,
 								all_day: false,
 								lunar: false
 							},
-							description: META_DESCRIPTION,
+							description: Constant.META_DESCRIPTION,
 							location: {
-								name: PLACE_NAME,
+								name: Constant.PLACE_NAME,
 								location_id: locationID,
-								address: PLACE_ADDRESS,
-								latitude: LATITUDE,
-								longitude: LONGITUDE
+								address: Constant.PLACE_ADDRESS,
+								Constant.LATITUDE: Constant.LATITUDE,
+								Constant.LONGITUDE: Constant.LONGITUDE
 							},
 							reminders: [60, 120],
 							color: "PINK"
@@ -1463,8 +1482,8 @@
 	
 						fetchWithAuthRetry(
 							"https://kapi.kakao.com/v2/api/calendar/events"
-							+ "?from=" + encodeURIComponent(WEDDING_DATE_TIME_START_ISO_STRING)
-							+ "&to=" + encodeURIComponent(WEDDING_DATE_TIME_END_ISO_STRING),
+							+ "?from=" + encodeURIComponent(Constant.WEDDING_DATE_TIME_START_ISO_STRING)
+							+ "&to=" + encodeURIComponent(Constant.WEDDING_DATE_TIME_END_ISO_STRING),
 							{
 								headers: {
 									"Authorization": "Bearer " + kakaoAccessToken,
@@ -1519,7 +1538,7 @@
 					},
 				},
 				itemContent: {
-					profileText: META_TITLE,
+					profileText: Constant.META_TITLE,
 				},
 				buttons: [
 					{
