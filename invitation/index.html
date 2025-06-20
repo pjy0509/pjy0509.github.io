@@ -240,7 +240,7 @@
 
             <div class="padding rem2"></div>
 
-            <div class="item-location" onclick="setFullscreenRoute()">
+            <div class="item-location" onclick="Map.fullscreen()">
                 <div id="daumRoughmapContainer1750215057190" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
             </div>
 
@@ -248,27 +248,27 @@
 
             <div class="item-routes">
                 <div class="button-grid">
-                    <button class="button" data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">
+                    <button class="button" data-map-type="naver-map">
                         <img src="assets/images/icon_navermap.png" alt=""/>
                         네이버 지도
                     </button>
-                    <button class="button" data-map-type="kakao-map" onclick="openMap(this.dataset.mapType)">
+                    <button class="button" data-map-type="kakao-map">
                         <img src="assets/images/icon_kakaomap.png" alt=""/>
                         카카오 맵
                     </button>
-                    <button class="button" data-map-type="kakao-navi" onclick="openMap(this.dataset.mapType)">
+                    <button class="button" data-map-type="kakao-navi">
                         <img src="assets/images/icon_kakaonavi.png" alt=""/>
                         카카오 내비
                     </button>
-                    <button class="button" data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
+                    <button class="button" data-map-type="t-map">
                         <img src="assets/images/icon_tmap.png" alt=""/>
                         티 맵
                     </button>
-                    <button class="button" data-map-type="google-map" onclick="openMap(this.dataset.mapType)">
+                    <button class="button" data-map-type="google-map">
                         <img src="assets/images/icon_googlemap.png" alt=""/>
                         구글 맵
                     </button>
-                    <button class="button" data-map-type="apple-map" onclick="openMap(this.dataset.mapType)">
+                    <button class="button" data-map-type="apple-map">
                         <img src="assets/images/icon_applemap.png" alt=""/>
                         지도
                     </button>
@@ -361,7 +361,7 @@
         </div>
 
         <div class="button-list">
-            <button class="button" data-map-type="kakao-talkcalendar" onclick="doShareKakaoTalk()">
+            <button class="button" data-map-type="kakao-talkcalendar" onclick="KakaoTalk.share()">
                 공유하기
             </button>
         </div>
@@ -466,31 +466,31 @@
 
     <div class="item-routes" data-method="car">
         <div class="button-grid">
-            <button class="button" data-map-type="naver-map" onclick="openMap(this.dataset.mapType)">
+            <button class="button" data-map-type="naver-map">
                 <img src="assets/images/icon_naver_map.png" alt=""/>
                 네이버 지도
             </button>
-            <button class="button" data-map-type="kakao-map" onclick="openMap(this.dataset.mapType)">
+            <button class="button" data-map-type="kakao-map">
                 <img src="assets/images/icon_kakao_map.png" alt=""/>
                 카카오 맵
             </button>
-            <button class="button" data-map-type="kakao-navi" onclick="openMap(this.dataset.mapType)">
+            <button class="button" data-map-type="kakao-navi">
                 <img src="assets/images/icon_kakao_navi.png" alt=""/>
                 카카오 내비
             </button>
-            <button class="button" data-map-type="t-map" onclick="openMap(this.dataset.mapType)">
+            <button class="button" data-map-type="t-map">
                 <img src="assets/images/icon_t_map.png" alt=""/>
                 티 맵
             </button>
-            <button class="button" data-map-type="google-map" onclick="openMap(this.dataset.mapType)">
+            <button class="button" data-map-type="google-map">
                 <img src="assets/images/icon_google_map.png" alt=""/>
                 구글 맵
             </button>
-            <button class="button" data-map-type="apple-map" onclick="openMap(this.dataset.mapType)">
+            <button class="button" data-map-type="apple-map">
                 <img src="assets/images/icon_apple_map.png" alt=""/>
                 지도
             </button>
-            <button class="button" data-map-type="uber-taxi" onclick="openMap(this.dataset.mapType)">
+            <button class="button" data-map-type="uber-taxi">
                 <img src="assets/images/icon_uber_taxi.png" alt=""/>
                 우버 택시
             </button>
@@ -531,6 +531,10 @@
 
 	initUserAgent();
 	initConstant();
+	
+	KakaoTalk.init();
+	Modal.init();
+	Loader.init();
 
 	const search = new URLSearchParams(location.search);
 
@@ -544,10 +548,10 @@
 
 		switch (mode) {
 			case "schedule":
-				createSchedule();
+				KakaoTalk.createSchedule();
 				break;
 			case "route":
-				initMap(true);
+				Map.init(true);
 				break;
 			case "carousel":
 				initCarousel(true);
@@ -564,12 +568,12 @@
 		window.onload = function () {
 			syncScrollY(true);
 
-			initModal();
+			Map.init();
+			
 			initTsparticle();
 			initCalendar();
 			initWeather();
 			initCarousel();
-			initMap();
 		};
 	}
 
@@ -617,41 +621,6 @@
 		document.querySelectorAll("[data-bride]").forEach(el => el.textContent = BRIDE);
 		document.querySelectorAll("[data-place-name]").forEach(el => el.textContent = PLACE_NAME);
 		document.querySelectorAll("[data-place-address]").forEach(el => el.textContent = PLACE_ADDRESS);
-	}
-
-	function initModal() {
-		history.pushState(null, null, document.URL);
-
-		window.addEventListener("popstate", function () {
-			const shownModal = document.querySelector("[data-modal-id].show");
-
-			if (shownModal) {
-				history.pushState(null, null, document.URL);
-				shownModal.classList.remove("show");
-			}
-		});
-
-		function showModal(id) {
-			const modal = id instanceof HTMLElement
-				? id.closest("[data-modal-id]")
-				: document.querySelector("[data-modal-id=" + id + "]");
-
-			modal.classList.add("show");
-			modal.firstElementChild.onscroll = () => modal.dataset.scroll = modal.firstElementChild.scrollTop.toString();
-			history.pushState({}, "", "#" + window.scrollY.toString());
-		}
-
-		function closeModal(id) {
-			const modal = id instanceof HTMLElement
-				? id.closest("[data-modal-id]")
-				: document.querySelector("[data-modal-id=" + id + "]");
-
-			modal.classList.remove("show");
-			history.pushState({}, "", "#");
-		}
-
-		window.showModal = showModal.bind(window);
-		window.closeModal = closeModal.bind(window);
 	}
 
 	function initTsparticle() {
@@ -1070,424 +1039,301 @@
 		location.href = location.origin + location.pathname + "?mode=carousel";
 	}
 
-	function setFullscreenRoute() {
-		location.href = location.origin + location.pathname + "?mode=route";
-	}
-
-	function initMap(fullscreen = false) {
-		// KAKAO MAP BEGIN
-		if (fullscreen) {
-			new daum.roughmap.Lander({
-				timestamp: "1750165976255",
-				key: "3pycungqfsg",
-				mapWidth: "360",
-				mapHeight: "240"
-			})
-				.render();
-
-			const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
-			const ul = document.querySelector("[data-selector]");
-			let method = localStorage.getItem("method");
-
-			if (method === null) method = "car";
-
-			function onclick() {
+	const Map = {
+		routes: null,
+		init: function (fullscreen = false) {
+			document.querySelectorAll("[data-map-type]").forEach(el => {
+				el.onclick = function () {
+					Map.open(this.dataset.mapType);
+				}
+			});
+			
+			if (fullscreen) {
+				this.routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
+				
+				new daum.roughmap.Lander({
+					timestamp: "1750165976255",
+					key: "3pycungqfsg",
+					mapWidth: "360",
+					mapHeight: "240"
+				})
+					.render();
+	
+				const ul = document.querySelector("[data-selector]");
+				let method = localStorage.getItem("method");
+	
+				if (method === null) method = "car";
+	
+				function onclick() {
+					ul.childNodes.forEach(node => {
+						if (node instanceof HTMLElement) {
+							if (node === this) node.classList.add("selected");
+							else node.classList.remove("selected");
+						}
+					});
+	
+					const newMethod = this.dataset.value;
+	
+					this.routes.dataset.method = newMethod;
+					localStorage.setItem("method", newMethod);
+				}
+	
 				ul.childNodes.forEach(node => {
 					if (node instanceof HTMLElement) {
-						if (node === this) node.classList.add("selected");
-						else node.classList.remove("selected");
-					}
-				});
-
-				const newMethod = this.dataset.value;
-
-				routes.dataset.method = newMethod;
-				localStorage.setItem("method", newMethod);
-			}
-
-			ul.childNodes.forEach(node => {
-				if (node instanceof HTMLElement) {
-					node.onclick = onclick.bind(node);
-
-					if (node.dataset.value === method) {
-						node.classList.add("selected");
-						routes.dataset.method = method;
-					}
-				}
-			});
-
-		} else {
-			new daum.roughmap.Lander({
-				timestamp: "1750215057190",
-				key: "3r29hec3887",
-				mapWidth: "360",
-				mapHeight: "240"
-			})
-				.render();
-		}
-		// KAKAO MAP END
-	}
-
-	function openMap(type) {
-		Loader.show();
-		
-		const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
-
-		let method = routes.dataset.method,
-			scheme,
-			packageName,
-			intent,
-			fallback;
-
-		function createIntent(scheme, packageName, fallback = "market://details?id=" + packageName) {
-			const [pre, suf] = scheme.split("://");
-
-			return "intent://" + suf
-				+ "#Intent;"
-				+ "scheme=" + pre + ";"
-				+ "action=android.intent.action.VIEW;"
-				+ "category=android.intent.category.BROWSABLE;"
-				+ "package=" + packageName + ";"
-				+ "S.browser_fallback_url=" + fallback + ";"
-				+ "end";
-		}
-
-		switch (type) {
-			case "t-map":
-				intent = createIntent(
-					scheme = "tmap://route"
-						+ "?goaly=" + encodeURIComponent(LATITUDE)
-						+ "&goalx=" + encodeURIComponent(LONGITUDE)
-						+ "&goalname=" + encodeURIComponent(PLACE_NAME),
-					packageName = "com.skt.tmap.ku"
-				);
-
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return Loader.close();
-				}
-
-				new Native.App({
-					ios: {
-						scheme: scheme,
-						trackId: "431589174",
-					}
-				})
-					.run()
-					.then(Loader.close);
-				return;
-			case "naver-map":
-				intent = createIntent(
-					scheme = "nmap://"
-						+ (method === "car" ? "navigation" : method === "transit" ? "route/public" : method === "walk" ? "route/walk" : "")
-						+ "?dlat=" + encodeURIComponent(LATITUDE)
-						+ "&dlng=" + encodeURIComponent(LONGITUDE)
-						+ "&dname=" + encodeURIComponent(PLACE_NAME)
-						+ "&appname=" + encodeURIComponent(location.origin),
-					packageName = "com.nhn.android.nmap",
-					fallback = "http://map.naver.com/index.nhn"
-						+ "?elat=" + encodeURIComponent(LATITUDE)
-						+ "&elng=" + encodeURIComponent(LONGITUDE)
-						+ "&etext=" + encodeURIComponent(PLACE_NAME)
-						+ "&menu=" + encodeURIComponent("route")
-						+ "&pathType=" + encodeURIComponent(method === "car" ? "0" : method === "transit" ? "1" : method === "walk" ? "3" : "")
-				);
-
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return Loader.close();
-				}
-
-				new Native.App({
-					ios: {
-						scheme: scheme,
-						trackId: "311867728",
-					},
-					windows: {
-						fallback: fallback
-					},
-					mac: {
-						fallback: fallback
-					}
-				})
-					.run()
-					.then(Loader.close);
-				return;
-			case "kakao-map":
-				intent = createIntent(
-					scheme = "kakaomap://route"
-						+ "?ep=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
-						+ "&by=" + encodeURIComponent(method === "car" ? "0" : method === "transit" ? "PUBLICTRANSIT" : method === "walk" ? "FOOT" : ""),
-					packageName = "net.daum.android.map",
-					fallback = "https://map.kakao.com/link/to/"
-						+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE)
-				);
-
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return Loader.close();
-				}
-
-				new Native.App({
-					ios: {
-						scheme: scheme,
-						trackId: "304608425",
-					},
-					windows: {
-						fallback: fallback
-					},
-					mac: {
-						fallback: fallback
-					}
-				})
-					.run()
-					.then(Loader.close);
-				return;
-			case "kakao-navi":
-				Kakao.Navi.start({
-					name: PLACE_NAME,
-					x: +LONGITUDE,
-					y: +LATITUDE,
-					coordType: "wgs84",
-				});
-				return;
-			case "google-map":
-				if (Native.OS.name === "Android") {
-					if (method === "transit") {
-						location.href = createIntent(
-							"https://maps.google.com/maps"
-								+ "?daddr=" + encodeURIComponent(PLACE_NAME)
-								+ "&directionsmode=" + encodeURIComponent("transit"),
-							"com.google.android.apps.maps"
-						);
-					} else {
-						location.href = createIntent(
-							"google.navigation://maps.google.com/maps"
-								+ "?q=" + encodeURIComponent(PLACE_NAME)
-								+ "&mode=" + encodeURIComponent(method === "car" ? "d" : method === "walk" ? "w" : ""),
-							"com.google.android.apps.maps"
-						);
-					}
-
-					return Loader.close();
-				}
-
-				scheme = "comgooglemaps://"
-					+ "?daddr=" + encodeURIComponent(PLACE_NAME)
-					+ "&center=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
-					+ "&directionsmode=" + encodeURIComponent(method === "car" ? "driving" : method === "transit" ? "transit" : method === "walk" ? "walking" : "");
-
-				fallback = "https://www.google.co.kr/maps/dir//"
-					+ encodeURIComponent(PLACE_ADDRESS + " " + PLACE_NAME);
-
-				new Native.App({
-					ios: {
-						scheme: scheme,
-						trackId: "585027354",
-					},
-					windows: {
-						fallback: fallback
-					},
-					mac: {
-						fallback: fallback
-					}
-				})
-					.run()
-					.then(Loader.close);
-				return;
-			case "apple-map":
-				scheme = "maps://"
-					+ "?daddr=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
-					+ "&dirflg=" + encodeURIComponent(method === "car" ? "d" : method === "transit" ? "r" : method === "walk" ? "w" : "");
-
-				new Native.App({
-					ios: {
-						scheme: scheme,
-					},
-					mac: {
-						scheme: scheme,
-					}
-				})
-					.run()
-					.then(Loader.close);
-				return;
-			case "uber-taxi":
-				intent = createIntent(
-					scheme = "uber://"
-						+ "?action=setPickup"
-						+ "&pickup=my_location"
-						+ "&dropoff[latitude]=" + encodeURIComponent(LATITUDE)
-						+ "&dropoff[longitude]=" + encodeURIComponent(LONGITUDE)
-						+ "&dropoff[nickname]=" + encodeURIComponent(PLACE_NAME),
-					packageName = "com.ubercab"
-				);
-
-				fallback = "https://m.uber.com/go/home"
-					+ "?drop%5B0%5D=" + encodeURIComponent(
-						JSON.stringify({
-								addressLine1: PLACE_NAME,
-								latitude: +LATITUDE,
-								longitude: +LONGITUDE,
-								source: "SEARCH",
-								provider: "tmap_places"
-							})
-					);
-
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return Loader.close();
-				}
-
-				new Native.App({
-					ios: {
-						scheme: scheme,
-						trackId: "431589174",
-					},
-					windows: {
-						fallback: fallback
-					},
-					mac: {
-						fallback: fallback
-					}
-				})
-					.run()
-					.then(Loader.close);
-		}
-	}
-
-	function createSchedule() {
-		let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
-
-		if (!kakaoAccessToken) {
-			init();
-		} else {
-			create();
-		}
-
-		function fetchWithAuthRetry(input, options) {
-			return fetch(input, options).then(async (response) => {
-				if (response.status === 401) {
-					localStorage.removeItem("kakaoAccessToken");
-					kakaoAccessToken = null;
-					init();
-				}
-				return response;
-			});
-		}
-
-		function init() {
-			const search = new URLSearchParams(location.search);
-			const clientId = encodeURIComponent(KAKAO_REST_API_KEY);
-			const redirectURI = encodeURIComponent(location.origin + location.pathname + "?mode=schedule");
-
-			if (search.has("code")) {
-				const grantType = encodeURIComponent("authorization_code");
-				const code = search.get("code");
-
-				window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + "?mode=schedule" + location.hash);
-
-				fetch(
-					"https://kauth.kakao.com/oauth/token"
-					+ "?grant_type=" + grantType
-					+ "&client_id=" + clientId
-					+ "&redirect_uri=" + redirectURI
-					+ "&code=" + code,
-					{
-						method: "POST"
-					}
-				)
-					.then(response => response.json())
-					.then(response => {
-						localStorage.setItem("kakaoAccessToken", kakaoAccessToken = response.access_token);
-						createSchedule();
-					});
-			} else {
-				const responseType = encodeURIComponent("code");
-				const scope = encodeURIComponent("talk_calendar");
-
-				location.href = "https://kauth.kakao.com/oauth/authorize"
-					+ "?client_id=" + clientId
-					+ "&redirect_uri=" + redirectURI
-					+ "&response_type=" + responseType
-					+ "&scope=" + scope;
-			}
-		}
-
-		function create() {
-			fetch(
-				"https://dapi.kakao.com/v2/local/search/keyword.JSON"
-				+ "?query=" + encodeURIComponent(PLACE_NAME)
-				+ "&x=" + encodeURIComponent(LONGITUDE)
-				+ "&y=" + encodeURIComponent(LATITUDE),
-				{
-					headers: {
-						"Authorization": "KakaoAK " + KAKAO_REST_API_KEY,
-					}
-				}
-			)
-				.then(response => response.json())
-				.then(response => {
-					const locationID = response.documents[0].id;
-
-					const body = {
-						title: GROOM + "❤️" + BRIDE + " 결혼식",
-						time: {
-							start_at: WEDDING_DATE_TIME_START_ISO_STRING,
-							end_at: WEDDING_DATE_TIME_END_ISO_STRING,
-							time_zone: TIMEZONE,
-							all_day: false,
-							lunar: false
-						},
-						description: META_DESCRIPTION,
-						location: {
-							name: PLACE_NAME,
-							location_id: locationID,
-							address: PLACE_ADDRESS,
-							latitude: LATITUDE,
-							longitude: LONGITUDE
-						},
-						reminders: [60, 120],
-						color: "PINK"
-					};
-
-					fetchWithAuthRetry(
-						"https://kapi.kakao.com/v2/api/calendar/events"
-						+ "?from=" + encodeURIComponent(WEDDING_DATE_TIME_START_ISO_STRING)
-						+ "&to=" + encodeURIComponent(WEDDING_DATE_TIME_END_ISO_STRING),
-						{
-							headers: {
-								"Authorization": "Bearer " + kakaoAccessToken,
-							}
+						node.onclick = onclick.bind(node);
+	
+						if (node.dataset.value === method) {
+							node.classList.add("selected");
+							this.routes.dataset.method = method;
 						}
-					)
-						.then(response => response.json())
-						.then(response => {
-							const matched = response.events.find(e => e.title === body.title);
-
-							if (!matched) {
-								const bodyString = JSON.stringify(body);
-
-								return fetchWithAuthRetry(
-									"https://kapi.kakao.com/v2/api/calendar/create/event",
-									{
-										method: "POST",
-										headers: {
-											"Authorization": "Bearer " + kakaoAccessToken,
-											"Content-Type": "application/x-www-form-urlencoded"
-										},
-										body: "event=" + encodeURIComponent(bodyString),
-									}
-								)
-									.then(response => response.json())
-									.then(() => onsuccess());
-							} else {
-								return onsuccess();
-							}
-						});
+					}
 				});
+	
+			} else {
+				new daum.roughmap.Lander({
+					timestamp: "1750215057190",
+					key: "3r29hec3887",
+					mapWidth: "360",
+					mapHeight: "240"
+				})
+					.render();
+			}
+		},
+		open: function (type) {
+			Loader.show();
+			
+			let method = this.routes.dataset.method,
+				scheme,
+				packageName,
+				intent,
+				fallback;
+	
+			function createIntent(scheme, packageName, fallback = "market://details?id=" + packageName) {
+				const [pre, suf] = scheme.split("://");
+	
+				return "intent://" + suf
+					+ "#Intent;"
+					+ "scheme=" + pre + ";"
+					+ "action=android.intent.action.VIEW;"
+					+ "category=android.intent.category.BROWSABLE;"
+					+ "package=" + packageName + ";"
+					+ "S.browser_fallback_url=" + fallback + ";"
+					+ "end";
+			}
+	
+			switch (type) {
+				case "t-map":
+					intent = createIntent(
+						scheme = "tmap://route"
+							+ "?goaly=" + encodeURIComponent(LATITUDE)
+							+ "&goalx=" + encodeURIComponent(LONGITUDE)
+							+ "&goalname=" + encodeURIComponent(PLACE_NAME),
+						packageName = "com.skt.tmap.ku"
+					);
+	
+					if (Native.OS.name === "Android") {
+						location.href = intent;
+						return Loader.hide();
+					}
+	
+					new Native.App({
+						ios: {
+							scheme: scheme,
+							trackId: "431589174",
+						}
+					})
+						.run()
+						.then(Loader.close);
+					return;
+				case "naver-map":
+					intent = createIntent(
+						scheme = "nmap://"
+							+ (method === "car" ? "navigation" : method === "transit" ? "route/public" : method === "walk" ? "route/walk" : "")
+							+ "?dlat=" + encodeURIComponent(LATITUDE)
+							+ "&dlng=" + encodeURIComponent(LONGITUDE)
+							+ "&dname=" + encodeURIComponent(PLACE_NAME)
+							+ "&appname=" + encodeURIComponent(location.origin),
+						packageName = "com.nhn.android.nmap",
+						fallback = "http://map.naver.com/index.nhn"
+							+ "?elat=" + encodeURIComponent(LATITUDE)
+							+ "&elng=" + encodeURIComponent(LONGITUDE)
+							+ "&etext=" + encodeURIComponent(PLACE_NAME)
+							+ "&menu=" + encodeURIComponent("route")
+							+ "&pathType=" + encodeURIComponent(method === "car" ? "0" : method === "transit" ? "1" : method === "walk" ? "3" : "")
+					);
+	
+					if (Native.OS.name === "Android") {
+						location.href = intent;
+						return Loader.hide();
+					}
+	
+					new Native.App({
+						ios: {
+							scheme: scheme,
+							trackId: "311867728",
+						},
+						windows: {
+							fallback: fallback
+						},
+						mac: {
+							fallback: fallback
+						}
+					})
+						.run()
+						.then(Loader.close);
+					return;
+				case "kakao-map":
+					intent = createIntent(
+						scheme = "kakaomap://route"
+							+ "?ep=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
+							+ "&by=" + encodeURIComponent(method === "car" ? "0" : method === "transit" ? "PUBLICTRANSIT" : method === "walk" ? "FOOT" : ""),
+						packageName = "net.daum.android.map",
+						fallback = "https://map.kakao.com/link/to/"
+							+ encodeURIComponent(PLACE_NAME + "," + LATITUDE + "," + LONGITUDE)
+					);
+	
+					if (Native.OS.name === "Android") {
+						location.href = intent;
+						return Loader.hide();
+					}
+	
+					new Native.App({
+						ios: {
+							scheme: scheme,
+							trackId: "304608425",
+						},
+						windows: {
+							fallback: fallback
+						},
+						mac: {
+							fallback: fallback
+						}
+					})
+						.run()
+						.then(Loader.close);
+					return;
+				case "kakao-navi":
+					Kakao.Navi.start({
+						name: PLACE_NAME,
+						x: +LONGITUDE,
+						y: +LATITUDE,
+						coordType: "wgs84",
+					});
+					return;
+				case "google-map":
+					if (Native.OS.name === "Android") {
+						if (method === "transit") {
+							location.href = createIntent(
+								"https://maps.google.com/maps"
+									+ "?daddr=" + encodeURIComponent(PLACE_NAME)
+									+ "&directionsmode=" + encodeURIComponent("transit"),
+								"com.google.android.apps.maps"
+							);
+						} else {
+							location.href = createIntent(
+								"google.navigation://maps.google.com/maps"
+									+ "?q=" + encodeURIComponent(PLACE_NAME)
+									+ "&mode=" + encodeURIComponent(method === "car" ? "d" : method === "walk" ? "w" : ""),
+								"com.google.android.apps.maps"
+							);
+						}
+	
+						return Loader.hide();
+					}
+	
+					scheme = "comgooglemaps://"
+						+ "?daddr=" + encodeURIComponent(PLACE_NAME)
+						+ "&center=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
+						+ "&directionsmode=" + encodeURIComponent(method === "car" ? "driving" : method === "transit" ? "transit" : method === "walk" ? "walking" : "");
+	
+					fallback = "https://www.google.co.kr/maps/dir//"
+						+ encodeURIComponent(PLACE_ADDRESS + " " + PLACE_NAME);
+	
+					new Native.App({
+						ios: {
+							scheme: scheme,
+							trackId: "585027354",
+						},
+						windows: {
+							fallback: fallback
+						},
+						mac: {
+							fallback: fallback
+						}
+					})
+						.run()
+						.then(Loader.close);
+					return;
+				case "apple-map":
+					scheme = "maps://"
+						+ "?daddr=" + encodeURIComponent(LATITUDE + "," + LONGITUDE)
+						+ "&dirflg=" + encodeURIComponent(method === "car" ? "d" : method === "transit" ? "r" : method === "walk" ? "w" : "");
+	
+					new Native.App({
+						ios: {
+							scheme: scheme,
+						},
+						mac: {
+							scheme: scheme,
+						}
+					})
+						.run()
+						.then(Loader.close);
+					return;
+				case "uber-taxi":
+					intent = createIntent(
+						scheme = "uber://"
+							+ "?action=setPickup"
+							+ "&pickup=my_location"
+							+ "&dropoff[latitude]=" + encodeURIComponent(LATITUDE)
+							+ "&dropoff[longitude]=" + encodeURIComponent(LONGITUDE)
+							+ "&dropoff[nickname]=" + encodeURIComponent(PLACE_NAME),
+						packageName = "com.ubercab"
+					);
+	
+					fallback = "https://m.uber.com/go/home"
+						+ "?drop%5B0%5D=" + encodeURIComponent(
+							JSON.stringify({
+									addressLine1: PLACE_NAME,
+									latitude: +LATITUDE,
+									longitude: +LONGITUDE,
+									source: "SEARCH",
+									provider: "tmap_places"
+								})
+						);
+	
+					if (Native.OS.name === "Android") {
+						location.href = intent;
+						return Loader.hide();
+					}
+	
+					new Native.App({
+						ios: {
+							scheme: scheme,
+							trackId: "431589174",
+						},
+						windows: {
+							fallback: fallback
+						},
+						mac: {
+							fallback: fallback
+						}
+					})
+						.run()
+						.then(Loader.close);
+			}
+		},
+		fullscreen: function () {
+			location.href = location.origin + location.pathname + "?mode=route";
 		}
+	};
 
-		function onsuccess() {
+	const KakaoTalk = {
+		JSKey: "81d57ff9f2d2a5524e506d8a1d386fd5",
+		init: function () {
+			Kakao.init("81d57ff9f2d2a5524e506d8a1d386fd5");
+		},
+		openCalendar: function () {
 			const scheme = "kakaotalk://calendar/home"
 				+ "?date=" + encodeURIComponent(WEDDING_DATE_ISO_STRING);
 
@@ -1513,68 +1359,237 @@
 			function onvisibilitychange() {
 				if (document.visibilityState === "visible") {
 					document.removeEventListener("visibilitychange", onvisibilitychange);
-					closeKakaoTalkInAppBrowser();
+					KakaoTalk.closeInAppBrowser();
 				}
 			}
 
 			document.addEventListener("visibilitychange", onvisibilitychange);
-			closeKakaoTalkInAppBrowser();
-		}
-	}
-
-	function closeKakaoTalkInAppBrowser() {
-		if (document.body.dataset.wv !== "kakao") return;
-		if (Native.OS.name === "iOS") return location.href = "kakaoweb://closeBrowser";
-		return location.href = "kakaotalk://inappbrowser/close";
-	}
-
-	function doShareKakaoTalk() {
-		Kakao.Share.sendDefault({
-			objectType: "feed",
-			content: {
-				title: "자세히 보기",
-				description: "https://pjy0509.github.io/invitation",
-				imageUrl: "https://raw.githubusercontent.com/pjy0509/pjy0509.github.io/refs/heads/main/invitation/assets/images/i0.jpg",
-				link: {
-					mobileWebUrl: "https://pjy0509.github.io/invitation",
-					webUrl: "https://pjy0509.github.io/invitation",
-				},
-			},
-			itemContent: {
-				profileText: META_TITLE,
-			},
-			buttons: [
-				{
-					title: "찾아오는 길",
-					link: {
-						mobileWebUrl: "https://pjy0509.github.io/invitation?mode=route",
-						webUrl: "https://pjy0509.github.io/invitation?mode=route",
-					},
-				},
-				{
-					title: "일정 등록",
-					link: {
-						mobileWebUrl: "https://pjy0509.github.io/invitation?mode=schedule",
-						webUrl: "https://pjy0509.github.io/invitation?mode=schedule",
-					},
+			KakaoTalk.closeInAppBrowser();
+		},
+		createSchedule: function () {
+			let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
+	
+			if (!kakaoAccessToken) {
+				init();
+			} else {
+				create();
+			}
+	
+			function fetchWithAuthRetry(input, options) {
+				return fetch(input, options).then(async (response) => {
+					if (response.status === 401) {
+						localStorage.removeItem("kakaoAccessToken");
+						kakaoAccessToken = null;
+						init();
+					}
+					return response;
+				});
+			}
+	
+			function init() {
+				const search = new URLSearchParams(location.search);
+				const clientId = encodeURIComponent(KAKAO_REST_API_KEY);
+				const redirectURI = encodeURIComponent(location.origin + location.pathname + "?mode=schedule");
+	
+				if (search.has("code")) {
+					const grantType = encodeURIComponent("authorization_code");
+					const code = search.get("code");
+	
+					window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + "?mode=schedule" + location.hash);
+	
+					fetch(
+						"https://kauth.kakao.com/oauth/token"
+						+ "?grant_type=" + grantType
+						+ "&client_id=" + clientId
+						+ "&redirect_uri=" + redirectURI
+						+ "&code=" + code,
+						{
+							method: "POST"
+						}
+					)
+						.then(response => response.json())
+						.then(response => {
+							localStorage.setItem("kakaoAccessToken", kakaoAccessToken = response.access_token);
+							KakaoTalk.createSchedule();
+						});
+				} else {
+					const responseType = encodeURIComponent("code");
+					const scope = encodeURIComponent("talk_calendar");
+	
+					location.href = "https://kauth.kakao.com/oauth/authorize"
+						+ "?client_id=" + clientId
+						+ "&redirect_uri=" + redirectURI
+						+ "&response_type=" + responseType
+						+ "&scope=" + scope;
 				}
-			],
-		});
-	}
-
-	let alertId = 0;
+			}
+	
+			function create() {
+				fetch(
+					"https://dapi.kakao.com/v2/local/search/keyword.JSON"
+					+ "?query=" + encodeURIComponent(PLACE_NAME)
+					+ "&x=" + encodeURIComponent(LONGITUDE)
+					+ "&y=" + encodeURIComponent(LATITUDE),
+					{
+						headers: {
+							"Authorization": "KakaoAK " + KAKAO_REST_API_KEY,
+						}
+					}
+				)
+					.then(response => response.json())
+					.then(response => {
+						const locationID = response.documents[0].id;
+	
+						const body = {
+							title: GROOM + "❤️" + BRIDE + " 결혼식",
+							time: {
+								start_at: WEDDING_DATE_TIME_START_ISO_STRING,
+								end_at: WEDDING_DATE_TIME_END_ISO_STRING,
+								time_zone: TIMEZONE,
+								all_day: false,
+								lunar: false
+							},
+							description: META_DESCRIPTION,
+							location: {
+								name: PLACE_NAME,
+								location_id: locationID,
+								address: PLACE_ADDRESS,
+								latitude: LATITUDE,
+								longitude: LONGITUDE
+							},
+							reminders: [60, 120],
+							color: "PINK"
+						};
+	
+						fetchWithAuthRetry(
+							"https://kapi.kakao.com/v2/api/calendar/events"
+							+ "?from=" + encodeURIComponent(WEDDING_DATE_TIME_START_ISO_STRING)
+							+ "&to=" + encodeURIComponent(WEDDING_DATE_TIME_END_ISO_STRING),
+							{
+								headers: {
+									"Authorization": "Bearer " + kakaoAccessToken,
+								}
+							}
+						)
+							.then(response => response.json())
+							.then(response => {
+								const matched = response.events.find(e => e.title === body.title);
+	
+								if (!matched) {
+									const bodyString = JSON.stringify(body);
+	
+									return fetchWithAuthRetry(
+										"https://kapi.kakao.com/v2/api/calendar/create/event",
+										{
+											method: "POST",
+											headers: {
+												"Authorization": "Bearer " + kakaoAccessToken,
+												"Content-Type": "application/x-www-form-urlencoded"
+											},
+											body: "event=" + encodeURIComponent(bodyString),
+										}
+									)
+										.then(response => response.json())
+										.then(KakaoTalk.openCalendar);
+								} else {
+									return KakaoTalk.openCalendar();
+								}
+							});
+					});
+			}
+		},
+		openExternalBrowser: function () {
+			location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(location.href);
+		},
+		closeInAppBrowser: function () {
+			if (document.body.dataset.wv !== "kakao") return;
+			if (Native.OS.name === "iOS") return location.href = "kakaoweb://closeBrowser";
+			return location.href = "kakaotalk://inappbrowser/close";
+		},
+		share: function () {
+			Kakao.Share.sendDefault({
+				objectType: "feed",
+				content: {
+					title: "자세히 보기",
+					description: "https://pjy0509.github.io/invitation",
+					imageUrl: "https://raw.githubusercontent.com/pjy0509/pjy0509.github.io/refs/heads/main/invitation/assets/images/i0.jpg",
+					link: {
+						mobileWebUrl: "https://pjy0509.github.io/invitation",
+						webUrl: "https://pjy0509.github.io/invitation",
+					},
+				},
+				itemContent: {
+					profileText: META_TITLE,
+				},
+				buttons: [
+					{
+						title: "찾아오는 길",
+						link: {
+							mobileWebUrl: "https://pjy0509.github.io/invitation?mode=route",
+							webUrl: "https://pjy0509.github.io/invitation?mode=route",
+						},
+					},
+					{
+						title: "일정 등록",
+						link: {
+							mobileWebUrl: "https://pjy0509.github.io/invitation?mode=schedule",
+							webUrl: "https://pjy0509.github.io/invitation?mode=schedule",
+						},
+					}
+				],
+			});
+		}
+	};
 
 	const Loader = {
 		el: null,
+		init: function () {
+			this.el = document.querySelector("[data-loader]");
+		},
 		show: function () {
-			if (this.el === null) this.el = document.querySelector("[data-loader]");
 			this.el.dataset.loader = "true";
 		},
-		close: function () {
-			if (this.el === null) this.el = document.querySelector("[data-loader]");
+		hide: function () {
 			this.el.dataset.loader = "false";
+		},
+	};
+
+	const Modal = {
+		el: {},
+		shown: [],
+		init: function (id) {
+			history.pushState(null, null, document.URL);
+			
+			window.addEventListener("popstate", function () {
+				if (this.shown.length > 1) {
+					history.pushState(null, null, document.URL);
+					this.shown.pop().classList.remove("show");
+				}
+			}.bind(Modal));
+		},
+		show: function (id) {
+			const modal = getModalById(id);
+
+			modal.classList.add("show");
+			
+			this.shown.push(modal);
+		},
+		hide: function (id) {
+			const modal = getModalById(id);
+			const index = shown.indexOf(modal);
+			
+			modal.classList.remove("show");
+			
+			this.shown.splice(index, 1);
+		},
+		getModalById: function (id) {
+			return this.el[id] !== undefined
+				? this.el[id] 
+				: id instanceof HTMLElement 
+					? id.closest("[data-modal-id]") 
+					: document.querySelector("[data-modal-id=" + id + "]");
 		}
-	}
+	};
 
 	function showAlert(content) {
 		const alert = document.createElement("div");
