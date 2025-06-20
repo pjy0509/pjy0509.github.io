@@ -1556,6 +1556,18 @@
 
 	let alertId = 0;
 
+	const Loader = {
+		el: null,
+		show: function () {
+			if (el === null) el = document.querySelector("[data-loader]");
+			el.dataset.loader = "true";
+		},
+		close: function () {
+			if (el === null) el = document.querySelector("[data-loader]");
+			el.dataset.loader = "false";
+		}
+	}
+
 	function showAlert(content) {
 		const alert = document.createElement("div");
 
