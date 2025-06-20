@@ -1129,7 +1129,7 @@
 	}
 
 	function openMap(type) {
-		Loder.show();
+		Loader.show();
 		
 		const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
 
@@ -1164,7 +1164,7 @@
 
 				if (Native.OS.name === "Android") {
 					location.href = intent;
-					return Loder.close();
+					return Loader.close();
 				}
 
 				new Native.App({
@@ -1174,7 +1174,7 @@
 					}
 				})
 					.run()
-					.then(Loder.close);
+					.then(Loader.close);
 				return;
 			case "naver-map":
 				intent = createIntent(
@@ -1195,7 +1195,7 @@
 
 				if (Native.OS.name === "Android") {
 					location.href = intent;
-					return Loder.close();
+					return Loader.close();
 				}
 
 				new Native.App({
@@ -1211,7 +1211,7 @@
 					}
 				})
 					.run()
-					.then(Loder.close);
+					.then(Loader.close);
 				return;
 			case "kakao-map":
 				intent = createIntent(
@@ -1225,7 +1225,7 @@
 
 				if (Native.OS.name === "Android") {
 					location.href = intent;
-					return Loder.close();
+					return Loader.close();
 				}
 
 				new Native.App({
@@ -1241,7 +1241,7 @@
 					}
 				})
 					.run()
-					.then(Loder.close);
+					.then(Loader.close);
 				return;
 			case "kakao-navi":
 				Kakao.Navi.start({
@@ -1269,7 +1269,7 @@
 						);
 					}
 
-					return Loder.close();
+					return Loader.close();
 				}
 
 				scheme = "comgooglemaps://"
@@ -1293,7 +1293,7 @@
 					}
 				})
 					.run()
-					.then(Loder.close);
+					.then(Loader.close);
 				return;
 			case "apple-map":
 				scheme = "maps://"
@@ -1309,7 +1309,7 @@
 					}
 				})
 					.run()
-					.then(Loder.close);
+					.then(Loader.close);
 				return;
 			case "uber-taxi":
 				intent = createIntent(
@@ -1335,7 +1335,7 @@
 
 				if (Native.OS.name === "Android") {
 					location.href = intent;
-					return Loder.close();
+					return Loader.close();
 				}
 
 				new Native.App({
@@ -1351,7 +1351,7 @@
 					}
 				})
 					.run()
-					.then(Loder.close);
+					.then(Loader.close);
 		}
 	}
 
