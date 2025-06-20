@@ -54,7 +54,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- Day -->
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/Constant.TIMEZONE.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/timezone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/advancedFormat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/ko.js"></script>
@@ -85,8 +85,8 @@
 			const date = dayjs(Constant.WEDDING_DATE_TIME_START);
 			
 			document.querySelectorAll("[data-wedding-date-time]").forEach(el => el.textContent = date.locale(el.dataset.weddingDateTimeLocale).format(el.dataset.weddingDateTime));
-			document.querySelectorAll("[data-Constant.GROOM]").forEach(el => el.textContent = Constant.GROOM);
-			document.querySelectorAll("[data-Constant.BRIDE]").forEach(el => el.textContent = Constant.BRIDE);
+			document.querySelectorAll("[data-groom]").forEach(el => el.textContent = Constant.GROOM);
+			document.querySelectorAll("[data-bride]").forEach(el => el.textContent = Constant.BRIDE);
 			document.querySelectorAll("[data-place-name]").forEach(el => el.textContent = Constant.PLACE_NAME);
 			document.querySelectorAll("[data-place-address]").forEach(el => el.textContent = Constant.PLACE_ADDRESS);
 		}
@@ -339,8 +339,8 @@
 						scheme = "uber://"
 							+ "?action=setPickup"
 							+ "&pickup=my_location"
-							+ "&dropoff[Constant.LATITUDE]=" + encodeURIComponent(Constant.LATITUDE)
-							+ "&dropoff[Constant.LONGITUDE]=" + encodeURIComponent(Constant.LONGITUDE)
+							+ "&dropoff[latitude]=" + encodeURIComponent(Constant.LATITUDE)
+							+ "&dropoff[longitude]=" + encodeURIComponent(Constant.LONGITUDE)
 							+ "&dropoff[nickname]=" + encodeURIComponent(Constant.PLACE_NAME),
 						packageName = "com.ubercab"
 					);
@@ -349,8 +349,8 @@
 						+ "?drop%5B0%5D=" + encodeURIComponent(
 							JSON.stringify({
 									addressLine1: Constant.PLACE_NAME,
-									Constant.LATITUDE: +Constant.LATITUDE,
-									Constant.LONGITUDE: +Constant.LONGITUDE,
+									latitude: +Constant.LATITUDE,
+									longitude: +Constant.LONGITUDE,
 									source: "SEARCH",
 									provider: "tmap_places"
 								})
@@ -509,8 +509,8 @@
 								name: Constant.PLACE_NAME,
 								location_id: locationID,
 								address: Constant.PLACE_ADDRESS,
-								Constant.LATITUDE: Constant.LATITUDE,
-								Constant.LONGITUDE: Constant.LONGITUDE
+								latitude: Constant.LATITUDE,
+								longitude: Constant.LONGITUDE
 							},
 							reminders: [60, 120],
 							color: "PINK"
@@ -685,7 +685,7 @@
             <div class="padding rem3"></div>
 
             <div class="item-description2">
-                신랑 <span data-Constant.GROOM></span> · 신부 <span data-Constant.BRIDE></span>
+                신랑 <span data-groom></span> · 신부 <span data-bride></span>
             </div>
         </div>
 
@@ -1095,25 +1095,6 @@
 <script>AOS.init();</script>
 
 <script type="text/javascript">
-	// CONSTANT BEGIN
-	const Constant.LATITUDE = "37.52137722994085";
-	const Constant.LONGITUDE = "126.90459301926333";
-	const Constant.PLACE_NAME = "웨딩그룹위더스 영등포";
-	const Constant.PLACE_ADDRESS = "서울 영등포구 영중로 55";
-	const Constant.TIMEZONE = "Asia/Seoul";
-	const Constant.WEDDING_DATE_TIME_START_ISO_STRING = "2025-08-31T03:20:00Z";
-	const Constant.WEDDING_DATE_TIME_END_ISO_STRING = "2025-08-31T04:30:00Z";
-	const Constant.WEDDING_DATE_ISO_STRING = "2025-08-31";
-	const Constant.WEDDING_DATE_TIME_START = new Date(Constant.WEDDING_DATE_TIME_START_ISO_STRING);
-	const Constant.WEDDING_DATE_TIME_END = new Date(Constant.WEDDING_DATE_TIME_END_ISO_STRING);
-	const Constant.WEDDING_DATE = new Date(Constant.WEDDING_DATE_ISO_STRING);
-	const Constant.GROOM = "박준영";
-	const Constant.BRIDE = "최영은";
-	const Constant.META_TITLE = document.querySelector("meta[property=\"og:title\"]").content;
-	const Constant.META_DESCRIPTION = document.querySelector("meta[property=\"og:description\"]").content;
-	const KakaoTalk.RestAPIKey = "7c29ec39d56410088e1ba66176d61b4b";
-	// CONSTANT END
-
 	initUserAgent();
 	
 	KakaoTalk.init();
@@ -1449,12 +1430,12 @@
 		fetch(
 			"https://api.open-meteo.com/v1/forecast?"
 			+ new URLSearchParams({
-				Constant.LATITUDE: Constant.LATITUDE,
-				Constant.LONGITUDE: Constant.LONGITUDE,
+				latitude: Constant.LATITUDE,
+				longitude: Constant.LONGITUDE,
 				hourly: "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,precipitation_probability,apparent_temperature,weathercode",
 				start_date: Constant.WEDDING_DATE_ISO_STRING,
 				end_date: Constant.WEDDING_DATE_ISO_STRING,
-				Constant.TIMEZONE: Constant.TIMEZONE
+				timezone: Constant.TIMEZONE
 			})
 		)
 			.then(response => response.json())
