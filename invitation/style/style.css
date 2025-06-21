@@ -545,8 +545,7 @@ body {
 }
 
 .button[data-map-type="t-map"],
-.button[data-map-type="google-map"],
-.button[data-map-type="i-navi"] {
+.button[data-map-type="google-map"] {
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
 }
@@ -576,8 +575,6 @@ body {
 /* BY OS */
 [data-os-name="MacOS"] [data-map-type="t-map"],
 [data-os-name="Windows"] [data-map-type="t-map"],
-[data-os-name="MacOS"] [data-map-type="i-navi"],
-[data-os-name="Windows"] [data-map-type="i-navi"],
 [data-os-name="MacOS"] [data-map-type="kakao-navi"],
 [data-os-name="Windows"] [data-map-type="kakao-navi"],
 [data-os-name="Android"] [data-map-type="apple-map"],
@@ -586,10 +583,8 @@ body {
 [data-method="car"] [data-map-type="uber-taxi"],
 [data-method="transit"] [data-map-type="t-map"],
 [data-method="transit"] [data-map-type="kakao-navi"],
-[data-method="transit"] [data-map-type="i-navi"],
 [data-method="walk"] [data-map-type="t-map"],
 [data-method="walk"] [data-map-type="kakao-navi"],
-[data-method="walk"] [data-map-type="i-navi"],
 [data-method="walk"] [data-map-type="uber-taxi"] {
     display: none;
 }

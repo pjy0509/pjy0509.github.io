@@ -479,10 +479,6 @@
                 <img src="assets/images/icon_google_map.png" alt=""/>
                 구글 맵
             </button>
-            <button class="button" data-map-type="i-navi">
-                <img src="assets/images/icon_i_navi.png" alt=""/>
-                아이나비
-            </button>
             <button class="button" data-map-type="apple-map">
                 <img src="assets/images/icon_apple_map.png" alt=""/>
                 지도
@@ -539,14 +535,17 @@
 
 	const Navigation = {
 		method: null,
+		MapType: {},
+		DayType: {
+			Rest: 0,
+			Sat: 1,
+			Sun: 2,
+			Weekday: 3,
+		},
 		init: function (fullscreen = false) {
 			const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
 
 			document.querySelectorAll("[data-map-type]").forEach(el => {
-				if (el.dataset.mapType === "i-navi" && !("geolocation" in navigator)) {
-					el.style.display = "none";
-				}
-
 				el.onclick = function () {
 					Navigation.open(this.dataset.mapType);
 				}
@@ -564,9 +563,9 @@
 
 				switch (Native.OS.name) {
 					case "Android":
-						return container.style.height = maxHeight(6) + "rem";
+						return container.style.height = maxHeight(5) + "rem";
 					case "iOS":
-						return container.style.height = maxHeight(7) + "rem";
+						return container.style.height = maxHeight(6) + "rem";
 					case "Windows":
 						return container.style.height = maxHeight(4) + "rem";
 					case "MacOS":
@@ -586,7 +585,6 @@
 			});
 
 			if (fullscreen) {
-
 				new daum.roughmap.Lander({
 					timestamp: "1750165976255",
 					key: "3pycungqfsg",
@@ -629,8 +627,6 @@
 
 				this.park()
 					.then(parks => {
-						console.log(parks);
-
 						parks
 							.slice(0, 4)
 							.forEach(park => {
@@ -642,7 +638,7 @@
 								const distance = document.createElement("p");
 								const time = document.createElement("p");
 
-								name.innerText = park.name.replace(/주차장$/g, "") + "주차장";
+								name.innerText = park.name.replace(/(주차장)|$/, "주차장");
 								count.innerText = "주차 수용 대수: " + park.count;
 								container.append(
 									name,
@@ -896,33 +892,6 @@
 					})
 						.run();
 					return;
-				case "i-navi":
-					navigator.geolocation.getCurrentPosition(position => {
-						intent = createIntent(
-							scheme = "autorunair://thinkware.com/navigation.req"
-								+ "?method=" + encodeURIComponent("routesearch")
-								+ "&start=" + encodeURIComponent(position.coords.latitude + "," + position.coords.longitude)
-								+ "&dest=" + encodeURIComponent(Constant.LATITUDE + "," + Constant.LONGITUDE)
-								+ "&appid=" + encodeURIComponent(Constant.PLACE_NAME)
-								+ "&appscheme=" + encodeURIComponent("runinavi")
-								+ "&appos=" + encodeURIComponent(Native.OS.name.toLowerCase()),
-							packageName = "com.thinkware.inaviair"
-						);
-
-						if (Native.OS.name === "Android") {
-							location.href = intent;
-							return;
-						}
-
-						new Native.App({
-							ios: {
-								scheme: scheme,
-								trackId: "431589174",
-							}
-						})
-							.run();
-					});
-					return;
 				case "uber-taxi":
 					intent = createIntent(
 						scheme = "uber://"
@@ -968,7 +937,7 @@
 		fullscreen: function () {
 			location.href = location.origin + location.pathname + "?mode=route";
 		},
-		park: function () {
+		park: async function () {
 			function d2r(deg) {
 				return deg * (Math.PI / 180);
 			}
@@ -981,113 +950,125 @@
 				return 6.371e6 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 			}
 
-			function getParkOperatingHours(park, isRest, isWeekend) {
-				if (isRest) return [+park.LHLDY_BGNG, +park.LHLDY];
-				else if (isWeekend) return [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM];
+			function getParkOperatingHours(park, dayType) {
+				if (dayType === Navigation.DayType.Rest) return [+park.LHLDY_BGNG, +park.LHLDY];
+				else if (dayType === Navigation.DayType.Sat || dayType === Navigation.DayType.Sun) return [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM];
 				else return [+park.WD_OPER_BGNG_TM, +park.WD_OPER_END_TM];
 			}
 
-			const year = Constant.WEDDING_DATE_TIME_START.getFullYear().toString();
-			const month = (Constant.WEDDING_DATE_TIME_START.getMonth() + 1).toString().padStart(2, '0');
-			const date = Constant.WEDDING_DATE_TIME_START.getDate().toString().padStart(2, '0');
-			const day = Constant.WEDDING_DATE_TIME_START.getDay();
-			const beginHM = Constant.WEDDING_DATE_TIME_START.getHours() * 100 + Constant.WEDDING_DATE_TIME_START.getMinutes();
-			const endHM = Constant.WEDDING_DATE_TIME_END.getHours() * 100 + Constant.WEDDING_DATE_TIME_END.getMinutes();
+			async function getDayType(date) {
+				const year = Constant.WEDDING_DATE_TIME_START.getFullYear().toString();
+				const month = (Constant.WEDDING_DATE_TIME_START.getMonth() + 1).toString().padStart(2, '0');
+				const day = Constant.WEDDING_DATE_TIME_START.getDay();
 
-			return fetch(
-				"https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"
-				+ "?serviceKey=" + encodeURIComponent("cwrcT5TevRi39dJ3+8FTHHLLQyxGCWKNdMYBYqAwwrCHqPAK/1ZHilEhfJ31syfsZ1BOVUiLL4DIjRLU+Hfg2w==")
-				+ "&solYear=" + encodeURIComponent(year)
-				+ "&solMonth=" + encodeURIComponent(month)
-			)
-				.then(response => response.text())
-				.then(response => {
-					const parser = new DOMParser();
+				return await fetch(
+					"https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"
+					+ "?serviceKey=" + encodeURIComponent("cwrcT5TevRi39dJ3+8FTHHLLQyxGCWKNdMYBYqAwwrCHqPAK/1ZHilEhfJ31syfsZ1BOVUiLL4DIjRLU+Hfg2w==")
+					+ "&solYear=" + encodeURIComponent(year)
+					+ "&solMonth=" + encodeURIComponent(month)
+				)
+					.then(response => response.text())
+					.then(response => {
+						const parser = new DOMParser();
+						const xml = parser.parseFromString(response, "application/xml");
 
-					const xml = parser.parseFromString(response, "application/xml");
+						if (xml.querySelector("parsererror") === null) {
+							const dateString = year + month + date.getDate().toString().padStart(2, '0');
 
-					if (xml.querySelector("parsererror") === null) {
-						let isRest = false;
-
-						const dateString = year + month + date
-
-						for (let item of xml.getElementsByTagName("items")[0].children) {
-							if (dateString === item.getElementsByTagName("locdate")[0].textContent) {
-								isRest = true;
-								break;
+							for (let item of xml.getElementsByTagName("items")[0].children) {
+								if (dateString === item.getElementsByTagName("locdate")[0].textContent) return Navigation.DayType.Rest;
 							}
+
+							if (day === 6) return Navigation.DayType.Sat;
+							if (day === 0) return Navigation.DayType.Sun;
+							return Navigation.DayType.Weekday;
 						}
+					});
+			}
 
-						let isSat = !isRest && day === 6;
-						let isSun = !isRest && day === 0;
-						let isWeekend = !isRest && (isSat || isSun);
+			async function getParks(beginDate, endDate) {
+				const beginHM = beginDate.getHours() * 100 + beginDate.getMinutes();
+				const endHM = endDate.getHours() * 100 + endDate.getMinutes();
 
-						return fetch("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkInfo/1/1000/영등포")
-							.then(response => response.json())
-							.then(response => {
-								return Array.from(new Map(response.GetParkInfo.row.map(park => [park.PKLT_CD, park])).values())
-									.filter(park => {
-										if (park.OPER_SE !== "1" || park.PKLT_KND !== "NW" || park.LAT === 0 || park.LOT === 0) return false;
+				return await fetch("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkInfo/1/1000/영등포")
+					.then(response => response.json())
+					.then(async response => {
+						const dayType = await getDayType(beginDate);
 
-										let [parkBeginHM, parkEndHM] = getParkOperatingHours(park, isRest, isWeekend);
+						return Array.from(new Map(response.GetParkInfo.row.map(park => [park.PKLT_CD, park])).values())
+							.filter(park => {
+								if (park.OPER_SE !== "1" || park.PKLT_KND === "NS" || park.LAT === 0 || park.LOT === 0) return false;
 
-										return !(parkBeginHM === 0 && parkEndHM === 0) && (parkBeginHM < beginHM && (parkEndHM > endHM || beginHM > endHM));
-									})
-									.map(park => {
-										let isFree;
+								const [parkBeginHM, parkEndHM] =
+									dayType === Navigation.DayType.Rest
+										? [+park.LHLDY_BGNG, +park.LHLDY]
+										: (dayType === Navigation.DayType.Sat || dayType === Navigation.DayType.Sun)
+											? [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM]
+											: [+park.WD_OPER_BGNG_TM, +park.WD_OPER_END_TM];
 
-										if (isRest) isFree = park.LHLDY_YN;
-										else if (isSat) isFree = park.SAT_CHGD_FREE_SE;
-										else isFree = park.CHGD_FREE_SE;
+								return !(parkBeginHM === 0 && parkEndHM === 0) && (parkBeginHM < beginHM && (parkEndHM > endHM || beginHM > endHM));
+							})
+							.map(park => {
+								const [parkBeginHM, parkEndHM] =
+									dayType === Navigation.DayType.Rest
+										? [+park.LHLDY_BGNG, +park.LHLDY]
+										: (dayType === Navigation.DayType.Sat || dayType === Navigation.DayType.Sun)
+											? [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM]
+											: [+park.WD_OPER_BGNG_TM, +park.WD_OPER_END_TM];
 
-										let [parkBeginHM, parkEndHM] = getParkOperatingHours(park, isRest, isWeekend);
+								const isFree = dayType === Navigation.DayType.Rest
+									? park.LHLDY_YN
+									: dayType === Navigation.DayType.Sat
+										? park.SAT_CHGD_FREE_SE
+										: park.CHGD_FREE_SE;
 
-										const latitude = park.LAT,
-											longitude = park.LOT,
-											name = park.PKLT_NM.replaceAll(/(^공유\)\s*)|\s*(\([구|시]\)$)/g, "");
+								const latitude = park.LAT,
+									longitude = park.LOT,
+									name = park.PKLT_NM.replaceAll(/(^공유\)\s*)|\s*(\([구|시]\)$)/g, "");
 
-										let baseTime = park.PRK_HM,
-											basePrice = park.PRK_CRG,
-											addTime = park.ADD_UNIT_TM_MNT,
-											addPrice = park.ADD_CRG;
+								let baseTime = park.PRK_HM,
+									basePrice = park.PRK_CRG,
+									addTime = park.ADD_UNIT_TM_MNT,
+									addPrice = park.ADD_CRG;
 
-										if (baseTime === addTime && basePrice === addPrice) {
-											baseTime = 0;
-											basePrice = 0;
-										}
+								if (baseTime === addTime && basePrice === addPrice) {
+									baseTime = 0;
+									basePrice = 0;
+								}
 
-										if (addPrice === 0 && addTime === 0) {
-											addTime = baseTime;
-											addPrice = basePrice;
-											baseTime = 0;
-											basePrice = 0;
-										}
+								if (addPrice === 0 && addTime === 0) {
+									addTime = baseTime;
+									addPrice = basePrice;
+									baseTime = 0;
+									basePrice = 0;
+								}
 
-										return {
-											id: park.PKLT_CD,
-											name: name,
-											address: park.ADDR,
-											count: park.TPKCT,
-											tel: park.TELNO,
-											baseTime: baseTime,
-											basePrice: basePrice,
-											addTime: addTime,
-											addPrice: addPrice,
-											maxPrice: park.DLY_MAX_CRG,
-											latitude: park.LAT,
-											longitude: park.LOT,
-											isFree: isFree === "N",
-											distance: getDistance(Constant.LATITUDE, Constant.LONGITUDE, latitude, longitude),
-											beginHour: Math.floor(parkBeginHM / 100),
-											beginMinute: parkBeginHM % 100,
-											endHour: Math.floor(parkEndHM / 100) % 24,
-											endMinute: parkEndHM % 100,
-										}
-									})
-									.sort((a, b) => a.distance - b.distance);
-							});
-					}
-				});
+								return {
+									id: park.PKLT_CD,
+									name: name,
+									address: park.ADDR,
+									count: park.TPKCT,
+									tel: park.TELNO,
+									baseTime: baseTime,
+									basePrice: basePrice,
+									addTime: addTime,
+									addPrice: addPrice,
+									maxPrice: park.DLY_MAX_CRG,
+									latitude: park.LAT,
+									longitude: park.LOT,
+									isFree: isFree === "N",
+									distance: getDistance(Constant.LATITUDE, Constant.LONGITUDE, latitude, longitude),
+									beginHour: Math.floor(parkBeginHM / 100),
+									beginMinute: parkBeginHM % 100,
+									endHour: Math.floor(parkEndHM / 100) % 24,
+									endMinute: parkEndHM % 100,
+								}
+							})
+							.sort((a, b) => a.distance - b.distance);
+					});
+			}
+
+			return await getParks(Constant.WEDDING_DATE_TIME_START, Constant.WEDDING_DATE_TIME_END);
 		}
 	};
 
@@ -1095,7 +1076,7 @@
 		JSKey: "81d57ff9f2d2a5524e506d8a1d386fd5",
 		RestAPIKey: "7c29ec39d56410088e1ba66176d61b4b",
 		init: function () {
-			Kakao.init("81d57ff9f2d2a5524e506d8a1d386fd5");
+			Kakao.init(KakaoTalk.JSKey);
 		},
 		openCalendar: function () {
 			const scheme = "kakaotalk://calendar/home"
