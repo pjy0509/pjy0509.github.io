@@ -219,8 +219,17 @@ body {
     position: relative;
 }
 
+.driver.item-bg-dark {
+    margin: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 1) 95%, rgba(0, 0, 0, 0) 100%);
+}
+
 .driver.shiny {
     background: rgba(226, 232, 240, 1);
+}
+
+.driver.shiny.item-bg-dark {
+    background: rgba(248, 248, 248, 1);
 }
 
 .driver.shiny::after {
@@ -232,6 +241,27 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     color: rgb(226, 232, 240);
+}
+
+.driver.shiny.item-bg-dark::before {
+    height: 1px;
+    content: '';
+    position: absolute;
+    top: 50%;
+    background: rgb(120 120 120);
+    width: calc(100% - 4rem);
+    margin: 0 2rem;
+}
+
+.driver.shiny.item-bg-dark::after {
+    content: "✦";
+    font-size: 0.75rem;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(248, 248, 248, 1) 30%, rgba(248, 248, 248, 1) 70%, rgba(0, 0, 0, 0) 100%);
+    padding: 0 2.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(120 120 120);
 }
 
 .driver.shiny + .item-container {
@@ -288,7 +318,7 @@ body {
     align-items: center;
     font-size: 48px;
     height: 48px;
-    filter: drop-shadow(2px 2px 0px rgb(0, 0, 0));
+    filter: drop-shadow(2px 2px 0 rgb(0, 0, 0));
 }
 
 .item-weather .weather-container .weather-icon #detail {
@@ -619,16 +649,40 @@ body {
 
 .item-accordion {
     margin: 0 2rem;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
+    background: rgb(251, 239, 239);
 }
 
 .item-accordion [data-accordion-header] {
     display: flex;
     justify-content: space-between;
     padding: .5rem 1rem;
-    background: rgb(243 243 243);
-    border-radius: 8px;
+    background: rgb(255 255 255);
+    border-radius: 4px;
     align-items: center;
     font-weight: 500;
+    font-size: .875rem;
+}
+
+.item-accordion [data-accordion-toggle]:after {
+    font-size: 1.2rem;
+}
+
+.item-accordion[data-accordion].on [data-accordion-header] {
+    border-radius: 4px 4px 0 0;
+    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0.05) 0 1px 2px 0;
+}
+
+.item-accordion .accordion-content {
+    padding: 1rem .75rem;
+}
+
+.item-accordion .accordion-content > div {
+    background: rgb(255 255 255);
+    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.1) 0 4px 6px -4px;
+    padding: 1.5rem;
+    border-radius: 4px;
 }
 
 .button-list {
@@ -934,7 +988,7 @@ body:has([data-modal-id].show) {
 
 [data-fullscreen="carousel"] [data-glide-el="track"] li img {
     scale: 1;
-    transform: translate(0px, 0px);
+    transform: translate(0, 0);
     transition: scale 0.2s ease-out, transform 0.2s ease-out;
 }
 

@@ -278,18 +278,12 @@
                     </button>
                 </div>
             </div>
+
+            <div class="padding rem3"></div>
         </div>
 
         <div
-                class="driver shiny"
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-easing="ease-out"
-        >
-        </div>
-
-        <div
-                class="item-container"
+                class="item-container item-bg-dark"
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-easing="ease-out"
@@ -313,18 +307,36 @@
             <div class="padding rem2"></div>
 
             <div class="item-accordion" data-accordion="groom-1">
-                <div data-accordion-header>
+                <div data-accordion-header data-accordion-extra="groom-1">
                     신랑측
                     <div data-accordion-toggle="groom-1"></div>
                 </div>
-                <div>
-                    010-7195-6148
+                <div class="accordion-content">
+                    <div>
+                        <div>
+                            <div>신랑</div>
+                            <div data-groom></div>
+                        </div>
+                        <div>010-7195-6148</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="padding rem1"></div>
+
+            <div class="item-accordion" data-accordion="bride-1">
+                <div data-accordion-header data-accordion-extra="bride-1">
+                    신부측
+                    <div data-accordion-toggle="bride-1"></div>
+                </div>
+                <div class="accordion-content">
+                    010-8891-3169
                 </div>
             </div>
         </div>
 
         <div
-                class="driver shiny"
+                class="driver shiny item-bg-dark"
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-easing="ease-out"
@@ -332,7 +344,7 @@
         </div>
 
         <div
-                class="item-container"
+                class="item-container item-bg-dark"
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-easing="ease-out"
@@ -355,12 +367,27 @@
 
             <div class="padding rem2"></div>
 
-            <div data-accordion="groom">
-                <div data-accordion-header>
+            <div class="item-accordion" data-accordion="groom-2">
+                <div data-accordion-header data-accordion-extra="groom-2">
                     신랑측
+                    <div data-accordion-toggle="groom-2"></div>
                 </div>
-                <div>
-                    010-7195-6148
+                <div class="accordion-content">
+                    <div>
+                        010-7195-6148
+                    </div>
+                </div>
+            </div>
+
+            <div class="padding rem1"></div>
+
+            <div class="item-accordion" data-accordion="bride-2">
+                <div data-accordion-header data-accordion-extra="bride-2">
+                    신부측
+                    <div data-accordion-toggle="bride-2"></div>
+                </div>
+                <div class="accordion-content">
+                    010-8891-3169
                 </div>
             </div>
         </div>
@@ -373,10 +400,10 @@
     </div>
 </div>
 
-<div data-modal-id="schedule" onclick="closeModal(this)">
+<div data-modal-id="schedule" onclick="Modal.hide(this)">
     <div onclick="event.stopPropagation()">
         <div class="modal-header">
-            <button class="modal-close" onclick="closeModal(this)"></button>
+            <button class="modal-close" onclick="Modal.hide(this)"></button>
 
             <div class="title">
                 일정 등록
