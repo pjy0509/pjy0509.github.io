@@ -249,28 +249,32 @@
             <div class="item-routes">
                 <div class="button-grid">
                     <button class="button" data-map-type="naver-map">
-                        <img src="assets/images/icon_navermap.png" alt=""/>
+                        <img src="assets/images/icon_naver_map.png" alt=""/>
                         네이버 지도
                     </button>
                     <button class="button" data-map-type="kakao-map">
-                        <img src="assets/images/icon_kakaomap.png" alt=""/>
+                        <img src="assets/images/icon_kakao_map.png" alt=""/>
                         카카오 맵
                     </button>
                     <button class="button" data-map-type="kakao-navi">
-                        <img src="assets/images/icon_kakaonavi.png" alt=""/>
+                        <img src="assets/images/icon_kakao_navi.png" alt=""/>
                         카카오 내비
                     </button>
                     <button class="button" data-map-type="t-map">
-                        <img src="assets/images/icon_tmap.png" alt=""/>
+                        <img src="assets/images/icon_t_map.png" alt=""/>
                         티 맵
                     </button>
                     <button class="button" data-map-type="google-map">
-                        <img src="assets/images/icon_googlemap.png" alt=""/>
+                        <img src="assets/images/icon_google_map.png" alt=""/>
                         구글 맵
                     </button>
                     <button class="button" data-map-type="apple-map">
-                        <img src="assets/images/icon_applemap.png" alt=""/>
+                        <img src="assets/images/icon_apple_map.png" alt=""/>
                         지도
+                    </button>
+                    <button class="button" data-map-type="uber-taxi">
+                        <img src="assets/images/icon_uber_taxi.png" alt=""/>
+                        우버 택시
                     </button>
                 </div>
             </div>
@@ -308,11 +312,12 @@
 
             <div class="padding rem2"></div>
 
-            <div data-accordion>
-                <div class="accordion-header">
+            <div class="item-accordion" data-accordion="groom-1">
+                <div data-accordion-header>
                     신랑측
+                    <div data-accordion-toggle="groom-1"></div>
                 </div>
-                <div class="accordion-content">
+                <div>
                     010-7195-6148
                 </div>
             </div>
@@ -350,11 +355,11 @@
 
             <div class="padding rem2"></div>
 
-            <div data-accordion>
-                <div class="accordion-header">
+            <div data-accordion="groom">
+                <div data-accordion-header>
                     신랑측
                 </div>
-                <div class="accordion-content">
+                <div>
                     010-7195-6148
                 </div>
             </div>
@@ -413,17 +418,14 @@
     </div>
 
     <div class="item-park">
-        <strong>주차장</strong>
-
-        <div>
-            <strong>건물 주차장</strong>
-            주차 수용 대수: 600<br/>
-            무료: 2시간<br/>
-            유료: 500원 / 10분<br/>
+        <div class="park-header" data-accordion-extra="park">
+            <strong>주변 주차장</strong>
+            <div data-accordion-toggle="park"></div>
         </div>
+        <div class="park-list" data-accordion="park"></div>
     </div>
 
-    <div class="driver shiny"></div>
+    <div class="padding rem1"></div>
 
     <ul data-selector>
         <li data-value="car">
@@ -508,9 +510,15 @@
 		PLACE_NAME: "웨딩그룹위더스 영등포",
 		PLACE_ADDRESS: "서울 영등포구 영중로 55",
 		TIMEZONE: "Asia/Seoul",
-		WEDDING_DATE_TIME_START_ISO_STRING: "2025-08-31T03:20:00Z",
-		WEDDING_DATE_TIME_END_ISO_STRING: "2025-08-31T04:30:00Z",
-		WEDDING_DATE_ISO_STRING: "2025-08-31",
+		WEDDING_DATE_TIME_START_ISO_STRING: "2025-08-29T03:20:00Z",
+		WEDDING_DATE_TIME_END_ISO_STRING: "2025-08-29T04:30:00Z",
+		WEDDING_DATE_ISO_STRING: "2025-08-29",
+		PARK_COUNT: 600,
+		PARK_ADD_TIME: 10,
+		PARK_ADD_PRICE: 500,
+		PARK_BASE_TIME: 120,
+		PARK_BASE_PRICE: 0,
+		PARK_DESCRIPTION: "예식 날 주차가 혼잡하니 대중교통 이용 혹은 도착 예정 시간보다 여유 있는 출발 권장해 드립니다.",
 		META_TITLE: document.querySelector("meta[property=\"og:title\"]").content,
 		META_DESCRIPTION: document.querySelector("meta[property=\"og:description\"]").content,
 		WEDDING_DATE_TIME_START: null,
@@ -535,7 +543,7 @@
 
 	const Navigation = {
 		method: null,
-		MapType: {},
+		selectedPark: null,
 		DayType: {
 			Rest: 0,
 			Sat: 1,
@@ -552,13 +560,10 @@
 			});
 
 			function setHeight(container) {
-				const width = window.innerWidth;
-				const columns = width >= 500 ? 3 : width >= 380 ? 2 : 1;
-
 				function maxHeight(items) {
-					console.log(items, columns)
+					const width = window.innerWidth;
 
-					return Math.ceil(items / columns) * 3 + 1;
+					return Math.ceil(items / (width >= 500 ? 3 : width >= 380 ? 2 : 1)) * 3 + 1;
 				}
 
 				switch (Native.OS.name) {
@@ -581,10 +586,40 @@
 				clearTimeout(timer);
 				timer = setTimeout(function () {
 					setHeight(routes);
-				}, delay)
+				}, delay);
 			});
 
 			if (fullscreen) {
+				const observer = new MutationObserver(mutations => {
+					observer.disconnect();
+
+					document.querySelectorAll("[data-fullscreen=\"route\"] .cont .section")
+						.forEach((section, i) => {
+							const title = section.querySelector(".title");
+
+							if (title !== null) {
+								const toggle = document.createElement("div");
+								const id = i.toString();
+
+								toggle.dataset.accordionToggle = id;
+
+								title.appendChild(toggle);
+								title.style.display = "flex";
+								title.style.justifyContent = "space-between";
+								title.style.alignItems = "center";
+								title.style.flexDirection = "row";
+								title.style.margin = "0";
+								title.dataset.accordionHeader = "";
+								title.dataset.accordionExtra = id;
+								section.dataset.accordion = id;
+
+								Accordion.init(id);
+							}
+						});
+                });
+
+				observer.observe(document.querySelector("[data-fullscreen=\"route\"] .item-location"), {childList: true, subtree: true});
+
 				new daum.roughmap.Lander({
 					timestamp: "1750165976255",
 					key: "3pycungqfsg",
@@ -623,89 +658,148 @@
 					}
 				});
 
-				const parkContainer = document.querySelector(".item-park");
+				const parkList = document.querySelector(".park-list");
 
 				this.park()
 					.then(parks => {
 						parks
-							.slice(0, 4)
-							.forEach(park => {
+							.slice(0, 5)
+							.forEach((park, i) => {
 								const container = document.createElement("div");
+								const title = document.createElement("div");
 								const name = document.createElement("strong");
+								const button = document.createElement("button");
 								const count = document.createElement("div");
-								const add = document.createElement("div");
-								const address = document.createElement("p");
-								const distance = document.createElement("p");
 								const time = document.createElement("p");
 
-								name.innerText = park.name.replace(/(주차장)|$/, "주차장");
-								count.innerText = "주차 수용 대수: " + park.count;
-								container.append(
+								container.classList.add("park-container");
+								title.classList.add("park-title");
+								button.classList.add("park-button");
+
+								if (i === 0) {
+									button.classList.add("selected");
+									container.dataset.accordionHeader = "";
+								}
+
+								button.onclick = function () {
+									parkList.querySelectorAll(".park-button").forEach(button => {
+										if (this === button) button.classList.add("selected");
+										else button.classList.remove("selected");
+									});
+
+									if (i === 0) Navigation.selectedPark = null;
+									else Navigation.selectedPark = park;
+								};
+
+								title.append(
 									name,
+									button
+								);
+
+								name.innerText = park.name.replace(/(주차장)|$/, "주차장");
+								count.innerText = "주차 수용 대수: " + park.parkCount;
+
+								if (park.isLive) {
+									const live = document.createElement("span");
+
+									live.innerText = "현재 " + park.liveCount + "대 주차중";
+
+									count.append(live);
+								}
+
+								container.append(
+									title,
 									count
 								);
 
 								if (park.baseTime !== 0) {
-									const baseRatio = 60 / park.baseTime;
 									const base = document.createElement("div");
 
-									base.innerText = "기본: " + (park.basePrice * baseRatio).toLocaleString('ko-KR') + "원 / 시간";
+									if (park.basePrice > 0) {
+										base.innerText = "기본: " + park.baseTime + "분 " + park.basePrice.toLocaleString('ko-KR') + "원";
+									} else {
+										base.innerText = "무료: " + park.baseTime + "분";
+									}
 
 									container.append(base);
 								}
 
-								const addRatio = 60 / park.addTime;
+								if (park.addTime !== 0) {
+									const add = document.createElement("div");
 
-								add.innerText = "유료: " + (park.addPrice * addRatio).toLocaleString('ko-KR') + "원 / 시간";
-								address.innerText = "주소: " + park.address;
+									add.innerText = "유료: " + park.addTime + "분당 " + park.addPrice.toLocaleString('ko-KR') + "원";
 
-								if (park.distance > 1000) {
-									distance.innerText = "거리: " + (park.distance / 1000).toFixed(3) + "km";
-								} else {
-									distance.innerText = "거리: " + (park.distance).toFixed(3) + "m";
+									container.append(add);
 								}
 
-								time.innerText = "운영 시간: ";
+								if (park.address !== undefined) {
+									const address = document.createElement("p");
 
-								if (park.beginHour === 0 && park.beginMinute === 0 && park.endHour === 0 && park.endMinute === 0) {
-									time.innerText += "하루 종일";
-								} else {
-									if (park.beginHour >= 12) {
-										time.innerText += "오후 " + (park.beginHour - 12);
-									} else {
-										time.innerText += "오전 " + park.beginHour;
-									}
+									address.innerText = "주소: " + park.address;
 
-									time.innerText += "시 ";
-
-									if (park.beginMinute !== 0) {
-										time.innerText += park.beginMinute + "분 ";
-									}
-
-									time.innerText += "~ ";
-
-									if (park.endHour >= 12) {
-										time.innerText += "오후 " + (park.endHour - 12);
-									} else {
-										time.innerText += "오전 " + park.endHour;
-									}
-
-									time.innerText += "시 ";
-
-									if (park.endMinute !== 0) {
-										time.innerText += park.endMinute + "분 ";
-									}
+									container.append(address);
 								}
 
-								container.append(
-									add,
-									address,
-									distance,
-									time
-								);
+								if (park.distance !== undefined) {
+									const distance = document.createElement("p");
 
-								parkContainer.append(container);
+									if (park.distance > 1000) {
+										distance.innerText = "거리: " + (park.distance / 1000).toFixed(3) + "km";
+									} else {
+										distance.innerText = "거리: " + (park.distance).toFixed(0) + "m";
+									}
+
+									container.append(distance);
+								}
+
+								if (park.beginHour !== undefined && park.beginMinute !== undefined && park.endHour !== undefined && park.endMinute !== undefined) {
+									time.innerText = "운영 시간: ";
+
+									if (park.beginHour === 0 && park.beginMinute === 0 && park.endHour === 0 && park.endMinute === 0) {
+										time.innerText += "하루 종일";
+									} else {
+										if (park.beginHour >= 12) {
+											time.innerText += "오후 " + (park.beginHour - 12);
+										} else {
+											time.innerText += "오전 " + park.beginHour;
+										}
+
+										time.innerText += "시 ";
+
+										if (park.beginMinute !== 0) {
+											time.innerText += park.beginMinute + "분 ";
+										}
+
+										time.innerText += "~ ";
+
+										if (park.endHour >= 12) {
+											time.innerText += "오후 " + (park.endHour - 12);
+										} else {
+											time.innerText += "오전 " + park.endHour;
+										}
+
+										time.innerText += "시 ";
+
+										if (park.endMinute !== 0) {
+											time.innerText += park.endMinute + "분 ";
+										}
+									}
+
+									container.append(time);
+								}
+
+								if (park.description !== undefined) {
+									const description = document.createElement("p");
+
+									description.innerText = park.description;
+
+									container.append(description);
+								}
+
+								parkList.append(container);
 							});
+
+						Accordion.init("park");
 					});
 			} else {
 				this.method = "car";
@@ -738,13 +832,25 @@
 					+ "end";
 			}
 
+			let latitude = Constant.LATITUDE,
+				longitude = Constant.LONGITUDE,
+				placeName = Constant.PLACE_NAME,
+				placeAddress = Constant.PLACE_ADDRESS;
+
+			if (this.method === "car" && this.selectedPark !== null) {
+				latitude = this.selectedPark.latitude;
+				longitude = this.selectedPark.longitude;
+				placeName = this.selectedPark.name;
+				placeAddress = this.selectedPark.address;
+			}
+
 			switch (type) {
 				case "t-map":
 					intent = createIntent(
 						scheme = "tmap://route"
-							+ "?goaly=" + encodeURIComponent(Constant.LATITUDE)
-							+ "&goalx=" + encodeURIComponent(Constant.LONGITUDE)
-							+ "&goalname=" + encodeURIComponent(Constant.PLACE_NAME),
+							+ "?goaly=" + encodeURIComponent(latitude)
+							+ "&goalx=" + encodeURIComponent(longitude)
+							+ "&goalname=" + encodeURIComponent(placeName),
 						packageName = "com.skt.tmap.ku"
 					);
 
@@ -765,15 +871,15 @@
 					intent = createIntent(
 						scheme = "nmap://"
 							+ (this.method === "car" ? "navigation" : this.method === "transit" ? "route/public" : this.method === "walk" ? "route/walk" : "")
-							+ "?dlat=" + encodeURIComponent(Constant.LATITUDE)
-							+ "&dlng=" + encodeURIComponent(Constant.LONGITUDE)
-							+ "&dname=" + encodeURIComponent(Constant.PLACE_NAME)
+							+ "?dlat=" + encodeURIComponent(latitude)
+							+ "&dlng=" + encodeURIComponent(longitude)
+							+ "&dname=" + encodeURIComponent(placeName)
 							+ "&appname=" + encodeURIComponent(location.origin),
 						packageName = "com.nhn.android.nmap",
 						fallback = "http://map.naver.com/index.nhn"
-							+ "?elat=" + encodeURIComponent(Constant.LATITUDE)
-							+ "&elng=" + encodeURIComponent(Constant.LONGITUDE)
-							+ "&etext=" + encodeURIComponent(Constant.PLACE_NAME)
+							+ "?elat=" + encodeURIComponent(latitude)
+							+ "&elng=" + encodeURIComponent(longitude)
+							+ "&etext=" + encodeURIComponent(placeName)
 							+ "&menu=" + encodeURIComponent("route")
 							+ "&pathType=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "1" : this.method === "walk" ? "3" : "")
 					);
@@ -800,11 +906,11 @@
 				case "kakao-map":
 					intent = createIntent(
 						scheme = "kakaomap://route"
-							+ "?ep=" + encodeURIComponent(Constant.LATITUDE + "," + Constant.LONGITUDE)
+							+ "?ep=" + encodeURIComponent(latitude + "," + longitude)
 							+ "&by=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "PUBLICTRANSIT" : this.method === "walk" ? "FOOT" : ""),
 						packageName = "net.daum.android.map",
 						fallback = "https://map.kakao.com/link/to/"
-							+ encodeURIComponent(Constant.PLACE_NAME + "," + Constant.LATITUDE + "," + Constant.LONGITUDE)
+							+ encodeURIComponent(placeName + "," + latitude + "," + longitude)
 					);
 
 					if (Native.OS.name === "Android") {
@@ -828,9 +934,9 @@
 					return;
 				case "kakao-navi":
 					Kakao.Navi.start({
-						name: Constant.PLACE_NAME,
-						x: +Constant.LONGITUDE,
-						y: +Constant.LATITUDE,
+						name: placeName,
+						x: +longitude,
+						y: +latitude,
 						coordType: "wgs84",
 					});
 					return;
@@ -839,14 +945,14 @@
 						if (this.method === "transit") {
 							location.href = createIntent(
 								"https://maps.google.com/maps"
-								+ "?daddr=" + encodeURIComponent(Constant.PLACE_NAME)
+								+ "?daddr=" + encodeURIComponent(placeName)
 								+ "&directionsmode=" + encodeURIComponent("transit"),
 								"com.google.android.apps.maps"
 							);
 						} else {
 							location.href = createIntent(
 								"google.navigation://maps.google.com/maps"
-								+ "?q=" + encodeURIComponent(Constant.PLACE_NAME)
+								+ "?q=" + encodeURIComponent(placeName)
 								+ "&mode=" + encodeURIComponent(this.method === "car" ? "d" : this.method === "walk" ? "w" : ""),
 								"com.google.android.apps.maps"
 							);
@@ -856,12 +962,12 @@
 					}
 
 					scheme = "comgooglemaps://"
-						+ "?daddr=" + encodeURIComponent(Constant.PLACE_NAME)
-						+ "&center=" + encodeURIComponent(Constant.LATITUDE + "," + Constant.LONGITUDE)
+						+ "?daddr=" + encodeURIComponent(placeName)
+						+ "&center=" + encodeURIComponent(latitude + "," + longitude)
 						+ "&directionsmode=" + encodeURIComponent(this.method === "car" ? "driving" : this.method === "transit" ? "transit" : this.method === "walk" ? "walking" : "");
 
 					fallback = "https://www.google.co.kr/maps/dir//"
-						+ encodeURIComponent(Constant.PLACE_ADDRESS + " " + Constant.PLACE_NAME);
+						+ encodeURIComponent(placeAddress + " " + placeName);
 
 					new Native.App({
 						ios: {
@@ -879,7 +985,7 @@
 					return;
 				case "apple-map":
 					scheme = "maps://"
-						+ "?daddr=" + encodeURIComponent(Constant.LATITUDE + "," + Constant.LONGITUDE)
+						+ "?daddr=" + encodeURIComponent(latitude + "," + longitude)
 						+ "&dirflg=" + encodeURIComponent(this.method === "car" ? "d" : this.method === "transit" ? "r" : this.method === "walk" ? "w" : "");
 
 					new Native.App({
@@ -897,18 +1003,18 @@
 						scheme = "uber://"
 							+ "?action=setPickup"
 							+ "&pickup=my_location"
-							+ "&dropoff[latitude]=" + encodeURIComponent(Constant.LATITUDE)
-							+ "&dropoff[longitude]=" + encodeURIComponent(Constant.LONGITUDE)
-							+ "&dropoff[nickname]=" + encodeURIComponent(Constant.PLACE_NAME),
+							+ "&dropoff[latitude]=" + encodeURIComponent(latitude)
+							+ "&dropoff[longitude]=" + encodeURIComponent(longitude)
+							+ "&dropoff[nickname]=" + encodeURIComponent(placeName),
 						packageName = "com.ubercab"
 					);
 
 					fallback = "https://m.uber.com/go/home"
 						+ "?drop%5B0%5D=" + encodeURIComponent(
 							JSON.stringify({
-								addressLine1: Constant.PLACE_NAME,
-								latitude: +Constant.LATITUDE,
-								longitude: +Constant.LONGITUDE,
+								addressLine1: placeName,
+								latitude: +latitude,
+								longitude: +longitude,
 								source: "SEARCH",
 								provider: "tmap_places"
 							})
@@ -950,13 +1056,7 @@
 				return 6.371e6 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 			}
 
-			function getParkOperatingHours(park, dayType) {
-				if (dayType === Navigation.DayType.Rest) return [+park.LHLDY_BGNG, +park.LHLDY];
-				else if (dayType === Navigation.DayType.Sat || dayType === Navigation.DayType.Sun) return [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM];
-				else return [+park.WD_OPER_BGNG_TM, +park.WD_OPER_END_TM];
-			}
-
-			async function getDayType(date) {
+			async function getDayType() {
 				const year = Constant.WEDDING_DATE_TIME_START.getFullYear().toString();
 				const month = (Constant.WEDDING_DATE_TIME_START.getMonth() + 1).toString().padStart(2, '0');
 				const day = Constant.WEDDING_DATE_TIME_START.getDay();
@@ -973,7 +1073,7 @@
 						const xml = parser.parseFromString(response, "application/xml");
 
 						if (xml.querySelector("parsererror") === null) {
-							const dateString = year + month + date.getDate().toString().padStart(2, '0');
+							const dateString = year + month + Constant.WEDDING_DATE_TIME_START.getDate().toString().padStart(2, '0');
 
 							for (let item of xml.getElementsByTagName("items")[0].children) {
 								if (dateString === item.getElementsByTagName("locdate")[0].textContent) return Navigation.DayType.Rest;
@@ -983,92 +1083,135 @@
 							if (day === 0) return Navigation.DayType.Sun;
 							return Navigation.DayType.Weekday;
 						}
+					})
+					.catch(() => {
+						if (day === 6) return Navigation.DayType.Sat;
+						if (day === 0) return Navigation.DayType.Sun;
+						return Navigation.DayType.Weekday;
 					});
 			}
 
-			async function getParks(beginDate, endDate) {
-				const beginHM = beginDate.getHours() * 100 + beginDate.getMinutes();
-				const endHM = endDate.getHours() * 100 + endDate.getMinutes();
+			async function getParks() {
+				const beginHM = Constant.WEDDING_DATE_TIME_START.getHours() * 100 + Constant.WEDDING_DATE_TIME_START.getMinutes();
+				const endHM = Constant.WEDDING_DATE_TIME_END.getHours() * 100 + Constant.WEDDING_DATE_TIME_END.getMinutes();
+				const dayType = await getDayType();
 
-				return await fetch("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkInfo/1/1000/영등포")
-					.then(response => response.json())
-					.then(async response => {
-						const dayType = await getDayType(beginDate);
+				try {
+					return await Promise.all([
+						await fetch("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkInfo/1/1000/영등포구")
+							.then(response => response.json())
+							.then(response => Array.from(new Map(response.GetParkInfo.row.map(park => [park.PKLT_CD, park])).values())
+								.filter(park => {
+									if (park.OPER_SE !== "1" || park.PKLT_KND === "NS" || park.LAT === 0 || park.LOT === 0) return false;
 
-						return Array.from(new Map(response.GetParkInfo.row.map(park => [park.PKLT_CD, park])).values())
-							.filter(park => {
-								if (park.OPER_SE !== "1" || park.PKLT_KND === "NS" || park.LAT === 0 || park.LOT === 0) return false;
+									const [parkBeginHM, parkEndHM] =
+										dayType === Navigation.DayType.Rest
+											? [+park.LHLDY_BGNG, +park.LHLDY]
+											: (dayType === Navigation.DayType.Sat || dayType === Navigation.DayType.Sun)
+												? [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM]
+												: [+park.WD_OPER_BGNG_TM, +park.WD_OPER_END_TM];
 
-								const [parkBeginHM, parkEndHM] =
-									dayType === Navigation.DayType.Rest
-										? [+park.LHLDY_BGNG, +park.LHLDY]
-										: (dayType === Navigation.DayType.Sat || dayType === Navigation.DayType.Sun)
-											? [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM]
-											: [+park.WD_OPER_BGNG_TM, +park.WD_OPER_END_TM];
+									return !(parkBeginHM === 0 && parkEndHM === 0) && (parkBeginHM < beginHM && (parkEndHM > endHM || beginHM > endHM));
+								})),
+						await fetch("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkingInfo/1/1000/영등포구")
+							.then(response => response.json())
+							.then(response => Array.from(new Map(response.GetParkingInfo.row.map(park => [park.PKLT_CD, park])).values())
+								.filter(park => park.PRK_STTS_YN === "1")
+							)
+					])
+						.then(([parks, lives]) => {
+							return parks
+								.map(park => {
+									const [parkBeginHM, parkEndHM] =
+										dayType === Navigation.DayType.Rest
+											? [+park.LHLDY_BGNG, +park.LHLDY]
+											: (dayType === Navigation.DayType.Sat || dayType === Navigation.DayType.Sun)
+												? [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM]
+												: [+park.WD_OPER_BGNG_TM, +park.WD_OPER_END_TM];
 
-								return !(parkBeginHM === 0 && parkEndHM === 0) && (parkBeginHM < beginHM && (parkEndHM > endHM || beginHM > endHM));
-							})
-							.map(park => {
-								const [parkBeginHM, parkEndHM] =
-									dayType === Navigation.DayType.Rest
-										? [+park.LHLDY_BGNG, +park.LHLDY]
-										: (dayType === Navigation.DayType.Sat || dayType === Navigation.DayType.Sun)
-											? [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM]
-											: [+park.WD_OPER_BGNG_TM, +park.WD_OPER_END_TM];
+									const isFree = dayType === Navigation.DayType.Rest
+										? park.LHLDY_YN
+										: dayType === Navigation.DayType.Sat
+											? park.SAT_CHGD_FREE_SE
+											: park.CHGD_FREE_SE;
 
-								const isFree = dayType === Navigation.DayType.Rest
-									? park.LHLDY_YN
-									: dayType === Navigation.DayType.Sat
-										? park.SAT_CHGD_FREE_SE
-										: park.CHGD_FREE_SE;
+									let isLive = park.PRK_NOW_INFO_PVSN_YN === "1";
 
-								const latitude = park.LAT,
-									longitude = park.LOT,
-									name = park.PKLT_NM.replaceAll(/(^공유\)\s*)|\s*(\([구|시]\)$)/g, "");
+									const latitude = park.LAT,
+										longitude = park.LOT,
+										name = park.PKLT_NM.replaceAll(/(^공유\)\s*)|\s*(\([구|시]\)$)/g, "");
 
-								let baseTime = park.PRK_HM,
-									basePrice = park.PRK_CRG,
-									addTime = park.ADD_UNIT_TM_MNT,
-									addPrice = park.ADD_CRG;
+									let baseTime = park.PRK_HM,
+										basePrice = park.PRK_CRG,
+										addTime = park.ADD_UNIT_TM_MNT,
+										addPrice = park.ADD_CRG;
 
-								if (baseTime === addTime && basePrice === addPrice) {
-									baseTime = 0;
-									basePrice = 0;
-								}
+									if (addTime === 0 && addPrice === 0) {
+										addTime = baseTime;
+										addPrice = basePrice;
+									}
 
-								if (addPrice === 0 && addTime === 0) {
-									addTime = baseTime;
-									addPrice = basePrice;
-									baseTime = 0;
-									basePrice = 0;
-								}
+									let liveCount = null,
+										liveTime = null
 
-								return {
-									id: park.PKLT_CD,
-									name: name,
-									address: park.ADDR,
-									count: park.TPKCT,
-									tel: park.TELNO,
-									baseTime: baseTime,
-									basePrice: basePrice,
-									addTime: addTime,
-									addPrice: addPrice,
-									maxPrice: park.DLY_MAX_CRG,
-									latitude: park.LAT,
-									longitude: park.LOT,
-									isFree: isFree === "N",
-									distance: getDistance(Constant.LATITUDE, Constant.LONGITUDE, latitude, longitude),
-									beginHour: Math.floor(parkBeginHM / 100),
-									beginMinute: parkBeginHM % 100,
-									endHour: Math.floor(parkEndHM / 100) % 24,
-									endMinute: parkEndHM % 100,
-								}
-							})
-							.sort((a, b) => a.distance - b.distance);
-					});
+									if (isLive) {
+										const index = lives.findIndex(live => live.PKLT_CD === park.PKLT_CD);
+
+										if (index !== -1) {
+											const live = lives.splice(index, 1)[0];
+
+											liveCount = live.NOW_PRK_VHCL_CNT;
+											liveTime = live.NOW_PRK_VHCL_UPDT_TM;
+										} else {
+											isLive = false;
+										}
+									}
+
+									return {
+										id: park.PKLT_CD,
+										name: name,
+										address: park.ADDR,
+										parkCount: park.TPKCT,
+										parkSyncTime: park.LAST_DATA_SYNC_TM,
+										liveCount: liveCount,
+										liveSyncTime: liveTime,
+										tel: park.TELNO,
+										baseTime: baseTime,
+										basePrice: basePrice,
+										addTime: addTime,
+										addPrice: addPrice,
+										maxPrice: park.DLY_MAX_CRG,
+										latitude: park.LAT,
+										longitude: park.LOT,
+										isFree: isFree === "N",
+										isLive: isLive,
+										distance: getDistance(Constant.LATITUDE, Constant.LONGITUDE, latitude, longitude),
+										beginHour: Math.floor(parkBeginHM / 100),
+										beginMinute: parkBeginHM % 100,
+										endHour: Math.floor(parkEndHM / 100) % 24,
+										endMinute: parkEndHM % 100,
+									}
+								})
+								.sort((a, b) => a.distance - b.distance)
+						});
+				} catch (e) {
+					return [];
+				}
 			}
 
-			return await getParks(Constant.WEDDING_DATE_TIME_START, Constant.WEDDING_DATE_TIME_END);
+			const parks = await getParks()
+
+			parks.unshift({
+				name: "건물 주차장",
+				parkCount: Constant.PARK_COUNT,
+				basePrice: Constant.PARK_BASE_PRICE,
+				baseTime: Constant.PARK_BASE_TIME,
+				addPrice: Constant.PARK_ADD_PRICE,
+				addTime: Constant.PARK_ADD_TIME,
+				description: Constant.PARK_DESCRIPTION
+			});
+
+			return parks;
 		}
 	};
 
@@ -1299,29 +1442,81 @@
 		},
 	};
 
+	const Accordion = {
+		init: function (id) {
+			window.requestAnimationFrame(() => {
+				if (id === undefined) {
+					document.querySelectorAll("[data-accordion]").forEach(initAccordion);
+				} else {
+					initAccordion(document.querySelector("[data-accordion=\"" + id + "\"]"));
+				}
+
+				function initAccordion(accordion) {
+					const header = accordion.querySelector("[data-accordion-header]");
+
+					if (header !== null) {
+						accordion.classList.add("no-transition");
+						accordion.style.maxHeight = Accordion.getOuterHeight(header) + "px";
+						void accordion.offsetHeight;
+						accordion.classList.remove("no-transition");
+					}
+
+					const children = accordion.children;
+					let maxHeight = 0;
+
+					for (let i = 0; i < children.length; i++) {
+						maxHeight += Accordion.getOuterHeight(children.item(i));
+					}
+
+					accordion.dataset.accordionMaxHeight = maxHeight.toString();
+
+					const button = document.querySelector("[data-accordion-toggle=\"" + accordion.dataset.accordion + "\"]");
+
+					if (button !== null) {
+						[button, ...document.querySelectorAll("[data-accordion-extra=\"" + accordion.dataset.accordion + "\"]")]
+                            .forEach(element => {
+								element.onclick = event => {
+									event.stopPropagation();
+									accordion.classList.toggle("on");
+									button.classList.toggle("on");
+								}
+                            });
+					}
+				}
+			})
+		},
+		getOuterHeight: function (element) {
+			const style = window.getComputedStyle(element);
+
+			return element.clientHeight
+				+ +style.marginTop.replace(/px$/, "")
+				+ +style.marginBottom.replace(/px$/, "");
+		}
+	}
+
 	const Modal = {
 		el: {},
 		shown: [],
-		init: function (id) {
+		init: function () {
 			history.pushState(null, null, document.URL);
 
 			window.addEventListener("popstate", function () {
-				if (this.shown.length > 1) {
+				if (Modal.shown.length > 1) {
 					history.pushState(null, null, document.URL);
-					this.shown.pop().classList.remove("show");
+					Modal.shown.pop().classList.remove("show");
 				}
-			}.bind(Modal));
+			});
 		},
 		show: function (id) {
-			const modal = getModalById(id);
+			const modal = Modal.getModalById(id);
 
 			modal.classList.add("show");
 
 			this.shown.push(modal);
 		},
 		hide: function (id) {
-			const modal = getModalById(id);
-			const index = shown.indexOf(modal);
+			const modal = Modal.getModalById(id);
+			const index = Modal.shown.indexOf(modal);
 
 			modal.classList.remove("show");
 
@@ -1344,6 +1539,7 @@
 	Constant.init();
 	Modal.init();
 	Loader.init();
+	Accordion.init();
 
 	const search = new URLSearchParams(location.search);
 

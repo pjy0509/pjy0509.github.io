@@ -412,6 +412,10 @@ body {
     pointer-events: none !important;
 }
 
+[data-fullscreen="route"] .item-location .map .wrap_map {
+    pointer-events: unset !important;
+}
+
 .item-location .map .wrap_btn_zoom,
 .item-location .map .wrap_controllers {
     display: none !important;
@@ -428,7 +432,7 @@ body {
 /* Kakao Map Custom END */
 
 .item-park {
-    margin: 0 2rem;
+    margin: 0 32px;
     padding: 20px 0 0;
     border-top: 1px solid #f2f2f2;
     display: flex;
@@ -441,42 +445,190 @@ body {
     color: #222;
     display: block;
     line-height: 17px;
-    margin-bottom: .5rem;
+    margin-bottom: 8px;
 }
 
-.item-park > div {
-    margin: .5rem 0 1rem .5rem;
-    font-size: 13px;
+.item-park .park-container {
+    margin: 8px 0 16px 8px;
+    font-size: 12px;
     color: #222;
     float: left;
     line-height: 16px;
     text-align: left;
+    width: 100%;
 }
 
-.item-park > div:last-child {
-    margin: .5rem 0 0 .5rem;
+.item-park .park-container:first-child {
+    margin-top: 0;
 }
 
-.item-park > div > strong {
+[data-os-name="Windows"] .item-park .park-container,
+[data-os-name="MacOS"] .item-park .park-container {
     font-size: 13px;
+}
+
+.item-park .park-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-park .park-header strong {
+    font-size: 13px;
+    font-family: AppleSDGothicNeo-Regular, dotum, sans-serif;
     color: #222;
     display: block;
     line-height: 17px;
-    margin: 0 0 .75rem -.5rem;
 }
 
-.item-park > div > br {
-    height: .25rem;
+[data-os-name="Windows"] .item-park .park-header strong,
+[data-os-name="MacOS"] .item-park .park-header strong {
+    font-size: 14px;
 }
 
-.item-park > div > p {
-    margin: 0;
+.item-park .park-container .park-title {
+    height: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 8px 10px -8px;
+}
+
+.item-park .park-container .park-title .park-button {
+    display: none;
+    background: rgb(233 203 207);
+    padding: 4px 10px;
+    border-radius: 10px;
+    border: 0;
     font-size: 11px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
+    white-space: nowrap;
+}
+
+[data-os-name="Windows"] .item-park .park-container .park-title .park-button,
+[data-os-name="MacOS"] .item-park .park-container .park-title .park-button {
+    font-size: 11px;
+}
+
+.item-park .park-container .park-title .park-button::after {
+    content: '여기로 안내하기';
+}
+
+.item-park .park-container .park-title .park-button.selected {
+    opacity: .75;
+    background: rgb(248 248 248);
+}
+
+.item-park .park-container .park-title .park-button.selected::after {
+    content: '여기로 안내중';
+}
+
+.item-container:has([data-method="car"]) .park-button {
+    display: block !important;
+}
+
+.item-park .park-container span {
+    margin: 0 0 0 8px;
+    font-size: 11px;
+    color: #222;
+    opacity: .8;
+}
+
+.item-park .park-container:last-child {
+    margin: 8px 0 0 8px;
+}
+
+.item-park .park-container p {
+    margin: 0 8px 0 0;
+    font-size: 10px;
     opacity: .75;
 }
 
-.item-park > div > p:first-of-type {
-    margin-top: .2rem;
+[data-os-name="Windows"] .item-park .park-container p,
+[data-os-name="MacOS"] .item-park .park-container p {
+    font-size: 11px;
+}
+
+.item-park .park-container p:first-of-type {
+    margin-top: 2px;
+}
+
+[data-accordion] {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s linear;
+}
+
+[data-accordion].no-transition {
+    max-height: 0;
+    overflow: hidden;
+    transition: unset !important;
+}
+
+[data-accordion].on {
+    max-height: attr(data-accordion-max-height px) !important;
+}
+
+[data-accordion] * {
+    opacity: 0;
+    transition: opacity 0s;
+    transition-delay: 0.2s;
+    pointer-events: none;
+}
+
+[data-accordion].no-transition * {
+    transition: unset !important;
+}
+
+[data-accordion-header],
+[data-accordion-header] *,
+[data-accordion-toggle],
+[data-accordion-toggle] *,
+[data-accordion].on * {
+    opacity: unset;
+    transition: unset;
+    transition-delay: unset;
+    pointer-events: unset;
+}
+
+[data-accordion-toggle] {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(90deg);
+    transition: transform 0.2s linear !important;
+}
+
+[data-accordion-toggle].on {
+    transform: rotate(270deg);
+    opacity: unset;
+}
+
+[data-accordion-toggle]::after {
+    content: '>';
+    font-size: 24px;
+    font-weight: 300;
+    color: rgb(153 153 153);
+    font-family: Suit, Tossface, sans-serif;
+}
+
+.item-accordion {
+    margin: 0 2rem;
+}
+
+.item-accordion [data-accordion-header] {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+    background: rgb(243 243 243);
+    border-radius: 8px;
+    align-items: center;
+    font-weight: 500;
 }
 
 .button-list {
