@@ -92,6 +92,7 @@ body {
     display: flex;
     row-gap: .5rem;
     flex-direction: column;
+    justify-content: center;
     background: rgb(255, 255, 255);
 }
 
@@ -286,6 +287,10 @@ body {
 
 .padding.rem3 {
     height: 3rem;
+}
+
+.image-padding {
+    width: 2.5rem;
 }
 
 .item-weather {
@@ -528,7 +533,7 @@ body {
 
 .item-park .park-container .park-title .park-button {
     display: none;
-    background: rgb(233 203 207);
+    background: rgb(225, 209, 225);
     padding: 4px 10px;
     border-radius: 10px;
     border: 0;
@@ -544,6 +549,7 @@ body {
 }
 
 .item-park .park-container .park-title .park-button::after {
+    color: black !important;
     content: '여기로 안내하기';
 }
 
@@ -589,17 +595,13 @@ body {
 [data-accordion] {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.2s linear;
+    transition: max-height 0.2s linear !important;
 }
 
 [data-accordion].no-transition {
     max-height: 0;
     overflow: hidden;
     transition: unset !important;
-}
-
-[data-accordion].on {
-    max-height: attr(data-accordion-max-height px) !important;
 }
 
 [data-accordion] * {
@@ -651,7 +653,7 @@ body {
     margin: 0 2rem;
     border-radius: 4px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
-    background: rgb(251, 239, 239);
+    background: rgb(243, 237, 243);
 }
 
 .item-accordion [data-accordion-header] {
@@ -676,6 +678,9 @@ body {
 
 .item-accordion .accordion-content {
     padding: 1rem .75rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
 }
 
 .item-accordion .accordion-content > div {
@@ -683,6 +688,52 @@ body {
     box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.1) 0 4px 6px -4px;
     padding: 1.5rem;
     border-radius: 4px;
+}
+
+.item-accordion .accordion-content .info-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: .75rem;
+}
+
+.item-accordion .accordion-content .info-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0 0 0;
+    background: rgb(245 245 245);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: .7rem;
+}
+
+.item-accordion .accordion-content .info-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.item-accordion .accordion-content .info-buttons .info-icon-button {
+    padding: .333rem;
+    background: rgb(225, 209, 225);
+    border-radius: 6px;
+    border: 0;
+    color: rgb(0 0 0);
+}
+
+.item-accordion .accordion-content .info-buttons .info-text-button {
+    padding: .333rem;
+    border: 0;
+    color: rgb(0 0 0);
+    background: none;
+    font-size: .75rem;
+    font-weight: 600;
+}
+
+.item-accordion .accordion-content .info-buttons button svg {
+    width: 1rem;
+    height: 1rem;
 }
 
 .button-list {
@@ -1031,7 +1082,7 @@ ul[data-selector] li svg {
 }
 
 ul[data-selector] li.selected {
-    background: rgb(233, 203, 207);
+    background: rgb(225, 209, 225);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
     font-weight: 600;
     opacity: 1;

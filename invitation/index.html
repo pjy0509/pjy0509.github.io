@@ -76,12 +76,35 @@
 
         <div
                 class="item-container"
+                data-aos-propagation
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-easing="ease-out"
         >
 
             <div class="padding rem2"></div>
+
+            <div class="item-content">
+                평생을 약속하는 날,<br/>
+                <div class="padding rem-half"></div>
+                당신의 축복으로 더 아름다워집니다.<br/>
+            </div>
+
+            <div class="padding rem1"></div>
+
+            <div class="item-content">
+                With your blessing,<br/>
+                <div class="padding rem-half"></div>
+                our promise for life becomes even more beautiful.<br/>
+            </div>
+
+            <div class="padding rem3"></div>
+
+            <div class="item-content">
+                <img src="assets/images/flower_2.png" alt="" class="image-padding" data-theme-color-image>
+            </div>
+
+            <div class="padding rem3"></div>
 
             <div class="item-content">
                 서로의 마음에 피어난 작은 설렘이 어느새<br/>
@@ -108,6 +131,7 @@
 
         <div
                 class="item-container item-bg-dark"
+                data-aos-propagation
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-easing="ease-out"
@@ -163,6 +187,7 @@
 
         <div
                 class="item-container"
+                data-aos-propagation
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-easing="ease-out"
@@ -178,7 +203,7 @@
             <div class="padding rem2"></div>
 
             <div class="glide item-carousel" data-glide>
-                <div class="glide__track" data-glide-el="track" onclick="setFullscreenCarousel()">
+                <div class="glide__track" data-glide-el="track" onclick="Carousel.fullscreen()">
                     <ul class="glide__slides">
                         <li class="glide__slide"><img src="assets/images/i1.jpeg" alt="" data-image-index="0"></li>
                         <li class="glide__slide"><img src="assets/images/i2.jpeg" alt="" data-image-index="1"></li>
@@ -206,16 +231,11 @@
             </div>
         </div>
 
-        <div
-                class="driver shiny"
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-easing="ease-out"
-        >
-        </div>
+        <div class="driver shiny"></div>
 
         <div
                 class="item-container"
+                data-aos-propagation
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-easing="ease-out"
@@ -284,6 +304,7 @@
 
         <div
                 class="item-container item-bg-dark"
+                data-aos-propagation
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-easing="ease-out"
@@ -313,11 +334,85 @@
                 </div>
                 <div class="accordion-content">
                     <div>
-                        <div>
+                        <div class="info-title">
                             <div>신랑</div>
                             <div data-groom></div>
                         </div>
-                        <div>010-7195-6148</div>
+                        <div class="info-content">
+                            <div data-groom-phone></div>
+                            <div class="info-buttons">
+                                <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="groom-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M16.5562 12.9062L16.1007 13.359C16.1007 13.359 15.0181 14.4355 12.0631 11.4972C9.10812 8.55901 10.1907 7.48257 10.1907 7.48257L10.4775 7.19738C11.1841 6.49484 11.2507 5.36691 10.6342 4.54348L9.37326 2.85908C8.61028 1.83992 7.13596 1.70529 6.26145 2.57483L4.69185 4.13552C4.25823 4.56668 3.96765 5.12559 4.00289 5.74561C4.09304 7.33182 4.81071 10.7447 8.81536 14.7266C13.0621 18.9492 17.0468 19.117 18.6763 18.9651C19.1917 18.9171 19.6399 18.6546 20.0011 18.2954L21.4217 16.883C22.3806 15.9295 22.1102 14.2949 20.8833 13.628L18.9728 12.5894C18.1672 12.1515 17.1858 12.2801 16.5562 12.9062Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="groom-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M4 1C2.34315 1 1 2.34315 1 4V15C1 16.6569 2.34315 18 4 18H6V22C6 22.388 6.22446 22.741 6.57584 22.9056C6.92723 23.0702 7.3421 23.0166 7.64018 22.7682L13.362 18H20C21.6569 18 23 16.6569 23 15V4C23 2.34315 21.6569 1 20 1H4Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-require-groom-father>
+                        <div class="info-title">
+                            <div>신랑 아버님</div>
+                            <div data-groom-father></div>
+                        </div>
+                        <div class="info-content">
+                            <div data-groom-father-phone></div>
+                            <div class="info-buttons">
+                                <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="groom-father-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M16.5562 12.9062L16.1007 13.359C16.1007 13.359 15.0181 14.4355 12.0631 11.4972C9.10812 8.55901 10.1907 7.48257 10.1907 7.48257L10.4775 7.19738C11.1841 6.49484 11.2507 5.36691 10.6342 4.54348L9.37326 2.85908C8.61028 1.83992 7.13596 1.70529 6.26145 2.57483L4.69185 4.13552C4.25823 4.56668 3.96765 5.12559 4.00289 5.74561C4.09304 7.33182 4.81071 10.7447 8.81536 14.7266C13.0621 18.9492 17.0468 19.117 18.6763 18.9651C19.1917 18.9171 19.6399 18.6546 20.0011 18.2954L21.4217 16.883C22.3806 15.9295 22.1102 14.2949 20.8833 13.628L18.9728 12.5894C18.1672 12.1515 17.1858 12.2801 16.5562 12.9062Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="groom-father-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M4 1C2.34315 1 1 2.34315 1 4V15C1 16.6569 2.34315 18 4 18H6V22C6 22.388 6.22446 22.741 6.57584 22.9056C6.92723 23.0702 7.3421 23.0166 7.64018 22.7682L13.362 18H20C21.6569 18 23 16.6569 23 15V4C23 2.34315 21.6569 1 20 1H4Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-require-groom-mother>
+                        <div class="info-title">
+                            <div>신랑 어머님</div>
+                            <div data-groom-mother></div>
+                        </div>
+                        <div class="info-content">
+                            <div data-groom-mother-phone></div>
+                            <div class="info-buttons">
+                                <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="groom-mother-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M16.5562 12.9062L16.1007 13.359C16.1007 13.359 15.0181 14.4355 12.0631 11.4972C9.10812 8.55901 10.1907 7.48257 10.1907 7.48257L10.4775 7.19738C11.1841 6.49484 11.2507 5.36691 10.6342 4.54348L9.37326 2.85908C8.61028 1.83992 7.13596 1.70529 6.26145 2.57483L4.69185 4.13552C4.25823 4.56668 3.96765 5.12559 4.00289 5.74561C4.09304 7.33182 4.81071 10.7447 8.81536 14.7266C13.0621 18.9492 17.0468 19.117 18.6763 18.9651C19.1917 18.9171 19.6399 18.6546 20.0011 18.2954L21.4217 16.883C22.3806 15.9295 22.1102 14.2949 20.8833 13.628L18.9728 12.5894C18.1672 12.1515 17.1858 12.2801 16.5562 12.9062Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="groom-mother-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M4 1C2.34315 1 1 2.34315 1 4V15C1 16.6569 2.34315 18 4 18H6V22C6 22.388 6.22446 22.741 6.57584 22.9056C6.92723 23.0702 7.3421 23.0166 7.64018 22.7682L13.362 18H20C21.6569 18 23 16.6569 23 15V4C23 2.34315 21.6569 1 20 1H4Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -330,25 +425,98 @@
                     <div data-accordion-toggle="bride-1"></div>
                 </div>
                 <div class="accordion-content">
-                    010-8891-3169
+                    <div>
+                        <div class="info-title">
+                            <div>신부</div>
+                            <div data-bride></div>
+                        </div>
+                        <div class="info-content">
+                            <div data-bride-phone></div>
+                            <div class="info-buttons">
+                                <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="bride-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M16.5562 12.9062L16.1007 13.359C16.1007 13.359 15.0181 14.4355 12.0631 11.4972C9.10812 8.55901 10.1907 7.48257 10.1907 7.48257L10.4775 7.19738C11.1841 6.49484 11.2507 5.36691 10.6342 4.54348L9.37326 2.85908C8.61028 1.83992 7.13596 1.70529 6.26145 2.57483L4.69185 4.13552C4.25823 4.56668 3.96765 5.12559 4.00289 5.74561C4.09304 7.33182 4.81071 10.7447 8.81536 14.7266C13.0621 18.9492 17.0468 19.117 18.6763 18.9651C19.1917 18.9171 19.6399 18.6546 20.0011 18.2954L21.4217 16.883C22.3806 15.9295 22.1102 14.2949 20.8833 13.628L18.9728 12.5894C18.1672 12.1515 17.1858 12.2801 16.5562 12.9062Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="bride-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M4 1C2.34315 1 1 2.34315 1 4V15C1 16.6569 2.34315 18 4 18H6V22C6 22.388 6.22446 22.741 6.57584 22.9056C6.92723 23.0702 7.3421 23.0166 7.64018 22.7682L13.362 18H20C21.6569 18 23 16.6569 23 15V4C23 2.34315 21.6569 1 20 1H4Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-require-bride-father>
+                        <div class="info-title">
+                            <div>신부 아버님</div>
+                            <div data-bride-father></div>
+                        </div>
+                        <div class="info-content">
+                            <div data-bride-father-phone></div>
+                            <div class="info-buttons">
+                                <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="bride-father-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M16.5562 12.9062L16.1007 13.359C16.1007 13.359 15.0181 14.4355 12.0631 11.4972C9.10812 8.55901 10.1907 7.48257 10.1907 7.48257L10.4775 7.19738C11.1841 6.49484 11.2507 5.36691 10.6342 4.54348L9.37326 2.85908C8.61028 1.83992 7.13596 1.70529 6.26145 2.57483L4.69185 4.13552C4.25823 4.56668 3.96765 5.12559 4.00289 5.74561C4.09304 7.33182 4.81071 10.7447 8.81536 14.7266C13.0621 18.9492 17.0468 19.117 18.6763 18.9651C19.1917 18.9171 19.6399 18.6546 20.0011 18.2954L21.4217 16.883C22.3806 15.9295 22.1102 14.2949 20.8833 13.628L18.9728 12.5894C18.1672 12.1515 17.1858 12.2801 16.5562 12.9062Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="bride-father-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M4 1C2.34315 1 1 2.34315 1 4V15C1 16.6569 2.34315 18 4 18H6V22C6 22.388 6.22446 22.741 6.57584 22.9056C6.92723 23.0702 7.3421 23.0166 7.64018 22.7682L13.362 18H20C21.6569 18 23 16.6569 23 15V4C23 2.34315 21.6569 1 20 1H4Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-require-bride-mother>
+                        <div class="info-title">
+                            <div>신부 어머님</div>
+                            <div data-bride-mother></div>
+                        </div>
+                        <div class="info-content">
+                            <div data-bride-mother-phone></div>
+                            <div class="info-buttons">
+                                <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="bride-mother-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M16.5562 12.9062L16.1007 13.359C16.1007 13.359 15.0181 14.4355 12.0631 11.4972C9.10812 8.55901 10.1907 7.48257 10.1907 7.48257L10.4775 7.19738C11.1841 6.49484 11.2507 5.36691 10.6342 4.54348L9.37326 2.85908C8.61028 1.83992 7.13596 1.70529 6.26145 2.57483L4.69185 4.13552C4.25823 4.56668 3.96765 5.12559 4.00289 5.74561C4.09304 7.33182 4.81071 10.7447 8.81536 14.7266C13.0621 18.9492 17.0468 19.117 18.6763 18.9651C19.1917 18.9171 19.6399 18.6546 20.0011 18.2954L21.4217 16.883C22.3806 15.9295 22.1102 14.2949 20.8833 13.628L18.9728 12.5894C18.1672 12.1515 17.1858 12.2801 16.5562 12.9062Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="bride-mother-phone">
+                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path d="M4 1C2.34315 1 1 2.34315 1 4V15C1 16.6569 2.34315 18 4 18H6V22C6 22.388 6.22446 22.741 6.57584 22.9056C6.92723 23.0702 7.3421 23.0166 7.64018 22.7682L13.362 18H20C21.6569 18 23 16.6569 23 15V4C23 2.34315 21.6569 1 20 1H4Z"
+                                                  fill="#000000"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div
-                class="driver shiny item-bg-dark"
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-easing="ease-out"
-        >
-        </div>
+            <div class="padding rem3"></div>
 
-        <div
-                class="item-container item-bg-dark"
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-easing="ease-out"
-        >
+            <div class="item-content">
+                <img src="assets/images/flower_1.png" alt="" class="image-padding" data-theme-color-image>
+            </div>
+
+            <div class="padding rem3"></div>
+
             <div class="item-title">
                 SEND GIFT
             </div>
@@ -486,6 +654,10 @@
 
     <div class="padding rem1"></div>
 
+    <div class="item-description2">
+        <strong><span data-route-endpoint-name></span></strong><span data-route-endpoint-postposition></span> 안내 중
+    </div>
+
     <div class="item-routes" data-method="car">
         <div class="button-grid">
             <button class="button" data-map-type="naver-map">
@@ -528,1045 +700,25 @@
 
 <div data-loader></div>
 
-<script type="text/javascript">
-	const Constant = {
-		GROOM: "박준영",
-		BRIDE: "최영은",
-		LATITUDE: "37.52137722994085",
-		LONGITUDE: "126.90459301926333",
-		PLACE_NAME: "웨딩그룹위더스 영등포",
-		PLACE_ADDRESS: "서울 영등포구 영중로 55",
-		TIMEZONE: "Asia/Seoul",
-		WEDDING_DATE_TIME_START_ISO_STRING: "2025-08-29T03:20:00Z",
-		WEDDING_DATE_TIME_END_ISO_STRING: "2025-08-29T04:30:00Z",
-		WEDDING_DATE_ISO_STRING: "2025-08-29",
-		PARK_COUNT: 600,
-		PARK_ADD_TIME: 10,
-		PARK_ADD_PRICE: 500,
-		PARK_BASE_TIME: 120,
-		PARK_BASE_PRICE: 0,
-		PARK_DESCRIPTION: "예식 날 주차가 혼잡하니 대중교통 이용 혹은 도착 예정 시간보다 여유 있는 출발 권장해 드립니다.",
-		META_TITLE: document.querySelector("meta[property=\"og:title\"]").content,
-		META_DESCRIPTION: document.querySelector("meta[property=\"og:description\"]").content,
-		WEDDING_DATE_TIME_START: null,
-		WEDDING_DATE_TIME_END: null,
-		WEDDING_DATE: null,
-		init: function () {
-			Constant.WEDDING_DATE_TIME_START = new Date(this.WEDDING_DATE_TIME_START_ISO_STRING);
-			Constant.WEDDING_DATE_TIME_END = new Date(this.WEDDING_DATE_TIME_END_ISO_STRING);
-			Constant.WEDDING_DATE = new Date(this.WEDDING_DATE_ISO_STRING);
-
-			dayjs.extend(dayjs_plugin_advancedFormat);
-
-			const date = dayjs(Constant.WEDDING_DATE_TIME_START);
-
-			document.querySelectorAll("[data-wedding-date-time]").forEach(el => el.textContent = date.locale(el.dataset.weddingDateTimeLocale).format(el.dataset.weddingDateTime));
-			document.querySelectorAll("[data-groom]").forEach(el => el.textContent = Constant.GROOM);
-			document.querySelectorAll("[data-bride]").forEach(el => el.textContent = Constant.BRIDE);
-			document.querySelectorAll("[data-place-name]").forEach(el => el.textContent = Constant.PLACE_NAME);
-			document.querySelectorAll("[data-place-address]").forEach(el => el.textContent = Constant.PLACE_ADDRESS);
-		}
-	}
-
-	const Navigation = {
-		method: null,
-		selectedPark: null,
-		DayType: {
-			Rest: 0,
-			Sat: 1,
-			Sun: 2,
-			Weekday: 3,
-		},
-		init: function (fullscreen = false) {
-			const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
-
-			document.querySelectorAll("[data-map-type]").forEach(el => {
-				el.onclick = function () {
-					Navigation.open(this.dataset.mapType);
-				}
-			});
-
-			function setHeight(container) {
-				function maxHeight(items) {
-					const width = window.innerWidth;
-
-					return Math.ceil(items / (width >= 500 ? 3 : width >= 380 ? 2 : 1)) * 3 + 1;
-				}
-
-				switch (Native.OS.name) {
-					case "Android":
-						return container.style.height = maxHeight(5) + "rem";
-					case "iOS":
-						return container.style.height = maxHeight(6) + "rem";
-					case "Windows":
-						return container.style.height = maxHeight(4) + "rem";
-					case "MacOS":
-						return container.style.height = maxHeight(5) + "rem";
-				}
-			}
-
-			let delay = 300,
-				timer = null;
-
-			setHeight(routes);
-			window.addEventListener("resize", function () {
-				clearTimeout(timer);
-				timer = setTimeout(function () {
-					setHeight(routes);
-				}, delay);
-			});
-
-			if (fullscreen) {
-				const observer = new MutationObserver(mutations => {
-					observer.disconnect();
-
-					document.querySelectorAll("[data-fullscreen=\"route\"] .cont .section")
-						.forEach((section, i) => {
-							const title = section.querySelector(".title");
-
-							if (title !== null) {
-								const toggle = document.createElement("div");
-								const id = i.toString();
-
-								toggle.dataset.accordionToggle = id;
-
-								title.appendChild(toggle);
-								title.style.display = "flex";
-								title.style.justifyContent = "space-between";
-								title.style.alignItems = "center";
-								title.style.flexDirection = "row";
-								title.style.margin = "0";
-								title.dataset.accordionHeader = "";
-								title.dataset.accordionExtra = id;
-								section.dataset.accordion = id;
-
-								Accordion.init(id);
-							}
-						});
-                });
-
-				observer.observe(document.querySelector("[data-fullscreen=\"route\"] .item-location"), {childList: true, subtree: true});
-
-				new daum.roughmap.Lander({
-					timestamp: "1750165976255",
-					key: "3pycungqfsg",
-					mapWidth: "360",
-					mapHeight: "240"
-				})
-					.render();
-
-				const ul = document.querySelector("[data-selector]");
-				let method = localStorage.getItem("method");
-
-				if (method === null) method = "car";
-
-				function onclick() {
-					ul.childNodes.forEach(node => {
-						if (node instanceof HTMLElement) {
-							if (node === this) node.classList.add("selected");
-							else node.classList.remove("selected");
-						}
-					});
-
-					const newMethod = this.dataset.value;
-
-					routes.dataset.method = Navigation.method = newMethod;
-					localStorage.setItem("method", newMethod);
-				}
-
-				ul.childNodes.forEach(node => {
-					if (node instanceof HTMLElement) {
-						node.onclick = onclick.bind(node);
-
-						if (node.dataset.value === method) {
-							node.classList.add("selected");
-							routes.dataset.method = this.method = method;
-						}
-					}
-				});
-
-				const parkList = document.querySelector(".park-list");
-
-				this.park()
-					.then(parks => {
-						parks
-							.slice(0, 5)
-							.forEach((park, i) => {
-								const container = document.createElement("div");
-								const title = document.createElement("div");
-								const name = document.createElement("strong");
-								const button = document.createElement("button");
-								const count = document.createElement("div");
-								const time = document.createElement("p");
-
-								container.classList.add("park-container");
-								title.classList.add("park-title");
-								button.classList.add("park-button");
-
-								if (i === 0) {
-									button.classList.add("selected");
-									container.dataset.accordionHeader = "";
-								}
-
-								button.onclick = function () {
-									parkList.querySelectorAll(".park-button").forEach(button => {
-										if (this === button) button.classList.add("selected");
-										else button.classList.remove("selected");
-									});
-
-									if (i === 0) Navigation.selectedPark = null;
-									else Navigation.selectedPark = park;
-								};
-
-								title.append(
-									name,
-									button
-								);
-
-								name.innerText = park.name.replace(/(주차장)|$/, "주차장");
-								count.innerText = "주차 수용 대수: " + park.parkCount;
-
-								if (park.isLive) {
-									const live = document.createElement("span");
-
-									live.innerText = "현재 " + park.liveCount + "대 주차중";
-
-									count.append(live);
-								}
-
-								container.append(
-									title,
-									count
-								);
-
-								if (park.baseTime !== 0) {
-									const base = document.createElement("div");
-
-									if (park.basePrice > 0) {
-										base.innerText = "기본: " + park.baseTime + "분 " + park.basePrice.toLocaleString('ko-KR') + "원";
-									} else {
-										base.innerText = "무료: " + park.baseTime + "분";
-									}
-
-									container.append(base);
-								}
-
-								if (park.addTime !== 0) {
-									const add = document.createElement("div");
-
-									add.innerText = "유료: " + park.addTime + "분당 " + park.addPrice.toLocaleString('ko-KR') + "원";
-
-									container.append(add);
-								}
-
-								if (park.address !== undefined) {
-									const address = document.createElement("p");
-
-									address.innerText = "주소: " + park.address;
-
-									container.append(address);
-								}
-
-								if (park.distance !== undefined) {
-									const distance = document.createElement("p");
-
-									if (park.distance > 1000) {
-										distance.innerText = "거리: " + (park.distance / 1000).toFixed(3) + "km";
-									} else {
-										distance.innerText = "거리: " + (park.distance).toFixed(0) + "m";
-									}
-
-									container.append(distance);
-								}
-
-								if (park.beginHour !== undefined && park.beginMinute !== undefined && park.endHour !== undefined && park.endMinute !== undefined) {
-									time.innerText = "운영 시간: ";
-
-									if (park.beginHour === 0 && park.beginMinute === 0 && park.endHour === 0 && park.endMinute === 0) {
-										time.innerText += "하루 종일";
-									} else {
-										if (park.beginHour >= 12) {
-											time.innerText += "오후 " + (park.beginHour - 12);
-										} else {
-											time.innerText += "오전 " + park.beginHour;
-										}
-
-										time.innerText += "시 ";
-
-										if (park.beginMinute !== 0) {
-											time.innerText += park.beginMinute + "분 ";
-										}
-
-										time.innerText += "~ ";
-
-										if (park.endHour >= 12) {
-											time.innerText += "오후 " + (park.endHour - 12);
-										} else {
-											time.innerText += "오전 " + park.endHour;
-										}
-
-										time.innerText += "시 ";
-
-										if (park.endMinute !== 0) {
-											time.innerText += park.endMinute + "분 ";
-										}
-									}
-
-									container.append(time);
-								}
-
-								if (park.description !== undefined) {
-									const description = document.createElement("p");
-
-									description.innerText = park.description;
-
-									container.append(description);
-								}
-
-								parkList.append(container);
-							});
-
-						Accordion.init("park");
-					});
-			} else {
-				this.method = "car";
-
-				new daum.roughmap.Lander({
-					timestamp: "1750215057190",
-					key: "3r29hec3887",
-					mapWidth: "360",
-					mapHeight: "240"
-				})
-					.render();
-			}
-		},
-		open: function (type) {
-			let scheme,
-				packageName,
-				intent,
-				fallback;
-
-			function createIntent(scheme, packageName, fallback = "market://details?id=" + packageName) {
-				const [pre, suf] = scheme.split("://");
-
-				return "intent://" + suf
-					+ "#Intent;"
-					+ "scheme=" + pre + ";"
-					+ "action=android.intent.action.VIEW;"
-					+ "category=android.intent.category.BROWSABLE;"
-					+ "package=" + packageName + ";"
-					+ "S.browser_fallback_url=" + fallback + ";"
-					+ "end";
-			}
-
-			let latitude = Constant.LATITUDE,
-				longitude = Constant.LONGITUDE,
-				placeName = Constant.PLACE_NAME,
-				placeAddress = Constant.PLACE_ADDRESS;
-
-			if (this.method === "car" && this.selectedPark !== null) {
-				latitude = this.selectedPark.latitude;
-				longitude = this.selectedPark.longitude;
-				placeName = this.selectedPark.name;
-				placeAddress = this.selectedPark.address;
-			}
-
-			switch (type) {
-				case "t-map":
-					intent = createIntent(
-						scheme = "tmap://route"
-							+ "?goaly=" + encodeURIComponent(latitude)
-							+ "&goalx=" + encodeURIComponent(longitude)
-							+ "&goalname=" + encodeURIComponent(placeName),
-						packageName = "com.skt.tmap.ku"
-					);
-
-					if (Native.OS.name === "Android") {
-						location.href = intent;
-						return;
-					}
-
-					new Native.App({
-						ios: {
-							scheme: scheme,
-							trackId: "431589174",
-						}
-					})
-						.run();
-					return;
-				case "naver-map":
-					intent = createIntent(
-						scheme = "nmap://"
-							+ (this.method === "car" ? "navigation" : this.method === "transit" ? "route/public" : this.method === "walk" ? "route/walk" : "")
-							+ "?dlat=" + encodeURIComponent(latitude)
-							+ "&dlng=" + encodeURIComponent(longitude)
-							+ "&dname=" + encodeURIComponent(placeName)
-							+ "&appname=" + encodeURIComponent(location.origin),
-						packageName = "com.nhn.android.nmap",
-						fallback = "http://map.naver.com/index.nhn"
-							+ "?elat=" + encodeURIComponent(latitude)
-							+ "&elng=" + encodeURIComponent(longitude)
-							+ "&etext=" + encodeURIComponent(placeName)
-							+ "&menu=" + encodeURIComponent("route")
-							+ "&pathType=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "1" : this.method === "walk" ? "3" : "")
-					);
-
-					if (Native.OS.name === "Android") {
-						location.href = intent;
-						return;
-					}
-
-					new Native.App({
-						ios: {
-							scheme: scheme,
-							trackId: "311867728",
-						},
-						windows: {
-							fallback: fallback
-						},
-						mac: {
-							fallback: fallback
-						}
-					})
-						.run();
-					return;
-				case "kakao-map":
-					intent = createIntent(
-						scheme = "kakaomap://route"
-							+ "?ep=" + encodeURIComponent(latitude + "," + longitude)
-							+ "&by=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "PUBLICTRANSIT" : this.method === "walk" ? "FOOT" : ""),
-						packageName = "net.daum.android.map",
-						fallback = "https://map.kakao.com/link/to/"
-							+ encodeURIComponent(placeName + "," + latitude + "," + longitude)
-					);
-
-					if (Native.OS.name === "Android") {
-						location.href = intent;
-						return;
-					}
-
-					new Native.App({
-						ios: {
-							scheme: scheme,
-							trackId: "304608425",
-						},
-						windows: {
-							fallback: fallback
-						},
-						mac: {
-							fallback: fallback
-						}
-					})
-						.run();
-					return;
-				case "kakao-navi":
-					Kakao.Navi.start({
-						name: placeName,
-						x: +longitude,
-						y: +latitude,
-						coordType: "wgs84",
-					});
-					return;
-				case "google-map":
-					if (Native.OS.name === "Android") {
-						if (this.method === "transit") {
-							location.href = createIntent(
-								"https://maps.google.com/maps"
-								+ "?daddr=" + encodeURIComponent(placeName)
-								+ "&directionsmode=" + encodeURIComponent("transit"),
-								"com.google.android.apps.maps"
-							);
-						} else {
-							location.href = createIntent(
-								"google.navigation://maps.google.com/maps"
-								+ "?q=" + encodeURIComponent(placeName)
-								+ "&mode=" + encodeURIComponent(this.method === "car" ? "d" : this.method === "walk" ? "w" : ""),
-								"com.google.android.apps.maps"
-							);
-						}
-
-						return;
-					}
-
-					scheme = "comgooglemaps://"
-						+ "?daddr=" + encodeURIComponent(placeName)
-						+ "&center=" + encodeURIComponent(latitude + "," + longitude)
-						+ "&directionsmode=" + encodeURIComponent(this.method === "car" ? "driving" : this.method === "transit" ? "transit" : this.method === "walk" ? "walking" : "");
-
-					fallback = "https://www.google.co.kr/maps/dir//"
-						+ encodeURIComponent(placeAddress + " " + placeName);
-
-					new Native.App({
-						ios: {
-							scheme: scheme,
-							trackId: "585027354",
-						},
-						windows: {
-							fallback: fallback
-						},
-						mac: {
-							fallback: fallback
-						}
-					})
-						.run();
-					return;
-				case "apple-map":
-					scheme = "maps://"
-						+ "?daddr=" + encodeURIComponent(latitude + "," + longitude)
-						+ "&dirflg=" + encodeURIComponent(this.method === "car" ? "d" : this.method === "transit" ? "r" : this.method === "walk" ? "w" : "");
-
-					new Native.App({
-						ios: {
-							scheme: scheme,
-						},
-						mac: {
-							scheme: scheme,
-						}
-					})
-						.run();
-					return;
-				case "uber-taxi":
-					intent = createIntent(
-						scheme = "uber://"
-							+ "?action=setPickup"
-							+ "&pickup=my_location"
-							+ "&dropoff[latitude]=" + encodeURIComponent(latitude)
-							+ "&dropoff[longitude]=" + encodeURIComponent(longitude)
-							+ "&dropoff[nickname]=" + encodeURIComponent(placeName),
-						packageName = "com.ubercab"
-					);
-
-					fallback = "https://m.uber.com/go/home"
-						+ "?drop%5B0%5D=" + encodeURIComponent(
-							JSON.stringify({
-								addressLine1: placeName,
-								latitude: +latitude,
-								longitude: +longitude,
-								source: "SEARCH",
-								provider: "tmap_places"
-							})
-						);
-
-					if (Native.OS.name === "Android") {
-						location.href = intent;
-						return;
-					}
-
-					new Native.App({
-						ios: {
-							scheme: scheme,
-							trackId: "431589174",
-						},
-						windows: {
-							fallback: fallback
-						},
-						mac: {
-							fallback: fallback
-						}
-					})
-						.run();
-			}
-		},
-		fullscreen: function () {
-			location.href = location.origin + location.pathname + "?mode=route";
-		},
-		park: async function () {
-			function d2r(deg) {
-				return deg * (Math.PI / 180);
-			}
-
-			function getDistance(lat1, lng1, lat2, lng2) {
-				const dLat = d2r(lat2 - lat1),
-					dLon = d2r(lng2 - lng1),
-					a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(d2r(lat1)) * Math.cos(d2r(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-
-				return 6.371e6 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-			}
-
-			async function getDayType() {
-				const year = Constant.WEDDING_DATE_TIME_START.getFullYear().toString();
-				const month = (Constant.WEDDING_DATE_TIME_START.getMonth() + 1).toString().padStart(2, '0');
-				const day = Constant.WEDDING_DATE_TIME_START.getDay();
-
-				return await fetch(
-					"https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"
-					+ "?serviceKey=" + encodeURIComponent("cwrcT5TevRi39dJ3+8FTHHLLQyxGCWKNdMYBYqAwwrCHqPAK/1ZHilEhfJ31syfsZ1BOVUiLL4DIjRLU+Hfg2w==")
-					+ "&solYear=" + encodeURIComponent(year)
-					+ "&solMonth=" + encodeURIComponent(month)
-				)
-					.then(response => response.text())
-					.then(response => {
-						const parser = new DOMParser();
-						const xml = parser.parseFromString(response, "application/xml");
-
-						if (xml.querySelector("parsererror") === null) {
-							const dateString = year + month + Constant.WEDDING_DATE_TIME_START.getDate().toString().padStart(2, '0');
-
-							for (let item of xml.getElementsByTagName("items")[0].children) {
-								if (dateString === item.getElementsByTagName("locdate")[0].textContent) return Navigation.DayType.Rest;
-							}
-
-							if (day === 6) return Navigation.DayType.Sat;
-							if (day === 0) return Navigation.DayType.Sun;
-							return Navigation.DayType.Weekday;
-						}
-					})
-					.catch(() => {
-						if (day === 6) return Navigation.DayType.Sat;
-						if (day === 0) return Navigation.DayType.Sun;
-						return Navigation.DayType.Weekday;
-					});
-			}
-
-			async function getParks() {
-				const beginHM = Constant.WEDDING_DATE_TIME_START.getHours() * 100 + Constant.WEDDING_DATE_TIME_START.getMinutes();
-				const endHM = Constant.WEDDING_DATE_TIME_END.getHours() * 100 + Constant.WEDDING_DATE_TIME_END.getMinutes();
-				const dayType = await getDayType();
-
-				try {
-					return await Promise.all([
-						await fetch("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkInfo/1/1000/영등포구")
-							.then(response => response.json())
-							.then(response => Array.from(new Map(response.GetParkInfo.row.map(park => [park.PKLT_CD, park])).values())
-								.filter(park => {
-									if (park.OPER_SE !== "1" || park.PKLT_KND === "NS" || park.LAT === 0 || park.LOT === 0) return false;
-
-									const [parkBeginHM, parkEndHM] =
-										dayType === Navigation.DayType.Rest
-											? [+park.LHLDY_BGNG, +park.LHLDY]
-											: (dayType === Navigation.DayType.Sat || dayType === Navigation.DayType.Sun)
-												? [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM]
-												: [+park.WD_OPER_BGNG_TM, +park.WD_OPER_END_TM];
-
-									return !(parkBeginHM === 0 && parkEndHM === 0) && (parkBeginHM < beginHM && (parkEndHM > endHM || beginHM > endHM));
-								})),
-						await fetch("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkingInfo/1/1000/영등포구")
-							.then(response => response.json())
-							.then(response => Array.from(new Map(response.GetParkingInfo.row.map(park => [park.PKLT_CD, park])).values())
-								.filter(park => park.PRK_STTS_YN === "1")
-							)
-					])
-						.then(([parks, lives]) => {
-							return parks
-								.map(park => {
-									const [parkBeginHM, parkEndHM] =
-										dayType === Navigation.DayType.Rest
-											? [+park.LHLDY_BGNG, +park.LHLDY]
-											: (dayType === Navigation.DayType.Sat || dayType === Navigation.DayType.Sun)
-												? [+park.WE_OPER_BGNG_TM, +park.WE_OPER_END_TM]
-												: [+park.WD_OPER_BGNG_TM, +park.WD_OPER_END_TM];
-
-									const isFree = dayType === Navigation.DayType.Rest
-										? park.LHLDY_YN
-										: dayType === Navigation.DayType.Sat
-											? park.SAT_CHGD_FREE_SE
-											: park.CHGD_FREE_SE;
-
-									let isLive = park.PRK_NOW_INFO_PVSN_YN === "1";
-
-									const latitude = park.LAT,
-										longitude = park.LOT,
-										name = park.PKLT_NM.replaceAll(/(^공유\)\s*)|\s*(\([구|시]\)$)/g, "");
-
-									let baseTime = park.PRK_HM,
-										basePrice = park.PRK_CRG,
-										addTime = park.ADD_UNIT_TM_MNT,
-										addPrice = park.ADD_CRG;
-
-									if (addTime === 0 && addPrice === 0) {
-										addTime = baseTime;
-										addPrice = basePrice;
-									}
-
-									let liveCount = null,
-										liveTime = null
-
-									if (isLive) {
-										const index = lives.findIndex(live => live.PKLT_CD === park.PKLT_CD);
-
-										if (index !== -1) {
-											const live = lives.splice(index, 1)[0];
-
-											liveCount = live.NOW_PRK_VHCL_CNT;
-											liveTime = live.NOW_PRK_VHCL_UPDT_TM;
-										} else {
-											isLive = false;
-										}
-									}
-
-									return {
-										id: park.PKLT_CD,
-										name: name,
-										address: park.ADDR,
-										parkCount: park.TPKCT,
-										parkSyncTime: park.LAST_DATA_SYNC_TM,
-										liveCount: liveCount,
-										liveSyncTime: liveTime,
-										tel: park.TELNO,
-										baseTime: baseTime,
-										basePrice: basePrice,
-										addTime: addTime,
-										addPrice: addPrice,
-										maxPrice: park.DLY_MAX_CRG,
-										latitude: park.LAT,
-										longitude: park.LOT,
-										isFree: isFree === "N",
-										isLive: isLive,
-										distance: getDistance(Constant.LATITUDE, Constant.LONGITUDE, latitude, longitude),
-										beginHour: Math.floor(parkBeginHM / 100),
-										beginMinute: parkBeginHM % 100,
-										endHour: Math.floor(parkEndHM / 100) % 24,
-										endMinute: parkEndHM % 100,
-									}
-								})
-								.sort((a, b) => a.distance - b.distance)
-						});
-				} catch (e) {
-					return [];
-				}
-			}
-
-			const parks = await getParks()
-
-			parks.unshift({
-				name: "건물 주차장",
-				parkCount: Constant.PARK_COUNT,
-				basePrice: Constant.PARK_BASE_PRICE,
-				baseTime: Constant.PARK_BASE_TIME,
-				addPrice: Constant.PARK_ADD_PRICE,
-				addTime: Constant.PARK_ADD_TIME,
-				description: Constant.PARK_DESCRIPTION
-			});
-
-			return parks;
-		}
-	};
-
-	const KakaoTalk = {
-		JSKey: "81d57ff9f2d2a5524e506d8a1d386fd5",
-		RestAPIKey: "7c29ec39d56410088e1ba66176d61b4b",
-		init: function () {
-			Kakao.init(KakaoTalk.JSKey);
-		},
-		openCalendar: function () {
-			const scheme = "kakaotalk://calendar/home"
-				+ "?date=" + encodeURIComponent(Constant.WEDDING_DATE_ISO_STRING);
-
-			const fallback = "https://calendar.kakao.com/"
-				+ "?date=" + encodeURIComponent(Constant.WEDDING_DATE_ISO_STRING);
-
-			new Native.App({
-				android: {
-					scheme: scheme,
-				},
-				ios: {
-					scheme: scheme,
-				},
-				windows: {
-					fallback: fallback
-				},
-				mac: {
-					fallback: fallback
-				}
-			})
-				.run();
-
-			function onvisibilitychange() {
-				if (document.visibilityState === "visible") {
-					document.removeEventListener("visibilitychange", onvisibilitychange);
-					KakaoTalk.closeInAppBrowser();
-				}
-			}
-
-			document.addEventListener("visibilitychange", onvisibilitychange);
-			KakaoTalk.closeInAppBrowser();
-		},
-		createSchedule: function () {
-			let kakaoAccessToken = localStorage.getItem("kakaoAccessToken");
-
-			if (!kakaoAccessToken) {
-				init();
-			} else {
-				create();
-			}
-
-			function fetchWithAuthRetry(input, options) {
-				return fetch(input, options).then(async (response) => {
-					if (response.status === 401) {
-						localStorage.removeItem("kakaoAccessToken");
-						kakaoAccessToken = null;
-						init();
-					}
-					return response;
-				});
-			}
-
-			function init() {
-				const search = new URLSearchParams(location.search);
-				const clientId = encodeURIComponent(KakaoTalk.RestAPIKey);
-				const redirectURI = encodeURIComponent(location.origin + location.pathname + "?mode=schedule");
-
-				if (search.has("code")) {
-					const grantType = encodeURIComponent("authorization_code");
-					const code = search.get("code");
-
-					window.history.replaceState(null, '', location.protocol + "//" + location.host + location.pathname + "?mode=schedule" + location.hash);
-
-					fetch(
-						"https://kauth.kakao.com/oauth/token"
-						+ "?grant_type=" + grantType
-						+ "&client_id=" + clientId
-						+ "&redirect_uri=" + redirectURI
-						+ "&code=" + code,
-						{
-							method: "POST"
-						}
-					)
-						.then(response => response.json())
-						.then(response => {
-							localStorage.setItem("kakaoAccessToken", kakaoAccessToken = response.access_token);
-							KakaoTalk.createSchedule();
-						});
-				} else {
-					const responseType = encodeURIComponent("code");
-					const scope = encodeURIComponent("talk_calendar");
-
-					location.href = "https://kauth.kakao.com/oauth/authorize"
-						+ "?client_id=" + clientId
-						+ "&redirect_uri=" + redirectURI
-						+ "&response_type=" + responseType
-						+ "&scope=" + scope;
-				}
-			}
-
-			function create() {
-				fetch(
-					"https://dapi.kakao.com/v2/local/search/keyword.JSON"
-					+ "?query=" + encodeURIComponent(Constant.PLACE_NAME)
-					+ "&x=" + encodeURIComponent(Constant.LONGITUDE)
-					+ "&y=" + encodeURIComponent(Constant.LATITUDE),
-					{
-						headers: {
-							"Authorization": "KakaoAK " + KakaoTalk.RestAPIKey,
-						}
-					}
-				)
-					.then(response => response.json())
-					.then(response => {
-						const locationID = response.documents[0].id;
-
-						const body = {
-							title: Constant.GROOM + "❤️" + Constant.BRIDE + " 결혼식",
-							time: {
-								start_at: Constant.WEDDING_DATE_TIME_START_ISO_STRING,
-								end_at: Constant.WEDDING_DATE_TIME_END_ISO_STRING,
-								time_zone: Constant.TIMEZONE,
-								all_day: false,
-								lunar: false
-							},
-							description: Constant.META_DESCRIPTION,
-							location: {
-								name: Constant.PLACE_NAME,
-								location_id: locationID,
-								address: Constant.PLACE_ADDRESS,
-								latitude: Constant.LATITUDE,
-								longitude: Constant.LONGITUDE
-							},
-							reminders: [60, 120],
-							color: "PINK"
-						};
-
-						fetchWithAuthRetry(
-							"https://kapi.kakao.com/v2/api/calendar/events"
-							+ "?from=" + encodeURIComponent(Constant.WEDDING_DATE_TIME_START_ISO_STRING)
-							+ "&to=" + encodeURIComponent(Constant.WEDDING_DATE_TIME_END_ISO_STRING),
-							{
-								headers: {
-									"Authorization": "Bearer " + kakaoAccessToken,
-								}
-							}
-						)
-							.then(response => response.json())
-							.then(response => {
-								const matched = response.events.find(e => e.title === body.title);
-
-								if (!matched) {
-									const bodyString = JSON.stringify(body);
-
-									return fetchWithAuthRetry(
-										"https://kapi.kakao.com/v2/api/calendar/create/event",
-										{
-											method: "POST",
-											headers: {
-												"Authorization": "Bearer " + kakaoAccessToken,
-												"Content-Type": "application/x-www-form-urlencoded"
-											},
-											body: "event=" + encodeURIComponent(bodyString),
-										}
-									)
-										.then(response => response.json())
-										.then(KakaoTalk.openCalendar);
-								} else {
-									return KakaoTalk.openCalendar();
-								}
-							});
-					});
-			}
-		},
-		openExternalBrowser: function () {
-			location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(location.href);
-		},
-		closeInAppBrowser: function () {
-			if (document.body.dataset.wv !== "kakao") return;
-			if (Native.OS.name === "iOS") return location.href = "kakaoweb://closeBrowser";
-			return location.href = "kakaotalk://inappbrowser/close";
-		},
-		share: function () {
-			Kakao.Share.sendDefault({
-				objectType: "feed",
-				content: {
-					title: "자세히 보기",
-					description: "https://pjy0509.github.io/invitation",
-					imageUrl: "https://raw.githubusercontent.com/pjy0509/pjy0509.github.io/refs/heads/main/invitation/assets/images/i0.jpg",
-					link: {
-						mobileWebUrl: "https://pjy0509.github.io/invitation",
-						webUrl: "https://pjy0509.github.io/invitation",
-					},
-				},
-				itemContent: {
-					profileText: Constant.META_TITLE,
-				},
-				buttons: [
-					{
-						title: "찾아오는 길",
-						link: {
-							mobileWebUrl: "https://pjy0509.github.io/invitation?mode=route",
-							webUrl: "https://pjy0509.github.io/invitation?mode=route",
-						},
-					},
-					{
-						title: "일정 등록",
-						link: {
-							mobileWebUrl: "https://pjy0509.github.io/invitation?mode=schedule",
-							webUrl: "https://pjy0509.github.io/invitation?mode=schedule",
-						},
-					}
-				],
-			});
-		}
-	};
-
-	const Loader = {
-		el: null,
-		init: function () {
-			this.el = document.querySelector("[data-loader]");
-		},
-		show: function () {
-			this.el.dataset.loader = "true";
-		},
-		hide: function () {
-			this.el.dataset.loader = "false";
-		},
-	};
-
-	const Accordion = {
-		init: function (id) {
-			window.requestAnimationFrame(() => {
-				if (id === undefined) {
-					document.querySelectorAll("[data-accordion]").forEach(initAccordion);
-				} else {
-					initAccordion(document.querySelector("[data-accordion=\"" + id + "\"]"));
-				}
-
-				function initAccordion(accordion) {
-					const header = accordion.querySelector("[data-accordion-header]");
-
-					if (header !== null) {
-						accordion.classList.add("no-transition");
-						accordion.style.maxHeight = Accordion.getOuterHeight(header) + "px";
-						void accordion.offsetHeight;
-						accordion.classList.remove("no-transition");
-					}
-
-					const children = accordion.children;
-					let maxHeight = 0;
-
-					for (let i = 0; i < children.length; i++) {
-						maxHeight += Accordion.getOuterHeight(children.item(i));
-					}
-
-					accordion.dataset.accordionMaxHeight = maxHeight.toString();
-
-					const button = document.querySelector("[data-accordion-toggle=\"" + accordion.dataset.accordion + "\"]");
-
-					if (button !== null) {
-						[button, ...document.querySelectorAll("[data-accordion-extra=\"" + accordion.dataset.accordion + "\"]")]
-                            .forEach(element => {
-								element.onclick = event => {
-									event.stopPropagation();
-									accordion.classList.toggle("on");
-									button.classList.toggle("on");
-								}
-                            });
-					}
-				}
-			})
-		},
-		getOuterHeight: function (element) {
-			const style = window.getComputedStyle(element);
-
-			return element.clientHeight
-				+ +style.marginTop.replace(/px$/, "")
-				+ +style.marginBottom.replace(/px$/, "");
-		}
-	}
-
-	const Modal = {
-		el: {},
-		shown: [],
-		init: function () {
-			history.pushState(null, null, document.URL);
-
-			window.addEventListener("popstate", function () {
-				if (Modal.shown.length > 1) {
-					history.pushState(null, null, document.URL);
-					Modal.shown.pop().classList.remove("show");
-				}
-			});
-		},
-		show: function (id) {
-			const modal = Modal.getModalById(id);
-
-			modal.classList.add("show");
-
-			this.shown.push(modal);
-		},
-		hide: function (id) {
-			const modal = Modal.getModalById(id);
-			const index = Modal.shown.indexOf(modal);
-
-			modal.classList.remove("show");
-
-			this.shown.splice(index, 1);
-		},
-		getModalById: function (id) {
-			return this.el[id] !== undefined
-				? this.el[id]
-				: id instanceof HTMLElement
-					? id.closest("[data-modal-id]")
-					: document.querySelector("[data-modal-id=" + id + "]");
-		}
-	};
-</script>
-<script>AOS.init();</script>
-<script type="text/javascript">
-	initUserAgent();
-
-	KakaoTalk.init();
+<script type="module">
+	import Utils from "./src/utils.js";
+	import Constant from './src/constant.js';
+	import Navigation from './src/navigation.js';
+	import KakaoTalk from './src/kakaoTalk.js';
+	import Loader from './src/loader.js';
+	import Accordion from './src/accordion.js';
+	import Modal from './src/modal.js';
+	import Carousel from './src/carousel.js';
+	import Calendar from "./src/calendar.js";
+
+	Utils.init();
+	AOS.init();
 	Constant.init();
-	Modal.init();
+	Navigation.init();
+	KakaoTalk.init();
 	Loader.init();
 	Accordion.init();
+	Modal.init();
 
 	const search = new URLSearchParams(location.search);
 
@@ -1586,63 +738,29 @@
 				Navigation.init(true);
 				break;
 			case "carousel":
-				initCarousel(true);
+				Carousel.init(true);
 				break;
 		}
 	} else {
 		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
 
-		syncScrollY();
-		document.onreadystatechange = function () {
-			syncScrollY();
-		}
+		Utils.runOnceAndEventTrigger(
+			Utils.syncScrollY,
+			document,
+			"readystatechange"
+		);
 
 		window.onload = function () {
-			syncScrollY(true);
-
-			Navigation.init();
+			Utils.syncScrollY();
 
 			initTsparticle();
-			initCalendar();
-			initWeather();
-			initCarousel();
+			Calendar.init();
+			Carousel.init();
 		};
 	}
-
-	function initUserAgent() {
-		const userAgent = navigator.userAgent;
-
-		// OS
-		document.body.dataset.osName = Native.OS.name;
-
-		// WebView
-		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = "kakao";
-
-		// Color Scheme
-		function detectColorScheme() {
-			new Promise(resolve => {
-				if (navigator.userAgent.match(/Samsung/i) || window.matchMedia === undefined) {
-					const img = new Image();
-
-					img.onload = function () {
-						const ctx = document.createElement("canvas").getContext("2d");
-						ctx.drawImage(img, 0, 0);
-						const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
-						resolve((r & b & g) < 255 ? "dark" : "light");
-					}
-
-					img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IndoaXRlIi8+PC9zdmc+';
-				} else {
-					resolve(window.matchMedia('(prefers-color-scheme:dark)').matches ? "dark" : "light");
-				}
-			})
-				.then(scheme => document.documentElement.dataset.colorScheme = scheme);
-		}
-
-		detectColorScheme();
-		window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", detectColorScheme);
-	}
-
+</script>
+<script></script>
+<script type="text/javascript">
 	function initTsparticle() {
 		loadImageShape(tsParticles)
 			.then(function () {
@@ -1832,231 +950,6 @@
 					}
 				});
 			});
-	}
-
-	function initCalendar() {
-		// TIMER BEGIN
-		const components = [document.getElementById("remain-date"), document.getElementById("days"), document.getElementById("hours"), document.getElementById("minutes"), document.getElementById("seconds")];
-		const calendar = document.getElementById("calendar");
-
-		calendar.innerHTML = "";
-
-		const startDay = new Date(Constant.WEDDING_DATE_TIME_START.getFullYear(), Constant.WEDDING_DATE_TIME_START.getMonth()).getDay();
-		const lastDate = new Date(Constant.WEDDING_DATE_TIME_START.getFullYear(), Constant.WEDDING_DATE_TIME_START.getMonth() + 1, 0).getDate();
-		const targetDate = Constant.WEDDING_DATE_TIME_START.getDate();
-		const grid = document.createElement("div");
-
-		['일', '월', '화', '수', '목', '금', '토'].forEach(d => {
-			const weekday = document.createElement("div");
-			const el = document.createElement("p");
-
-			el.innerText = d;
-			weekday.appendChild(el);
-			grid.appendChild(weekday);
-		});
-
-		for (let i = 0; i < startDay; i++) grid.appendChild(document.createElement("div"));
-
-		for (let d = 1; d <= lastDate; d++) {
-			const day = document.createElement("div");
-			const el = document.createElement("p");
-
-			if (d === targetDate) day.id = "target";
-
-			el.innerText = d.toString();
-			day.appendChild(el);
-			grid.appendChild(day);
-		}
-
-		calendar.appendChild(grid);
-
-		const targetTimestamp = +Constant.WEDDING_DATE_TIME_START;
-
-		setInterval(function () {
-			let subtract = Math.floor((targetTimestamp - Date.now()) / 1000);
-
-			const days = Math.floor(subtract / 86400);
-			const hours = Math.floor((subtract %= 86400) / 3600);
-			const minutes = Math.floor((subtract %= 3600) / 60);
-			const seconds = subtract % 60;
-
-			components[0].textContent = (days + 1).toString() + "일";
-			components[1].textContent = days.toString();
-			components[2].textContent = hours.toString();
-			components[3].textContent = minutes.toString();
-			components[4].textContent = seconds.toString();
-		}, 1000);
-		// TIMER END
-	}
-
-	function initWeather() {
-		const components = [document.getElementById("icon"), document.getElementById("detail"), document.getElementById("temperature"), document.getElementById("apparent-temperature"), document.getElementById("precipitation-probability")];
-		const weather = document.getElementById("weather");
-
-		fetch(
-			"https://api.open-meteo.com/v1/forecast?"
-			+ new URLSearchParams({
-				latitude: Constant.LATITUDE,
-				longitude: Constant.LONGITUDE,
-				hourly: "temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,precipitation_probability,apparent_temperature,weathercode",
-				start_date: Constant.WEDDING_DATE_ISO_STRING,
-				end_date: Constant.WEDDING_DATE_ISO_STRING,
-				timezone: Constant.TIMEZONE
-			})
-		)
-			.then(response => response.json())
-			.then(data => {
-				let i = data.hourly.time.indexOf(Constant.WEDDING_DATE_ISO_STRING + "T12:00");
-
-				if (i === -1) return;
-
-				const weatherCodeMap = {
-					0: {emoji: "☀️", detail: "맑음"},
-					1: {emoji: "🌤", detail: "조금 흐림"},
-					2: {emoji: "⛅️", detail: "흐림"},
-					3: {emoji: "🌥", detail: "흐림"},
-					45: {emoji: "🌫", detail: "안개"},
-					48: {emoji: "🌫", detail: "서리 안개"},
-					51: {emoji: "🌦", detail: "이슬비"},
-					53: {emoji: "🌦", detail: "이슬비"},
-					55: {emoji: "🌦", detail: "이슬비"},
-					56: {emoji: "🌧", detail: "어는 이슬비"},
-					57: {emoji: "🌧", detail: "어는 이슬비"},
-					61: {emoji: "🌧", detail: "비"},
-					63: {emoji: "🌧", detail: "비"},
-					65: {emoji: "🌧", detail: "비"},
-					66: {emoji: "🌧", detail: "어는 비"},
-					67: {emoji: "🌧", detail: "어는 비"},
-					71: {emoji: "🌨", detail: "눈"},
-					73: {emoji: "🌨", detail: "눈"},
-					75: {emoji: "🌨", detail: "눈"},
-					77: {emoji: "🌨", detail: "진눈깨비"},
-					80: {emoji: "🌧", detail: "소나기"},
-					81: {emoji: "🌧", detail: "소나기"},
-					82: {emoji: "🌧", detail: "소나기"},
-					85: {emoji: "🌨", detail: "눈 소나기"},
-					86: {emoji: "🌨", detail: "눈 소나기"},
-					95: {emoji: "⚡️", detail: "천둥"},
-					96: {emoji: "🌩", detail: "우박, 천둥"},
-					99: {emoji: "🌩", detail: "우박, 천둥"}
-				};
-
-				const weatherCode = weatherCodeMap[data.hourly.weathercode[i]];
-
-				components[0].innerText = weatherCode.emoji;
-				components[1].innerText = weatherCode.detail;
-				components[2].innerText = data.hourly.temperature_2m[i] + " °C";
-				components[3].innerText = data.hourly.apparent_temperature[i] + " °C";
-				components[4].innerText = data.hourly.relative_humidity_2m[i] + " %";
-
-				weather.classList.add("show");
-
-				console.log(`기온: ${data.hourly.temperature_2m[i]} °C`);
-				console.log(`체감온도: ${data.hourly.apparent_temperature[i]} °C`);
-				console.log(`습도: ${data.hourly.relative_humidity_2m[i]} %`);
-				console.log(`풍속: ${data.hourly.wind_speed_10m[i]} m/s`);
-				console.log(`강수량: ${data.hourly.precipitation[i]} mm`);
-				console.log(`강수 확률: ${data.hourly.precipitation_probability[i]} %`);
-				console.log(`기상 코드: ${data.hourly.weathercode[i]}`);
-			});
-	}
-
-	function initCarousel(fullscreen = false) {
-		// CAROUSEL BEGIN
-		const glide = document.querySelector("[data-glide]");
-		let track = glide.querySelector("[data-glide-el=\"track\"]");
-
-		if (fullscreen) {
-			track.onclick = undefined;
-			document.querySelector("[data-fullscreen=\"carousel\"]").append(glide);
-		}
-
-		const carousel = new Glide(".item-carousel", {
-			type: "carousel",
-			perView: 1,
-			gap: 16,
-			autoplay: 0,
-			hoverpause: true,
-			animationDuration: 200,
-		})
-			.mount();
-
-		const current = document.getElementById("carousel-current");
-		const total = document.getElementById("carousel-total");
-
-		total.textContent = carousel._c.Html.slides.length.toString();
-		current.textContent = (carousel.index + 1).toString();
-
-		carousel.on("move", function () {
-			current.textContent = (carousel.index + 1).toString();
-		});
-
-		if (fullscreen) {
-			let images;
-
-			track = document.querySelector("[data-glide] [data-glide-el=\"track\"]");
-
-			carousel.on("move.after", function () {
-				images = track.querySelectorAll("[data-image-index=\"" + carousel.index + "\"]");
-			});
-
-			EventManager.on(glide, ['touchpinchmove'], e => {
-				const dp = e.paths.slice(-2);
-
-				if (dp.length < 2) return;
-
-				const dd = dp.reduce((curr, prev) => curr.distance - prev.distance);
-				const dx = dp.reduce((curr, prev) => curr.center.x - prev.center.x);
-				const dy = dp.reduce((curr, prev) => curr.center.y - prev.center.y);
-
-				images.forEach(image => {
-					const scale = image.style.scale;
-					const transform = image.style.transform;
-					const px = transform.indexOf("px");
-					const py = transform.lastIndexOf("px");
-
-					image.style.scale = Math.max(0.33, Math.min(3, scale - dd / 125)).toString();
-					image.style.transform = "translate(" + (Number(transform.substring(10, px)) - dx * 1.25) + "px, " + (Number(transform.substring(px + 3, py)) - dy * 1.25) + "px)"
-				});
-			});
-
-			EventManager.on(glide, ['touchpinchstart'], () => {
-				carousel.disable();
-			});
-
-			EventManager.on(glide, ['touchpinchend'], () => {
-				images.forEach(image => {
-					image.style.scale = "1";
-					image.style.transform = "translate(0px, 0px)";
-				});
-
-				carousel.enable();
-				carousel.update({animationDuration: 0});
-				carousel.go("=" + carousel.index);
-				carousel.update({animationDuration: 200});
-				setTimeout(() => {
-					carousel.enable();
-					carousel.update({animationDuration: 0});
-					carousel.go("=" + carousel.index);
-					carousel.update({animationDuration: 200});
-				});
-			});
-
-		}
-
-		return carousel;
-		// CAROUSEL END
-	}
-
-	function syncScrollY(removeHash = false) {
-		const y = +location.hash.split("#")[1];
-
-		if (!isNaN(y)) window.scrollY = y;
-		if (removeHash) history.pushState({}, "", "#");
-	}
-
-	function setFullscreenCarousel() {
-		location.href = location.origin + location.pathname + "?mode=carousel";
 	}
 
 	function showAlert(content) {
