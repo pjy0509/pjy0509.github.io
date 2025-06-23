@@ -35,9 +35,9 @@ const Navigation = {
 				case "iOS":
 					return container.style.height = maxHeight(6) + "rem";
 				case "Windows":
-					return container.style.height = maxHeight(4) + "rem";
+					return container.style.height = maxHeight(3) + "rem";
 				case "MacOS":
-					return container.style.height = maxHeight(5) + "rem";
+					return container.style.height = maxHeight(4) + "rem";
 			}
 		}
 		
@@ -280,22 +280,7 @@ const Navigation = {
 	},
 	open: function (type) {
 		let scheme,
-			packageName,
-			intent,
 			fallback;
-		
-		function createIntent(scheme, packageName, fallback = "market://details?id=" + packageName) {
-			const [pre, suf] = scheme.split("://");
-			
-			return "intent://" + suf
-				+ "#Intent;"
-				+ "scheme=" + pre + ";"
-				+ "action=android.intent.action.VIEW;"
-				+ "category=android.intent.category.BROWSABLE;"
-				+ "package=" + packageName + ";"
-				+ "S.browser_fallback_url=" + fallback + ";"
-				+ "end";
-		}
 		
 		let latitude = Constant.LATITUDE,
 			longitude = Constant.LONGITUDE,
@@ -311,20 +296,16 @@ const Navigation = {
 		
 		switch (type) {
 			case "t-map":
-				intent = createIntent(
-					scheme = "tmap://route"
-						+ "?goaly=" + encodeURIComponent(latitude)
-						+ "&goalx=" + encodeURIComponent(longitude)
-						+ "&goalname=" + encodeURIComponent(placeName),
-					packageName = "com.skt.tmap.ku"
-				);
-				
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return;
-				}
+				scheme = "tmap://route"
+					+ "?goaly=" + encodeURIComponent(latitude)
+					+ "&goalx=" + encodeURIComponent(longitude)
+					+ "&goalname=" + encodeURIComponent(placeName);
 				
 				new Native.App({
+					android: {
+						scheme: scheme,
+						package: "com.skt.tmap.ku",
+					},
 					ios: {
 						scheme: scheme,
 						trackId: "431589174",
@@ -333,31 +314,30 @@ const Navigation = {
 					.run();
 				return;
 			case "naver-map":
-				intent = createIntent(
-					scheme = "nmap://"
-						+ (this.method === "car" ? "navigation" : this.method === "transit" ? "route/public" : this.method === "walk" ? "route/walk" : "")
-						+ "?dlat=" + encodeURIComponent(latitude)
-						+ "&dlng=" + encodeURIComponent(longitude)
-						+ "&dname=" + encodeURIComponent(placeName)
-						+ "&appname=" + encodeURIComponent(location.origin),
-					packageName = "com.nhn.android.nmap",
-					fallback = "http://map.naver.com/index.nhn"
-						+ "?elat=" + encodeURIComponent(latitude)
-						+ "&elng=" + encodeURIComponent(longitude)
-						+ "&etext=" + encodeURIComponent(placeName)
-						+ "&menu=" + encodeURIComponent("route")
-						+ "&pathType=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "1" : this.method === "walk" ? "3" : "")
-				);
+				scheme = "nmap://"
+					+ (this.method === "car" ? "navigation" : this.method === "transit" ? "route/public" : this.method === "walk" ? "route/walk" : "")
+					+ "?dlat=" + encodeURIComponent(latitude)
+					+ "&dlng=" + encodeURIComponent(longitude)
+					+ "&dname=" + encodeURIComponent(placeName)
+					+ "&appname=" + encodeURIComponent(location.origin);
 				
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return;
-				}
+				fallback = "http://map.naver.com/index.nhn"
+					+ "?elat=" + encodeURIComponent(latitude)
+					+ "&elng=" + encodeURIComponent(longitude)
+					+ "&etext=" + encodeURIComponent(placeName)
+					+ "&menu=" + encodeURIComponent("route")
+					+ "&pathType=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "1" : this.method === "walk" ? "3" : "");
 				
 				new Native.App({
+					android: {
+						scheme: scheme,
+						package: "com.nhn.android.nmap",
+						fallback: fallback,
+					},
 					ios: {
 						scheme: scheme,
 						trackId: "311867728",
+						fallback: fallback,
 					},
 					windows: {
 						fallback: fallback
@@ -369,24 +349,23 @@ const Navigation = {
 					.run();
 				return;
 			case "kakao-map":
-				intent = createIntent(
-					scheme = "kakaomap://route"
-						+ "?ep=" + encodeURIComponent(latitude + "," + longitude)
-						+ "&by=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "PUBLICTRANSIT" : this.method === "walk" ? "FOOT" : ""),
-					packageName = "net.daum.android.map",
-					fallback = "https://map.kakao.com/link/to/"
-						+ encodeURIComponent(placeName + "," + latitude + "," + longitude)
-				);
+				scheme = "kakaomap://route"
+					+ "?ep=" + encodeURIComponent(latitude + "," + longitude)
+					+ "&by=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "PUBLICTRANSIT" : this.method === "walk" ? "FOOT" : "");
 				
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return;
-				}
+				fallback = "https://map.kakao.com/link/to/"
+					+ encodeURIComponent(placeName + "," + latitude + "," + longitude);
 				
 				new Native.App({
+					android: {
+						scheme: scheme,
+						package: "net.daum.android.map",
+						fallback: fallback,
+					},
 					ios: {
 						scheme: scheme,
 						trackId: "304608425",
+						fallback: fallback,
 					},
 					windows: {
 						fallback: fallback
@@ -408,36 +387,34 @@ const Navigation = {
 			case "google-map":
 				if (Native.OS.name === "Android") {
 					if (this.method === "transit") {
-						location.href = createIntent(
-							"https://maps.google.com/maps"
+						scheme = "https://maps.google.com/maps"
 							+ "?daddr=" + encodeURIComponent(placeName)
-							+ "&directionsmode=" + encodeURIComponent("transit"),
-							"com.google.android.apps.maps"
-						);
+							+ "&directionsmode=" + encodeURIComponent("transit");
 					} else {
-						location.href = createIntent(
-							"google.navigation://maps.google.com/maps"
+						scheme = "google.navigation://maps.google.com/maps"
 							+ "?q=" + encodeURIComponent(placeName)
-							+ "&mode=" + encodeURIComponent(this.method === "car" ? "d" : this.method === "walk" ? "w" : ""),
-							"com.google.android.apps.maps"
-						);
+							+ "&mode=" + encodeURIComponent(this.method === "car" ? "d" : this.method === "walk" ? "w" : "");
 					}
-					
-					return;
+				} else {
+					scheme = "comgooglemaps://"
+						+ "?daddr=" + encodeURIComponent(placeName)
+						+ "&center=" + encodeURIComponent(latitude + "," + longitude)
+						+ "&directionsmode=" + encodeURIComponent(this.method === "car" ? "driving" : this.method === "transit" ? "transit" : this.method === "walk" ? "walking" : "");
 				}
-				
-				scheme = "comgooglemaps://"
-					+ "?daddr=" + encodeURIComponent(placeName)
-					+ "&center=" + encodeURIComponent(latitude + "," + longitude)
-					+ "&directionsmode=" + encodeURIComponent(this.method === "car" ? "driving" : this.method === "transit" ? "transit" : this.method === "walk" ? "walking" : "");
 				
 				fallback = "https://www.google.co.kr/maps/dir//"
 					+ encodeURIComponent(placeAddress + " " + placeName);
 				
 				new Native.App({
+					android: {
+						scheme: scheme,
+						package: "com.google.android.apps.maps",
+						fallback: fallback,
+					},
 					ios: {
 						scheme: scheme,
 						trackId: "585027354",
+						fallback: fallback,
 					},
 					windows: {
 						fallback: fallback
@@ -464,15 +441,12 @@ const Navigation = {
 					.run();
 				return;
 			case "uber-taxi":
-				intent = createIntent(
-					scheme = "uber://"
-						+ "?action=setPickup"
-						+ "&pickup=my_location"
-						+ "&dropoff[latitude]=" + encodeURIComponent(latitude)
-						+ "&dropoff[longitude]=" + encodeURIComponent(longitude)
-						+ "&dropoff[nickname]=" + encodeURIComponent(placeName),
-					packageName = "com.ubercab"
-				);
+				scheme = "uber://"
+					+ "?action=setPickup"
+					+ "&pickup=my_location"
+					+ "&dropoff[latitude]=" + encodeURIComponent(latitude)
+					+ "&dropoff[longitude]=" + encodeURIComponent(longitude)
+					+ "&dropoff[nickname]=" + encodeURIComponent(placeName);
 				
 				fallback = "https://m.uber.com/go/home"
 					+ "?drop%5B0%5D=" + encodeURIComponent(
@@ -485,15 +459,16 @@ const Navigation = {
 						})
 					);
 				
-				if (Native.OS.name === "Android") {
-					location.href = intent;
-					return;
-				}
-				
 				new Native.App({
+					android: {
+						scheme: scheme,
+						package: "com.ubercab",
+						fallback: fallback,
+					},
 					ios: {
 						scheme: scheme,
 						trackId: "431589174",
+						fallback: fallback,
 					},
 					windows: {
 						fallback: fallback

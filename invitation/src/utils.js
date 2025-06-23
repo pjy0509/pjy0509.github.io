@@ -1,3 +1,6 @@
+import {tsParticles} from "https://cdn.jsdelivr.net/npm/@tsparticles/engine@3.1.0/+esm";
+import {loadAll} from "https://cdn.jsdelivr.net/npm/@tsparticles/all@3.1.0/+esm";
+
 const Utils = {
 	init: function () {
 		window.Utils = Utils;
@@ -14,22 +17,11 @@ const Utils = {
 		observeColorScheme();
 		setThemeColor();
 		
-		document.querySelectorAll("[data-aos-propagation]").forEach(aos => {
-			const children = aos.children;
-			const keys = Object.keys(aos.dataset);
-			
-			for (let i = 0; i < children.length; i++) {
-				const child = children.item(i);
-				
-				for (let j = 0; j < keys.length; j++) {
-					const key = keys[j];
-					
-					if (key.startsWith("aos") && key !== "aosPropagation") {
-						child.dataset[keys[j]] = aos.dataset[keys[j]];
-					}
-				}
-			}
-		});
+		// Particle
+		loadParticles();
+		
+		// AOS
+		propagationAOS();
 	},
 	hasFinalConsonant: function (text) {
 		const firstHangul = 44032;
@@ -83,6 +75,167 @@ const Utils = {
 	}
 };
 
+// PARTICLE BEGIN
+async function loadParticles() {
+	await tsParticles.addShape("blurredImage", {
+		init: async (container) => {
+			const imageOptions = container.actualOptions.particles.shape.options?.image || [];
+			
+			container.images = await Promise.all(
+				imageOptions.map(({src}) =>
+					new Promise(resolve => {
+						const img = new Image();
+						
+						img.src = src;
+						img.onload = () => resolve(img);
+					})
+				)
+			);
+		},
+		draw: ({context, particle, radius}) => {
+			const img = particle.container.images[particle.imageIndex];
+			const blur = particle.blur || 0;
+			
+			context.save();
+			context.filter = `blur(${blur}px)`;
+			context.drawImage(img, -radius, -radius, radius * 2, radius * 2);
+			context.restore();
+		},
+		particleInit: (container, particle) => {
+			const blurOpt = container.actualOptions.particles.shape.options?.blur || {min: 0, max: 5};
+			const blurMin = blurOpt.min;
+			const blurMax = blurOpt.max;
+			const blur = Math.floor(Math.random() * (blurMax - blurMin + 1)) + blurMin;
+			
+			particle.imageIndex = Math.floor(Math.random() * container.images.length);
+			particle.blur = blur;
+		}
+	});
+	
+	await loadAll(tsParticles);
+	await tsParticles.load(
+		{
+			id: "tsparticles",
+			options: {
+				detectRetina: true,
+				fpsLimit: 60,
+				fullScreen: {
+					enable: false,
+				},
+				particles: {
+					number: {
+						value: 130,
+						limit: {
+							mode: "delete",
+							value: 0
+						},
+						density: {
+							enable: true,
+							width: 1920,
+							height: 1080
+						}
+					},
+					shape: {
+						type: "blurredImage",
+						options: {
+							image: [
+								{src: "./assets/images/p1.png"},
+								{src: "./assets/images/p2.png"},
+								{src: "./assets/images/p3.png"},
+								// {src: "./assets/images/p4.png"},
+								{src: "./assets/images/p5.png"},
+								{src: "./assets/images/p6.png"},
+								// {src: "./assets/images/p7.png"},
+							],
+							blur: {
+								min: 0,
+								max: 0
+							}
+						},
+					},
+					size: {
+						value: {
+							min: 4,
+							max: 6
+						}
+					},
+					rotate: {
+						value: {
+							min: 180,
+							max: 360
+						},
+						animation: {
+							enable: true,
+							speed: 45,
+							sync: false
+						},
+						direction: "random",
+						path: false
+					},
+					reduceDuplicates: false,
+					opacity: {
+						value: 1
+					},
+					move: {
+						angle: {
+							offset: 0,
+							value: 90
+						},
+						center: {
+							x: 50,
+							y: 50,
+							mode: "percent",
+							radius: 0
+						},
+						direction: "bottom-left",
+						enable: true,
+						size: true,
+						speed: {
+							min: 1,
+							max: 4
+						},
+					},
+					effect: {
+						close: true,
+						fill: true,
+						options: {},
+						type: []
+					},
+				},
+			}
+		}
+	);
+}
+// PARTICLE END
+
+// AOS BEGIN
+function propagationAOS() {
+	document.querySelectorAll("[data-aos-propagation]").forEach(aos => {
+		const children = aos.children;
+		const keys = Object.keys(aos.dataset);
+		
+		for (let i = 0; i < children.length; i++) {
+			const child = children.item(i);
+			
+			for (let j = 0; j < keys.length; j++) {
+				const key = keys[j];
+				
+				if (key.startsWith("aos") && key !== "aosPropagation") {
+					child.dataset[keys[j]] = aos.dataset[keys[j]];
+				}
+			}
+		}
+	});
+}
+// AOS END
+
+// COORDINATE BEGIN
+function degree2Radian(degree) {
+	return degree * (Math.PI / 180);
+}
+// COORDINATE END
+
+// COLOR BEGIN
 function observeColorScheme() {
 	function detectColorScheme() {
 		new Promise(resolve => {
@@ -109,10 +262,6 @@ function observeColorScheme() {
 		window.matchMedia("(prefers-color-scheme: dark)"),
 		"change"
 	);
-}
-
-function degree2Radian(degree) {
-	return degree * (Math.PI / 180);
 }
 
 function setThemeColor() {
@@ -266,7 +415,7 @@ function css(filters) {
 		+ "sepia(" + fmt(filters, 1, 1) + "%) "
 		+ "saturate(" + fmt(filters, 2, 1) + "%) "
 		+ "hue-rotate(" + fmt(filters, 3, 3.6) + "deg) "
-		+ "brightness(" + fmt(filters, 4, 1) + "%) "
+		+ "brightness(" + fmt(filters, 4, 0.9) + "%) "
 		+ "contrast(" + fmt(filters, 5, 1) + "%)"
 }
 
@@ -388,5 +537,6 @@ function parseRgb(hex) {
 		}
 		: null;
 }
+// COLOR END
 
 export default Utils;

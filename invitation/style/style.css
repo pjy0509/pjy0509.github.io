@@ -12,6 +12,24 @@ html {
     -webkit-font-smoothing: antialiased;
     scroll-behavior: auto;
     font-family: Suit, Tossface, sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+[data-draggable] {
+    -webkit-user-select: all;
+    -moz-user-select: all;
+    -ms-user-select: all;
+    user-select: all;
+}
+
+[data-draggable="text"] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 body {
@@ -67,6 +85,13 @@ body {
 
 .item-intro {
     height: 100vh;
+    position: relative;
+}
+
+.item-intro canvas#tsparticles {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .item-intro .background {
@@ -711,7 +736,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: .5rem;
 }
 
 .item-accordion .accordion-content .info-buttons .info-icon-button {
