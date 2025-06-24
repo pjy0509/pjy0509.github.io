@@ -14,9 +14,9 @@ const Navigation = {
 	init: function (fullscreen = false) {
 		window.Navigation = Navigation;
 		
-		const routes = document.querySelector("[data-fullscreen=\"route\"] .item-routes");
+		const routes = document.querySelector(fullscreen ? "[data-fullscreen=\"route\"] .item-routes" : ".item-routes");
 		
-		document.querySelectorAll("[data-map-type]").forEach(el => {
+		document.querySelectorAll(fullscreen ? "[data-fullscreen=\"route\"] [data-map-type]" : "[data-map-type]").forEach(el => {
 			el.onclick = function () {
 				Navigation.open(this.dataset.mapType);
 			}
@@ -48,235 +48,223 @@ const Navigation = {
 			300
 		);
 		
-		if (fullscreen) {
-			const observer = new MutationObserver(mutations => {
-				observer.disconnect();
-				
-				document.querySelectorAll("[data-fullscreen=\"route\"] .cont .section")
-					.forEach((section, i) => {
-						const title = section.querySelector(".title");
+		const observer = new MutationObserver(mutations => {
+			observer.disconnect();
+			
+			document.querySelectorAll(fullscreen ? "[data-fullscreen=\"route\"] .cont .section" : ".cont .section")
+				.forEach((section, i) => {
+					const title = section.querySelector(".title");
+					
+					if (title !== null) {
+						const toggle = document.createElement("div");
+						const id = i.toString();
 						
-						if (title !== null) {
-							const toggle = document.createElement("div");
-							const id = i.toString();
-							
-							toggle.dataset.accordionToggle = id;
-							
-							title.appendChild(toggle);
-							title.style.display = "flex";
-							title.style.justifyContent = "space-between";
-							title.style.alignItems = "center";
-							title.style.flexDirection = "row";
-							title.style.margin = "0";
-							title.dataset.accordionHeader = "";
-							title.dataset.accordionExtra = id;
-							section.dataset.accordion = id;
-							
-							Accordion.init(id);
-						}
-					});
-			});
-			
-			observer.observe(document.querySelector("[data-fullscreen=\"route\"] .item-location"), {childList: true, subtree: true});
-			
-			new daum.roughmap.Lander({
-				timestamp: "1750165976255",
-				key: "3pycungqfsg",
-				mapWidth: "360",
-				mapHeight: "240"
-			})
-				.render();
-			
-			const ul = document.querySelector("[data-selector]");
-			let method = localStorage.getItem("method");
-			
-			if (method === null) method = "car";
-			
-			function onclick() {
-				ul.childNodes.forEach(node => {
-					if (node instanceof HTMLElement) {
-						if (node === this) node.classList.add("selected");
-						else node.classList.remove("selected");
+						toggle.dataset.accordionToggle = id;
+						
+						title.appendChild(toggle);
+						title.style.display = "flex";
+						title.style.justifyContent = "space-between";
+						title.style.alignItems = "center";
+						title.style.flexDirection = "row";
+						title.style.margin = "0";
+						title.dataset.accordionHeader = "";
+						title.dataset.accordionExtra = id;
+						section.dataset.accordion = id;
+						
+						Accordion.init(id);
 					}
 				});
-				
-				const newMethod = this.dataset.value;
-				
-				routes.dataset.method = Navigation.method = newMethod;
-				localStorage.setItem("method", newMethod);
-				
-				Navigation.setRouteEndpoint();
-			}
-			
+		});
+		
+		observer.observe(document.querySelector(fullscreen ? "[data-fullscreen=\"route\"] .item-location" : ".item-location"), {childList: true, subtree: true});
+		
+		new daum.roughmap.Lander({
+			timestamp: fullscreen ? "1750768592006" : "1750165976255",
+			key: fullscreen ? "44xtndib8ms" : "3pycungqfsg",
+			mapWidth: "360",
+			mapHeight: "240"
+		})
+			.render();
+		
+		const ul = document.querySelector(fullscreen ? "[data-fullscreen=\"route\"] [data-selector]" : "[data-selector]");
+		let method = localStorage.getItem("method");
+		
+		if (method === null) method = "car";
+		
+		function onclick() {
 			ul.childNodes.forEach(node => {
 				if (node instanceof HTMLElement) {
-					node.onclick = onclick.bind(node);
-					
-					if (node.dataset.value === method) {
-						node.classList.add("selected");
-						routes.dataset.method = this.method = method;
-					}
+					if (node === this) node.classList.add("selected");
+					else node.classList.remove("selected");
 				}
 			});
 			
-			const parkList = document.querySelector(".park-list");
+			const newMethod = this.dataset.value;
 			
-			this.park()
-				.then(parks => {
-					parks
-						.slice(0, 5)
-						.forEach((park, i) => {
-							const container = document.createElement("div");
-							const title = document.createElement("div");
-							const name = document.createElement("strong");
-							const button = document.createElement("button");
-							const count = document.createElement("div");
-							const time = document.createElement("p");
-							
-							container.classList.add("park-container");
-							title.classList.add("park-title");
-							button.classList.add("park-button");
-							
-							if (i === 0) {
-								button.classList.add("selected");
-								container.dataset.accordionHeader = "";
-							}
-							
-							button.onclick = function () {
-								parkList.querySelectorAll(".park-button").forEach(button => {
-									if (this === button) button.classList.add("selected");
-									else button.classList.remove("selected");
-								});
-								
-								if (i === 0) Navigation.selectedPark = null;
-								else Navigation.selectedPark = park;
-								
-								Navigation.setRouteEndpoint();
-							};
-							
-							title.append(
-								name,
-								button
-							);
-							
-							name.innerText = park.name.replace(/(주차장)|$/, "주차장");
-							count.innerText = "주차 수용 대수: " + park.parkCount;
-							
-							if (park.isLive) {
-								const live = document.createElement("span");
-								
-								live.innerText = "현재 " + (park.parkCount - park.liveCount) + "대 주차가능";
-								
-								count.append(live);
-							}
-							
-							container.append(
-								title,
-								count
-							);
-							
-							if (park.baseTime !== 0) {
-								const base = document.createElement("div");
-								
-								if (park.basePrice > 0) {
-									base.innerText = "기본: " + park.baseTime + "분 " + park.basePrice.toLocaleString('ko-KR') + "원";
-								} else {
-									base.innerText = "무료: " + park.baseTime + "분";
-								}
-								
-								container.append(base);
-							}
-							
-							if (park.addTime !== 0) {
-								const add = document.createElement("div");
-								
-								add.innerText = "유료: " + park.addTime + "분당 " + park.addPrice.toLocaleString('ko-KR') + "원";
-								
-								container.append(add);
-							}
-							
-							if (park.address !== undefined) {
-								const address = document.createElement("p");
-								
-								address.innerText = "주소: " + park.address;
-								
-								container.append(address);
-							}
-							
-							if (park.distance !== undefined) {
-								const distance = document.createElement("p");
-								
-								if (park.distance > 1000) {
-									distance.innerText = "거리: " + (park.distance / 1000).toFixed(3) + "km";
-								} else {
-									distance.innerText = "거리: " + (park.distance).toFixed(0) + "m";
-								}
-								
-								container.append(distance);
-							}
-							
-							if (park.beginHour !== undefined && park.beginMinute !== undefined && park.endHour !== undefined && park.endMinute !== undefined) {
-								time.innerText = "운영 시간: ";
-								
-								if (park.beginHour === 0 && park.beginMinute === 0 && park.endHour === 0 && park.endMinute === 0) {
-									time.innerText += "하루 종일";
-								} else {
-									if (park.beginHour >= 12) {
-										time.innerText += "오후 " + (park.beginHour - 12);
-									} else {
-										time.innerText += "오전 " + park.beginHour;
-									}
-									
-									time.innerText += "시 ";
-									
-									if (park.beginMinute !== 0) {
-										time.innerText += park.beginMinute + "분 ";
-									}
-									
-									time.innerText += "~ ";
-									
-									if (park.endHour >= 12) {
-										time.innerText += "오후 " + (park.endHour - 12);
-									} else {
-										time.innerText += "오전 " + park.endHour;
-									}
-									
-									time.innerText += "시 ";
-									
-									if (park.endMinute !== 0) {
-										time.innerText += park.endMinute + "분 ";
-									}
-								}
-								
-								container.append(time);
-							}
-							
-							if (park.description !== undefined) {
-								const description = document.createElement("p");
-								
-								description.innerText = park.description;
-								
-								container.append(description);
-							}
-							
-							parkList.append(container);
-						});
-					
-					Accordion.init("park");
-				});
+			routes.dataset.method = Navigation.method = newMethod;
+			localStorage.setItem("method", newMethod);
 			
-			Navigation.setRouteEndpoint();
-		} else {
-			this.method = "car";
-			
-			new daum.roughmap.Lander({
-				timestamp: "1750215057190",
-				key: "3r29hec3887",
-				mapWidth: "360",
-				mapHeight: "240"
-			})
-				.render();
+			Navigation.setRouteEndpoint(fullscreen);
 		}
+		
+		ul.childNodes.forEach(node => {
+			if (node instanceof HTMLElement) {
+				node.onclick = onclick.bind(node);
+				
+				if (node.dataset.value === method) {
+					node.classList.add("selected");
+					routes.dataset.method = this.method = method;
+				}
+			}
+		});
+		
+		const parkList = document.querySelector(fullscreen ? "[data-fullscreen=\"route\"] .park-list" : ".park-list");
+		
+		this.park()
+			.then(parks => {
+				parks
+					.slice(0, 5)
+					.forEach((park, i) => {
+						const container = document.createElement("div");
+						const title = document.createElement("div");
+						const name = document.createElement("strong");
+						const button = document.createElement("button");
+						const count = document.createElement("div");
+						const time = document.createElement("p");
+						
+						container.classList.add("park-container");
+						title.classList.add("park-title");
+						button.classList.add("park-button");
+						
+						if (i === 0) {
+							button.classList.add("selected");
+							container.dataset.accordionHeader = "";
+						}
+						
+						button.onclick = function () {
+							parkList.querySelectorAll(fullscreen ? "[data-fullscreen=\"route\"] .park-button" : ".park-button").forEach(button => {
+								if (this === button) button.classList.add("selected");
+								else button.classList.remove("selected");
+							});
+							
+							if (i === 0) Navigation.selectedPark = null;
+							else Navigation.selectedPark = park;
+							
+							Navigation.setRouteEndpoint(fullscreen);
+						};
+						
+						title.append(
+							name,
+							button
+						);
+						
+						name.innerText = park.name.replace(/(주차장)|$/, "주차장");
+						count.innerText = "주차 수용 대수: " + park.parkCount;
+						
+						if (park.isLive) {
+							const live = document.createElement("span");
+							
+							live.innerText = "현재 " + (park.parkCount - park.liveCount) + "대 주차가능";
+							
+							count.append(live);
+						}
+						
+						container.append(
+							title,
+							count
+						);
+						
+						if (park.baseTime !== 0) {
+							const base = document.createElement("div");
+							
+							if (park.basePrice > 0) {
+								base.innerText = "기본: " + park.baseTime + "분 " + park.basePrice.toLocaleString('ko-KR') + "원";
+							} else {
+								base.innerText = "무료: " + park.baseTime + "분";
+							}
+							
+							container.append(base);
+						}
+						
+						if (park.addTime !== 0) {
+							const add = document.createElement("div");
+							
+							add.innerText = "유료: " + park.addTime + "분당 " + park.addPrice.toLocaleString('ko-KR') + "원";
+							
+							container.append(add);
+						}
+						
+						if (park.address !== undefined) {
+							const address = document.createElement("p");
+							
+							address.innerText = "주소: " + park.address;
+							
+							container.append(address);
+						}
+						
+						if (park.distance !== undefined) {
+							const distance = document.createElement("p");
+							
+							if (park.distance > 1000) {
+								distance.innerText = "거리: " + (park.distance / 1000).toFixed(3) + "km";
+							} else {
+								distance.innerText = "거리: " + (park.distance).toFixed(0) + "m";
+							}
+							
+							container.append(distance);
+						}
+						
+						if (park.beginHour !== undefined && park.beginMinute !== undefined && park.endHour !== undefined && park.endMinute !== undefined) {
+							time.innerText = "운영 시간: ";
+							
+							if (park.beginHour === 0 && park.beginMinute === 0 && park.endHour === 0 && park.endMinute === 0) {
+								time.innerText += "하루 종일";
+							} else {
+								if (park.beginHour >= 12) {
+									time.innerText += "오후 " + (park.beginHour - 12);
+								} else {
+									time.innerText += "오전 " + park.beginHour;
+								}
+								
+								time.innerText += "시 ";
+								
+								if (park.beginMinute !== 0) {
+									time.innerText += park.beginMinute + "분 ";
+								}
+								
+								time.innerText += "~ ";
+								
+								if (park.endHour >= 12) {
+									time.innerText += "오후 " + (park.endHour - 12);
+								} else {
+									time.innerText += "오전 " + park.endHour;
+								}
+								
+								time.innerText += "시 ";
+								
+								if (park.endMinute !== 0) {
+									time.innerText += park.endMinute + "분 ";
+								}
+							}
+							
+							container.append(time);
+						}
+						
+						if (park.description !== undefined) {
+							const description = document.createElement("p");
+							
+							description.innerText = park.description;
+							
+							container.append(description);
+						}
+						
+						parkList.append(container);
+					});
+				
+				Accordion.init(fullscreen ? "fullscreen-park" : "park");
+			});
+		
+		Navigation.setRouteEndpoint(fullscreen);
 	},
 	open: function (type) {
 		let scheme,
@@ -345,7 +333,7 @@ const Navigation = {
 					
 					const id = setTimeout(() => {
 						if (document.visibilityState === "visible") {
-							location.href = fallback;
+							location.href = "itms-apps://itunes.apple.com/app/id" + "311867728";
 						}
 					}, 500);
 					
@@ -356,12 +344,10 @@ const Navigation = {
 					android: {
 						scheme: scheme,
 						package: "com.nhn.android.nmap",
-						fallback: fallback,
 					},
 					ios: {
 						scheme: scheme,
 						trackId: "311867728",
-						fallback: fallback,
 					},
 					windows: {
 						fallback: fallback
@@ -385,7 +371,7 @@ const Navigation = {
 					
 					const id = setTimeout(() => {
 						if (document.visibilityState === "visible") {
-							location.href = fallback;
+							location.href = "itms-apps://itunes.apple.com/app/id" + "304608425";
 						}
 					}, 500);
 					
@@ -396,12 +382,10 @@ const Navigation = {
 					android: {
 						scheme: scheme,
 						package: "net.daum.android.map",
-						fallback: fallback,
 					},
 					ios: {
 						scheme: scheme,
 						trackId: "304608425",
-						fallback: fallback,
 					},
 					windows: {
 						fallback: fallback
@@ -446,7 +430,7 @@ const Navigation = {
 					
 					const id = setTimeout(() => {
 						if (document.visibilityState === "visible") {
-							location.href = fallback;
+							location.href = "itms-apps://itunes.apple.com/app/id" + "585027354";
 						}
 					}, 500);
 					
@@ -457,12 +441,10 @@ const Navigation = {
 					android: {
 						scheme: scheme,
 						package: "com.google.android.apps.maps",
-						fallback: fallback,
 					},
 					ios: {
 						scheme: scheme,
 						trackId: "585027354",
-						fallback: fallback,
 					},
 					windows: {
 						fallback: fallback
@@ -512,7 +494,7 @@ const Navigation = {
 					
 					const id = setTimeout(() => {
 						if (document.visibilityState === "visible") {
-							location.href = fallback;
+							location.href = "itms-apps://itunes.apple.com/app/id" + "431589174";
 						}
 					}, 500);
 					
@@ -523,12 +505,10 @@ const Navigation = {
 					android: {
 						scheme: scheme,
 						package: "com.ubercab",
-						fallback: fallback,
 					},
 					ios: {
 						scheme: scheme,
 						trackId: "431589174",
-						fallback: fallback,
 					},
 					windows: {
 						fallback: fallback
@@ -539,9 +519,6 @@ const Navigation = {
 				})
 					.run();
 		}
-	},
-	fullscreen: function () {
-		location.href = location.origin + location.pathname + "?mode=route";
 	},
 	park: async function () {
 		async function getDayType() {
@@ -701,9 +678,9 @@ const Navigation = {
 		
 		return parks;
 	},
-	setRouteEndpoint: function () {
-		const name = document.querySelector("[data-route-endpoint-name]");
-		const postposition = document.querySelector("[data-route-endpoint-postposition]");
+	setRouteEndpoint: function (fullscreen) {
+		const name = document.querySelector(fullscreen ? "[data-fullscreen=\"route\"] [data-route-endpoint-name]" : "[data-route-endpoint-name]");
+		const postposition = document.querySelector(fullscreen ? "[data-fullscreen=\"route\"] [data-route-endpoint-postposition]" : "[data-route-endpoint-postposition]");
 		
 		let endpoint;
 		

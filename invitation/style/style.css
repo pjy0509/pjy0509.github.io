@@ -481,7 +481,7 @@ body {
 }
 
 .item-location .map .wrap_map {
-    pointer-events: none !important;
+    /*pointer-events: none !important;*/
 }
 
 [data-fullscreen="route"] .item-location .map .wrap_map {
@@ -504,7 +504,7 @@ body {
 /* Kakao Map Custom END */
 
 .item-park {
-    margin: 0 32px;
+    margin: -0.5rem 32px 0 32px;
     padding: 20px 0 0;
     border-top: 1px solid #f2f2f2;
     display: flex;

@@ -19,9 +19,6 @@ const Utils = {
 		
 		// Particle
 		loadParticles();
-		
-		// AOS
-		propagationAOS();
 	},
 	runOnceAndEventTrigger: function (fn, eventTarget, type, interval) {
 		fn();
@@ -185,28 +182,6 @@ async function loadParticles() {
 }
 
 // PARTICLE END
-
-// AOS BEGIN
-function propagationAOS() {
-	// document.querySelectorAll("[data-aos-propagation]").forEach(aos => {
-	// 	const children = aos.children;
-	// 	const keys = Object.keys(aos.dataset);
-	//
-	// 	for (let i = 0; i < children.length; i++) {
-	// 		const child = children.item(i);
-	//
-	// 		for (let j = 0; j < keys.length; j++) {
-	// 			const key = keys[j];
-	//
-	// 			if (key.startsWith("aos") && key !== "aosPropagation") {
-	// 				child.dataset[keys[j]] = aos.dataset[keys[j]];
-	// 			}
-	// 		}
-	// 	}
-	// });
-}
-
-// AOS END
 
 // COLOR BEGIN
 function observeColorScheme() {

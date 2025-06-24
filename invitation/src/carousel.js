@@ -81,6 +81,12 @@ const Carousel = {
 			openPromise: function () {
 				return new Promise(resolve => {
 					if (!fullscreenAPI || fullscreenAPI.isFullscreen()) {
+						const y = scrollY;
+						document.documentElement.style.overflow = "hidden";
+						document.documentElement.style.position = "fixed";
+						document.documentElement.style.top = y + "px";
+						document.documentElement.style.left = "0";
+						
 						return resolve();
 					}
 					
@@ -114,11 +120,12 @@ const Carousel = {
 			pswpModule: () => import("https://unpkg.com/photoswipe"),
 		});
 		
-		Carousel.photoBox.on('uiRegister', () => {
-			console.log(Carousel.photoBox.pswp.options.dataSource)
-		});
-		
 		Carousel.photoBox.on('close', () => {
+			document.documentElement.style.overflowY = "unset";
+			document.documentElement.style.position = "unset";
+			document.documentElement.style.top = "unset";
+			document.documentElement.style.left = "unset";
+			
 			photoBoxContainer.style.display = 'none';
 			
 			if (fullscreenAPI && fullscreenAPI.isFullscreen()) {

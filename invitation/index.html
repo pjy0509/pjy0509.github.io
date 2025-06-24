@@ -1,7 +1,9 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+    <meta name="viewport" content="minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Script-Type" content="text/javascript">
@@ -237,21 +239,50 @@
                 <span data-place-address></span>
             </div>
 
-            <div class="padding rem1"></div>
-
-            <div class="item-description">
-                지도를 클릭하시면 상세 화면 보기가 가능합니다.
-            </div>
-
             <div class="padding rem2"></div>
 
-            <div class="item-location" onclick="Navigation.fullscreen()">
-                <div id="daumRoughmapContainer1750215057190" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
+            <div class="item-location">
+                <div id="daumRoughmapContainer1750165976255" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
+            </div>
+
+            <div class="item-park">
+                <div class="park-header" data-accordion-extra="park">
+                    <strong>주변 주차장</strong>
+                    <div data-accordion-toggle="park"></div>
+                </div>
+                <div class="park-list" data-accordion="park"></div>
             </div>
 
             <div class="padding rem1"></div>
 
-            <div class="item-routes">
+            <ul data-selector>
+                <li data-value="car">
+                    차
+                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#444444">
+                        <use href="#car"></use>
+                    </svg>
+                </li>
+                <li data-value="transit">
+                    대중교통
+                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#444444">
+                        <use href="#transit"></use>
+                    </svg>
+                </li>
+                <li data-value="walk">
+                    도보
+                    <svg width="64px" height="64px" viewBox="-97 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#444444">
+                        <use href="#walk"></use>
+                    </svg>
+                </li>
+            </ul>
+
+            <div class="padding rem1"></div>
+
+            <div class="item-description2">
+                <strong><span data-route-endpoint-name></span></strong><span data-route-endpoint-postposition></span> 안내 중
+            </div>
+
+            <div class="item-routes" data-method="car">
                 <div class="button-grid">
                     <button class="button" data-map-type="naver-map">
                         <img src="assets/images/icon_naver_map.png" alt=""/>
@@ -279,6 +310,8 @@
                     </button>
                 </div>
             </div>
+
+            <div class="padding rem2"></div>
         </div>
 
         <div
@@ -533,15 +566,15 @@
     <div class="padding rem2"></div>
 
     <div class="item-location">
-        <div id="daumRoughmapContainer1750165976255" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
+        <div id="daumRoughmapContainer1750768592006" class="root_daum_roughmap root_daum_roughmap_landing map"></div>
     </div>
 
     <div class="item-park">
-        <div class="park-header" data-accordion-extra="park">
+        <div class="park-header" data-accordion-extra="fullscreen-park">
             <strong>주변 주차장</strong>
-            <div data-accordion-toggle="park"></div>
+            <div data-accordion-toggle="fullscreen-park"></div>
         </div>
-        <div class="park-list" data-accordion="park"></div>
+        <div class="park-list" data-accordion="fullscreen-park"></div>
     </div>
 
     <div class="padding rem1"></div>
@@ -658,7 +691,6 @@
 	Utils.init();
 	AOS.init();
 	Constant.init();
-	Navigation.init();
 	KakaoTalk.init();
 	Loader.init();
 	Accordion.init();
@@ -696,6 +728,7 @@
 		window.onload = function () {
 			Utils.syncScrollY();
 
+			Navigation.init();
 			Calendar.init();
 			Carousel.init();
 		};
