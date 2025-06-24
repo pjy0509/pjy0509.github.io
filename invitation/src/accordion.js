@@ -15,7 +15,7 @@ const Accordion = {
 				const header = accordion.querySelector("[data-accordion-header]");
 				
 				if (header !== null) {
-					const collapseHeight = Utils.getOuterHeight(header);
+					const collapseHeight = getOuterHeight(header);
 					
 					accordion.classList.add("no-transition");
 					accordion.style.maxHeight = collapseHeight + "px";
@@ -28,7 +28,7 @@ const Accordion = {
 				let maxHeight = 0;
 				
 				for (let i = 0; i < children.length; i++) {
-					maxHeight += Utils.getOuterHeight(children.item(i));
+					maxHeight += getOuterHeight(children.item(i));
 				}
 				
 				accordion.dataset.accordionExpandHeight = maxHeight.toString();
@@ -57,5 +57,13 @@ const Accordion = {
 		})
 	},
 };
+
+function getOuterHeight(element) {
+	const style = window.getComputedStyle(element);
+	
+	return element.clientHeight
+		+ +style.marginTop.replace(/px$/, "")
+		+ +style.marginBottom.replace(/px$/, "");
+}
 
 export default Accordion;

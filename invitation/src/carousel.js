@@ -1,93 +1,200 @@
+import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.js';
+import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';
+
 const Carousel = {
-	init: function (fullscreen = false) {
+	photoBox: null,
+	swiper: null,
+	init: async function (fullscreen = false) {
 		window.Carousel = Carousel;
 		
-		const glide = document.querySelector("[data-glide]");
-		let track = glide.querySelector("[data-glide-el=\"track\"]");
+		const images = [
+			"assets/images/i1.jpeg",
+			"assets/images/i2.jpeg",
+			"assets/images/i3.jpeg",
+			"assets/images/i4.jpeg",
+			"assets/images/i5.jpg",
+		];
 		
-		if (fullscreen) {
-			track.onclick = undefined;
-			document.querySelector("[data-fullscreen=\"carousel\"]").append(glide);
+		const imagePromises = images.map(getImageSize);
+		const resolvedImages = await Promise.all(imagePromises);
+		
+		const swiperSelector = "[data-swiper]";
+		const swiperElement = document.querySelector(swiperSelector);
+		const swiperContainer = document.createElement("div");
+		const swiperTotalElement = document.querySelector("[data-swiper-total]");
+		const swiperCurrentElement = document.querySelector("[data-swiper-current]");
+		const swiperPrevElement = document.querySelector("[data-swiper-prev]");
+		const swiperNextElement = document.querySelector("[data-swiper-next]");
+		const length = images.length;
+		
+		swiperContainer.classList.add("swiper-wrapper");
+		
+		for (let i = 0; i < length; i++) {
+			const img = document.createElement("img");
+			
+			img.src = images[i];
+			img.classList.add("swiper-slide");
+			
+			swiperContainer.append(img);
 		}
 		
-		const carousel = new Glide(".item-carousel", {
-			type: "carousel",
-			perView: 1,
-			gap: 16,
-			autoplay: 0,
-			hoverpause: true,
-			animationDuration: 200,
-		})
-			.mount();
+		swiperElement.append(swiperContainer);
+		swiperTotalElement.textContent = length.toString();
 		
-		const current = document.getElementById("carousel-current");
-		const total = document.getElementById("carousel-total");
-		
-		total.textContent = carousel._c.Html.slides.length.toString();
-		current.textContent = (carousel.index + 1).toString();
-		
-		carousel.on("move", function () {
-			current.textContent = (carousel.index + 1).toString();
+		Carousel.swiper = new Swiper("[data-swiper]", {
+			loop: true,
 		});
 		
-		if (fullscreen) {
-			let images;
-			
-			track = document.querySelector("[data-glide] [data-glide-el=\"track\"]");
-			
-			carousel.on("move.after", function () {
-				images = track.querySelectorAll("[data-image-index=\"" + carousel.index + "\"]");
-			});
-			
-			EventManager.on(glide, ['touchpinchmove'], e => {
-				const dp = e.paths.slice(-2);
-				
-				if (dp.length < 2) return;
-				
-				const dd = dp.reduce((curr, prev) => curr.distance - prev.distance);
-				const dx = dp.reduce((curr, prev) => curr.center.x - prev.center.x);
-				const dy = dp.reduce((curr, prev) => curr.center.y - prev.center.y);
-				
-				images.forEach(image => {
-					const scale = image.style.scale;
-					const transform = image.style.transform;
-					const px = transform.indexOf("px");
-					const py = transform.lastIndexOf("px");
-					
-					image.style.scale = Math.max(0.33, Math.min(3, scale - dd / 125)).toString();
-					image.style.transform = "translate(" + (Number(transform.substring(10, px)) - dx * 1.25) + "px, " + (Number(transform.substring(px + 3, py)) - dy * 1.25) + "px)"
-				});
-			});
-			
-			EventManager.on(glide, ['touchpinchstart'], () => {
-				carousel.disable();
-			});
-			
-			EventManager.on(glide, ['touchpinchend'], () => {
-				images.forEach(image => {
-					image.style.scale = "1";
-					image.style.transform = "translate(0px, 0px)";
-				});
-				
-				carousel.enable();
-				carousel.update({animationDuration: 0});
-				carousel.go("=" + carousel.index);
-				carousel.update({animationDuration: 200});
-				setTimeout(() => {
-					carousel.enable();
-					carousel.update({animationDuration: 0});
-					carousel.go("=" + carousel.index);
-					carousel.update({animationDuration: 200});
-				});
-			});
-			
+		swiperCurrentElement.textContent = (Carousel.swiper.realIndex + 1).toString();
+		
+		Carousel.swiper.on("slideChange", () => {
+			swiperCurrentElement.textContent = (Carousel.swiper.realIndex + 1).toString();
+		});
+		
+		swiperPrevElement.onclick = function () {
+			Carousel.swiper.slidePrev();
 		}
 		
-		return carousel;
+		swiperNextElement.onclick = function () {
+			Carousel.swiper.slideNext();
+		}
+		
+		function getContainer() {
+			const container = document.createElement("div");
+			
+			container.style.background = "rgb(0 0 0)";
+			container.style.width = "100%";
+			container.style.height = "100%";
+			container.style.display = "none";
+			
+			document.body.appendChild(container);
+			
+			return container;
+		}
+		
+		const photoBoxContainer = getContainer();
+		const fullscreenAPI = getFullscreenAPI();
+		
+		Carousel.photoBox = new PhotoSwipeLightbox({
+			dataSource: resolvedImages,
+			showHideAnimationType: "fade",
+			openPromise: function () {
+				return new Promise(resolve => {
+					if (!fullscreenAPI || fullscreenAPI.isFullscreen()) {
+						return resolve();
+					}
+					
+					document.addEventListener(fullscreenAPI.change, function onFullscreenChange() {
+						if (fullscreenAPI.isFullscreen()) {
+							photoBoxContainer.style.display = 'block';
+							
+							setTimeout(resolve, 300);
+						} else {
+							if (screen.orientation && screen.orientation.unlock) {
+								screen.orientation.unlock();
+							}
+							
+							document.removeEventListener(fullscreenAPI.change, onFullscreenChange);
+							Carousel.photoBox.pswp.close();
+						}
+					});
+					
+					if (screen.orientation && screen.orientation.lock) {
+						screen.orientation.lock("portrait");
+					}
+					
+					fullscreenAPI.request(photoBoxContainer);
+				});
+			},
+			...(fullscreenAPI ? {appendToEl: photoBoxContainer} : {}),
+			bgOpacity: 0.75,
+			showAnimationDuration: 0,
+			hideAnimationDuration: 0,
+			preloadFirstSlide: false,
+			pswpModule: () => import("https://unpkg.com/photoswipe"),
+		});
+		
+		Carousel.photoBox.on('uiRegister', () => {
+			console.log(Carousel.photoBox.pswp.options.dataSource)
+		});
+		
+		Carousel.photoBox.on('close', () => {
+			photoBoxContainer.style.display = 'none';
+			
+			if (fullscreenAPI && fullscreenAPI.isFullscreen()) {
+				fullscreenAPI.exit();
+			}
+		});
+		
+		Carousel.photoBox.on('change', () => {
+			Carousel.swiper.slideTo(Carousel.photoBox.pswp.currSlide.index);
+		});
+		
+		Carousel.photoBox.init();
 	},
 	fullscreen: function () {
-		location.href = location.origin + location.pathname + "?mode=carousel";
+		Carousel.photoBox.loadAndOpen(Carousel.swiper.realIndex);
 	}
 };
+
+function getFullscreenAPI() {
+	let api;
+	let enterFS;
+	let exitFS;
+	let elementFS;
+	let changeEvent;
+	let errorEvent;
+	
+	if (document.documentElement.requestFullscreen) {
+		enterFS = 'requestFullscreen';
+		exitFS = 'exitFullscreen';
+		elementFS = 'fullscreenElement';
+		changeEvent = 'fullscreenchange';
+		errorEvent = 'fullscreenerror';
+	} else if (document.documentElement.webkitRequestFullscreen) {
+		enterFS = 'webkitRequestFullscreen';
+		exitFS = 'webkitExitFullscreen';
+		elementFS = 'webkitFullscreenElement';
+		changeEvent = 'webkitfullscreenchange';
+		errorEvent = 'webkitfullscreenerror';
+	}
+	
+	if (enterFS) {
+		api = {
+			request: function (el) {
+				if (enterFS === 'webkitRequestFullscreen') {
+					el[enterFS](Element.ALLOW_KEYBOARD_INPUT);
+				} else {
+					el[enterFS]();
+				}
+			},
+			
+			exit: function () {
+				return document[exitFS]();
+			},
+			
+			isFullscreen: function () {
+				return document[elementFS];
+			},
+			
+			change: changeEvent,
+			error: errorEvent
+		};
+	}
+	
+	return api;
+}
+
+async function getImageSize(src) {
+	return new Promise(resolve => {
+		const img = new Image();
+		img.onload = () => resolve({
+			src,
+			width: img.naturalWidth,
+			height: img.naturalHeight
+		});
+		img.src = src;
+	});
+}
 
 export default Carousel;

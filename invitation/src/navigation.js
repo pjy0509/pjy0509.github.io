@@ -301,6 +301,18 @@ const Navigation = {
 					+ "&goalx=" + encodeURIComponent(longitude)
 					+ "&goalname=" + encodeURIComponent(placeName);
 				
+				if (Native.OS.name === "iOS" && document.body.dataset.wv === "kakao") {
+					location.href = scheme;
+					
+					const id = setTimeout(() => {
+						if (document.visibilityState === "visible") {
+							location.href = "itms-apps://itunes.apple.com/app/id" + "431589174";
+						}
+					}, 500);
+					
+					return;
+				}
+				
 				new Native.App({
 					android: {
 						scheme: scheme,
@@ -327,6 +339,18 @@ const Navigation = {
 					+ "&etext=" + encodeURIComponent(placeName)
 					+ "&menu=" + encodeURIComponent("route")
 					+ "&pathType=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "1" : this.method === "walk" ? "3" : "");
+				
+				if (Native.OS.name === "iOS" && document.body.dataset.wv === "kakao") {
+					location.href = scheme;
+					
+					const id = setTimeout(() => {
+						if (document.visibilityState === "visible") {
+							location.href = fallback;
+						}
+					}, 500);
+					
+					return;
+				}
 				
 				new Native.App({
 					android: {
@@ -355,6 +379,18 @@ const Navigation = {
 				
 				fallback = "https://map.kakao.com/link/to/"
 					+ encodeURIComponent(placeName + "," + latitude + "," + longitude);
+				
+				if (Native.OS.name === "iOS" && document.body.dataset.wv === "kakao") {
+					location.href = scheme;
+					
+					const id = setTimeout(() => {
+						if (document.visibilityState === "visible") {
+							location.href = fallback;
+						}
+					}, 500);
+					
+					return;
+				}
 				
 				new Native.App({
 					android: {
@@ -404,6 +440,18 @@ const Navigation = {
 				
 				fallback = "https://www.google.co.kr/maps/dir//"
 					+ encodeURIComponent(placeAddress + " " + placeName);
+				
+				if (Native.OS.name === "iOS" && document.body.dataset.wv === "kakao") {
+					location.href = scheme;
+					
+					const id = setTimeout(() => {
+						if (document.visibilityState === "visible") {
+							location.href = fallback;
+						}
+					}, 500);
+					
+					return;
+				}
 				
 				new Native.App({
 					android: {
@@ -458,6 +506,18 @@ const Navigation = {
 							provider: "tmap_places"
 						})
 					);
+				
+				if (Native.OS.name === "iOS" && document.body.dataset.wv === "kakao") {
+					location.href = scheme;
+					
+					const id = setTimeout(() => {
+						if (document.visibilityState === "visible") {
+							location.href = fallback;
+						}
+					}, 500);
+					
+					return;
+				}
 				
 				new Native.App({
 					android: {
@@ -613,7 +673,7 @@ const Navigation = {
 									longitude: park.LOT,
 									isFree: isFree === "N",
 									isLive: isLive,
-									distance: Utils.getDistance(Constant.LATITUDE, Constant.LONGITUDE, latitude, longitude),
+									distance: getDistance(Constant.LATITUDE, Constant.LONGITUDE, latitude, longitude),
 									beginHour: Math.floor(parkBeginHM / 100),
 									beginMinute: parkBeginHM % 100,
 									endHour: Math.floor(parkEndHM / 100) % 24,
@@ -658,8 +718,30 @@ const Navigation = {
 		}
 		
 		name.textContent = endpoint;
-		postposition.textContent = Utils.hasFinalConsonant(endpoint) ? "로" : "으로";
+		postposition.textContent = hasFinalConsonant(endpoint) ? "로" : "으로";
 	}
 };
+
+function degree2Radian(degree) {
+	return degree * (Math.PI / 180);
+}
+
+function getDistance(latitude1, longitude1, latitude2, longitude2) {
+	const dLat = degree2Radian(latitude2 - latitude1),
+		dLon = degree2Radian(longitude2 - longitude1),
+		a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(degree2Radian(latitude1)) * Math.cos(degree2Radian(latitude2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+	
+	return 6.371e6 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function hasFinalConsonant(text) {
+	const firstHangul = 44032;
+	const lastHangul = 55203;
+	
+	const lastStrCode = text.charCodeAt(text.length - 1);
+	
+	if (lastStrCode < firstHangul || lastStrCode > lastHangul) return false;
+	return (lastStrCode - firstHangul) % 28 === 0;
+}
 
 export default Navigation;

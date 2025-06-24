@@ -23,15 +23,6 @@ const Utils = {
 		// AOS
 		propagationAOS();
 	},
-	hasFinalConsonant: function (text) {
-		const firstHangul = 44032;
-		const lastHangul = 55203;
-		
-		const lastStrCode = text.charCodeAt(text.length - 1);
-		
-		if (lastStrCode < firstHangul || lastStrCode > lastHangul) return false;
-		return (lastStrCode - firstHangul) % 28 === 0;
-	},
 	runOnceAndEventTrigger: function (fn, eventTarget, type, interval) {
 		fn();
 		
@@ -59,20 +50,6 @@ const Utils = {
 		if (!isNaN(y)) window.scrollY = y;
 		if (removeHash) history.pushState({}, "", "#");
 	},
-	getDistance: function (latitude1, longitude1, latitude2, longitude2) {
-		const dLat = degree2Radian(latitude2 - latitude1),
-			dLon = degree2Radian(longitude2 - longitude1),
-			a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(degree2Radian(latitude1)) * Math.cos(degree2Radian(latitude2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-		
-		return 6.371e6 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-	},
-	getOuterHeight: function (element) {
-		const style = window.getComputedStyle(element);
-		
-		return element.clientHeight
-			+ +style.marginTop.replace(/px$/, "")
-			+ +style.marginBottom.replace(/px$/, "");
-	}
 };
 
 // PARTICLE BEGIN
@@ -109,7 +86,7 @@ async function loadParticles() {
 			
 			particle.imageIndex = Math.floor(Math.random() * container.images.length);
 			particle.blur = blur;
-		}
+		},
 	});
 	
 	await loadAll(tsParticles);
@@ -206,34 +183,30 @@ async function loadParticles() {
 		}
 	);
 }
+
 // PARTICLE END
 
 // AOS BEGIN
 function propagationAOS() {
-	document.querySelectorAll("[data-aos-propagation]").forEach(aos => {
-		const children = aos.children;
-		const keys = Object.keys(aos.dataset);
-		
-		for (let i = 0; i < children.length; i++) {
-			const child = children.item(i);
-			
-			for (let j = 0; j < keys.length; j++) {
-				const key = keys[j];
-				
-				if (key.startsWith("aos") && key !== "aosPropagation") {
-					child.dataset[keys[j]] = aos.dataset[keys[j]];
-				}
-			}
-		}
-	});
+	// document.querySelectorAll("[data-aos-propagation]").forEach(aos => {
+	// 	const children = aos.children;
+	// 	const keys = Object.keys(aos.dataset);
+	//
+	// 	for (let i = 0; i < children.length; i++) {
+	// 		const child = children.item(i);
+	//
+	// 		for (let j = 0; j < keys.length; j++) {
+	// 			const key = keys[j];
+	//
+	// 			if (key.startsWith("aos") && key !== "aosPropagation") {
+	// 				child.dataset[keys[j]] = aos.dataset[keys[j]];
+	// 			}
+	// 		}
+	// 	}
+	// });
 }
-// AOS END
 
-// COORDINATE BEGIN
-function degree2Radian(degree) {
-	return degree * (Math.PI / 180);
-}
-// COORDINATE END
+// AOS END
 
 // COLOR BEGIN
 function observeColorScheme() {
@@ -537,6 +510,7 @@ function parseRgb(hex) {
 		}
 		: null;
 }
+
 // COLOR END
 
 export default Utils;

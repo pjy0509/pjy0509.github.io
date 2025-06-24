@@ -1,11 +1,23 @@
 @import "font.css";
 
-:root[data-color-scheme="dark"] {
-    --white-1: rgb(0, 0, 0);
+:root[data-color-scheme="light"] {
+    --primary-1: rgb(243 236 243); /* 300°, 23%, 94% */
+    --primary-2: rgb(231 218 231); /* 300°, 21%, 88% */
+    --primary-3: rgb(220 203 220); /* 300°, 20%, 83% */
+    --primary-4: rgb(190 157 190); /* 300°, 20%, 68% */
+    --primary-5: rgb(177 137 177); /* 300°, 20%, 62% */
+
+    --red: rgb(248 113 113);
 }
 
-:root[data-color-scheme="light"] {
-    --white-1: rgb(255, 255, 255);
+:root[data-color-scheme="dark"] {
+    --primary-1: rgb(19 12 19); /* 300°, 23%, 6% */
+    --primary-2: rgb(37 24 37); /* 300°, 21%, 12% */
+    --primary-3: rgb(52 35 52); /* 300°, 20%, 17% */
+    --primary-4: rgb(98 65 98); /* 300°, 20%, 32% */
+    --primary-5: rgb(116 78 116); /* 300°, 20%, 38% */
+
+    --red: rgb(234 83 85);
 }
 
 html {
@@ -721,30 +733,39 @@ body {
     font-size: .75rem;
 }
 
-.item-accordion .accordion-content .info-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 1rem 0 0 0;
-    background: rgb(245 245 245);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-size: .7rem;
-}
-
 .item-accordion .accordion-content .info-buttons {
+    width: 100%;
+    margin: 1rem 0 0 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: .5rem;
+    gap: 1rem;
 }
 
 .item-accordion .accordion-content .info-buttons .info-icon-button {
-    padding: .333rem;
-    background: rgb(225, 209, 225);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 2.125rem;
+    background: rgb(190 157 190);
     border-radius: 6px;
     border: 0;
     color: rgb(0 0 0);
+}
+
+.item-accordion .accordion-content .info-buttons .info-icon-button[data-messenger-type] {
+    font-size: .75rem;
+    font-weight: 500;
+    color: rgb(255 255 255);
+}
+
+.item-accordion .accordion-content .info-buttons .info-icon-button[data-messenger-type="tel"]::before {
+    content: "전화하기";
+}
+
+.item-accordion .accordion-content .info-buttons .info-icon-button[data-messenger-type="sms"]::before {
+    content: "문자 보내기";
 }
 
 .item-accordion .accordion-content .info-buttons .info-text-button {
@@ -1051,21 +1072,11 @@ body:has([data-modal-id].show) {
     align-items: center;
 }
 
-[data-fullscreen="carousel"] [data-glide] {
-    max-width: 600px;
-}
-
 [data-fullscreen="carousel"] .item-carousel {
     display: flex;
     height: inherit;
     flex-direction: column;
     justify-content: space-evenly;
-}
-
-[data-fullscreen="carousel"] [data-glide-el="track"] li img {
-    scale: 1;
-    transform: translate(0, 0);
-    transition: scale 0.2s ease-out, transform 0.2s ease-out;
 }
 
 body:has([data-fullscreen].show),
@@ -1174,4 +1185,16 @@ ul[data-selector] li.selected {
     100% {
         transform: scaleY(-1) rotate(-135deg)
     }
+}
+
+[data-carousel] {
+    max-width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+[data-carousel] li {
+    text-align: center;
+    width: 80%;
 }
