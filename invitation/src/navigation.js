@@ -14,9 +14,10 @@ const Navigation = {
 	init: function (fullscreen = false) {
 		window.Navigation = Navigation;
 		
-		const routes = document.querySelector(fullscreen ? "[data-fullscreen=\"route\"] .item-routes" : ".item-routes");
+		const prefix = fullscreen ? "[data-fullscreen=\"route\"] " : "";
+		const routes = document.querySelector(prefix + ".item-routes");
 		
-		document.querySelectorAll(fullscreen ? "[data-fullscreen=\"route\"] [data-map-type]" : "[data-map-type]").forEach(el => {
+		document.querySelectorAll(prefix + "[data-map-type]").forEach(el => {
 			el.onclick = function () {
 				Navigation.open(this.dataset.mapType);
 			}
@@ -51,7 +52,9 @@ const Navigation = {
 		const observer = new MutationObserver(mutations => {
 			observer.disconnect();
 			
-			document.querySelectorAll(fullscreen ? "[data-fullscreen=\"route\"] .cont .section" : ".cont .section")
+			const map = document.querySelector(prefix + ".item-location .map .wrap_map");
+			
+			document.querySelectorAll(prefix + ".cont .section")
 				.forEach((section, i) => {
 					const title = section.querySelector(".title");
 					
@@ -74,9 +77,26 @@ const Navigation = {
 						Accordion.init(id);
 					}
 				});
+			
+			Utils.runOnceAndEventTrigger(
+				() => {
+					map.style.pointerEvents = "none";
+				},
+				window,
+				"scroll"
+			);
+			
+			Utils.runOnceAndEventTrigger(
+				() => {
+					map.style.pointerEvents = "unset";
+				},
+				window,
+				"scroll",
+				1000
+			);
 		});
 		
-		observer.observe(document.querySelector(fullscreen ? "[data-fullscreen=\"route\"] .item-location" : ".item-location"), {childList: true, subtree: true});
+		observer.observe(document.querySelector(prefix + ".item-location"), {childList: true, subtree: true});
 		
 		new daum.roughmap.Lander({
 			timestamp: fullscreen ? "1750768592006" : "1750165976255",
@@ -86,7 +106,7 @@ const Navigation = {
 		})
 			.render();
 		
-		const ul = document.querySelector(fullscreen ? "[data-fullscreen=\"route\"] [data-selector]" : "[data-selector]");
+		const ul = document.querySelector(prefix + "[data-selector]");
 		let method = localStorage.getItem("method");
 		
 		if (method === null) method = "car";
@@ -118,7 +138,7 @@ const Navigation = {
 			}
 		});
 		
-		const parkList = document.querySelector(fullscreen ? "[data-fullscreen=\"route\"] .park-list" : ".park-list");
+		const parkList = document.querySelector(prefix + ".park-list");
 		
 		this.park()
 			.then(parks => {
@@ -142,7 +162,7 @@ const Navigation = {
 						}
 						
 						button.onclick = function () {
-							parkList.querySelectorAll(fullscreen ? "[data-fullscreen=\"route\"] .park-button" : ".park-button").forEach(button => {
+							parkList.querySelectorAll(prefix + ".park-button").forEach(button => {
 								if (this === button) button.classList.add("selected");
 								else button.classList.remove("selected");
 							});

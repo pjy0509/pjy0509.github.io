@@ -32,11 +32,11 @@ const KakaoTalk = {
 		})
 			.run();
 		
-		const deallocator = Utils.runOnceAndEventTrigger(
+		const destructor = Utils.runOnceAndEventTrigger(
 			function () {
 				if (document.visibilityState === "visible") {
 					KakaoTalk.closeInAppBrowser();
-					deallocator();
+					destructor();
 				}
 			},
 			document,

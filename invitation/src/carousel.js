@@ -74,18 +74,16 @@ const Carousel = {
 		
 		const photoBoxContainer = getContainer();
 		const fullscreenAPI = getFullscreenAPI();
+		const useFullscreen = fullscreenAPI && Native.OS.name !== "Android" && Native.OS.name !== "iOS";
+		let beforeY;
 		
 		Carousel.photoBox = new PhotoSwipeLightbox({
 			dataSource: resolvedImages,
 			showHideAnimationType: "fade",
 			openPromise: function () {
 				return new Promise(resolve => {
-					if (!fullscreenAPI || fullscreenAPI.isFullscreen()) {
-						const y = scrollY;
-						document.documentElement.style.overflow = "hidden";
-						document.documentElement.style.position = "fixed";
-						document.documentElement.style.top = y + "px";
-						document.documentElement.style.left = "0";
+					if (!useFullscreen || fullscreenAPI.isFullscreen()) {
+						beforeY = window.scrollY;
 						
 						return resolve();
 					}
@@ -105,30 +103,30 @@ const Carousel = {
 						}
 					});
 					
-					if (screen.orientation && screen.orientation.lock) {
-						screen.orientation.lock("portrait");
-					}
-					
 					fullscreenAPI.request(photoBoxContainer);
 				});
 			},
-			...(fullscreenAPI ? {appendToEl: photoBoxContainer} : {}),
-			bgOpacity: 0.75,
+			...(useFullscreen ? {appendToEl: photoBoxContainer} : {}),
+			bgOpacity: 1,
 			showAnimationDuration: 0,
 			hideAnimationDuration: 0,
 			preloadFirstSlide: false,
+			pinchToClose: false,
+			closeOnVerticalDrag: false,
+			zoom: false,
+			arrowPrev: false,
+			arrowNext: false,
 			pswpModule: () => import("https://unpkg.com/photoswipe"),
 		});
 		
 		Carousel.photoBox.on('close', () => {
-			document.documentElement.style.overflowY = "unset";
-			document.documentElement.style.position = "unset";
-			document.documentElement.style.top = "unset";
-			document.documentElement.style.left = "unset";
+			if (beforeY !== undefined) {
+				window.scrollTo(0, beforeY);
+			}
 			
 			photoBoxContainer.style.display = 'none';
 			
-			if (fullscreenAPI && fullscreenAPI.isFullscreen()) {
+			if (useFullscreen && fullscreenAPI.isFullscreen()) {
 				fullscreenAPI.exit();
 			}
 		});
