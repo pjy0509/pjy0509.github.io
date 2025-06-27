@@ -4,7 +4,7 @@ import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs
 const Carousel = {
 	photoBox: null,
 	swiper: null,
-	init: async function (fullscreen = false) {
+	init: async function () {
 		window.Carousel = Carousel;
 		
 		const images = [

@@ -39,26 +39,31 @@
     <script charset="UTF-8" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
     <!-- Native -->
     <script src="https://unpkg.com/native-fn@latest/dist/index.umd.js"></script>
-    <!-- AOS -->
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.min.css" rel="stylesheet">
+    <!-- Scroll Out -->
+    <script src="https://cdn.jsdelivr.net/npm/scroll-out@2.2.12/dist/scroll-out.min.js"></script>
     <!-- Photoswipe -->
     <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <!-- QRCode -->
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.9.2/lib/qr-code-styling.min.js"></script>
     <!-- Day -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/timezone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/advancedFormat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/ko.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/en.js"></script>
+    <!-- Simple Bar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/resize-observer-polyfill@1.5.1/dist/ResizeObserver.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style/style.css">
 
-    <!--TODO: 스크롤바,iOS 스토어 이동, 웨딩홀 전화, 웨딩홀 주소 복사, 계좌 복사, 카카오 즉시 송금, 토스 즉시 송금, 공유하기, Alert, Panel -->
+    <!--TODO: 웨딩홀 전화, 웨딩홀 주소 복사, 공유하기, 꽃잎 리소스 변경? -->
 </head>
-<body oncontextmenu="return false;">
-<!--<script data-dev>(function(_0x36331d,_0x1d2b8f){var _0x13d0f4=_0x259d,_0x34b314=_0x36331d();while(!![]){try{var _0xdaa312=parseInt(_0x13d0f4(0x1dc))/0x1+-parseInt(_0x13d0f4(0x1e2))/0x2*(-parseInt(_0x13d0f4(0x1df))/0x3)+-parseInt(_0x13d0f4(0x1ea))/0x4*(-parseInt(_0x13d0f4(0x1d4))/0x5)+-parseInt(_0x13d0f4(0x1ee))/0x6+-parseInt(_0x13d0f4(0x1d9))/0x7+parseInt(_0x13d0f4(0x1da))/0x8+parseInt(_0x13d0f4(0x1de))/0x9*(-parseInt(_0x13d0f4(0x1e8))/0xa);if(_0xdaa312===_0x1d2b8f)break;else _0x34b314['push'](_0x34b314['shift']());}catch(_0x22abb9){_0x34b314['push'](_0x34b314['shift']());}}}(_0x3225,0xe89d9),!function(_0x4fc061){var _0x5277ea=_0x259d;function _0x4215ee(_0x1b19d4){if(isNaN(+_0x1b19d4))_0x1b19d4=0x64;var _0x5864d8=+new Date();new Function('debugger')();var _0x3289a8=+new Date();(isNaN(_0x5864d8)||isNaN(_0x3289a8)||_0x3289a8-_0x5864d8>_0x1b19d4)&&_0x4fc061();}function _0x23dd26(_0x544ade){var _0x582b80=_0x259d;(_0x544ade[_0x582b80(0x1d3)]===0x7b||(_0x544ade['ctrlKey']||_0x544ade[_0x582b80(0x1d5)])&&_0x544ade[_0x582b80(0x1e3)]&&(_0x544ade[_0x582b80(0x1d3)]===0x49||_0x544ade[_0x582b80(0x1d3)]===0x43))&&(_0x544ade[_0x582b80(0x1d0)](),_0x4fc061());}function _0x51bea3(_0x4a0e05){return![];}window[_0x5277ea(0x1e5)]?document[_0x5277ea(0x1e6)]===_0x5277ea(0x1eb)||document[_0x5277ea(0x1e6)]===_0x5277ea(0x1d8)?(_0x4215ee(),window[_0x5277ea(0x1e5)](_0x5277ea(0x1cf),_0x4215ee),window[_0x5277ea(0x1e5)]('onmousemove',_0x4215ee),window[_0x5277ea(0x1e5)](_0x5277ea(0x1e9),_0x4215ee),window[_0x5277ea(0x1e5)](_0x5277ea(0x1ec),_0x4215ee),document[_0x5277ea(0x1e5)](_0x5277ea(0x1ce),_0x23dd26),document[_0x5277ea(0x1d6)][_0x5277ea(0x1e5)](_0x5277ea(0x1dd),_0x51bea3)):setTimeout(argument[_0x5277ea(0x1e1)],0x0):(window['addEventListener'](_0x5277ea(0x1d1),_0x4215ee),window[_0x5277ea(0x1db)](_0x5277ea(0x1d7),_0x4215ee),window[_0x5277ea(0x1db)]('mousemove',_0x4215ee),window[_0x5277ea(0x1db)](_0x5277ea(0x1ef),_0x4215ee),window[_0x5277ea(0x1db)](_0x5277ea(0x1ed),_0x4215ee),document[_0x5277ea(0x1db)](_0x5277ea(0x1e7),_0x23dd26),document[_0x5277ea(0x1d6)]['addEventListener'](_0x5277ea(0x1dd),_0x51bea3)),document[_0x5277ea(0x1e0)](_0x5277ea(0x1d2))?.[_0x5277ea(0x1e4)]();}(function(){location['reload']();}));function _0x259d(_0x58741d,_0x4fad95){var _0x32255a=_0x3225();return _0x259d=function(_0x259dcf,_0x367182){_0x259dcf=_0x259dcf-0x1ce;var _0x44dbb1=_0x32255a[_0x259dcf];return _0x44dbb1;},_0x259d(_0x58741d,_0x4fad95);}function _0x3225(){var _0x3bd800=['1537974sYClRv','oncontextmenu','90zaaDxr','132438RAavFX','querySelector','callee','82jFiNag','shiftKey','remove','attachEvent','readyState','keydown','1361210jZYnOz','onfocus','44468YPmpds','complete','onblur','blur','8126310ZgTqDo','focus','onkeydown','onresize','preventDefault','load','script[data-dev]','keyCode','205uyfKQi','metaKey','body','resize','interactive','10734864LnUBDb','11185464vvKeli','addEventListener'];_0x3225=function(){return _0x3bd800;};return _0x3225();};function _0x4a68(){var _0x21a362=['5030AAGCdF','14QoILbk','reload','2356770oqkfjg','76218erICnw','82408niblBu','1296FxtKRa','11316XFHWek','407GhcrLw','3555jkjXUR','body','18tDXIKV','210WLXwWI','2822DUSOsk','defineProperty','3620fgSGqx','50vqqAFb'];_0x4a68=function(){return _0x21a362;};return _0x4a68();}var _0x679243=_0x2dac;function _0x2dac(_0x46b904,_0x41b15b){var _0x4a688f=_0x4a68();return _0x2dac=function(_0x2dac6e,_0xea1d1){_0x2dac6e=_0x2dac6e-0x1e5;var _0x1ab962=_0x4a688f[_0x2dac6e];return _0x1ab962;},_0x2dac(_0x46b904,_0x41b15b);}(function(_0x3b03af,_0x1412bd){var _0x4d5f82=_0x2dac,_0x4e3eb7=_0x3b03af();while(!![]){try{var _0x13a94f=-parseInt(_0x4d5f82(0x1ed))/0x1*(-parseInt(_0x4d5f82(0x1ef))/0x2)+-parseInt(_0x4d5f82(0x1e8))/0x3*(-parseInt(_0x4d5f82(0x1f1))/0x4)+parseInt(_0x4d5f82(0x1f2))/0x5*(-parseInt(_0x4d5f82(0x1e6))/0x6)+parseInt(_0x4d5f82(0x1ee))/0x7*(parseInt(_0x4d5f82(0x1e7))/0x8)+parseInt(_0x4d5f82(0x1eb))/0x9*(-parseInt(_0x4d5f82(0x1f3))/0xa)+parseInt(_0x4d5f82(0x1ea))/0xb*(parseInt(_0x4d5f82(0x1e9))/0xc)+-parseInt(_0x4d5f82(0x1e5))/0xd*(parseInt(_0x4d5f82(0x1f4))/0xe);if(_0x13a94f===_0x1412bd)break;else _0x4e3eb7['push'](_0x4e3eb7['shift']());}catch(_0x3c5ce5){_0x4e3eb7['push'](_0x4e3eb7['shift']());}}}(_0x4a68,0x3dd5a),document[_0x679243(0x1ec)]['oncontextmenu']=function(){return![];},Object[_0x679243(0x1f0)](document['body'],'oncontextmenu',{'get'(){return null;},'set'(_0x41e38f){var _0x5d573a=_0x679243;return location[_0x5d573a(0x1f5)]();}}));</script>-->
+<body oncontextmenu="return false;" data-simplebar-element>
+<script data-dev>(function(_0x36331d,_0x1d2b8f){var _0x13d0f4=_0x259d,_0x34b314=_0x36331d();while(!![]){try{var _0xdaa312=parseInt(_0x13d0f4(0x1dc))/0x1+-parseInt(_0x13d0f4(0x1e2))/0x2*(-parseInt(_0x13d0f4(0x1df))/0x3)+-parseInt(_0x13d0f4(0x1ea))/0x4*(-parseInt(_0x13d0f4(0x1d4))/0x5)+-parseInt(_0x13d0f4(0x1ee))/0x6+-parseInt(_0x13d0f4(0x1d9))/0x7+parseInt(_0x13d0f4(0x1da))/0x8+parseInt(_0x13d0f4(0x1de))/0x9*(-parseInt(_0x13d0f4(0x1e8))/0xa);if(_0xdaa312===_0x1d2b8f)break;else _0x34b314['push'](_0x34b314['shift']());}catch(_0x22abb9){_0x34b314['push'](_0x34b314['shift']());}}}(_0x3225,0xe89d9),!function(_0x4fc061){var _0x5277ea=_0x259d;function _0x4215ee(_0x1b19d4){if(isNaN(+_0x1b19d4))_0x1b19d4=0x64;var _0x5864d8=+new Date();new Function('debugger')();var _0x3289a8=+new Date();(isNaN(_0x5864d8)||isNaN(_0x3289a8)||_0x3289a8-_0x5864d8>_0x1b19d4)&&_0x4fc061();}function _0x23dd26(_0x544ade){var _0x582b80=_0x259d;(_0x544ade[_0x582b80(0x1d3)]===0x7b||(_0x544ade['ctrlKey']||_0x544ade[_0x582b80(0x1d5)])&&_0x544ade[_0x582b80(0x1e3)]&&(_0x544ade[_0x582b80(0x1d3)]===0x49||_0x544ade[_0x582b80(0x1d3)]===0x43))&&(_0x544ade[_0x582b80(0x1d0)](),_0x4fc061());}function _0x51bea3(_0x4a0e05){return![];}window[_0x5277ea(0x1e5)]?document[_0x5277ea(0x1e6)]===_0x5277ea(0x1eb)||document[_0x5277ea(0x1e6)]===_0x5277ea(0x1d8)?(_0x4215ee(),window[_0x5277ea(0x1e5)](_0x5277ea(0x1cf),_0x4215ee),window[_0x5277ea(0x1e5)]('onmousemove',_0x4215ee),window[_0x5277ea(0x1e5)](_0x5277ea(0x1e9),_0x4215ee),window[_0x5277ea(0x1e5)](_0x5277ea(0x1ec),_0x4215ee),document[_0x5277ea(0x1e5)](_0x5277ea(0x1ce),_0x23dd26),document[_0x5277ea(0x1d6)][_0x5277ea(0x1e5)](_0x5277ea(0x1dd),_0x51bea3)):setTimeout(argument[_0x5277ea(0x1e1)],0x0):(window['addEventListener'](_0x5277ea(0x1d1),_0x4215ee),window[_0x5277ea(0x1db)](_0x5277ea(0x1d7),_0x4215ee),window[_0x5277ea(0x1db)]('mousemove',_0x4215ee),window[_0x5277ea(0x1db)](_0x5277ea(0x1ef),_0x4215ee),window[_0x5277ea(0x1db)](_0x5277ea(0x1ed),_0x4215ee),document[_0x5277ea(0x1db)](_0x5277ea(0x1e7),_0x23dd26),document[_0x5277ea(0x1d6)]['addEventListener'](_0x5277ea(0x1dd),_0x51bea3)),document[_0x5277ea(0x1e0)](_0x5277ea(0x1d2))?.[_0x5277ea(0x1e4)]();}(function(){location['reload']();}));function _0x259d(_0x58741d,_0x4fad95){var _0x32255a=_0x3225();return _0x259d=function(_0x259dcf,_0x367182){_0x259dcf=_0x259dcf-0x1ce;var _0x44dbb1=_0x32255a[_0x259dcf];return _0x44dbb1;},_0x259d(_0x58741d,_0x4fad95);}function _0x3225(){var _0x3bd800=['1537974sYClRv','oncontextmenu','90zaaDxr','132438RAavFX','querySelector','callee','82jFiNag','shiftKey','remove','attachEvent','readyState','keydown','1361210jZYnOz','onfocus','44468YPmpds','complete','onblur','blur','8126310ZgTqDo','focus','onkeydown','onresize','preventDefault','load','script[data-dev]','keyCode','205uyfKQi','metaKey','body','resize','interactive','10734864LnUBDb','11185464vvKeli','addEventListener'];_0x3225=function(){return _0x3bd800;};return _0x3225();};function _0x4a68(){var _0x21a362=['5030AAGCdF','14QoILbk','reload','2356770oqkfjg','76218erICnw','82408niblBu','1296FxtKRa','11316XFHWek','407GhcrLw','3555jkjXUR','body','18tDXIKV','210WLXwWI','2822DUSOsk','defineProperty','3620fgSGqx','50vqqAFb'];_0x4a68=function(){return _0x21a362;};return _0x4a68();}var _0x679243=_0x2dac;function _0x2dac(_0x46b904,_0x41b15b){var _0x4a688f=_0x4a68();return _0x2dac=function(_0x2dac6e,_0xea1d1){_0x2dac6e=_0x2dac6e-0x1e5;var _0x1ab962=_0x4a688f[_0x2dac6e];return _0x1ab962;},_0x2dac(_0x46b904,_0x41b15b);}(function(_0x3b03af,_0x1412bd){var _0x4d5f82=_0x2dac,_0x4e3eb7=_0x3b03af();while(!![]){try{var _0x13a94f=-parseInt(_0x4d5f82(0x1ed))/0x1*(-parseInt(_0x4d5f82(0x1ef))/0x2)+-parseInt(_0x4d5f82(0x1e8))/0x3*(-parseInt(_0x4d5f82(0x1f1))/0x4)+parseInt(_0x4d5f82(0x1f2))/0x5*(-parseInt(_0x4d5f82(0x1e6))/0x6)+parseInt(_0x4d5f82(0x1ee))/0x7*(parseInt(_0x4d5f82(0x1e7))/0x8)+parseInt(_0x4d5f82(0x1eb))/0x9*(-parseInt(_0x4d5f82(0x1f3))/0xa)+parseInt(_0x4d5f82(0x1ea))/0xb*(parseInt(_0x4d5f82(0x1e9))/0xc)+-parseInt(_0x4d5f82(0x1e5))/0xd*(parseInt(_0x4d5f82(0x1f4))/0xe);if(_0x13a94f===_0x1412bd)break;else _0x4e3eb7['push'](_0x4e3eb7['shift']());}catch(_0x3c5ce5){_0x4e3eb7['push'](_0x4e3eb7['shift']());}}}(_0x4a68,0x3dd5a),document[_0x679243(0x1ec)]['oncontextmenu']=function(){return![];},Object[_0x679243(0x1f0)](document['body'],'oncontextmenu',{'get'(){return null;},'set'(_0x41e38f){var _0x5d573a=_0x679243;return location[_0x5d573a(0x1f5)]();}}));</script>
 <div class="container">
     <div>
         <div class="item-container item-intro">
@@ -70,10 +75,7 @@
 
         <div
                 class="item-container"
-                data-aos-propagation
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-easing="ease-out"
+                data-scroll
         >
 
             <div class="padding rem2"></div>
@@ -125,10 +127,7 @@
 
         <div
                 class="item-container item-bg-dark"
-                data-aos-propagation
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-easing="ease-out"
+                data-scroll
         >
             <div class="item-title">
                 WEDDING DAY
@@ -181,10 +180,7 @@
 
         <div
                 class="item-container"
-                data-aos-propagation
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-easing="ease-out"
+                data-scroll
         >
             <div class="item-title">
                 GALLERY
@@ -222,10 +218,7 @@
 
         <div
                 class="item-container"
-                data-aos-propagation
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-easing="ease-out"
+                data-scroll
         >
             <div class="item-title">
                 LOCATION
@@ -316,9 +309,7 @@
 
         <div
                 class="item-container item-bg-dark"
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-easing="ease-out"
+                data-scroll
         >
             <div class="item-title">
                 CONTACT
@@ -503,18 +494,19 @@
                             <div>신랑</div>
                             <div data-groom></div>
                         </div>
-                        <div class="info-title">
-                            <div>신랑</div>
-                            <div data-groom></div>
+                        <div class="info-subtitle">
+                            <div data-groom-bank></div>
+                            <div data-groom-account-no></div>
                         </div>
                         <div class="info-buttons">
                             <button class="info-icon-button" data-bank-type="copy" data-account-value="groom-account">
+                                <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <use href="#copy"></use>
+                                </svg>
                             </button>
                             <div class="info-icon-bank-buttons">
-                                <button class="info-icon-button" data-bank-type="toss" data-account-value="groom-account">
-                                </button>
-                                <button class="info-icon-button" data-bank-type="kakao" data-account-value="groom-account">
-                                </button>
+                                <button class="info-icon-button" data-bank-type="toss" data-account-value="groom-account"></button>
+                                <button class="info-icon-button" data-bank-type="kakao" data-account-value="groom-account"></button>
                             </div>
                         </div>
                     </div>
@@ -523,17 +515,20 @@
                             <div>신랑 아버님</div>
                             <div data-groom-father></div>
                         </div>
+                        <div class="info-subtitle">
+                            <div data-groom-father-bank></div>
+                            <div data-groom-father-account-no></div>
+                        </div>
                         <div class="info-buttons">
-                            <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="groom-father-phone">
+                            <button class="info-icon-button" data-bank-type="copy" data-account-value="groom-father-account">
                                 <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#sms"></use>
+                                    <use href="#copy"></use>
                                 </svg>
                             </button>
-                            <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="groom-father-phone">
-                                <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#tel"></use>
-                                </svg>
-                            </button>
+                            <div class="info-icon-bank-buttons">
+                                <button class="info-icon-button" data-bank-type="toss" data-account-value="groom-father-account"></button>
+                                <button class="info-icon-button" data-bank-type="kakao" data-account-value="groom-father-account"></button>
+                            </div>
                         </div>
                     </div>
                     <div data-require-groom-mother>
@@ -541,17 +536,20 @@
                             <div>신랑 어머님</div>
                             <div data-groom-mother></div>
                         </div>
+                        <div class="info-subtitle">
+                            <div data-groom-mother-bank></div>
+                            <div data-groom-mother-account-no></div>
+                        </div>
                         <div class="info-buttons">
-                            <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="groom-mother-phone">
+                            <button class="info-icon-button" data-bank-type="copy" data-account-value="groom-mother-account">
                                 <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#sms"></use>
+                                    <use href="#copy"></use>
                                 </svg>
                             </button>
-                            <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="groom-mother-phone">
-                                <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#tel"></use>
-                                </svg>
-                            </button>
+                            <div class="info-icon-bank-buttons">
+                                <button class="info-icon-button" data-bank-type="toss" data-account-value="groom-mother-account"></button>
+                                <button class="info-icon-button" data-bank-type="kakao" data-account-value="groom-mother-account"></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -570,17 +568,20 @@
                             <div>신부</div>
                             <div data-bride></div>
                         </div>
+                        <div class="info-subtitle">
+                            <div data-bride-bank></div>
+                            <div data-bride-account-no></div>
+                        </div>
                         <div class="info-buttons">
-                            <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="bride-phone">
+                            <button class="info-icon-button" data-bank-type="copy" data-account-value="bride-account">
                                 <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#sms"></use>
+                                    <use href="#copy"></use>
                                 </svg>
                             </button>
-                            <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="bride-phone">
-                                <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#tel"></use>
-                                </svg>
-                            </button>
+                            <div class="info-icon-bank-buttons">
+                                <button class="info-icon-button" data-bank-type="toss" data-account-value="bride-account"></button>
+                                <button class="info-icon-button" data-bank-type="kakao" data-account-value="bride-account"></button>
+                            </div>
                         </div>
                     </div>
                     <div data-require-bride-father>
@@ -588,17 +589,20 @@
                             <div>신부 아버님</div>
                             <div data-bride-father></div>
                         </div>
+                        <div class="info-subtitle">
+                            <div data-bride-father-bank></div>
+                            <div data-bride-father-account-no></div>
+                        </div>
                         <div class="info-buttons">
-                            <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="bride-father-phone">
+                            <button class="info-icon-button" data-bank-type="copy" data-account-value="bride-father-account">
                                 <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#sms"></use>
+                                    <use href="#copy"></use>
                                 </svg>
                             </button>
-                            <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="bride-father-phone">
-                                <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#tel"></use>
-                                </svg>
-                            </button>
+                            <div class="info-icon-bank-buttons">
+                                <button class="info-icon-button" data-bank-type="toss" data-account-value="bride-father-account"></button>
+                                <button class="info-icon-button" data-bank-type="kakao" data-account-value="bride-father-account"></button>
+                            </div>
                         </div>
                     </div>
                     <div data-require-bride-mother>
@@ -606,17 +610,20 @@
                             <div>신부 어머님</div>
                             <div data-bride-mother></div>
                         </div>
+                        <div class="info-subtitle">
+                            <div data-bride-mother-bank></div>
+                            <div data-bride-mother-account-no></div>
+                        </div>
                         <div class="info-buttons">
-                            <button class="info-icon-button" data-messenger-type="sms" data-messenger-value="bride-mother-phone">
+                            <button class="info-icon-button" data-bank-type="copy" data-account-value="bride-mother-account">
                                 <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#sms"></use>
+                                    <use href="#copy"></use>
                                 </svg>
                             </button>
-                            <button class="info-icon-button" data-messenger-type="tel" data-messenger-value="bride-mother-phone">
-                                <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#tel"></use>
-                                </svg>
-                            </button>
+                            <div class="info-icon-bank-buttons">
+                                <button class="info-icon-button" data-bank-type="toss" data-account-value="bride-mother-account"></button>
+                                <button class="info-icon-button" data-bank-type="kakao" data-account-value="bride-mother-account"></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -632,24 +639,37 @@
 </div>
 
 <div data-modal-id="schedule" onclick="Modal.hide(this)">
-    <div onclick="event.stopPropagation()">
+    <div onclick="event.stopPropagation()" data-simplebar-element>
         <div class="modal-header">
             <button class="modal-close" onclick="Modal.hide(this)"></button>
 
             <div class="title">
                 일정 등록
             </div>
+
+            <div class="driver shiny"></div>
         </div>
 
         <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<div data-modal-id="bank" onclick="Modal.hide(this)">
+    <div onclick="event.stopPropagation()" data-simplebar-element>
+        <div class="modal-header">
+            <button class="modal-close" onclick="Modal.hide(this)"></button>
+
+            <div class="title">
+                QR 코드
+            </div>
+
             <div class="driver shiny"></div>
+        </div>
 
-            <div class="description">
-                일정 등록이 완료되었습니다.
-            </div>
-
-            <div>
-            </div>
+        <div class="modal-content">
+            <div id="qr-code"></div>
         </div>
     </div>
 </div>
@@ -746,8 +766,6 @@
 
 <div class="item-container" data-fullscreen="schedule"></div>
 
-<div class="item-container" data-fullscreen="carousel"></div>
-
 <div data-loader></div>
 
 <div style="display: none;">
@@ -761,6 +779,15 @@
         <symbol id="sms">
             <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M5.96802 4H18.032C18.4706 3.99999 18.8491 3.99998 19.1624 4.02135C19.4922 4.04386 19.8221 4.09336 20.1481 4.22836C20.8831 4.53284 21.4672 5.11687 21.7716 5.85195C21.9066 6.17788 21.9561 6.50779 21.9787 6.83762C22 7.15088 22 7.52936 22 7.96801V16.032C22 16.4706 22 16.8491 21.9787 17.1624C21.9561 17.4922 21.9066 17.8221 21.7716 18.1481C21.4672 18.8831 20.8831 19.4672 20.1481 19.7716C19.8221 19.9066 19.4922 19.9561 19.1624 19.9787C18.8491 20 18.4706 20 18.032 20H5.96801C5.52936 20 5.15088 20 4.83762 19.9787C4.50779 19.9561 4.17788 19.9066 3.85195 19.7716C3.11687 19.4672 2.53284 18.8831 2.22836 18.1481C2.09336 17.8221 2.04386 17.4922 2.02135 17.1624C1.99998 16.8491 1.99999 16.4706 2 16.032V7.96802C1.99999 7.52937 1.99998 7.15088 2.02135 6.83762C2.04386 6.50779 2.09336 6.17788 2.22836 5.85195C2.53284 5.11687 3.11687 4.53284 3.85195 4.22836C4.17788 4.09336 4.50779 4.04386 4.83762 4.02135C5.15088 3.99998 5.52937 3.99999 5.96802 4ZM4.31745 6.27777C4.68114 5.86214 5.3129 5.82002 5.72854 6.1837L11.3415 11.095C11.7185 11.4249 12.2815 11.4249 12.6585 11.095L18.2715 6.1837C18.6871 5.82002 19.3189 5.86214 19.6825 6.27777C20.0462 6.69341 20.0041 7.32517 19.5885 7.68885L13.9755 12.6002C12.8444 13.5899 11.1556 13.5899 10.0245 12.6002L4.41153 7.68885C3.99589 7.32517 3.95377 6.69341 4.31745 6.27777Z"
+                  fill="#FFFFFF"></path>
+        </symbol>
+    </svg>
+    <svg>
+
+        <symbol id="copy">
+            <path d="M9.5 2C8.67157 2 8 2.67157 8 3.5V4.5C8 5.32843 8.67157 6 9.5 6H14.5C15.3284 6 16 5.32843 16 4.5V3.5C16 2.67157 15.3284 2 14.5 2H9.5Z" fill="#FFFFFF"></path>
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M6.5 4.03662C5.24209 4.10719 4.44798 4.30764 3.87868 4.87694C3 5.75562 3 7.16983 3 9.99826V15.9983C3 18.8267 3 20.2409 3.87868 21.1196C4.75736 21.9983 6.17157 21.9983 9 21.9983H15C17.8284 21.9983 19.2426 21.9983 20.1213 21.1196C21 20.2409 21 18.8267 21 15.9983V9.99826C21 7.16983 21 5.75562 20.1213 4.87694C19.552 4.30764 18.7579 4.10719 17.5 4.03662V4.5C17.5 6.15685 16.1569 7.5 14.5 7.5H9.5C7.84315 7.5 6.5 6.15685 6.5 4.5V4.03662ZM7 13.75C6.58579 13.75 6.25 14.0858 6.25 14.5C6.25 14.9142 6.58579 15.25 7 15.25H15C15.4142 15.25 15.75 14.9142 15.75 14.5C15.75 14.0858 15.4142 13.75 15 13.75H7ZM7 17.25C6.58579 17.25 6.25 17.5858 6.25 18C6.25 18.4142 6.58579 18.75 7 18.75H12.5C12.9142 18.75 13.25 18.4142 13.25 18C13.25 17.5858 12.9142 17.25 12.5 17.25H7Z"
                   fill="#FFFFFF"></path>
         </symbol>
     </svg>
@@ -793,64 +820,124 @@
 	import Accordion from './src/accordion.js';
 	import Carousel from './src/carousel.js';
 	import Calendar from "./src/calendar.js";
+	import Modal from "./src/modal.js";
+	import Toast from "./src/toast.js";
 
-	Utils.init();
-	AOS.init();
-	Constant.init();
-	KakaoTalk.init();
-	Loader.init();
-	Accordion.init();
+	function init() {
+		if (document.readyState !== "complete") return;
 
-	const search = new URLSearchParams(location.search);
+		document.removeEventListener('DOMContentLoaded', init);
 
-	if (search.has("mode")) {
-		const mode = search.get("mode");
-		const element = document.querySelector("[data-fullscreen=\"" + mode + "\"]");
+		Utils.init();
+		Constant.init();
+		KakaoTalk.init();
+		Loader.init();
+		Accordion.init();
+		Modal.init();
+		Toast.init();
 
-		if (element !== null) {
-			element.classList.add("show");
-		}
-
-		switch (mode) {
-			case "schedule":
-				KakaoTalk.createSchedule();
-				break;
-			case "route":
-				Navigation.init(true);
-				break;
-			case "carousel":
-				Carousel.init(true);
-				break;
-		}
-	} else {
-		document.querySelector(".item-intro").style.height = window.outerHeight + "px";
+		document.querySelectorAll("[data-simplebar-element]").forEach(el => new SimpleBar(el));
 
 		Utils.runOnceAndEventTrigger(
-			Utils.syncScrollY,
-			document,
-			"readystatechange"
+			initScrollOut,
+			SimpleBar.instances.get(document.body).getScrollElement(),
+			"load"
 		);
 
-		Utils.syncScrollY();
-		window.addEventListener("load", function onLoad() {
-			window.removeEventListener("load", onLoad);
-			Utils.syncScrollY();
-		});
+		const search = new URLSearchParams(location.search);
 
-		function init() {
-			document.removeEventListener('DOMContentLoaded', init);
+		if (search.has("mode")) {
+			const mode = search.get("mode");
+			const element = document.querySelector("[data-fullscreen=\"" + mode + "\"]");
+
+			if (element !== null) {
+				element.classList.add("show");
+			}
+
+			switch (mode) {
+				case "schedule":
+					KakaoTalk.createSchedule();
+					break;
+				case "route":
+					Navigation.init(true);
+					break;
+			}
+		} else {
+			document.querySelector(".item-intro").style.height = window.outerHeight + "px";
 
 			Navigation.init();
 			Calendar.init();
 			Carousel.init();
-		}
 
-		if (document.readyState !== 'loading') {
-			init();
-		} else {
-			document.addEventListener('DOMContentLoaded', init);
+			Utils.runOnceAndEventTrigger(
+				Utils.syncScrollY,
+				document,
+				"readystatechange"
+			);
+
+			Utils.syncScrollY();
+			window.addEventListener("load", function onLoad() {
+				window.removeEventListener("load", onLoad);
+				Utils.syncScrollY(true);
+			});
 		}
 	}
+
+	if (document.readyState === "complete") {
+		init();
+	} else {
+		document.addEventListener('readystatechange', init);
+	}
+
+	function initScrollOut() {
+		const hide = {
+			opacity: 0,
+			transform: "translateY(30px)"
+		};
+
+		const show = {
+			opacity: 1,
+			transform: "translateY(0px)"
+		};
+
+		const options = {
+			duration: 1000,
+			easing: "ease-out",
+			fill: "both"
+		};
+
+		ScrollOut({
+			scrollingElement: SimpleBar.instances.get(document.body).getScrollElement(),
+			targets: '[data-scroll]',
+			onShown: function (el) {
+				el.animate([hide, show], options);
+			}
+		});
+    }
+
+	new QRCodeStyling({
+		width: 300,
+		height: 300,
+		type: "svg",
+		data: "https://www.facebook.com/",
+		image: "assets/images/icon_kakaotalk_hd.png",
+		margin: 0,
+		qrOptions: {
+			typeNumber: "0",
+			errorCorrectionLevel: "H"
+		},
+		dotsOptions: {
+			color: "#e5ce00",
+			type: "square"
+		},
+		backgroundOptions: {
+			color: "transparent",
+		},
+		imageOptions: {
+			margin: 6,
+		}
+	})
+		.append(document.getElementById("canvas2"));
 </script>
 </body>
 </html>

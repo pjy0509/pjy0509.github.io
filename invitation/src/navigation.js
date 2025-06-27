@@ -82,7 +82,7 @@ const Navigation = {
 				() => {
 					map.style.pointerEvents = "none";
 				},
-				window,
+				SimpleBar.instances.get(document.body).getScrollElement(),
 				"scroll"
 			);
 			
@@ -90,9 +90,9 @@ const Navigation = {
 				() => {
 					map.style.pointerEvents = "unset";
 				},
-				window,
+				SimpleBar.instances.get(document.body).getScrollElement(),
 				"scroll",
-				1000
+				(Native.OS.name === "Android" || Native.OS.name === "iOS") ? 500 : 1000
 			);
 		});
 		
@@ -143,7 +143,7 @@ const Navigation = {
 		this.park()
 			.then(parks => {
 				parks
-					.slice(0, 5)
+					.slice(0, 9)
 					.forEach((park, i) => {
 						const container = document.createElement("div");
 						const title = document.createElement("div");
@@ -309,7 +309,7 @@ const Navigation = {
 					+ "&goalx=" + encodeURIComponent(longitude)
 					+ "&goalname=" + encodeURIComponent(placeName);
 				
-				if (Native.OS.name === "iOS" && document.body.dataset.wv === "kakao") {
+				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
 					location.href = scheme;
 					
 					const id = setTimeout(() => {
@@ -348,7 +348,7 @@ const Navigation = {
 					+ "&menu=" + encodeURIComponent("route")
 					+ "&pathType=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "1" : this.method === "walk" ? "3" : "");
 				
-				if (Native.OS.name === "iOS" && document.body.dataset.wv === "kakao") {
+				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
 					location.href = scheme;
 					
 					const id = setTimeout(() => {
@@ -386,7 +386,7 @@ const Navigation = {
 				fallback = "https://map.kakao.com/link/to/"
 					+ encodeURIComponent(placeName + "," + latitude + "," + longitude);
 				
-				if (Native.OS.name === "iOS" && document.body.dataset.wv === "kakao") {
+				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
 					location.href = scheme;
 					
 					const id = setTimeout(() => {
@@ -445,7 +445,7 @@ const Navigation = {
 				fallback = "https://www.google.co.kr/maps/dir//"
 					+ encodeURIComponent(placeAddress + " " + placeName);
 				
-				if (Native.OS.name === "iOS" && document.body.dataset.wv === "kakao") {
+				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
 					location.href = scheme;
 					
 					const id = setTimeout(() => {
@@ -509,7 +509,7 @@ const Navigation = {
 						})
 					);
 				
-				if (Native.OS.name === "iOS" && document.body.dataset.wv === "kakao") {
+				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
 					location.href = scheme;
 					
 					const id = setTimeout(() => {
@@ -598,6 +598,7 @@ const Navigation = {
 								
 								return !(parkBeginHM === 0 && parkEndHM === 0) && (parkBeginHM < beginHM && (parkEndHM > endHM || beginHM > endHM));
 							})),
+					
 					await fetch("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkingInfo/1/1000/영등포구")
 						.then(response => response.json())
 						.then(response => Array.from(new Map(response.GetParkingInfo.row.map(park => [park.PKLT_CD, park])).values())

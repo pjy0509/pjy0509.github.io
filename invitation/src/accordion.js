@@ -1,15 +1,24 @@
 import Utils from "./utils.js";
 
 const Accordion = {
+	initialized: false,
 	init: function (id) {
 		window.Accordion = Accordion;
 		
+		if (id === undefined && Accordion.initialized === false) {
+			Accordion.initialized = true;
+			
+			return Utils.runOnceAndEventTrigger(
+				Accordion.init,
+				window,
+				"resize",
+				300
+			);
+		}
+		
 		window.requestAnimationFrame(() => {
-			if (id === undefined) {
-				document.querySelectorAll("[data-accordion]").forEach(initAccordion);
-			} else {
-				initAccordion(document.querySelector("[data-accordion=\"" + id + "\"]"));
-			}
+			if (id === undefined) return document.querySelectorAll("[data-accordion]").forEach(initAccordion);
+			else return initAccordion(document.querySelector("[data-accordion=\"" + id + "\"]"));
 			
 			function initAccordion(accordion) {
 				const header = accordion.querySelector("[data-accordion-header]");
@@ -32,6 +41,13 @@ const Accordion = {
 				}
 				
 				accordion.dataset.accordionExpandHeight = maxHeight.toString();
+				
+				if (accordion.classList.contains("on")) {
+					accordion.classList.add("no-transition");
+					accordion.style.maxHeight = accordion.dataset.accordionExpandHeight + "px";
+					void accordion.offsetHeight;
+					accordion.classList.remove("no-transition");
+				}
 				
 				const button = document.querySelector("[data-accordion-toggle=\"" + accordion.dataset.accordion + "\"]");
 				

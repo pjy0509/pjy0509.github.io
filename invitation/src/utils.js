@@ -8,10 +8,10 @@ const Utils = {
 		const userAgent = navigator.userAgent;
 		
 		// OS
-		document.body.dataset.osName = Native.OS.name;
+		document.documentElement.dataset.osName = Native.OS.name;
 		
 		// WebView
-		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.body.dataset.wv = "kakao";
+		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.documentElement.dataset.wv = "kakao";
 		
 		// Color Scheme
 		observeColorScheme();
@@ -44,9 +44,42 @@ const Utils = {
 	syncScrollY: function (removeHash = false) {
 		const y = +location.hash.split("#")[1];
 		
-		if (!isNaN(y)) window.scrollY = y;
-		if (removeHash) history.pushState({}, "", "#");
+		if (!isNaN(y)) SimpleBar.instances.get(document.body).getScrollElement().scrollTo(0, y);
+		if (removeHash) Utils.clearHash();
 	},
+	recordScrollY: function () {
+		history.replaceState(null, null, location.protocol + "//" + location.host + location.pathname + location.search + "#" + SimpleBar.instances.get(document.body).getScrollElement().scrollTop);
+	},
+	clearHash: function () {
+		history.replaceState(null, null, location.protocol + "//" + location.host + location.pathname + location.search);
+	},
+	copy: function (value) {
+		if (navigator.clipboard !== undefined) return navigator.clipboard.writeText(value);
+		
+		const textarea = document.createElement("textarea");
+		
+		textarea.value = value;
+		textarea.style.top = "0";
+		textarea.style.left = "0";
+		textarea.style.position = "fixed";
+		
+		document.body.appendChild(textarea);
+		
+		textarea.focus();
+		textarea.select();
+		textarea.setSelectionRange(0, 99999);
+		try {
+			document.execCommand("copy");
+		} catch (err) {
+			return Promise.reject();
+		}
+		
+		textarea.setSelectionRange(0, 0);
+		
+		document.body.removeChild(textarea);
+		
+		return Promise.resolve();
+	}
 };
 
 // PARTICLE BEGIN

@@ -179,7 +179,7 @@ const KakaoTalk = {
 		location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(location.href);
 	},
 	closeInAppBrowser: function () {
-		if (document.body.dataset.wv !== "kakao") return;
+		if (document.documentElement.dataset.wv !== "kakao") return;
 		if (Native.OS.name === "iOS") return location.href = "kakaoweb://closeBrowser";
 		return location.href = "kakaotalk://inappbrowser/close";
 	},
