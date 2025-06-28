@@ -20,14 +20,11 @@ const Utils = {
 		// Particle
 		loadParticles();
 	},
-	runOnceAndEventTrigger: function (fn, eventTarget, type, interval) {
-		fn();
-		
-		let delay = interval,
-			timer = null;
+	on: function (fn, eventTarget, type, delay) {
+		let timer = null;
 		
 		function onTrigger() {
-			if (interval !== undefined) {
+			if (delay !== undefined) {
 				clearTimeout(timer);
 				timer = setTimeout(fn, delay);
 			} else {
@@ -41,14 +38,22 @@ const Utils = {
 			eventTarget.removeEventListener(type, onTrigger);
 		}
 	},
+	runAndOn: function (fn, eventTarget, type, delay) {
+		fn();
+		
+		return Utils.on(fn, eventTarget, type, delay);
+	},
+	getSimpleBarScrollElement: function (el) {
+		return SimpleBar.instances.get(el).getScrollElement();
+	},
 	syncScrollY: function (removeHash = false) {
 		const y = +location.hash.split("#")[1];
 		
-		if (!isNaN(y)) SimpleBar.instances.get(document.body).getScrollElement().scrollTo(0, y);
+		if (!isNaN(y)) Utils.getSimpleBarScrollElement(document.body).scrollTo(0, y);
 		if (removeHash) Utils.clearHash();
 	},
 	recordScrollY: function () {
-		history.replaceState(null, null, location.protocol + "//" + location.host + location.pathname + location.search + "#" + SimpleBar.instances.get(document.body).getScrollElement().scrollTop);
+		history.replaceState(null, null, location.protocol + "//" + location.host + location.pathname + location.search + "#" + Utils.getSimpleBarScrollElement(document.body).scrollTop);
 	},
 	clearHash: function () {
 		history.replaceState(null, null, location.protocol + "//" + location.host + location.pathname + location.search);
@@ -213,7 +218,6 @@ async function loadParticles() {
 		}
 	);
 }
-
 // PARTICLE END
 
 // COLOR BEGIN
@@ -238,7 +242,7 @@ function observeColorScheme() {
 			.then(scheme => document.documentElement.dataset.colorScheme = scheme);
 	}
 	
-	Utils.runOnceAndEventTrigger(
+	Utils.runAndOn(
 		detectColorScheme,
 		window.matchMedia("(prefers-color-scheme: dark)"),
 		"change"
@@ -518,7 +522,6 @@ function parseRgb(hex) {
 		}
 		: null;
 }
-
 // COLOR END
 
 export default Utils;

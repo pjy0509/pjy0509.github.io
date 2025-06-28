@@ -42,7 +42,7 @@ const Navigation = {
 			}
 		}
 		
-		Utils.runOnceAndEventTrigger(
+		Utils.runAndOn(
 			() => setHeight(routes),
 			window,
 			"resize",
@@ -78,19 +78,21 @@ const Navigation = {
 					}
 				});
 			
-			Utils.runOnceAndEventTrigger(
+			const scrollElement = Utils.getSimpleBarScrollElement(document.body);
+			
+			Utils.runAndOn(
 				() => {
 					map.style.pointerEvents = "none";
 				},
-				SimpleBar.instances.get(document.body).getScrollElement(),
+				scrollElement,
 				"scroll"
 			);
 			
-			Utils.runOnceAndEventTrigger(
+			Utils.on(
 				() => {
 					map.style.pointerEvents = "unset";
 				},
-				SimpleBar.instances.get(document.body).getScrollElement(),
+				scrollElement,
 				"scroll",
 				(Native.OS.name === "Android" || Native.OS.name === "iOS") ? 500 : 1000
 			);
@@ -288,6 +290,7 @@ const Navigation = {
 	},
 	open: function (type) {
 		let scheme,
+			intent,
 			fallback;
 		
 		let latitude = Constant.LATITUDE,

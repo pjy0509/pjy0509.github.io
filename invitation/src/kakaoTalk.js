@@ -32,7 +32,7 @@ const KakaoTalk = {
 		})
 			.run();
 		
-		const destructor = Utils.runOnceAndEventTrigger(
+		const destructor = Utils.runAndOn(
 			function () {
 				if (document.visibilityState === "visible") {
 					KakaoTalk.closeInAppBrowser();

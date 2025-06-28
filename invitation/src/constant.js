@@ -23,9 +23,9 @@ const Constant = {
 	GROOM_MOTHER_KAKAO_PAY_LINK: "https://qr.kakaopay.com/FTfimikk7",
 	BRIDE_FATHER: undefined,
 	BRIDE_FATHER_PHONE: undefined,
-	BRIDE_FATHER_BANK: "KB국민은행",
+	BRIDE_FATHER_BANK: undefined,
 	BRIDE_FATHER_ACCOUNT_NO: undefined,
-	BRIDE_FATHER_AKAO_PAY_LINK: "https://qr.kakaopay.com/Ej8s6SDI0",
+	BRIDE_FATHER_KAKAO_PAY_LINK: undefined,
 	BRIDE_MOTHER: "김도연",
 	BRIDE_MOTHER_PHONE: "010-4923-1385",
 	BRIDE_MOTHER_BANK: undefined,
@@ -34,7 +34,8 @@ const Constant = {
 	LATITUDE: "37.52137722994085",
 	LONGITUDE: "126.90459301926333",
 	PLACE_NAME: "웨딩그룹위더스 영등포",
-	PLACE_ADDRESS: "서울 영등포구 영중로 55",
+	PLACE_ADDRESS: "서울특별시 영등포구 영중로 55",
+	PLACE_TEL: "02-6418-3000",
 	TIMEZONE: "Asia/Seoul",
 	WEDDING_DATE_TIME_START_ISO_STRING: "2025-08-31T03:20:00Z",
 	WEDDING_DATE_TIME_END_ISO_STRING: "2025-08-31T04:30:00Z",
@@ -66,6 +67,10 @@ const Constant = {
 		document.querySelectorAll("[data-require-groom-mother]").forEach(el => Constant.GROOM_MOTHER === undefined ? el.remove() : el);
 		document.querySelectorAll("[data-require-bride-father]").forEach(el => Constant.BRIDE_FATHER === undefined ? el.remove() : el);
 		document.querySelectorAll("[data-require-bride-mother]").forEach(el => Constant.BRIDE_MOTHER === undefined ? el.remove() : el);
+		document.querySelectorAll("[data-require-groom-father-account]").forEach(el => Constant.GROOM_FATHER_ACCOUNT_NO === undefined ? el.remove() : el);
+		document.querySelectorAll("[data-require-groom-mother-account]").forEach(el => Constant.GROOM_MOTHER_ACCOUNT_NO === undefined ? el.remove() : el);
+		document.querySelectorAll("[data-require-bride-father-account]").forEach(el => Constant.BRIDE_FATHER_ACCOUNT_NO === undefined ? el.remove() : el);
+		document.querySelectorAll("[data-require-bride-mother-account]").forEach(el => Constant.BRIDE_MOTHER_ACCOUNT_NO === undefined ? el.remove() : el);
 		document.querySelectorAll("[data-groom]").forEach(el => el.textContent = Constant.GROOM);
 		document.querySelectorAll("[data-groom-phone]").forEach(el => el.textContent = Constant.GROOM_PHONE);
 		document.querySelectorAll("[data-groom-bank]").forEach(el => el.textContent = Constant.GROOM_BANK);
@@ -94,9 +99,7 @@ const Constant = {
 		document.querySelectorAll("[data-place-address]").forEach(el => el.textContent = Constant.PLACE_ADDRESS);
 		
 		document.querySelectorAll("[data-messenger-type]").forEach(element => {
-			const args = {
-				"type": element.dataset.messengerType,
-			}
+			const args = {type: element.dataset.messengerType};
 			
 			switch (element.dataset.messengerValue) {
 				case "groom-phone":
@@ -193,7 +196,6 @@ const Constant = {
 					let packageName = isToss ? "viva.republica.toss" : undefined;
 					let trackId = isToss ? "839333328" : undefined;
 					let image = isToss ? "../assets/images/icon_toss_hd.png" : "../assets/images/icon_kakaotalk_hd.png";
-					let color = isToss ? "#004ecc" : "#ccb800";
 					
 					if (!isToss && kakaoPayLink === undefined) {
 						return element.remove();
@@ -231,7 +233,7 @@ const Constant = {
 									errorCorrectionLevel: "H"
 								},
 								dotsOptions: {
-									color: color,
+									color: "#000000",
 									type: "square"
 								},
 								backgroundOptions: {

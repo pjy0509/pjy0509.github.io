@@ -8,7 +8,7 @@ const Accordion = {
 		if (id === undefined && Accordion.initialized === false) {
 			Accordion.initialized = true;
 			
-			return Utils.runOnceAndEventTrigger(
+			return Utils.runAndOn(
 				Accordion.init,
 				window,
 				"resize",

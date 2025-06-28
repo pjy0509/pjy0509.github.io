@@ -1,5 +1,6 @@
 import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.js';
 import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';
+import Utils from "./utils.js";
 
 const Carousel = {
 	photoBox: null,
@@ -82,6 +83,14 @@ const Carousel = {
 			showHideAnimationType: "fade",
 			openPromise: function () {
 				return new Promise(resolve => {
+					history.pushState(null, null, document.URL);
+					
+					window.addEventListener("popstate", () => {
+						Utils.clearHash();
+						Carousel.photoBox.pswp.close();
+					});
+					
+					
 					if (!useFullscreen || fullscreenAPI.isFullscreen()) {
 						beforeY = window.scrollY;
 						
@@ -120,6 +129,8 @@ const Carousel = {
 		});
 		
 		Carousel.photoBox.on('close', () => {
+			Utils.clearHash();
+			
 			if (beforeY !== undefined) {
 				window.scrollTo(0, beforeY);
 			}

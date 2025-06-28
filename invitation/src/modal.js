@@ -18,7 +18,7 @@ const Modal = {
 	show: function (id) {
 		const modal = Modal.getModalById(id);
 		const modalContent = modal.querySelector("div");
-		const scrollElement = SimpleBar.instances.get(modalContent).getScrollElement();
+		const scrollElement = Utils.getSimpleBarScrollElement(modalContent);
 		
 		modal.classList.add("show");
 		modal.style.zIndex = (Modal.shown.length + 999).toString();
@@ -54,6 +54,20 @@ const Modal = {
 		}
 		
 		const modal = document.querySelector("[data-modal-id=" + id + "]");
+		const modalContent = modal.querySelector("div");
+		const modalClose = modal.querySelector("button.modal-close");
+		
+		modal.onclick = function () {
+			Modal.hide(this);
+		}
+		
+		modalClose.onclick = function () {
+			Modal.hide(this);
+		}
+		
+		modalContent.onclick = function () {
+			event.stopPropagation();
+		}
 		
 		Modal.el[id] = modal;
 		
