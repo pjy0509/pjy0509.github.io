@@ -107,3 +107,9 @@
     font-weight: 900;
     src: url('../assets/font/SUIT/SUIT-Heavy.woff2') format('woff2');
 }
+
+@font-face {
+    font-family: 'NanumGonsin';
+    font-weight: 400;
+    src: url('../assets/font/Gomsin/NanumGomsin.ttf') format('truetype');
+}

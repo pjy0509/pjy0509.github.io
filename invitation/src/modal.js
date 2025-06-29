@@ -42,6 +42,8 @@ const Modal = {
 		
 		Utils.clearHash();
 		
+		modal.querySelectorAll("input, textarea").forEach(el => el.value = "");
+		
 		this.shown.splice(index, 1);
 	},
 	getModalById: function (id) {

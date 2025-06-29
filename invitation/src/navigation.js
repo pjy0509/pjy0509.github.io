@@ -586,7 +586,7 @@ const Navigation = {
 			
 			try {
 				return await Promise.all([
-					await fetch("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkInfo/1/1000/영등포구")
+					await fetchProxy("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkInfo/1/1000/영등포구")
 						.then(response => response.json())
 						.then(response => Array.from(new Map(response.GetParkInfo.row.map(park => [park.PKLT_CD, park])).values())
 							.filter(park => {
@@ -602,7 +602,7 @@ const Navigation = {
 								return !(parkBeginHM === 0 && parkEndHM === 0) && (parkBeginHM < beginHM && (parkEndHM > endHM || beginHM > endHM));
 							})),
 					
-					await fetch("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkingInfo/1/1000/영등포구")
+					await fetchProxy("http://openapi.seoul.go.kr:8088/4c41556673716b7234387474764c46/json/GetParkingInfo/1/1000/영등포구")
 						.then(response => response.json())
 						.then(response => Array.from(new Map(response.GetParkingInfo.row.map(park => [park.PKLT_CD, park])).values())
 							.filter(park => park.PRK_STTS_YN === "1")
@@ -743,6 +743,13 @@ function hasFinalConsonant(text) {
 	
 	if (lastStrCode < firstHangul || lastStrCode > lastHangul) return false;
 	return (lastStrCode - firstHangul) % 28 === 0;
+}
+
+async function fetchProxy(url, options = {}) {
+	return await fetch(
+		"https://lqpcufd4zapvf3ldssafva36le0bvjcf.lambda-url.ap-northeast-2.on.aws?url=" + encodeURIComponent(url),
+		options
+	);
 }
 
 export default Navigation;

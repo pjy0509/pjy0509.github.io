@@ -9,11 +9,11 @@ const Carousel = {
 		window.Carousel = Carousel;
 		
 		const images = [
-			"assets/images/i1.jpeg",
-			"assets/images/i2.jpeg",
-			"assets/images/i3.jpeg",
-			"assets/images/i4.jpeg",
-			"assets/images/i5.jpg",
+			"assets/images/carousel/i1.jpeg",
+			"assets/images/carousel/i2.jpeg",
+			"assets/images/carousel/i3.jpeg",
+			"assets/images/carousel/i4.jpeg",
+			"assets/images/carousel/i5.jpg",
 		];
 		
 		const imagePromises = images.map(getImageSize);

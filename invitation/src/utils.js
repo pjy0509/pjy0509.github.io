@@ -46,6 +46,16 @@ const Utils = {
 	getSimpleBarScrollElement: function (el) {
 		return SimpleBar.instances.get(el).getScrollElement();
 	},
+	scrollToTop: function () {
+		const scrollEl = Utils.getSimpleBarScrollElement(document.body);
+		
+		scrollEl.scrollTo({top: 0, behavior: 'smooth'});
+	},
+	scrollToBottom: function () {
+		const scrollEl = Utils.getSimpleBarScrollElement(document.body);
+		
+		scrollEl.scrollTo({top: scrollEl.scrollHeight, behavior: 'smooth'});
+	},
 	syncScrollY: function (removeHash = false) {
 		const y = +location.hash.split("#")[1];
 		
