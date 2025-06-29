@@ -8,13 +8,7 @@ const Carousel = {
 	init: async function () {
 		window.Carousel = Carousel;
 		
-		const images = [
-			"assets/images/carousel/i1.jpeg",
-			"assets/images/carousel/i2.jpeg",
-			"assets/images/carousel/i3.jpeg",
-			"assets/images/carousel/i4.jpeg",
-			"assets/images/carousel/i5.jpg",
-		];
+		const images = Array.from({length: 32}, (_, i) => "assets/images/carousel/carousel" + (i + 1) + ".jpg");
 		
 		const imagePromises = images.map(getImageSize);
 		const resolvedImages = await Promise.all(imagePromises);
@@ -31,12 +25,14 @@ const Carousel = {
 		swiperContainer.classList.add("swiper-wrapper");
 		
 		for (let i = 0; i < length; i++) {
+			const imgContainer = document.createElement("div");
+			imgContainer.classList.add("swiper-slide");
+			
 			const img = document.createElement("img");
-			
 			img.src = images[i];
-			img.classList.add("swiper-slide");
 			
-			swiperContainer.append(img);
+			imgContainer.append(img);
+			swiperContainer.append(imgContainer);
 		}
 		
 		swiperElement.append(swiperContainer);
@@ -45,6 +41,27 @@ const Carousel = {
 		Carousel.swiper = new Swiper("[data-swiper]", {
 			loop: true,
 		});
+		
+		Utils.runAndOn(
+			() => {
+				const children = swiperContainer.children;
+				
+				for (let i = 0; i < children.length; i++) {
+					children[i].style.height = "unset";
+				}
+				
+				Carousel.swiper.update();
+				
+				void swiperContainer.offsetWidth;
+				
+				for (let i = 0; i < children.length; i++) {
+					children[i].style.height = swiperContainer.offsetHeight + "px";
+				}
+			},
+			window,
+			"resize",
+			300
+		);
 		
 		swiperCurrentElement.textContent = (Carousel.swiper.realIndex + 1).toString();
 		
@@ -143,7 +160,7 @@ const Carousel = {
 		});
 		
 		Carousel.photoBox.on('change', () => {
-			Carousel.swiper.slideTo(Carousel.photoBox.pswp.currSlide.index);
+			Carousel.swiper.slideToLoop(Carousel.photoBox.pswp.currSlide.index);
 		});
 		
 		Carousel.photoBox.init();

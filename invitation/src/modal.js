@@ -6,8 +6,6 @@ const Modal = {
 	init: function () {
 		window.Modal = Modal;
 		
-		history.pushState(null, null, document.URL);
-		
 		window.addEventListener("popstate", () => {
 			if (Modal.shown.length > 0) {
 				Utils.clearHash();

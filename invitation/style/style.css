@@ -24,6 +24,17 @@
     background-color: var(--primary-5);
 }
 
+.swiper-wrapper {
+    align-items: center;
+}
+
+.swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(240 240 240);
+}
+
 html {
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
@@ -960,8 +971,8 @@ body {
 }
 
 .button > img {
-    width: 1rem;
-    height: 1rem;
+    width: 1.2rem;
+    height: 1.2rem;
 }
 
 .button[data-map-type="t-map"],

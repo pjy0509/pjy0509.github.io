@@ -220,7 +220,6 @@ const Guestbook = {
 		const container = document.getElementById("guestbook");
 		const children = [...container.children];
 		for (const el of children) {
-			console.log(el.dataset.guestbookId)
 			if (el.dataset.guestbookId === Guestbook.removeTargetId.toString()) {
 				container.removeChild(el);
 				break;

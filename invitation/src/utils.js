@@ -63,7 +63,7 @@ const Utils = {
 		if (removeHash) Utils.clearHash();
 	},
 	recordScrollY: function () {
-		history.replaceState(null, null, location.protocol + "//" + location.host + location.pathname + location.search + "#" + Utils.getSimpleBarScrollElement(document.body).scrollTop);
+		history.pushState(null, null, location.protocol + "//" + location.host + location.pathname + location.search + "#" + Utils.getSimpleBarScrollElement(document.body).scrollTop);
 	},
 	clearHash: function () {
 		history.replaceState(null, null, location.protocol + "//" + location.host + location.pathname + location.search);
@@ -161,13 +161,13 @@ async function loadParticles() {
 						type: "blurredImage",
 						options: {
 							image: [
-								{src: "./assets/images/p1.png"},
-								{src: "./assets/images/p2.png"},
-								{src: "./assets/images/p3.png"},
-								// {src: "./assets/images/p4.png"},
-								{src: "./assets/images/p5.png"},
-								{src: "./assets/images/p6.png"},
-								// {src: "./assets/images/p7.png"},
+								{src: "./assets/images/particle/particle1.png"},
+								{src: "./assets/images/particle/particle2.png"},
+								{src: "./assets/images/particle/particle3.png"},
+								// {src: "./assets/images/particle/particle4.png"},
+								{src: "./assets/images/particle/particle5.png"},
+								{src: "./assets/images/particle/particle6.png"},
+								// {src: "./assets/images/particle/particle7.png"},
 							],
 							blur: {
 								min: 0,

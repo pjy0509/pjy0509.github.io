@@ -691,7 +691,7 @@ const Navigation = {
 		const parks = await getParks()
 		
 		parks.unshift({
-			name: "건물 주차장",
+			name: Constant.PLACE_NAME + " 주차장",
 			parkCount: Constant.PARK_COUNT,
 			basePrice: Constant.PARK_BASE_PRICE,
 			baseTime: Constant.PARK_BASE_TIME,
