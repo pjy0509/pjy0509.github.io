@@ -189,7 +189,7 @@ const KakaoTalk = {
 			content: {
 				title: "자세히 보기",
 				description: "https://pjy0509.github.io/invitation",
-				imageUrl: "https://raw.githubusercontent.com/pjy0509/pjy0509.github.io/refs/heads/main/invitation/assets/images/i0.jpg",
+				imageUrl: Constant.META_IMAGE,
 				link: {
 					mobileWebUrl: "https://pjy0509.github.io/invitation",
 					webUrl: "https://pjy0509.github.io/invitation",

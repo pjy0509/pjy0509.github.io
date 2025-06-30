@@ -48,6 +48,7 @@ const Constant = {
 	PARK_DESCRIPTION: "예식날 주차장과 엘레베이터가 인기만점입니다. 대중교통 이용 혹은 도착 예정시간 보다 여유있는 출발 부탁드립니다. 양해 감사합니다.",
 	META_TITLE: document.querySelector("meta[property=\"og:title\"]").content,
 	META_DESCRIPTION: document.querySelector("meta[property=\"og:description\"]").content,
+	META_IMAGE: document.querySelector("meta[property=\"og:image\"]").content,
 	WEDDING_DATE_TIME_START: null,
 	WEDDING_DATE_TIME_END: null,
 	WEDDING_DATE: null,
