@@ -196,7 +196,7 @@ const Constant = {
 						: kakaoPayLink;
 					let packageName = isToss ? "viva.republica.toss" : undefined;
 					let trackId = isToss ? "839333328" : undefined;
-					let image = isToss ? "../assets/images/icon_toss_hd.png" : "../assets/images/icon_kakaotalk_hd.png";
+					let image = isToss ? "../assets/images/icon/icon_toss_hd.png" : "../assets/images/icon/icon_kakaotalk_hd.png";
 					
 					if (!isToss && kakaoPayLink === undefined) {
 						return element.remove();

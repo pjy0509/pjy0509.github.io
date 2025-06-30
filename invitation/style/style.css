@@ -1519,10 +1519,10 @@ ul[data-selector] li.selected {
 
 .item-guestbook .content-container {
     font-family: NanumGonsin, Tossface, sans-serif;
-    font-size: 1.125rem;
+    font-size: min(1.125rem, 100vw * 0.04);
     font-weight: 600;
     letter-spacing: -.0075rem;
-    line-height: 1.425rem;
+    line-height: min(1.25rem, 100vw * 0.045);
     color: rgb(60 60 60);
     position: absolute;
     top: 25%;
@@ -1554,6 +1554,12 @@ ul[data-selector] li.selected {
 
 .item-guestbook .writer::before {
     content: 'From ';
+}
+
+@media (max-width: 270px) {
+    .item-guestbook .create-date {
+        display: none;
+    }
 }
 
 .guestbook-show-more-mask {
