@@ -1519,10 +1519,11 @@ ul[data-selector] li.selected {
 
 .item-guestbook .content-container {
     font-family: NanumGonsin, Tossface, sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 600;
+    letter-spacing: -.0075rem;
+    line-height: 1.33rem;
     color: rgb(60 60 60);
-    letter-spacing: .075rem;
     position: absolute;
     top: 25%;
     left: 10%;
@@ -1547,6 +1548,7 @@ ul[data-selector] li.selected {
     display: flex;
     justify-content: space-between;
     font-size: .8rem;
+    letter-spacing: .075rem;
     opacity: .6;
 }
 
