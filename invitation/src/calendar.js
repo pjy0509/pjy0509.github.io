@@ -63,10 +63,6 @@ const Calendar = {
 		const components = [document.getElementById("icon"), document.getElementById("detail"), document.getElementById("temperature"), document.getElementById("apparent-temperature"), document.getElementById("precipitation-probability")];
 		const weather = document.getElementById("weather");
 		
-		try {
-		
-		} catch (e) {
-		}
 		fetch(
 			"https://api.open-meteo.com/v1/forecast?"
 			+ new URLSearchParams({
@@ -124,14 +120,6 @@ const Calendar = {
 				components[4].innerText = data.hourly.relative_humidity_2m[i] + " %";
 				
 				weather.classList.add("show");
-				
-				// console.log(`기온: ${data.hourly.temperature_2m[i]} °C`);
-				// console.log(`체감온도: ${data.hourly.apparent_temperature[i]} °C`);
-				// console.log(`습도: ${data.hourly.relative_humidity_2m[i]} %`);
-				// console.log(`풍속: ${data.hourly.wind_speed_10m[i]} m/s`);
-				// console.log(`강수량: ${data.hourly.precipitation[i]} mm`);
-				// console.log(`강수 확률: ${data.hourly.precipitation_probability[i]} %`);
-				// console.log(`기상 코드: ${data.hourly.weathercode[i]}`);
 			})
 			.catch();
 	}

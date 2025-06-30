@@ -8,7 +8,7 @@ const Carousel = {
 	init: async function () {
 		window.Carousel = Carousel;
 		
-		const images = Array.from({length: 32}, (_, i) => "assets/images/carousel/carousel" + (i + 1) + ".jpg");
+		const images = Array.from({length: 34}, (_, i) => "assets/images/carousel/carousel" + (i + 1) + ".jpg");
 		
 		const imagePromises = images.map(getImageSize);
 		const resolvedImages = await Promise.all(imagePromises);

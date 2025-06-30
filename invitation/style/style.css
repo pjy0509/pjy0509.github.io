@@ -439,7 +439,7 @@ body {
     align-items: center;
     font-size: 48px;
     height: 48px;
-    filter: drop-shadow(2px 2px 0 rgb(0, 0, 0));
+    filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, .5));
 }
 
 .item-weather .weather-container .weather-icon #detail {
@@ -918,6 +918,33 @@ body {
 
 .item-routes {
     height: 19rem;
+}
+
+.item-contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 4rem;
+    font-size: .8125rem;
+    gap: .5rem;
+}
+
+.item-contact-name {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-contact-name-english {
+    font-size: .65rem;
+    font-weight: 700;
+    margin: -.05rem 0 0 .5rem;
+    opacity: .333;
+}
+
+.item-contact-driver {
+    margin: 1rem 4rem;
+    height: 1px;
+    background: rgb(226, 232, 240);
 }
 
 .button-grid {

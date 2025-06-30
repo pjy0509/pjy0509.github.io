@@ -145,7 +145,7 @@ const Navigation = {
 		this.park()
 			.then(parks => {
 				parks
-					.slice(0, 9)
+					.filter(park => park.distance === undefined || park.distance < 1000)
 					.forEach((park, i) => {
 						const container = document.createElement("div");
 						const title = document.createElement("div");
@@ -688,7 +688,7 @@ const Navigation = {
 			}
 		}
 		
-		const parks = await getParks()
+		const parks = await getParks();
 		
 		parks.unshift({
 			name: Constant.PLACE_NAME + " 주차장",
