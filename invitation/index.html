@@ -1010,13 +1010,9 @@
 		);
 
 		const search = new URLSearchParams(location.search);
+		const mode = search.get("mode");
 
 		if (search.has("mode")) {
-			const mode = search.get("mode");
-			const element = document.querySelector("[data-fullscreen=\"" + mode + "\"]");
-
-			if (element !== null) element.classList.add("show");
-
 			switch (mode) {
 				case "schedule":
 					KakaoTalk.createSchedule();
@@ -1051,6 +1047,15 @@
 	else document.addEventListener('readystatechange', init);
 </script>
 <script>
+	const search = new URLSearchParams(location.search);
+	const mode = search.get("mode");
+
+	if (search.has("mode")) {
+		const element = document.querySelector("[data-fullscreen=\"" + mode + "\"]");
+
+		if (element !== null) element.classList.add("show");
+	}
+
 	async function copyPlace() {
 		try {
 			await Utils.copy(Constant.PLACE_ADDRESS);
