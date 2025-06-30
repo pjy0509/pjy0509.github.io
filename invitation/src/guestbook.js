@@ -66,9 +66,9 @@ const Guestbook = {
 		const signed = Math.random() < 0.5 ? -1 : 1;
 		
 		const marginTop = {1: "-4rem", 2: "-4rem", 3: "-6rem", 4: "-6rem", 5: "-4rem", 6: "-4rem"};
-		const top = {1: "25%", 2: "25%", 3: "37%", 4: "37%", 5: "25%", 6: "25%"};
+		const top = {1: "25%", 2: "25%", 3: "37%", 4: "37%", 5: "25%", 6: "27%"};
 		const buttonTop = {1: "-10%", 2: "-10%", 3: "-15%", 4: "-15%", 5: "-10%", 6: "-10%"};
-		const height = {1: "63%", 2: "60%", 3: "52%", 4: "54%", 5: "60%", 6: "60%"};
+		const height = {1: "63%", 2: "60%", 3: "52%", 4: "54%", 5: "60%", 6: "59%"};
 		const rotateContent = {1: -4, 2: 0, 3: 0, 4: 0, 5: 0, 6: 4};
 		
 		const imgContainer = document.createElement("div");
