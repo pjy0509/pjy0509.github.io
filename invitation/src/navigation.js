@@ -427,6 +427,37 @@ const Navigation = {
 					coordType: "wgs84",
 				});
 				return;
+			case "kakao-taxi":
+				scheme = "kakaot://launch"
+					+ "?page=" + encodeURIComponent("search")
+					+ "&dest_lat=" + encodeURIComponent(latitude)
+					+ "&dest_lng=" + encodeURIComponent(longitude)
+					+ "&dest_name=" + encodeURIComponent(placeName);
+				
+				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
+					location.href = scheme;
+					
+					const id = setTimeout(() => {
+						if (document.visibilityState === "visible") {
+							location.href = "itms-apps://itunes.apple.com/app/id" + "981110422";
+						}
+					}, 500);
+					
+					return;
+				}
+				
+				new Native.App({
+					android: {
+						scheme: scheme,
+						package: "com.kakao.taxi",
+					},
+					ios: {
+						scheme: scheme,
+						trackId: "981110422",
+					}
+				})
+					.run();
+				return;
 			case "google-map":
 				if (Native.OS.name === "Android") {
 					if (this.method === "transit") {

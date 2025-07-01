@@ -16,21 +16,25 @@ const Constant = {
 	GROOM_FATHER_BANK: undefined,
 	GROOM_FATHER_ACCOUNT_NO: undefined,
 	GROOM_FATHER_KAKAO_PAY_LINK: undefined,
+	GROOM_FATHER_USE_CHRYSANTHEMUM: false,
 	GROOM_MOTHER: "김인숙",
 	GROOM_MOTHER_PHONE: "010-9011-6148",
 	GROOM_MOTHER_BANK: "카카오뱅크",
 	GROOM_MOTHER_ACCOUNT_NO: "3333236768704",
 	GROOM_MOTHER_KAKAO_PAY_LINK: "https://qr.kakaopay.com/FTfimikk7",
-	BRIDE_FATHER: undefined,
+	GROOM_MOTHER_USE_CHRYSANTHEMUM: false,
+	BRIDE_FATHER: "최봉열",
 	BRIDE_FATHER_PHONE: undefined,
 	BRIDE_FATHER_BANK: undefined,
 	BRIDE_FATHER_ACCOUNT_NO: undefined,
 	BRIDE_FATHER_KAKAO_PAY_LINK: undefined,
+	BRIDE_FATHER_USE_CHRYSANTHEMUM: true,
 	BRIDE_MOTHER: "김도연",
 	BRIDE_MOTHER_PHONE: "010-4923-1385",
 	BRIDE_MOTHER_BANK: undefined,
 	BRIDE_MOTHER_ACCOUNT_NO: undefined,
 	BRIDE_MOTHER_KAKAO_PAY_LINK: undefined,
+	BRIDE_MOTHER_USE_CHRYSANTHEMUM: false,
 	LATITUDE: "37.52137722994085",
 	LONGITUDE: "126.90459301926333",
 	PLACE_NAME: "웨딩그룹위더스 영등포",
@@ -68,6 +72,10 @@ const Constant = {
 		document.querySelectorAll("[data-require-groom-mother]").forEach(el => Constant.GROOM_MOTHER === undefined ? el.remove() : el);
 		document.querySelectorAll("[data-require-bride-father]").forEach(el => Constant.BRIDE_FATHER === undefined ? el.remove() : el);
 		document.querySelectorAll("[data-require-bride-mother]").forEach(el => Constant.BRIDE_MOTHER === undefined ? el.remove() : el);
+		document.querySelectorAll("[data-require-groom-father-phone]").forEach(el => Constant.GROOM_FATHER_PHONE === undefined ? el.remove() : el);
+		document.querySelectorAll("[data-require-groom-mother-phone]").forEach(el => Constant.GROOM_MOTHER_PHONE === undefined ? el.remove() : el);
+		document.querySelectorAll("[data-require-bride-father-phone]").forEach(el => Constant.BRIDE_FATHER_PHONE === undefined ? el.remove() : el);
+		document.querySelectorAll("[data-require-bride-mother-phone]").forEach(el => Constant.BRIDE_MOTHER_PHONE === undefined ? el.remove() : el);
 		document.querySelectorAll("[data-require-groom-father-account]").forEach(el => Constant.GROOM_FATHER_ACCOUNT_NO === undefined ? el.remove() : el);
 		document.querySelectorAll("[data-require-groom-mother-account]").forEach(el => Constant.GROOM_MOTHER_ACCOUNT_NO === undefined ? el.remove() : el);
 		document.querySelectorAll("[data-require-bride-father-account]").forEach(el => Constant.BRIDE_FATHER_ACCOUNT_NO === undefined ? el.remove() : el);
