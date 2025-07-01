@@ -929,6 +929,16 @@ body {
     gap: .5rem;
 }
 
+.item-contact > div {
+    display: flex;
+    align-items: center;
+}
+
+.item-contact .chrysanthemum {
+    margin: 0 .2rem 0 0;
+    height: 1rem;
+}
+
 .item-contact-name {
     display: flex;
     flex-direction: row;
@@ -1524,6 +1534,7 @@ ul[data-selector] li.selected {
 
 .item-guestbook > div > img {
     width: 100%;
+    filter: drop-shadow(0 .5rem .3rem rgb(0, 0, 0, 0.1));
 }
 
 .item-guestbook .content-container {

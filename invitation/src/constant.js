@@ -80,6 +80,10 @@ const Constant = {
 		document.querySelectorAll("[data-require-groom-mother-account]").forEach(el => Constant.GROOM_MOTHER_ACCOUNT_NO === undefined ? el.remove() : el);
 		document.querySelectorAll("[data-require-bride-father-account]").forEach(el => Constant.BRIDE_FATHER_ACCOUNT_NO === undefined ? el.remove() : el);
 		document.querySelectorAll("[data-require-bride-mother-account]").forEach(el => Constant.BRIDE_MOTHER_ACCOUNT_NO === undefined ? el.remove() : el);
+		document.querySelectorAll("[data-groom-father-chrysanthemum]").forEach(el => Constant.GROOM_FATHER_USE_CHRYSANTHEMUM ? el : el.remove());
+		document.querySelectorAll("[data-groom-mother-chrysanthemum]").forEach(el => Constant.GROOM_MOTHER_USE_CHRYSANTHEMUM ? el : el.remove());
+		document.querySelectorAll("[data-bride-father-chrysanthemum]").forEach(el => Constant.BRIDE_FATHER_USE_CHRYSANTHEMUM ? el : el.remove());
+		document.querySelectorAll("[data-bride-mother-chrysanthemum]").forEach(el => Constant.BRIDE_MOTHER_USE_CHRYSANTHEMUM ? el : el.remove());
 		document.querySelectorAll("[data-groom]").forEach(el => el.textContent = Constant.GROOM);
 		document.querySelectorAll("[data-groom-phone]").forEach(el => el.textContent = Constant.GROOM_PHONE);
 		document.querySelectorAll("[data-groom-bank]").forEach(el => el.textContent = Constant.GROOM_BANK);
