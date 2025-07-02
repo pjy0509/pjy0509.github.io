@@ -1552,6 +1552,8 @@ ul[data-selector] li.selected {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    word-wrap: break-word;
+
 }
 
 .item-guestbook .content-container button {
@@ -1572,11 +1574,18 @@ ul[data-selector] li.selected {
     opacity: .6;
 }
 
+.item-guestbook .writer {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 45%;
+}
+
 .item-guestbook .writer::before {
     content: 'From ';
 }
 
-@media (max-width: 270px) {
+@media (max-width: 280px) {
     .item-guestbook .create-date {
         display: none;
     }
