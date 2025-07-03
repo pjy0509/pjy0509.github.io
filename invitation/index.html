@@ -995,6 +995,7 @@
 		};
 
 		const scrollElement = Utils.getSimpleBarScrollElement(document.body);
+		const floatingElement = document.querySelector("[data-floating]");
 
 		ScrollOut({
 			scrollingElement: scrollElement,
@@ -1004,10 +1005,24 @@
 			}
 		});
 
-		Utils.runAndOn(
-			() => document.documentElement.dataset.scrollY = scrollElement.scrollTop,
+		Utils.on(
+			() => {
+				document.documentElement.dataset.scrollY = scrollElement.scrollTop;
+				floatingElement.style.opacity = "0";
+				floatingElement.style.pointerEvents = "none";
+			},
 			scrollElement,
 			"scroll"
+		);
+
+		Utils.on(
+			() => {
+				floatingElement.style.opacity = "0.8";
+				floatingElement.style.pointerEvents = "unset";
+			},
+			scrollElement,
+			"scroll",
+            333
 		);
 
 		const search = new URLSearchParams(location.search);

@@ -1481,7 +1481,7 @@ ul[data-selector] li.selected {
     height: 3rem;
     left: 50%;
     bottom: 1.5rem;
-    opacity: .8;
+    opacity: 0;
     color: rgb(68 68 68);
     font-size: .75rem;
     line-height: 1rem;
@@ -1491,15 +1491,22 @@ ul[data-selector] li.selected {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    transition: transform 0.5s ease;
+    pointer-events: unset;
+    transition: opacity 0.5s ease;
 }
 
 [data-scroll-y] [data-floating] {
     transform: translate(-50%, 0);
 }
 
+[data-scroll-y] [data-floating] {
+    opacity: 0.8;
+    pointer-events: none;
+}
+
 [data-scroll-y="0"] [data-floating] {
-    transform: translate(-50%, 5rem);
+    opacity: 0;
+    pointer-events: none;
 }
 
 [data-floating] span {
