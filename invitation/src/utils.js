@@ -8,7 +8,7 @@ const Utils = {
 		const userAgent = navigator.userAgent;
 		
 		// OS
-		document.documentElement.dataset.osName = Native.OS.name;
+		document.documentElement.dataset.osName = Native.Platform.os;
 		
 		// WebView
 		if (/KAKAOTALK\/(\d*\.)*\d* \(INAPP\)/.test(userAgent)) document.documentElement.dataset.wv = "kakao";

@@ -92,7 +92,7 @@ const Carousel = {
 		
 		const photoBoxContainer = getContainer();
 		const fullscreenAPI = getFullscreenAPI();
-		const useFullscreen = fullscreenAPI && Native.OS.name !== "Android" && Native.OS.name !== "iOS";
+		const useFullscreen = fullscreenAPI && Native.Platform.os !== "Android" && Native.Platform.os !== "iOS";
 		let beforeY;
 		
 		Carousel.photoBox = new PhotoSwipeLightbox({

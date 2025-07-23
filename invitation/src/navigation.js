@@ -30,7 +30,7 @@ const Navigation = {
 				return Math.ceil(items / (width >= 500 ? 3 : width >= 380 ? 2 : 1)) * 3 + 1;
 			}
 			
-			switch (Native.OS.name) {
+			switch (Native.Platform.os) {
 				case "Android":
 					return container.style.height = maxHeight(5) + "rem";
 				case "iOS":
@@ -94,7 +94,7 @@ const Navigation = {
 				},
 				scrollElement,
 				"scroll",
-				(Native.OS.name === "Android" || Native.OS.name === "iOS") ? 500 : 1000
+				(Native.Platform.os === "Android" || Native.Platform.os === "iOS") ? 500 : 1000
 			);
 		});
 		
@@ -312,29 +312,17 @@ const Navigation = {
 					+ "&goalx=" + encodeURIComponent(longitude)
 					+ "&goalname=" + encodeURIComponent(placeName);
 				
-				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
-					location.href = scheme;
-					
-					const id = setTimeout(() => {
-						if (document.visibilityState === "visible") {
-							location.href = "itms-apps://itunes.apple.com/app/id" + "431589174";
-						}
-					}, 500);
-					
-					return;
-				}
-				
-				new Native.App({
-					android: {
+				Native.App.open({
+					[Native.Constants.OS.Android]: {
 						scheme: scheme,
 						package: "com.skt.tmap.ku",
 					},
-					ios: {
+					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
 						trackId: "431589174",
 					}
-				})
-					.run();
+				});
+				
 				return;
 			case "naver-map":
 				scheme = "nmap://"
@@ -351,35 +339,23 @@ const Navigation = {
 					+ "&menu=" + encodeURIComponent("route")
 					+ "&pathType=" + encodeURIComponent(this.method === "car" ? "0" : this.method === "transit" ? "1" : this.method === "walk" ? "3" : "");
 				
-				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
-					location.href = scheme;
-					
-					const id = setTimeout(() => {
-						if (document.visibilityState === "visible") {
-							location.href = "itms-apps://itunes.apple.com/app/id" + "311867728";
-						}
-					}, 500);
-					
-					return;
-				}
-				
-				new Native.App({
-					android: {
+				Native.App.open({
+					[Native.Constants.OS.Android]: {
 						scheme: scheme,
 						package: "com.nhn.android.nmap",
 					},
-					ios: {
+					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
 						trackId: "311867728",
 					},
-					windows: {
+					[Native.Constants.OS.Windows]: {
 						fallback: fallback
 					},
-					mac: {
+					[Native.Constants.OS.MacOS]: {
 						fallback: fallback
 					}
-				})
-					.run();
+				});
+				
 				return;
 			case "kakao-map":
 				scheme = "kakaomap://route"
@@ -389,35 +365,23 @@ const Navigation = {
 				fallback = "https://map.kakao.com/link/to/"
 					+ encodeURIComponent(placeName + "," + latitude + "," + longitude);
 				
-				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
-					location.href = scheme;
-					
-					const id = setTimeout(() => {
-						if (document.visibilityState === "visible") {
-							location.href = "itms-apps://itunes.apple.com/app/id" + "304608425";
-						}
-					}, 500);
-					
-					return;
-				}
-				
-				new Native.App({
-					android: {
+				Native.App.open({
+					[Native.Constants.OS.Android]: {
 						scheme: scheme,
 						package: "net.daum.android.map",
 					},
-					ios: {
+					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
 						trackId: "304608425",
 					},
-					windows: {
+					[Native.Constants.OS.Windows]: {
 						fallback: fallback
 					},
-					mac: {
+					[Native.Constants.OS.MacOS]: {
 						fallback: fallback
 					}
-				})
-					.run();
+				});
+				
 				return;
 			case "kakao-navi":
 				Kakao.Navi.start({
@@ -434,32 +398,20 @@ const Navigation = {
 					+ "&dest_lng=" + encodeURIComponent(longitude)
 					+ "&dest_name=" + encodeURIComponent(placeName);
 				
-				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
-					location.href = scheme;
-					
-					const id = setTimeout(() => {
-						if (document.visibilityState === "visible") {
-							location.href = "itms-apps://itunes.apple.com/app/id" + "981110422";
-						}
-					}, 500);
-					
-					return;
-				}
-				
-				new Native.App({
-					android: {
+				Native.App.open({
+					[Native.Constants.OS.Android]: {
 						scheme: scheme,
 						package: "com.kakao.taxi",
 					},
-					ios: {
+					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
 						trackId: "981110422",
 					}
-				})
-					.run();
+				});
+				
 				return;
 			case "google-map":
-				if (Native.OS.name === "Android") {
+				if (Native.Platform.os === "Android") {
 					if (this.method === "transit") {
 						scheme = "https://maps.google.com/maps"
 							+ "?daddr=" + encodeURIComponent(placeName)
@@ -479,50 +431,38 @@ const Navigation = {
 				fallback = "https://www.google.co.kr/maps/dir//"
 					+ encodeURIComponent(placeAddress + " " + placeName);
 				
-				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
-					location.href = scheme;
-					
-					const id = setTimeout(() => {
-						if (document.visibilityState === "visible") {
-							location.href = "itms-apps://itunes.apple.com/app/id" + "585027354";
-						}
-					}, 500);
-					
-					return;
-				}
-				
-				new Native.App({
-					android: {
+				Native.App.open({
+					[Native.Constants.OS.Android]: {
 						scheme: scheme,
 						package: "com.google.android.apps.maps",
 					},
-					ios: {
+					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
 						trackId: "585027354",
 					},
-					windows: {
+					[Native.Constants.OS.Windows]: {
 						fallback: fallback
 					},
-					mac: {
+					[Native.Constants.OS.MacOS]: {
 						fallback: fallback
 					}
-				})
-					.run();
+				});
+				
 				return;
 			case "apple-map":
 				scheme = "maps://"
 					+ "?daddr=" + encodeURIComponent(latitude + "," + longitude)
 					+ "&dirflg=" + encodeURIComponent(this.method === "car" ? "d" : this.method === "transit" ? "r" : this.method === "walk" ? "w" : "");
 				
-				new Native.App({
-					ios: {
+				Native.App.open({
+					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
 					},
-					mac: {
+					[Native.Constants.OS.MacOS]: {
 						scheme: scheme,
 					}
-				})
-					.run();
+				});
+				
 				return;
 			case "uber-taxi":
 				scheme = "uber://"
@@ -543,35 +483,22 @@ const Navigation = {
 						})
 					);
 				
-				if (Native.OS.name === "iOS" && document.documentElement.dataset.wv === "kakao") {
-					location.href = scheme;
-					
-					const id = setTimeout(() => {
-						if (document.visibilityState === "visible") {
-							location.href = "itms-apps://itunes.apple.com/app/id" + "431589174";
-						}
-					}, 500);
-					
-					return;
-				}
-				
-				new Native.App({
-					android: {
+				Native.App.open({
+					[Native.Constants.OS.Android]: {
 						scheme: scheme,
 						package: "com.ubercab",
 					},
-					ios: {
+					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
 						trackId: "431589174",
 					},
-					windows: {
+					[Native.Constants.OS.Windows]: {
 						fallback: fallback
 					},
-					mac: {
+					[Native.Constants.OS.MacOS]: {
 						fallback: fallback
 					}
-				})
-					.run();
+				});
 		}
 	},
 	park: async function () {

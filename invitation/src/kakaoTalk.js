@@ -16,21 +16,20 @@ const KakaoTalk = {
 		const fallback = "https://calendar.kakao.com/"
 			+ "?date=" + encodeURIComponent(Constant.WEDDING_DATE_ISO_STRING);
 		
-		new Native.App({
-			android: {
+		Native.App.open({
+			[Native.Constants.OS.Android]: {
 				scheme: scheme,
 			},
-			ios: {
+			[Native.Constants.OS.iOS]: {
 				scheme: scheme,
 			},
-			windows: {
+			[Native.Constants.OS.Windows]: {
 				fallback: fallback
 			},
-			mac: {
+			[Native.Constants.OS.MacOS]: {
 				fallback: fallback
 			}
-		})
-			.run();
+		});
 		
 		const destructor = Utils.runAndOn(
 			function () {
@@ -180,7 +179,7 @@ const KakaoTalk = {
 	},
 	closeInAppBrowser: function () {
 		if (document.documentElement.dataset.wv !== "kakao") return;
-		if (Native.OS.name === "iOS") return location.href = "kakaoweb://closeBrowser";
+		if (Native.Platform.os === "iOS") return location.href = "kakaoweb://closeBrowser";
 		return location.href = "kakaotalk://inappbrowser/close";
 	},
 	share: function () {

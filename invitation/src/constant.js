@@ -112,7 +112,8 @@ const Constant = {
 		document.querySelectorAll("[data-place-address]").forEach(el => el.textContent = Constant.PLACE_ADDRESS);
 		
 		document.querySelectorAll("[data-messenger-type]").forEach(element => {
-			const args = {type: element.dataset.messengerType};
+			const type = element.dataset.messengerType;
+			const args = {};
 			
 			switch (element.dataset.messengerValue) {
 				case "groom-phone":
@@ -135,17 +136,16 @@ const Constant = {
 					break;
 			}
 			
-			const messenger = new Native.Messenger(args);
-			
 			element.onclick = () => {
-				messenger.run();
+				if (type === "tel") Native.App.messenger.telephone(args);
+				else if (type === "sms") Native.App.messenger.message(args);
 			}
 		});
 		
 		document.querySelectorAll("[data-bank-type]").forEach(element => {
 			const type = element.dataset.bankType;
 			const key = element.dataset.accountValue;
-			const isApp = Native.OS.name === "Android" || Native.OS.name === "iOS";
+			const isApp = Native.Platform.os === "Android" || Native.Platform.os === "iOS";
 			const qrContainer = document.getElementById("qr-code");
 			let bank;
 			let accountNo;
@@ -220,17 +220,16 @@ const Constant = {
 								Utils.recordScrollY();
 							}
 							
-							new Native.App({
-								android: {
+							Native.App.open({
+								[Native.Constants.OS.Android]: {
 									scheme: scheme,
 									package: packageName,
 								},
-								ios: {
+								[Native.Constants.OS.iOS]: {
 									scheme: scheme,
 									trackId: trackId,
-								},
-							})
-								.run();
+								}
+							});
 						} else {
 							qrContainer.childNodes.forEach(node => node.remove());
 							
