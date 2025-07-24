@@ -315,7 +315,7 @@ const Navigation = {
 				Native.App.open({
 					[Native.Constants.OS.Android]: {
 						scheme: scheme,
-						package: "com.skt.tmap.ku",
+						packageName: "com.skt.tmap.ku",
 					},
 					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
@@ -342,7 +342,7 @@ const Navigation = {
 				Native.App.open({
 					[Native.Constants.OS.Android]: {
 						scheme: scheme,
-						package: "com.nhn.android.nmap",
+						packageName: "com.nhn.android.nmap",
 					},
 					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
@@ -368,7 +368,7 @@ const Navigation = {
 				Native.App.open({
 					[Native.Constants.OS.Android]: {
 						scheme: scheme,
-						package: "net.daum.android.map",
+						packageName: "net.daum.android.map",
 					},
 					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
@@ -401,7 +401,7 @@ const Navigation = {
 				Native.App.open({
 					[Native.Constants.OS.Android]: {
 						scheme: scheme,
-						package: "com.kakao.taxi",
+						packageName: "com.kakao.taxi",
 					},
 					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
@@ -434,7 +434,7 @@ const Navigation = {
 				Native.App.open({
 					[Native.Constants.OS.Android]: {
 						scheme: scheme,
-						package: "com.google.android.apps.maps",
+						packageName: "com.google.android.apps.maps",
 					},
 					[Native.Constants.OS.iOS]: {
 						scheme: scheme,
@@ -486,7 +486,7 @@ const Navigation = {
 				Native.App.open({
 					[Native.Constants.OS.Android]: {
 						scheme: scheme,
-						package: "com.ubercab",
+						packageName: "com.ubercab",
 					},
 					[Native.Constants.OS.iOS]: {
 						scheme: scheme,

@@ -223,7 +223,7 @@ const Constant = {
 							Native.App.open({
 								[Native.Constants.OS.Android]: {
 									scheme: scheme,
-									package: packageName,
+									packageName: packageName,
 								},
 								[Native.Constants.OS.iOS]: {
 									scheme: scheme,
