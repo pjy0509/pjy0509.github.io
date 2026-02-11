@@ -1,0 +1,3684 @@
+<!DOCTYPE html>
+<html lang="ko" data-navigation-open="true">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.9.0/highlightjs-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/native-fn/dist/native.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: 13 17 23;
+            --bg-secondary: 22 27 34;
+            --bg-tertiary: 28 33 40;
+            --border-color: 48 54 61;
+            --text-primary: 230 237 243;
+            --text-secondary: 139 148 158;
+            --text-tertiary: 104, 114, 125;
+            --accent-primary: 88 166 255;
+            --accent-secondary: 31 111 235;
+            --gray: 58 58 60;
+            --code-bg: 13 17 23;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            font-size: 13px;
+            transition: max-width 0.2s linear, margin-left 0.2s linear;
+        }
+
+        :root[data-navigation-open="false"] .main-content {
+            max-width: 100%;
+            margin-left: 0;
+        }
+
+        :root[data-navigation-open="true"] .main-content {
+            max-width: calc(100% - 280px);
+            margin-left: 280px;
+        }
+
+        body {
+            background: rgb(var(--bg-primary));
+            color: rgb(var(--text-primary));
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        iframe {
+            border: none;
+            background: rgb(255, 255, 255);
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        :root[data-navigation-open="false"] .sidebar {
+            transform: translateX(-100%);
+        }
+
+        :root[data-navigation-open="true"] .sidebar {
+            transform: translateX(0%);
+        }
+
+        .icon-button {
+            background: #00000000;
+            border: none;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgb(var(--bg-secondary));
+            border-right: 1px solid rgb(var(--border-color));
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2rem 0;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgb(var(--border-color));
+            position: relative;
+        }
+
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, rgb(var(--accent-primary)), #a371f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-version {
+            font-size: 0.875rem;
+            color: rgb(var(--text-secondary));
+        }
+
+        .navigation-open {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            width: 26px;
+            height: 26px;
+            font-size: 16px;
+            border-radius: 13px;
+            background: #58a6ff33;
+            color: rgb(var(--accent-primary));
+        }
+
+        .navigation-close {
+            position: absolute;
+            top: .2rem;
+            right: 1.5rem;
+            width: 26px;
+            height: 26px;
+            font-size: 16px;
+            border-radius: 13px;
+            background: rgb(var(--accent-primary) / 0.2);
+            color: rgb(var(--accent-primary));
+        }
+
+        .navigation-section {
+            padding: 1.5rem 0;
+        }
+
+        .navigation-section:last-child {
+            margin-bottom: 100px;
+        }
+
+        .navigation-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgb(var(--text-secondary));
+            padding: 0 1.5rem 0.75rem;
+        }
+
+        .navigation-list {
+            list-style: none;
+        }
+
+        .navigation-item {
+            margin: 0;
+        }
+
+        .navigation-link {
+            display: block;
+            padding: 0.5rem 1.5rem;
+            color: rgb(var(--text-secondary));
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            font-size: 0.875rem;
+            margin-top: 0.75rem;
+        }
+
+        .navigation-link:hover {
+            color: rgb(var(--text-primary));
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        .navigation-link.active {
+            color: rgb(var(--accent-primary));
+            background: rgba(88, 166, 255, 0.1);
+            border-left-color: rgb(var(--accent-primary));
+            font-weight: 500;
+        }
+
+        .navigation-sublist {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .navigation-sublink {
+            display: block;
+            padding: 0.375rem 1.5rem;
+            color: rgb(var(--text-secondary));
+            text-decoration: none;
+            font-size: 0.8125rem;
+            transition: all 0.2s ease;
+        }
+
+        .navigation-sublink:hover {
+            color: rgb(var(--text-primary));
+        }
+
+        .navigation-sublink.active {
+            color: rgb(var(--accent-primary));
+        }
+
+        [data-ui-chip-container] {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+
+        [data-ui-chip-container] .chip {
+            width: fit-content;
+            display: flex;
+            align-items: baseline;
+            gap: .33rem;
+            background: rgb(var(--accent-primary) / 0.2);
+            padding: .2rem .75rem;
+            height: 1.8rem;
+            border-radius: .9rem;
+            font-size: .875rem;
+            font-weight: 600;
+        }
+
+        [data-ui-chip-container] .chip i {
+            cursor: pointer;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 3rem;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgb(var(--border-color));
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, rgb(var(--accent-primary)), #a371f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgb(var(--text-secondary));
+            font-weight: 400;
+        }
+
+        .install-section {
+            background: rgb(var(--bg-secondary));
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .install-section h2 {
+            color: rgb(var(--text-primary));
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .install-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .install-option h3 {
+            color: rgb(var(--text-primary));
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .section {
+            margin-bottom: 5rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: rgb(var(--text-primary));
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            color: rgb(var(--text-secondary));
+            font-size: 1.125rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .api-category {
+            background: rgb(var(--bg-secondary));
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .api-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            font-size: 1.75rem;
+            color: rgb(var(--text-primary));
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-title::before {
+            content: '';
+            width: 4px;
+            height: 1.5rem;
+            background: linear-gradient(135deg, rgb(var(--accent-primary)), #a371f7);
+            border-radius: 2px;
+            box-shadow: rgba(255, 255, 255, 0.35) 1px 1px 2px;
+        }
+
+        .category-subtitle {
+            font-size: 1.25rem;
+            color: rgb(var(--text-primary));
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-subtitle::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(135deg, rgb(var(--accent-primary)), #a371f7);
+            border-radius: 3px;
+            box-shadow: rgba(255, 255, 255, 0.35) 1px 1px 2px;
+        }
+
+        .category-description {
+            color: rgb(var(--text-secondary));
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .api-method {
+            background: rgb(var(--bg-tertiary));
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .api-method:last-child {
+            margin-bottom: 0;
+        }
+
+        .method-signature {
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            color: rgb(var(--accent-primary));
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgb(var(--code-bg));
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 6px;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .method-description {
+            color: rgb(var(--text-secondary));
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .item {
+            margin-top: 2.5rem;
+        }
+
+        .item h5 {
+            color: rgb(var(--text-primary));
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+            margin-bottom: 0.125rem;
+        }
+
+        .param-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgb(var(--border-color));
+        }
+
+        .param-item:first-child {
+            padding-top: 0;
+        }
+
+        .param-item:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .param-name {
+            color: #ff7b72;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .param-type {
+            color: #79c0ff;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.875rem;
+            margin-left: 0.5rem;
+        }
+
+        .param-description {
+            color: rgb(var(--text-secondary));
+            margin-top: 0.5rem;
+            padding-left: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .playground {
+            background: rgb(var(--bg-primary));
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: .5rem;
+        }
+
+        .playground-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgb(var(--border-color));
+        }
+
+        .playground-header h5 {
+            color: rgb(var(--text-primary));
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .playground-header i {
+            color: rgb(var(--accent-primary));
+            font-size: 0.875rem;
+        }
+
+        .playground-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            color: rgb(var(--text-secondary));
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            background: rgb(var(--bg-tertiary));
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 6px;
+            padding: 0.75rem;
+            color: rgb(var(--text-primary));
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            height: 2.875rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgb(var(--accent-primary));
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: rgb(var(--text-secondary));
+            opacity: 0.5;
+        }
+
+        .form-select {
+            background: rgb(var(--bg-tertiary));
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 6px;
+            padding: 0.75rem;
+            color: rgb(var(--text-primary));
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 2.875rem;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: rgb(var(--accent-primary));
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        .form-support {
+            color: rgb(var(--text-tertiary));
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+        }
+
+        .form-support > div {
+            display: flex;
+            gap: .5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .form-container {
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .form-image {
+            object-fit: contain;
+            background: rgb(var(--text-secondary));
+        }
+
+        .form-container:has(*:focus) {
+            border-color: rgb(var(--accent-primary));
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        .form-text {
+            background: rgb(var(--bg-tertiary));
+            border: 1px solid rgb(var(--border-color));
+            padding: 0.5rem;
+            color: rgb(var(--text-primary));
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.825rem;
+            transition: all 0.2s ease;
+            height: 2.5rem;
+            overflow: auto;
+        }
+
+        .form-textarea {
+            background: rgb(var(--bg-tertiary));
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 6px;
+            padding: 0.75rem;
+            color: rgb(var(--text-primary));
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.875rem;
+            transition: border 0.2s ease;
+            resize: none;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: rgb(var(--accent-primary));
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        .form-container .form-textarea {
+            border-radius: 0;
+        }
+
+        .form-container .form-textarea:focus {
+            outline: none;
+            border: 1px solid rgb(var(--border-color));
+            box-shadow: none;
+        }
+
+        .partition-container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 200px;
+        }
+
+        .partition-item {
+            width: 50%;
+        }
+
+        .button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, rgb(var(--accent-primary)), #a371f7);
+            color: white;
+            box-shadow: 0 2px 8px rgba(88, 166, 255, 0.3);
+        }
+
+        .button-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(88, 166, 255, 0.4);
+        }
+
+        .button-primary:active {
+            transform: translateY(0);
+        }
+
+        .button-gray {
+            background: rgb(var(--gray));
+            color: white;
+            box-shadow: 0 2px 8px rgba(142, 142, 147, 0.3);
+        }
+
+        .button-gray:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(142, 142, 147, 0.4);
+        }
+
+        .button-gray:active {
+            transform: translateY(0);
+        }
+
+        .button-secondary {
+            background: rgb(var(--bg-tertiary));
+            color: rgb(var(--text-primary));
+            border: 1px solid rgb(var(--border-color));
+        }
+
+        .button-secondary:hover {
+            background: rgb(var(--bg-secondary));
+            border-color: rgb(var(--accent-primary));
+        }
+
+        .playground-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgb(var(--bg-tertiary));
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .playground-result.show {
+            display: block;
+        }
+
+        .result-success {
+            border-left: 3px solid #3fb950;
+            color: #3fb950;
+        }
+
+        .result-error {
+            border-left: 3px solid #f85149;
+            color: #f85149;
+        }
+
+        .result-info {
+            border-left: 3px solid rgb(var(--accent-primary));
+            color: rgb(var(--text-secondary));
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-checkbox {
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+            accent-color: rgb(var(--accent-primary));
+        }
+
+        pre {
+            background: rgb(var(--code-bg)) !important;
+            border: 1px solid rgb(var(--border-color));
+            border-radius: 8px;
+            margin: .5rem 0;
+            overflow-x: auto;
+        }
+
+        pre code {
+            display: block;
+            padding: 1rem !important;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.875rem !important;
+            line-height: 1.6;
+        }
+
+        pre label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            left: 0;
+            padding: .75rem 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: rgb(var(--accent-primary));
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            border-bottom: 1px solid rgb(var(--border-color));
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        pre label > i {
+            opacity: 0;
+            cursor: pointer;
+            font-size: .875rem;
+            transition: opacity .125s linear;
+        }
+
+        pre:hover label > i {
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgb(var(--bg-primary));
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgb(var(--border-color));
+            border-radius: 6px;
+            border: 3px solid rgb(var(--bg-primary));
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(var(--text-secondary));
+        }
+
+        @media (max-width: 720px) {
+            :root[data-navigation-open="true"] {
+                overflow: hidden;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+                padding: 2rem 1.5rem;
+                max-width: 100% !important;
+            }
+
+            .partition-container {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 400px;
+            }
+
+            .partition-item {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .main-content {
+                padding: 0;
+            }
+
+            .header h1, .subtitle, .section-title, .section-description {
+                padding: 0 2rem;
+            }
+
+            .install-section, .api-category {
+                border-radius: 0;
+                border: 0;
+            }
+
+            .hljs-ln-numbers {
+                display: none;
+            }
+        }
+
+        .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .hljs-ln-n {
+            padding-right: .5rem;
+            margin-right: .5rem;
+            border-right: 1px solid;
+        }
+
+        .hljs-ln-n:before {
+            font-size: .75rem;
+            font-weight: 600;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        .w-50 {
+            width: 50%;
+        }
+
+        .h-200px {
+            height: 200px;
+        }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .flex-row {
+            flex-direction: row;
+        }
+
+        .flex-column {
+            flex-direction: column;
+        }
+    </style>
+    <title>Native.fn - Documentation</title>
+</head>
+<body>
+<div class="layout">
+    <button class="icon-button navigation-open"><i class="fa-solid fa-bars"></i></button>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo" data-package-name></div>
+            <div class="sidebar-version" data-package-version></div>
+            <button class="icon-button navigation-close"><i class="fa-solid fa-angle-left"></i></button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="header">
+            <h1 data-package-name></h1>
+            <p class="subtitle" data-package-description></p>
+        </header>
+
+        <section data-navigation="Getting Started" data-navigation-title></section>
+
+        <section class="install-section" data-navigation="Install" data-navigation-value="installation" data-navigation-link>
+            <h2>Install</h2>
+            <div class="install-grid">
+                <div class="install-option">
+                    <h3>NPM</h3>
+                    <pre><code class="language-bash">npm install native-fn</code></pre>
+                </div>
+
+                <div class="install-option">
+                    <h3>ES Module</h3>
+                    <pre><code class="language-javascript">import Native from "native-fn";</code></pre>
+                </div>
+
+                <div class="install-option">
+                    <h3>CDN</h3>
+                    <pre><code class="language-html">&lt;script src="https://cdn.jsdelivr.net/npm/native-fn/dist/native.umd.min.js"&gt;&lt;/script&gt;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section data-navigation="API Reference" data-navigation-title></section>
+
+        <section class="section" data-navigation="Native" data-navigation-value="native" data-navigation-link>
+            <h2 class="section-title">Native</h2>
+            <p class="section-description">
+                11111
+            </p>
+
+            <div class="api-category" data-navigation="Native.App" data-navigation-value="native-app" data-navigation-link>
+                <h3 class="category-title">Native.App</h3>
+                <p class="category-description">
+                    22222
+                </p>
+
+                <div class="api-method" data-navigation="open" data-navigation-value="native-app-open" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.App.open</h4>
+
+                    <div class="method-signature">Native.App.open(options)</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">options</span>
+                                <span class="param-type">AppOpenOptions</span>
+                                <div class="param-description">
+                                    44444
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Promise&lt;AppOpenState&gt;</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">try {
+    const result = await Native.App.open({
+        android: {
+            scheme: 'ms-excel://',
+            packageName: 'com.microsoft.office.excel',
+            allowAppStore: true,
+            // allowWebStore: false,
+            // intent: 'intent://#Intent;scheme=ms-excel;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.microsoft.office.excel;end',
+            // fallback: 'https://www.microsoft.com/ko-kr/microsoft-365/excel',
+            // timeout: 1000,
+        },
+        ios: {
+            scheme: 'ms-excel://',
+            trackId: '586683407',
+            allowAppStore: true,
+            // allowWebStore: false,
+            // universal: '',
+            // bundleId: 'com.microsoft.Office.Excel',
+            // fallback: 'https://www.microsoft.com/ko-kr/microsoft-365/excel',
+            // timeout: 2000,
+        },
+        windows: {
+            scheme: 'ms-excel://',
+            productId: 'cfq7ttc0pr28',
+            allowAppStore: true,
+            // allowWebStore: false,
+            // fallback: 'https://www.microsoft.com/ko-kr/microsoft-365/excel',
+            // timeout: 750,
+        },
+        macos: {
+            scheme: 'ms-excel://',
+            trackId: '462058435',
+            allowAppStore: true,
+            // allowWebStore: false,
+            // bundleId: 'com.microsoft.Excel',
+            // fallback: 'https://www.microsoft.com/ko-kr/microsoft-365/excel',
+            // timeout: 750,
+        }
+    });
+
+    switch (result) {
+        case Native.App.Constants.AppOpenState.Scheme:
+            console.log('Opened successfully via app scheme.');
+            break;
+        case Native.App.Constants.AppOpenState.Universal:
+            console.log('Opened successfully via universal link.');
+            break;
+        case Native.App.Constants.AppOpenState.Intent:
+            console.log('Opened successfully via Android intent.');
+            break;
+        case Native.App.Constants.AppOpenState.Fallback:
+            console.log('Opened successfully via fallback URL.');
+            break;
+        case Native.App.Constants.AppOpenState.Store:
+            console.log('Opened successfully via store URL.');
+            break;
+        default:
+            break;
+    }
+} catch (e) {
+    console.error(e.message);
+}
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <!--                                <div class="form-group">-->
+                                <!--                                    <label class="form-label">Platform</label>-->
+                                <!--                                    <select class="form-select" id="platform">-->
+                                <!--                                        <option value="android">Android</option>-->
+                                <!--                                        <option value="ios">iOS</option>-->
+                                <!--                                        <option value="windows">Windows</option>-->
+                                <!--                                        <option value="macos">macOS</option>-->
+                                <!--                                    </select>-->
+                                <!--                                </div>-->
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.open.scheme">Scheme</label>
+                                    <div class="form-support">
+                                        <div><i class="fa-brands fa-android"></i><sub>Android</sub></div>
+                                        <div><i class="fa-brands fa-apple"></i><sub>iOS 2.0+</sub></div>
+                                        <div><i class="fa-brands fa-windows"></i><sub>Windows</sub></div>
+                                        <div><i class="fa-brands fa-apple"></i><sub>MacOS 10.0+</sub></div>
+                                    </div>
+                                    <input type="text" class="form-input" id="native.app.open.scheme" placeholder="ms-excel://" value="ms-excel://">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.open.intent">Intent</label>
+                                    <div class="form-support">
+                                        <div><i class="fa-brands fa-android"></i><sub>Android</sub></div>
+                                    </div>
+                                    <input type="text" class="form-input" id="native.app.open.intent" placeholder="intent://#Intent;scheme=ms-excel;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.microsoft.office.excel;end">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.open.universal">Universal</label>
+                                    <div class="form-support">
+                                        <div><i class="fa-brands fa-apple"></i><sub>iOS 9.0+</sub></div>
+                                    </div>
+                                    <input type="text" class="form-input" id="native.app.open.universal" placeholder="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.open.packageName">Package Name</label>
+                                    <div class="form-support">
+                                        <div><i class="fa-brands fa-android"></i><sub>Android</sub></div>
+                                    </div>
+                                    <input type="text" class="form-input" id="native.app.open.packageName" placeholder="com.microsoft.office.excel">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.open.trackId">Track Id</label>
+                                    <div class="form-support">
+                                        <div><i class="fa-brands fa-apple"></i><sub>iOS</sub></div>
+                                        <div><i class="fa-brands fa-apple"></i><sub>MacOS 10.0+</sub></div>
+                                    </div>
+                                    <input type="text" class="form-input" id="native.app.open.trackId" placeholder="586683407">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.open.bundleId">Bundle Id</label>
+                                    <div class="form-support">
+                                        <div><i class="fa-brands fa-apple"></i><sub>iOS</sub></div>
+                                        <div><i class="fa-brands fa-apple"></i><sub>MacOS 10.0+</sub></div>
+                                    </div>
+                                    <input type="text" class="form-input" id="native.app.open.bundleId" placeholder="com.microsoft.Office.Excel">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.open.productId">Product Id</label>
+                                    <div class="form-support">
+                                        <div><i class="fa-brands fa-windows"></i><sub>Windows 8+</sub></div>
+                                    </div>
+                                    <input type="text" class="form-input" id="native.app.open.productId" placeholder="cfq7ttc0pr28">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.open.fallback">Fallback</label>
+                                    <input type="text" class="form-input" id="native.app.open.fallback" placeholder="https://www.microsoft.com/ko-kr/microsoft-365/excel">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.open.timeout">Timeout</label>
+                                    <input type="number" class="form-input" id="native.app.open.timeout" placeholder="750" min="0">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Options</label>
+
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" class="form-checkbox" id="native.app.open.allowAppStore">
+                                        <label class="form-label" for="native.app.open.allowAppStore">Allow App Store</label>
+                                    </div>
+
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" class="form-checkbox" id="native.app.open.allowWebStore">
+                                        <label class="form-label" for="native.app.open.allowWebStore">Allow Web Store</label>
+                                    </div>
+                                </div>
+
+                                <!--                                <div class="form-row">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label class="form-label">Package Name / Track ID / Product ID</label>-->
+                                <!--                                        <input type="text" class="form-input" id="identifier" placeholder="com.microsoft.office.excel">-->
+                                <!--                                    </div>-->
+
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label class="form-label">Options</label>-->
+                                <!--                                        <div class="checkbox-group">-->
+                                <!--                                            <input type="checkbox" class="form-checkbox" id="allowAppStore" checked>-->
+                                <!--                                            <label class="form-label" for="allowAppStore">Allow App Store</label>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.app.open.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.app.open.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="setting" data-navigation-value="native-app-setting" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.App.setting</h4>
+
+                    <div class="method-signature">
+                        Native.App.setting(type)
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">type</span>
+                                <span class="param-type">SettingType</span>
+                                <div class="param-description">444444</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Promise&lt;void&gt;</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">try {
+    await Native.App.setting(Native.App.Constants.SettingType.General);
+
+    console.log('Opened successfully.');
+} catch (e) {
+    console.error('Failed to open.');
+}
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.setting.type">Type</label>
+                                    <div class="form-support">
+                                        <div><i class="fa-brands fa-android"></i><sub>Android</sub></div>
+                                        <div><i class="fa-brands fa-windows"></i><sub>Windows 10+</sub></div>
+                                        <div><i class="fa-brands fa-apple"></i><sub>MacOS 10.10+</sub></div>
+                                    </div>
+                                    <select class="form-select" id="native.app.setting.type">
+                                        <option value="general">General</option>
+                                        <option value="network">Network</option>
+                                        <option value="display">Display</option>
+                                        <option value="appearance">Appearance</option>
+                                        <option value="accessibility">Accessibility</option>
+                                        <option value="battery">Battery</option>
+                                        <option value="datetime">Datetime</option>
+                                        <option value="language">Language</option>
+                                        <option value="accounts">Accounts</option>
+                                        <option value="storage">Storage</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.app.setting.run" onclick="runAppSetting()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.app.setting.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="api-method" data-navigation="messenger" data-navigation-value="native-app-messenger" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.App.messenger</h4>
+
+                    <div class="method-signature">
+                        Native.App.messenger.telephone(options)<br/>
+                        Native.App.messenger.message(options)<br/>
+                        Native.App.messenger.mail(options)
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">options</span>
+                                <span class="param-type">MessengerOpenOptions</span>
+                                <div class="param-description">444444</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Promise&lt;void&gt;</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">try {
+    await Native.App.messenger.mail({
+        to: ['foo@gmail.com', 'bar@gmail.com'],
+        cc: ['baz@gmail.com'],
+        bcc: ['qux@gmail.com'],
+        subject: 'Hello, world!',
+        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n'
+            + 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n'
+            + 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n'
+            + 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    });
+
+    console.log('Opened successfully.');
+} catch (e) {
+    console.error('Failed to open.');
+}
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.messenger.type">Type</label>
+                                    <select class="form-select" id="native.app.messenger.type">
+                                        <option value="telephone">Telephone</option>
+                                        <option value="message">Message</option>
+                                        <option value="mail">Mail</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.messenger.to">
+                                        To
+                                    </label>
+                                    <input type="text" class="form-input" id="native.app.messenger.to" data-ui-chip-input="native.app.messenger.to">
+                                    <div data-ui-chip-container="native.app.messenger.to">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.messenger.cc">
+                                        Cc
+                                    </label>
+                                    <input type="text" class="form-input" id="native.app.messenger.cc" data-ui-chip-input="native.app.messenger.cc">
+                                    <div data-ui-chip-container="native.app.messenger.cc">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.messenger.bcc">
+                                        Bcc
+                                    </label>
+                                    <input type="text" class="form-input" id="native.app.messenger.bcc" data-ui-chip-input="native.app.messenger.bcc">
+                                    <div data-ui-chip-container="native.app.messenger.bcc">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.messenger.subject">
+                                        Subject
+                                    </label>
+                                    <input type="text" class="form-input" id="native.app.messenger.subject">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.messenger.body">
+                                        Body
+                                    </label>
+                                    <textarea class="form-textarea" id="native.app.messenger.body" data-ui-autoresize-textarea></textarea>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.app.messenger.run" onclick="runAppMessage()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.app.messenger.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="file" data-navigation-value="native-app-file" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.App.file</h4>
+
+                    <div class="method-signature">
+                        Native.App.file(options)<br/>
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">options</span>
+                                <span class="param-type">MessengerOpenOptions</span>
+                                <div class="param-description">444444</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Promise&lt;File[]&gt;</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">try {
+    await Native.App.file();
+
+    console.log('Opened successfully.');
+} catch (e) {
+    console.error('Failed to open.');
+}
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.file.subject">
+                                        Subject
+                                    </label>
+                                    <input type="text" class="form-input" id="native.app.file.subject">
+                                </div>
+
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.app.file.run" onclick="runAppFile()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.app.file.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="contact" data-navigation-value="native-app-contact" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.App.contact</h4>
+
+                    <div class="method-signature">
+                        Native.App.contact(options)<br/>
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">options</span>
+                                <span class="param-type">MessengerOpenOptions</span>
+                                <div class="param-description">444444</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Promise&lt;Contact[]&gt;</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">try {
+    await Native.App.contact();
+
+    console.log('Opened successfully.');
+} catch (e) {
+    console.error('Failed to open.');
+}
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-group">
+                                    <label class="form-label" for="native.app.contact.subject">
+                                        Subject
+                                    </label>
+                                    <input type="text" class="form-input" id="native.app.contact.subject">
+                                </div>
+
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.app.contact.run" onclick="runAppContact()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.app.contact.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-category" data-navigation="Native.Appearance" data-navigation-value="native-appearance" data-navigation-link>
+                <h3 class="category-title">Native.Appearance</h3>
+                <p class="category-description">
+                    22222
+                </p>
+
+                <div class="api-method" data-navigation="value" data-navigation-value="native-appearance-value" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Appearance.value</h4>
+
+                    <div class="method-signature">get Native.Appearance.value</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Appearances</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Appearance.value);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.appearance.value.run" onclick="runAppearanceValue()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+
+                                    <button class="button button-gray" onclick="openAppearanceSetting()">
+                                        <i class="fa-solid fa-gear"></i>
+                                        Open Setting
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.appearance.value.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="onchange" data-navigation-value="native-appearance-onchange" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Appearance.onchange</h4>
+
+                    <div class="method-signature">
+                        Native.Appearance.onchange(listener, options)
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">listener</span>
+                                <span class="param-type">(appearance?: Appearances) => void</span>
+                                <div class="param-description">444444</div>
+                            </div>
+
+                            <div class="param-item">
+                                <span class="param-name">options</span>
+                                <span class="param-type">boolean | AddEventListenerOptions</span>
+                                <div class="param-description">444444</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">() => void</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">Native.Appearance.onchange(
+    function (value) {
+        console.log(value);
+    }, {
+        once: true,
+    }
+);
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.appearance.onchange.run" onclick="runAppearanceOnchange()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+
+                                    <button class="button button-gray" onclick="openAppearanceSetting()">
+                                        <i class="fa-solid fa-gear"></i>
+                                        Open Setting
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.appearance.onchange.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-category" data-navigation="Native.Clipboard" data-navigation-value="native-clipboard" data-navigation-link>
+                <h3 class="category-title">Native.Clipboard</h3>
+                <p class="category-description">
+                    22222
+                </p>
+
+                <div class="api-method" data-navigation="copy" data-navigation-value="native-clipboard-value" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Clipboard.copy</h4>
+
+                    <div class="method-signature">Native.Clipboard.copy(item)</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">item</span>
+                                <span class="param-type">any</span>
+                                <div class="param-description">
+                                    44444
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Promise&lt;boolean&gt;</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">try {
+    const result = await Native.Clipboard.copy('Hello world!');
+
+    if (result) console.log('Copied successfully.');
+    else console.error('Failed to copy.');
+} catch (e) {
+    console.error('Failed to copy.');
+}</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-group">
+                                    <label class="form-label" for="native.clipboard.copy.item.string">
+                                        Item (String)
+                                    </label>
+
+                                    <label for="native.clipboard.copy.option.string"></label>
+
+                                    <div class="checkbox-group">
+                                        <input type="radio" name="native.clipboard.copy.option" id="native.clipboard.copy.option.string" value="string" checked>
+
+                                        <textarea class="form-input form-textarea w-100" id="native.clipboard.copy.item.string" data-ui-autoresize-textarea></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.clipboard.copy.item.html">
+                                        Item (HTML)
+                                    </label>
+
+                                    <label for="native.clipboard.copy.option.html"></label>
+
+                                    <div class="checkbox-group">
+                                        <input type="radio" name="native.clipboard.copy.option" id="native.clipboard.copy.option.html" value="string">
+
+                                        <div class="d-flex flex-column form-container w-100">
+                                            <div class="partition-container">
+                                                <iframe class="partition-item" data-ui-html-render="0" data-ui-html-devtool="0"></iframe>
+
+                                                <textarea class="partition-item form-textarea" id="native.clipboard.copy.item.html" data-ui-html-editor="0">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;Sample Document&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    header, footer { background:#f0f0f0; padding:10px; }
+    nav a { margin-right:10px; }
+    section { margin-top:20px; }
+    table { border-collapse: collapse; margin-top:10px; }
+    th, td { border:1px solid #333; padding:4px; }
+    .card { border:1px solid #ccc; padding:10px; margin-top:10px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;header&gt;
+  &lt;h1&gt;HTML Sample&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;Text Elements&lt;/h2&gt;
+  &lt;p&gt;This is a &lt;strong&gt;paragraph&lt;/strong&gt; with &lt;em&gt;emphasis&lt;/em&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Item One&lt;/li&gt;
+    &lt;li&gt;Item Two&lt;/li&gt;
+    &lt;li&gt;Item Three&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;ol&gt;
+    &lt;li&gt;First&lt;/li&gt;
+    &lt;li&gt;Second&lt;/li&gt;
+    &lt;li&gt;Third&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;Form Elements&lt;/h2&gt;
+  &lt;form&gt;
+    &lt;label&gt;Name: &lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;&lt;/label&gt;
+    &lt;label&gt;Email: &lt;input type=&quot;email&quot; name=&quot;email&quot;&gt;&lt;/label&gt;
+    &lt;label&gt;
+      Country:
+      &lt;select&gt;
+        &lt;option&gt;USA&lt;/option&gt;
+        &lt;option&gt;UK&lt;/option&gt;
+        &lt;option&gt;Canada&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/label&gt;
+  &lt;/form&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;Media&lt;/h2&gt;
+  &lt;video width=&quot;200&quot; controls&gt;
+    &lt;source src=&quot;http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4&quot; type=&quot;video/mp4&quot;&gt;
+  &lt;/video&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;Table&lt;/h2&gt;
+  &lt;table&gt;
+    &lt;tr&gt;
+      &lt;th&gt;A&lt;/th&gt;
+      &lt;th&gt;B&lt;/th&gt;
+      &lt;th&gt;C&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/section&gt;
+
+&lt;footer&gt;
+  &lt;p&gt;&amp;copy; 2026 Sample Footer&lt;/p&gt;
+&lt;/footer&gt;
+
+&lt;/body&gt;</textarea>
+                                            </div>
+
+                                            <div class="form-text">
+                                                <i class="fa-brands fa-css3-alt"></i>
+                                                <span data-ui-html-devtool-result="0" data-ui-html-devtool-placeholder="<span style='color: #f9c476;'>Select any element</span>">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="native.clipboard.copy.item.image">
+                                        Item (Image)
+                                    </label>
+
+                                    <label for="native.clipboard.copy.option.image"></label>
+
+                                    <div class="checkbox-group">
+                                        <input type="radio" name="native.clipboard.copy.option" id="native.clipboard.copy.option.image" value="string">
+
+                                        <div class="form-container partition-container">
+                                            <img src="" alt="" class="form-image partition-item" data-ui-image-render="0">
+
+                                            <textarea class="partition-item form-textarea" id="native.clipboard.copy.item.image" data-ui-image-editor="0">data:image/png;base64,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</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.clipboard.copy.run" onclick="runClipboardCopy()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.clipboard.copy.result"></pre>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Paste in here
+                                    </label>
+
+                                    <div contenteditable="true">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="paste" data-navigation-value="native-clipboard-paste" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Clipboard.paste</h4>
+
+                    <div class="method-signature">
+                        Native.Clipboard.paste()
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Promise&lt;string&gt;</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">try {
+    console.log(await Native.Clipboard.paste());
+} catch (e) {
+    console.error('Failed to paste.');
+}</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.clipboard.paste.run" onclick="runClipboardPaste()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.clipboard.paste.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-category" data-navigation="Native.Dimension" data-navigation-value="native-dimension" data-navigation-link>
+                <h3 class="category-title">Native.Dimension</h3>
+                <p class="category-description">
+                    22222
+                </p>
+
+                <div class="api-method" data-navigation="value" data-navigation-value="native-dimension-value" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Dimension.value</h4>
+
+                    <div class="method-signature">get Native.Dimension.value</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Dimensions</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Dimension.value);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.dimension.value.run" onclick="runDimensionValue()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+
+                                    <button class="button button-gray" onclick="openDisplaySetting()">
+                                        <i class="fa-solid fa-gear"></i>
+                                        Open Setting
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.dimension.value.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="onchange" data-navigation-value="native-dimension-onchange" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Dimension.onchange</h4>
+
+                    <div class="method-signature">
+                        Native.Dimension.onchange(listener, options)
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">listener</span>
+                                <span class="param-type">(dimension?: Dimensions) => void</span>
+                                <div class="param-description">444444</div>
+                            </div>
+
+                            <div class="param-item">
+                                <span class="param-name">options</span>
+                                <span class="param-type">boolean | AddEventListenerOptions</span>
+                                <div class="param-description">444444</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">() => void</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">Native.Dimension.onchange(
+    function (value) {
+        console.log(value);
+    }, {
+        once: true,
+    }
+);
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.dimension.onchange.run" onclick="runDimensionOnchange()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+
+                                    <button class="button button-gray" onclick="openDisplaySetting()">
+                                        <i class="fa-solid fa-gear"></i>
+                                        Open Setting
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.dimension.onchange.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-category" data-navigation="Native.Fullscreen" data-navigation-value="native-fullscreen" data-navigation-link>
+                <h3 class="category-title">Native.Fullscreen</h3>
+                <p class="category-description">
+                    22222
+                </p>
+
+                <div class="api-method" data-navigation="enable" data-navigation-value="native-fullscreen-enable" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Fullscreen.enable</h4>
+
+                    <div class="method-signature">get Native.Fullscreen.enable</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">boolean</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Fullscreen.enable);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.fullscreen.value.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.fullscreen.value.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="element" data-navigation-value="native-fullscreen-element" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Fullscreen.element</h4>
+
+                    <div class="method-signature">get Native.Fullscreen.element</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Element | null</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Fullscreen.element);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.fullscreen.element.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.fullscreen.element.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="isFullscreen" data-navigation-value="native-fullscreen-is-fullscreen" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Fullscreen.isFullscreen</h4>
+
+                    <div class="method-signature">get Native.Fullscreen.isFullscreen</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">boolean</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Fullscreen.isFullscreen);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.fullscreen.isFullscreen.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.fullscreen.isFullscreen.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="request" data-navigation-value="native-fullscreen-request" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Fullscreen.request</h4>
+
+                    <div class="method-signature">
+                        Native.Fullscreen.request(target, options)
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">target</span>
+                                <span class="param-type">Element</span>
+                                <div class="param-description">444444</div>
+                            </div>
+
+                            <div class="param-item">
+                                <span class="param-name">options</span>
+                                <span class="param-type">FullscreenOptions</span>
+                                <div class="param-description">444444</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Promise&lt;void&gt;</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">try {
+    await Native.Fullscreen.request(window.document.documentElement);
+
+    console.log('Opened successfully.');
+} catch (e) {
+    console.error('Failed to open.');
+}}
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.fullscreen.request.run" onclick="runAppMessage()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.fullscreen.request.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="exit" data-navigation-value="native-fullscreen-exit" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Fullscreen.exit</h4>
+
+                    <div class="method-signature">
+                        Native.Fullscreen.exit()
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Promise&lt;void&gt;</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">try {
+    await Native.Fullscreen.exit();
+
+    console.log('Opened successfully.');
+} catch (e) {
+    console.error('Failed to open.');
+}}
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.fullscreen.exit.run" onclick="runAppMessage()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.fullscreen.exit.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="toggle" data-navigation-value="native-fullscreen-toggle" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Fullscreen.toggle</h4>
+
+                    <div class="method-signature">
+                        Native.Fullscreen.toggle(target, options)
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">target</span>
+                                <span class="param-type">Element</span>
+                                <div class="param-description">444444</div>
+                            </div>
+
+                            <div class="param-item">
+                                <span class="param-name">options</span>
+                                <span class="param-type">FullscreenOptions</span>
+                                <div class="param-description">444444</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Promise&lt;void&gt;</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">try {
+    await Native.Fullscreen.toggle(window.document.documentElement);
+
+    console.log('Opened successfully.');
+} catch (e) {
+    console.error('Failed to open.');
+}}
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.fullscreen.toggle.run" onclick="runAppMessage()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.fullscreen.toggle.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="onchange" data-navigation-value="native-fullscreen-onchange" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Fullscreen.onchange</h4>
+
+                    <div class="method-signature">
+                        Native.Fullscreen.onchange(listener, options)
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">listener</span>
+                                <span class="param-type">(event: Event) => void</span>
+                                <div class="param-description">444444</div>
+                            </div>
+
+                            <div class="param-item">
+                                <span class="param-name">options</span>
+                                <span class="param-type">boolean | AddEventListenerOptions</span>
+                                <div class="param-description">444444</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">() => void</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">Native.Fullscreen.onchange(
+    function (value) {
+        console.log(value);
+    }, {
+        once: true,
+    }
+);
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.fullscreen.onchange.run" onclick="runAppMessage()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.fullscreen.onchange.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="onerror" data-navigation-value="native-dimension-onerror" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Fullscreen.onerror</h4>
+
+                    <div class="method-signature">
+                        Native.Fullscreen.onerror(listener, options)
+                    </div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Parameters</h5>
+
+                        <div class="param-list">
+                            <div class="param-item">
+                                <span class="param-name">listener</span>
+                                <span class="param-type">(event: Event) => void</span>
+                                <div class="param-description">444444</div>
+                            </div>
+
+                            <div class="param-item">
+                                <span class="param-name">options</span>
+                                <span class="param-type">boolean | AddEventListenerOptions</span>
+                                <div class="param-description">444444</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">() => void</span>
+                        <div class="param-description">555555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">Native.Fullscreen.onerror(
+    function (value) {
+        console.log(value);
+    }, {
+        once: true,
+    }
+);
+</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.fullscreen.onerror.run" onclick="runAppMessage()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.fullscreen.onerror.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-category" data-navigation="Native.Platform" data-navigation-value="native-platform" data-navigation-link>
+                <h3 class="category-title">Native.Platform</h3>
+                <p class="category-description">
+                    22222
+                </p>
+
+                <div class="api-method" data-navigation="os" data-navigation-value="native-platform-os" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Platform.os</h4>
+
+                    <div class="method-signature">get Native.Platform.os</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">NameVersionPair&lt;OS&gt;</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Platform.os);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.platform.os.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.platform.os.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="engine" data-navigation-value="native-platform-engine" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Platform.engine</h4>
+
+                    <div class="method-signature">get Native.Platform.engine</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">NameVersionPair&lt;Engines&gt;</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Platform.engine);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.platform.engine.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.platform.engine.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="browser" data-navigation-value="native-platform-browser" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Platform.browser</h4>
+
+                    <div class="method-signature">get Native.Platform.browser</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">NameVersionPair&lt;Browsers&gt;</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Platform.browser);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.platform.browser.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.platform.browser.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="userAgent" data-navigation-value="native-platform-userAgent" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Platform.userAgent</h4>
+
+                    <div class="method-signature">get Native.Platform.userAgent</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">string</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Platform.userAgent);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.platform.userAgent.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.platform.userAgent.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="locale" data-navigation-value="native-platform-locale" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Platform.locale</h4>
+
+                    <div class="method-signature">get Native.Platform.locale</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Locale</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Platform.locale);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.platform.locale.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.platform.locale.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="device" data-navigation-value="native-platform-device" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Platform.device</h4>
+
+                    <div class="method-signature">get Native.Platform.device</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">Devices</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Platform.device);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.platform.device.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.platform.device.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="renderer" data-navigation-value="native-platform-renderer" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Platform.renderer</h4>
+
+                    <div class="method-signature">get Native.Platform.renderer</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">string</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Platform.renderer);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.platform.renderer.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.platform.renderer.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="isWebview" data-navigation-value="native-platform-isWebview" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Platform.isWebview</h4>
+
+                    <div class="method-signature">get Native.Platform.isWebview</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">boolean</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Platform.isWebview);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.platform.isWebview.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.platform.isWebview.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="isNode" data-navigation-value="native-platform-isNode" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Platform.isNode</h4>
+
+                    <div class="method-signature">get Native.Platform.isNode</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">boolean</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Platform.isNode);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.platform.isNode.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.platform.isNode.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-method" data-navigation="isStandalone" data-navigation-value="native-platform-isStandalone" data-navigation-sublink>
+                    <h4 class="category-subtitle">Native.Platform.isStandalone</h4>
+
+                    <div class="method-signature">get Native.Platform.isStandalone</div>
+
+                    <p class="method-description">
+                        33333
+                    </p>
+
+                    <div class="item">
+                        <h5>Returns</h5>
+                        <span class="param-type">boolean</span>
+                        <div class="param-description">55555</div>
+                    </div>
+
+                    <div class="item">
+                        <h5>Example</h5>
+                        <pre><code class="language-javascript">console.log(Native.Platform.isStandalone);</code></pre>
+                    </div>
+
+                    <div class="item">
+                        <div class="playground">
+                            <div class="playground-header">
+                                <i class="fa-solid fa-play"></i>
+                                <h5>Try it out</h5>
+                            </div>
+
+                            <div class="playground-form">
+                                <div class="form-actions">
+                                    <button class="button button-primary" id="native.platform.isStandalone.run" onclick="runAppOpen()">
+                                        <i class="fa-solid fa-play"></i>
+                                        Run
+                                    </button>
+                                </div>
+
+                                <pre class="playground-result" id="native.platform.isStandalone.result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+	function initHighlightjs() {
+		Array.prototype.forEach.call(document.querySelectorAll('pre'), function (element) {
+			element.dataset.code = element.innerText;
+		});
+
+		hljs.highlightAll();
+
+		window.addEventListener('load', function () {
+			hljs.initLineNumbersOnLoad({singleLine: true});
+
+			Array.prototype.forEach.call(document.querySelectorAll('pre .hljs'), function (element) {
+				element.insertAdjacentHTML('beforebegin', '<label><span>' + element.result.language + '</span><i class="copy fa-solid fa-copy"></i></label>')
+			});
+
+			Array.prototype.forEach.call(document.querySelectorAll('pre .copy'), function (element) {
+				element.addEventListener('click', function () {
+					console.log(element.closest('pre').dataset.code);
+				});
+			});
+		});
+	}
+
+	function initNavigation() {
+		const packageName = 'native-fn';
+		const sidebar = document.querySelector('nav.sidebar');
+		let sectionElement = null;
+		let listContainer = null;
+		let sublistContainer = null;
+
+		function appendTitle(title) {
+			sectionElement = document.createElement('div');
+			sectionElement.className = 'navigation-section';
+
+			const titleElement = document.createElement('div');
+			titleElement.className = 'navigation-title';
+			titleElement.innerText = title;
+
+			sectionElement.appendChild(titleElement);
+			sidebar.appendChild(sectionElement);
+			listContainer = null;
+		}
+
+		function appendLink(name, link) {
+			if (sectionElement === null) appendTitle('');
+
+			const anchorElement = document.createElement('a');
+			anchorElement.className = 'navigation-link';
+			anchorElement.href = '#' + link;
+			anchorElement.innerText = name;
+
+			if (listContainer === null) {
+				const ulElement = document.createElement('ul');
+				ulElement.className = 'navigation-list';
+
+				listContainer = document.createElement('li');
+				listContainer.className = 'navigation-item';
+
+				ulElement.appendChild(listContainer);
+				sectionElement.appendChild(ulElement);
+			}
+
+			listContainer.appendChild(anchorElement);
+			sublistContainer = null;
+		}
+
+		function appendSublink(name, link) {
+			if (sectionElement === null) appendTitle('');
+			if (listContainer === null) appendLink('', '');
+
+			const anchorElement = document.createElement('a');
+			anchorElement.className = 'navigation-sublink';
+			anchorElement.href = '#' + link;
+			anchorElement.innerText = name;
+
+			if (sublistContainer === null) {
+				const ulElement = document.createElement('ul');
+				ulElement.className = 'navigation-sublist';
+
+				sublistContainer = document.createElement('li');
+
+				ulElement.appendChild(sublistContainer);
+				listContainer.appendChild(ulElement);
+			}
+
+			sublistContainer.appendChild(anchorElement);
+		}
+
+		fetch("https://registry.npmjs.org/" + packageName)
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (json) {
+				const name = json['name'];
+				const description = json['description'];
+				const version = json['dist-tags']['latest'];
+
+				Array.prototype.forEach.call(document.querySelectorAll('[data-package-name]'), function (element) {
+					element.innerText = name;
+				});
+
+				Array.prototype.forEach.call(document.querySelectorAll('[data-package-description]'), function (element) {
+					element.innerText = description;
+				});
+
+				Array.prototype.forEach.call(document.querySelectorAll('[data-package-version]'), function (element) {
+					element.innerText = version;
+				});
+			});
+
+
+		document.addEventListener('DOMContentLoaded', function () {
+			const sections = document.querySelectorAll('[data-navigation]');
+
+			Array.prototype.forEach.call(sections, function (element) {
+				const key = element.dataset.navigation;
+				const value = element.dataset.navigationValue;
+
+				if (element.dataset.navigationTitle !== undefined) appendTitle(key);
+				else if (element.dataset.navigationLink !== undefined) appendLink(key, value);
+				else if (element.dataset.navigationSublink !== undefined) appendSublink(key, value);
+			});
+
+			const links = document.querySelectorAll('.navigation-link, .navigation-sublink');
+
+			let currentLink = '';
+			let currentSublink = '';
+
+			function updateActiveNav() {
+				Array.prototype.forEach.call(sections, function (element) {
+					const value = element.dataset.navigationValue;
+
+					if (window.pageYOffset >= element.offsetTop - window.innerHeight / 5) {
+						if (element.dataset.navigationLink !== undefined) {
+							currentLink = value;
+							currentSublink = '';
+						}
+
+						if (element.dataset.navigationSublink !== undefined) {
+							currentSublink = value;
+						}
+					}
+				});
+
+				Array.prototype.forEach.call(links, function (element) {
+					element.classList.remove('active');
+				});
+
+				Array.prototype.forEach.call(links, function (element) {
+					const href = element.getAttribute('href');
+
+					if (href === '#' + currentLink || href === '#' + currentSublink) element.classList.add('active');
+				});
+			}
+
+			window.addEventListener('scroll', updateActiveNav);
+			updateActiveNav();
+
+			Array.prototype.forEach.call(links, function (element) {
+				element.addEventListener('click', function (e) {
+					e.preventDefault();
+
+					const target = document.querySelector("[data-navigation-value=\"" + this.getAttribute('href').substring(1) + "\"]");
+
+					if (target !== null) {
+						window.scrollTo({
+							top: target.offsetTop - window.innerHeight / 5 + 1,
+							behavior: 'smooth'
+						});
+
+						if (window.innerWidth <= 720) {
+							document.documentElement.dataset.navigationOpen = 'false'
+						}
+					}
+				});
+			});
+
+			const closeButton = document.querySelector('.navigation-close');
+			const openButton = document.querySelector('.navigation-open');
+
+			closeButton.addEventListener('click', function (e) {
+				e.preventDefault();
+				document.documentElement.dataset.navigationOpen = 'false'
+			});
+
+			openButton.addEventListener('click', function (e) {
+				e.preventDefault();
+				document.documentElement.dataset.navigationOpen = 'true'
+			})
+		});
+	}
+
+	function initUI() {
+		Array.prototype.forEach.call(document.querySelectorAll('[data-ui-chip-input]'), function (element) {
+			const container = document.querySelector('[data-ui-chip-container=\"' + element.dataset.uiChipInput + '\"]');
+
+			element.dataset.uiChipValue = '[]';
+			element.addEventListener('keydown', function (e) {
+				if (e.isComposing) return;
+				if (e.code === 'Enter') {
+					e.preventDefault();
+
+					const chip = document.createElement('div');
+					const icon = document.createElement('i');
+					const chips = JSON.parse(element.dataset.uiChipValue);
+					const value = element.value;
+
+					chip.innerText = value;
+					chip.className = 'chip';
+					icon.className = 'fa-solid fa-xmark';
+
+					chip.appendChild(icon);
+					container.appendChild(chip);
+					chips.push(value);
+
+					icon.addEventListener('click', function (e) {
+						e.preventDefault();
+
+						const chips = JSON.parse(element.dataset.uiChipValue);
+						const value = icon.parentElement.innerText;
+						const index = chips.indexOf(value);
+
+						if (index !== -1) {
+							chips.splice(index, 1);
+						}
+
+						element.dataset.uiChipValue = JSON.stringify(chips);
+						chip.remove();
+					});
+
+					element.dataset.uiChipValue = JSON.stringify(chips);
+					element.value = '';
+				}
+			});
+		});
+
+		Array.prototype.forEach.call(document.querySelectorAll('[data-ui-autoresize-textarea]'), function (element) {
+			element.style.height = element.scrollHeight + 'px';
+			element.style.overflowY = 'hidden';
+
+			element.addEventListener('input', function () {
+				element.style.height = 'auto';
+				element.style.height = element.scrollHeight + 'px';
+			});
+		});
+
+		function getCssPath(element) {
+			if (element === null || element === undefined || element.nodeType !== 1) return '';
+
+			const parts = [];
+
+			while (element && element.nodeType === 1) {
+				if (element.id !== '') {
+					parts.unshift('#' + CSS.escape(element.id));
+					break;
+				}
+
+				let selector = element.tagName.toLowerCase();
+				const classList = element.classList;
+
+				if (classList.length > 0) selector += '.' + classList.map(c => CSS.escape(c)).join('.');
+
+				const parent = element.parentElement;
+
+				if (parent !== null) {
+					const siblings = Array.from(parent.children).filter(sib => sib.tagName === element.tagName);
+
+					if (siblings.length > 1) {
+						const index = siblings.indexOf(element) + 1;
+
+						selector += ':nth-of-type(' + index + ')';
+					}
+				}
+
+				parts.unshift(selector);
+				element = element.parentElement;
+			}
+
+			return parts.join(' > ');
+		}
+
+		function installDevtoolsHighlighter(iframe, result) {
+			const iframeDocument = iframe.contentDocument;
+			const iframeWindow = iframe.contentWindow;
+
+			if (!iframeDocument || !iframeWindow || iframeWindow.__devtoolsHighlighterInstalled) return;
+			if (result !== null) result.innerHTML = result.dataset.uiHtmlDevtoolPlaceholder;
+
+			iframeWindow.__devtoolsHighlighterInstalled = true;
+
+			const style = iframeDocument.createElement('style');
+			const svgNS = 'http://www.w3.org/2000/svg';
+			const id = 'devtool-overlay';
+			const svg = iframeDocument.createElementNS(svgNS, 'svg');
+
+			style.textContent = 'body { webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }';
+			svg.id = id;
+			svg.style.cssText = 'position: fixed; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2147483647; opacity: 0;';
+
+			const marginPath = iframeDocument.createElementNS(svgNS, 'path');
+			const borderPath = iframeDocument.createElementNS(svgNS, 'path');
+			const paddingPath = iframeDocument.createElementNS(svgNS, 'path');
+			const contentRect = iframeDocument.createElementNS(svgNS, 'rect');
+
+			marginPath.setAttribute('fill', 'rgba(246, 178, 107, 0.66)');
+			marginPath.setAttribute('fill-rule', 'evenodd');
+			borderPath.setAttribute('fill', 'rgba(255, 229, 153, 0.66)');
+			borderPath.setAttribute('fill-rule', 'evenodd');
+			paddingPath.setAttribute('fill', 'rgba(147, 196, 125, 0.66)');
+			paddingPath.setAttribute('fill-rule', 'evenodd');
+			contentRect.setAttribute('fill', 'rgba(111, 168, 220, 0.66)');
+
+			svg.appendChild(marginPath);
+			svg.appendChild(borderPath);
+			svg.appendChild(paddingPath);
+			svg.appendChild(contentRect);
+
+			iframeDocument.documentElement.appendChild(svg);
+			iframeDocument.head.appendChild(style);
+
+			let armed = false;
+			let activeElement = null;
+			let lastTouchId = null;
+
+			function px(n) {
+				const value = Number.parseFloat(n);
+				return Number.isFinite(value) ? value : 0;
+			}
+
+			function isOverlayOrDescendant(element) {
+				return element !== null && (element.id === id || svg.contains(element));
+			}
+
+			function hide() {
+				svg.style.opacity = '0';
+			}
+
+			function drawFor(element) {
+				if (!element || element.nodeType !== 1 || isOverlayOrDescendant(element)) return;
+
+				const computedStyle = iframeWindow.getComputedStyle(element);
+				const rect = element.getBoundingClientRect();
+				const marginTop = px(computedStyle.marginTop), marginRight = px(computedStyle.marginRight);
+				const marginBottom = px(computedStyle.marginBottom), marginLeft = px(computedStyle.marginLeft);
+				const borderTop = px(computedStyle.borderTopWidth), borderRight = px(computedStyle.borderRightWidth);
+				const borderBottom = px(computedStyle.borderBottomWidth), borderLeft = px(computedStyle.borderLeftWidth);
+				const paddingTop = px(computedStyle.paddingTop), paddingRight = px(computedStyle.paddingRight);
+				const paddingBottom = px(computedStyle.paddingBottom), paddingLeft = px(computedStyle.paddingLeft);
+
+				const marginBox = {
+					x: rect.left - marginLeft,
+					y: rect.top - marginTop,
+					width: rect.width + marginLeft + marginRight,
+					height: rect.height + marginTop + marginBottom
+				};
+
+				const borderBox = {
+					x: rect.left,
+					y: rect.top,
+					width: rect.width,
+					height: rect.height
+				};
+
+				const paddingBox = {
+					x: rect.left + borderLeft,
+					y: rect.top + borderTop,
+					width: Math.max(0, rect.width - borderLeft - borderRight),
+					height: Math.max(0, rect.height - borderTop - borderBottom)
+				};
+
+				const contentBox = {
+					x: rect.left + borderLeft + paddingLeft,
+					y: rect.top + borderTop + paddingTop,
+					width: Math.max(0, rect.width - borderLeft - borderRight - paddingLeft - paddingRight),
+					height: Math.max(0, rect.height - borderTop - borderBottom - paddingTop - paddingBottom)
+				};
+
+				marginPath.setAttribute(
+					'd',
+					'M' + marginBox.x + ',' + marginBox.y +
+					'h' + marginBox.width +
+					'v' + marginBox.height +
+					'h-' + marginBox.width +
+					'z' +
+					'M' + borderBox.x + ',' + borderBox.y +
+					'h' + borderBox.width +
+					'v' + borderBox.height +
+					'h-' + borderBox.width +
+					'z'
+				);
+
+				borderPath.setAttribute(
+					'd',
+					'M' + borderBox.x + ',' + borderBox.y +
+					'h' + borderBox.width +
+					'v' + borderBox.height +
+					'h-' + borderBox.width +
+					'z' +
+					'M' + paddingBox.x + ',' + paddingBox.y +
+					'h' + paddingBox.width +
+					'v' + paddingBox.height +
+					'h-' + paddingBox.width +
+					'z'
+				);
+
+				paddingPath.setAttribute(
+					'd',
+					'M' + paddingBox.x + ',' + paddingBox.y +
+					'h' + paddingBox.width +
+					'v' + paddingBox.height +
+					'h-' + paddingBox.width +
+					'z' +
+					'M' + contentBox.x + ',' + contentBox.y +
+					'h' + contentBox.width +
+					'v' + contentBox.height +
+					'h-' + contentBox.width +
+					'z'
+				);
+
+				contentRect.setAttribute('x', String(contentBox.x));
+				contentRect.setAttribute('y', String(contentBox.y));
+				contentRect.setAttribute('width', String(contentBox.width));
+				contentRect.setAttribute('height', String(contentBox.height));
+
+				svg.style.opacity = '1';
+				activeElement = element;
+			}
+
+			function pickTargetFromEvent(event) {
+				const target = event.target;
+
+				if (target && target.nodeType === 1 && !isOverlayOrDescendant(target)) return target;
+
+				return null;
+			}
+
+			iframeDocument.addEventListener('mousemove', function (event) {
+				if (!armed) return;
+
+				const element = pickTargetFromEvent(event);
+
+				if (element !== null) drawFor(element);
+			}, true);
+
+			iframeDocument.addEventListener('mousedown', function (event) {
+				armed = true;
+
+				const element = pickTargetFromEvent(event);
+
+				if (element !== null) drawFor(element);
+			}, true);
+
+			iframeDocument.addEventListener('mouseup', function () {
+				armed = false;
+
+				if (activeElement !== null && result !== null) result.textContent = getCssPath(activeElement);
+
+				hide();
+			}, true);
+
+			iframeDocument.addEventListener('touchstart', function (event) {
+				armed = true;
+
+				const touch = event.changedTouches && event.changedTouches[0];
+
+				if (!touch) return;
+
+				lastTouchId = touch.identifier;
+
+				const element = iframeDocument.elementFromPoint(touch.clientX, touch.clientY);
+
+				if (element) drawFor(element);
+			}, {capture: true, passive: true});
+
+			iframeDocument.addEventListener('touchmove', function (event) {
+				if (!armed) return;
+
+				const touches = Array.from(event.changedTouches || []);
+				const touch = touches.find(x => x.identifier === lastTouchId) || touches[0];
+
+				if (!touch) return;
+
+				const element = iframeDocument.elementFromPoint(touch.clientX, touch.clientY);
+
+				if (element) drawFor(element);
+			}, {capture: true, passive: true});
+
+			iframeDocument.addEventListener('touchend', function () {
+				armed = false;
+
+				if (activeElement !== null && result !== null) result.textContent = getCssPath(activeElement);
+
+				hide();
+
+				lastTouchId = null;
+			}, {capture: true, passive: true});
+
+			iframeDocument.addEventListener('touchcancel', function () {
+				armed = false;
+
+				hide();
+
+				lastTouchId = null;
+			}, {capture: true, passive: true});
+
+			iframeWindow.addEventListener('scroll', function () {
+				if (armed && activeElement) drawFor(activeElement);
+			}, true);
+
+			iframeWindow.addEventListener('resize', function () {
+				if (armed && activeElement) drawFor(activeElement);
+			}, true);
+
+			hide();
+		}
+
+		Array.prototype.forEach.call(document.querySelectorAll('[data-ui-html-editor]'), function (element) {
+			const renderer = document.querySelector('[data-ui-html-render="' + element.dataset.uiHtmlEditor + '"]');
+
+			function sync() {
+				renderer.srcdoc = element.value;
+
+				const onLoad = function () {
+					renderer.removeEventListener('load', onLoad);
+
+					if (renderer.dataset.uiHtmlDevtool !== undefined) {
+						installDevtoolsHighlighter(renderer, document.querySelector('[data-ui-html-devtool-result="' + renderer.dataset.uiHtmlDevtool + '"]'));
+                    }
+				};
+
+				renderer.addEventListener('load', onLoad);
+			}
+
+			element.addEventListener('change', sync);
+			element.addEventListener('input', sync);
+			window.requestAnimationFrame(sync);
+		});
+
+		Array.prototype.forEach.call(document.querySelectorAll('[data-ui-image-editor]'), function (element) {
+			const renderer = document.querySelector('[data-ui-image-render="' + element.dataset.uiImageEditor + '"]');
+
+			function sync() {
+				renderer.src = element.value;
+			}
+
+			element.addEventListener('input', sync);
+			element.addEventListener('change', sync);
+			window.requestAnimationFrame(sync);
+		});
+	}
+
+	initHighlightjs();
+	initNavigation();
+	initUI();
+
+	function getValue(element) {
+		if (element === null || element === undefined) return undefined;
+
+		if (element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
+			return element.value;
+		}
+
+		if (element.dataset.uiChipValue) {
+			return JSON.parse(element.dataset.uiChipValue);
+		}
+
+		if (element.type === 'text' || element.type === 'number') {
+			const value = element.value;
+
+			if (value === '') return undefined;
+
+			return value;
+		}
+
+		if (element.type === 'checkbox') {
+			return element.checked;
+		}
+	}
+
+	function setResult(element, isSuccess, textContent) {
+		if (isSuccess) element.className = 'playground-result show result-success';
+		else element.className = 'playground-result show result-error';
+
+		if (typeof textContent === 'object') textContent = JSON.stringify(textContent, null, 4);
+
+		element.textContent = String(textContent);
+	}
+
+	async function runAppOpen() {
+		const resultElement = document.getElementById('native.app.open.result');
+
+		try {
+			const result = await Native.App.open({
+				android: {
+					scheme: getValue(document.getElementById('native.app.open.scheme')),
+					intent: getValue(document.getElementById('native.app.open.intent')),
+					packageName: getValue(document.getElementById('native.app.open.packageName')),
+					allowAppStore: getValue(document.getElementById('native.app.open.allowAppStore')),
+					allowWebStore: getValue(document.getElementById('native.app.open.allowWebStore')),
+					fallback: getValue(document.getElementById('native.app.open.fallback')),
+					timeout: getValue(document.getElementById('native.app.open.timeout')),
+				},
+				ios: {
+					scheme: getValue(document.getElementById('native.app.open.scheme')),
+					universal: getValue(document.getElementById('native.app.open.universal')),
+					trackId: getValue(document.getElementById('native.app.open.trackId')),
+					bundleId: getValue(document.getElementById('native.app.open.bundleId')),
+					allowAppStore: getValue(document.getElementById('native.app.open.allowAppStore')),
+					allowWebStore: getValue(document.getElementById('native.app.open.allowWebStore')),
+					fallback: getValue(document.getElementById('native.app.open.fallback')),
+					timeout: getValue(document.getElementById('native.app.open.timeout')),
+				},
+				windows: {
+					scheme: getValue(document.getElementById('native.app.open.scheme')),
+					productId: getValue(document.getElementById('native.app.open.productId')),
+					allowAppStore: getValue(document.getElementById('native.app.open.allowAppStore')),
+					allowWebStore: getValue(document.getElementById('native.app.open.allowWebStore')),
+					fallback: getValue(document.getElementById('native.app.open.fallback')),
+					timeout: getValue(document.getElementById('native.app.open.timeout')),
+				},
+				macos: {
+					scheme: getValue(document.getElementById('native.app.open.scheme')),
+					trackId: getValue(document.getElementById('native.app.open.trackId')),
+					bundleId: getValue(document.getElementById('native.app.open.bundleId')),
+					allowAppStore: getValue(document.getElementById('native.app.open.allowAppStore')),
+					allowWebStore: getValue(document.getElementById('native.app.open.allowWebStore')),
+					fallback: getValue(document.getElementById('native.app.open.fallback')),
+					timeout: getValue(document.getElementById('native.app.open.timeout')),
+				}
+			});
+
+			switch (result) {
+				case Native.App.Constants.AppOpenState.Scheme:
+					setResult(resultElement, true, 'Opened successfully via app scheme.');
+					break;
+				case Native.App.Constants.AppOpenState.Universal:
+					setResult(resultElement, true, 'Opened successfully via universal link.');
+					break;
+				case Native.App.Constants.AppOpenState.Intent:
+					setResult(resultElement, true, 'Opened successfully via Android intent.');
+					break;
+				case Native.App.Constants.AppOpenState.Fallback:
+					setResult(resultElement, true, 'Opened successfully via fallback URL.');
+					break;
+				case Native.App.Constants.AppOpenState.Store:
+					setResult(resultElement, true, 'Opened successfully via store URL.');
+					break;
+				default:
+					break;
+			}
+		} catch (e) {
+			setResult(resultElement, false, e.message);
+		}
+	}
+
+	async function runAppSetting() {
+		const resultElement = document.getElementById('native.app.setting.result');
+
+		try {
+			await Native.App.setting(getValue(document.getElementById('native.app.setting.type')));
+
+			setResult(resultElement, true, 'Opened successfully.');
+		} catch (e) {
+			setResult(resultElement, false, 'Failed to open.');
+		}
+	}
+
+	async function runAppMessage() {
+		const resultElement = document.getElementById('native.app.messenger.result');
+
+		try {
+			await Native.App.messenger[getValue(document.getElementById('native.app.messenger.type'))]({
+				to: getValue(document.getElementById('native.app.messenger.to')),
+				cc: getValue(document.getElementById('native.app.messenger.cc')),
+				bcc: getValue(document.getElementById('native.app.messenger.bcc')),
+				subject: getValue(document.getElementById('native.app.messenger.subject')),
+				body: getValue(document.getElementById('native.app.messenger.body')),
+			});
+
+			setResult(resultElement, true, 'Opened successfully.');
+		} catch (e) {
+			setResult(resultElement, false, 'Failed to open.');
+		}
+	}
+
+	async function runAppFile() {
+		const resultElement = document.getElementById('native.app.file.result');
+
+		try {
+			const files = await Native.App.file();
+
+			setResult(resultElement, true, files.map(e => e.name));
+		} catch (e) {
+			setResult(resultElement, false, 'Failed to open.');
+		}
+    }
+
+	async function runAppContact() {
+		const resultElement = document.getElementById('native.app.contact.result');
+
+		try {
+			const contacts = await Native.App.contact({multiple: true});
+
+			setResult(resultElement, true, contacts);
+		} catch (e) {
+			setResult(resultElement, false, 'Failed to open.');
+		}
+    }
+
+	function runAppearanceValue() {
+		const resultElement = document.getElementById('native.appearance.value.result');
+
+		setResult(resultElement, true, Native.Appearance.value);
+	}
+
+	function runAppearanceOnchange() {
+		const resultElement = document.getElementById('native.appearance.onchange.result');
+
+		Native.Appearance.onchange(
+			function (value) {
+				setResult(resultElement, true, value);
+			}, {
+				once: true,
+			}
+		);
+	}
+
+	async function runClipboardCopy() {
+		const resultElement = document.getElementById('native.clipboard.copy.result');
+
+		try {
+			const result = await Native.Clipboard.copy(getValue(document.getElementById('native.clipboard.copy.item')));
+
+			if (result) setResult(resultElement, true, 'Copied successfully.');
+			else setResult(resultElement, false, 'Failed to copy.');
+		} catch (e) {
+			setResult(resultElement, false, 'Failed to copy.');
+		}
+	}
+
+	async function runClipboardPaste() {
+		const resultElement = document.getElementById('native.clipboard.paste.result');
+
+		try {
+			setResult(resultElement, true, await Native.Clipboard.paste());
+		} catch (e) {
+			setResult(resultElement, false, 'Failed to paste.');
+		}
+	}
+
+	function runDimensionValue() {
+		const resultElement = document.getElementById('native.dimension.value.result');
+
+		setResult(resultElement, true, Native.Dimension.value);
+	}
+
+	function runDimensionOnchange() {
+		const resultElement = document.getElementById('native.dimension.onchange.result');
+
+		Native.Dimension.onchange(
+			function (value) {
+				setResult(resultElement, true, value);
+			}, {
+				once: true,
+			}
+		);
+	}
+
+	function openAppearanceSetting() {
+		Native.App.setting('appearance');
+	}
+
+	function openDisplaySetting() {
+		Native.App.setting('display');
+	}
+</script>
+</body>
+</html>
