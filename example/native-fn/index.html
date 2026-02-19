@@ -3607,7 +3607,7 @@
 		try {
 			const contacts = await Native.App.contact({multiple: true});
 
-			setResult(resultElement, true, contacts);
+			setResult(resultElement, true, contacts.map(e => e.icon = Object.prototype.toString.call(e.icon)));
 		} catch (e) {
 			setResult(resultElement, false, 'Failed to open.');
 		}
