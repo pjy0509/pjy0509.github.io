@@ -3484,6 +3484,8 @@
 	}
 
 	function setResult(element, isSuccess, textContent) {
+		console.log(textContent);
+		
 		if (isSuccess) element.className = 'playground-result show result-success';
 		else element.className = 'playground-result show result-error';
 
