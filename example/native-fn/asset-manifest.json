@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/example/native-fn/static/css/main.e6c13ad2.css",
-    "main.js": "/example/native-fn/static/js/main.9e1d161a.js",
+    "main.js": "/example/native-fn/static/js/main.88b47d9c.js",
     "static/js/690.ab028c42.chunk.js": "/example/native-fn/static/js/690.ab028c42.chunk.js",
     "static/js/607.91a66f62.chunk.js": "/example/native-fn/static/js/607.91a66f62.chunk.js",
     "static/js/23.f5ecd974.chunk.js": "/example/native-fn/static/js/23.f5ecd974.chunk.js",
@@ -49,7 +49,7 @@
     "static/js/996.e306f3c5.chunk.js": "/example/native-fn/static/js/996.e306f3c5.chunk.js",
     "index.html": "/example/native-fn/index.html",
     "main.e6c13ad2.css.map": "/example/native-fn/static/css/main.e6c13ad2.css.map",
-    "main.9e1d161a.js.map": "/example/native-fn/static/js/main.9e1d161a.js.map",
+    "main.88b47d9c.js.map": "/example/native-fn/static/js/main.88b47d9c.js.map",
     "690.ab028c42.chunk.js.map": "/example/native-fn/static/js/690.ab028c42.chunk.js.map",
     "607.91a66f62.chunk.js.map": "/example/native-fn/static/js/607.91a66f62.chunk.js.map",
     "23.f5ecd974.chunk.js.map": "/example/native-fn/static/js/23.f5ecd974.chunk.js.map",
@@ -91,6 +91,6 @@
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.9e1d161a.js"
+    "static/js/main.88b47d9c.js"
   ]
 }
