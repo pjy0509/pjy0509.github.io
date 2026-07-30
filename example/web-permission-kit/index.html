@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>web-permission-kit — live demo</title>
+    <style>
+        :root {
+            --bg: #fbfbfd;
+            --panel: #ffffff;
+            --line: #e4e4e9;
+            --line-soft: #eeeef2;
+            --ink: #17171b;
+            --ink-2: #5c5c66;
+            --ink-3: #8e8e99;
+            --accent: #3b5bdb;
+            --accent-soft: #eef1fd;
+            --accent-ink: #ffffff;
+            --null: #b4262a;
+            --code-keyword: #a626a4;
+            --code-type: #0184bc;
+            --code-literal: #986801;
+            --code-title: #4078f2;
+            --code-string: #50a14f;
+            --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+            --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            --radius: 10px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0e0e11;
+                --panel: #17171b;
+                --line: #2b2b33;
+                --line-soft: #23232a;
+                --ink: #f2f2f5;
+                --ink-2: #a6a6b0;
+                --ink-3: #74747f;
+                --accent: #8da2fb;
+                --accent-soft: #1c2340;
+                --accent-ink: #10131f;
+                --null: #f08a8d;
+                --code-keyword: #c678dd;
+                --code-type: #56b6c2;
+                --code-literal: #d19a66;
+                --code-title: #61afef;
+                --code-string: #98c379;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #0e0e11;
+            --panel: #17171b;
+            --line: #2b2b33;
+            --line-soft: #23232a;
+            --ink: #f2f2f5;
+            --ink-2: #a6a6b0;
+            --ink-3: #74747f;
+            --accent: #8da2fb;
+            --accent-soft: #1c2340;
+            --accent-ink: #10131f;
+            --null: #f08a8d;
+            --code-keyword: #c678dd;
+            --code-type: #56b6c2;
+            --code-literal: #d19a66;
+            --code-title: #61afef;
+            --code-string: #98c379;
+        }
+
+        :root[data-theme="light"] {
+            --bg: #fbfbfd;
+            --panel: #ffffff;
+            --line: #e4e4e9;
+            --line-soft: #eeeef2;
+            --ink: #17171b;
+            --ink-2: #5c5c66;
+            --ink-3: #8e8e99;
+            --accent: #3b5bdb;
+            --accent-soft: #eef1fd;
+            --accent-ink: #ffffff;
+            --null: #b4262a;
+            --code-keyword: #a626a4;
+            --code-type: #0184bc;
+            --code-literal: #986801;
+            --code-title: #4078f2;
+            --code-string: #50a14f;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            margin: 0;
+            padding: 0 20px 88px;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.6 var(--sans);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap { max-width: 860px; margin: 0 auto; }
+
+        header { padding: 48px 0 32px; }
+
+        .titlebar {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            margin: 0;
+            font: 600 26px/1.2 var(--mono);
+            letter-spacing: -0.02em;
+        }
+
+        .version {
+            font: 500 12px/1 var(--mono);
+            color: var(--accent);
+            background: var(--accent-soft);
+            border-radius: 999px;
+            padding: 5px 9px;
+        }
+
+        .tagline {
+            margin: 14px 0 0;
+            color: var(--ink-2);
+            max-width: 62ch;
+        }
+
+        .install {
+            margin-top: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 11px 14px;
+            font: 13px/1 var(--mono);
+            overflow-x: auto;
+        }
+
+        .install span { color: var(--ink-3); }
+
+        .theme {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 10;
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: var(--panel);
+            color: var(--ink-2);
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .theme svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .theme .sun { display: none; }
+
+        @media (prefers-color-scheme: dark) {
+            .theme .sun { display: block; }
+
+            .theme .moon { display: none; }
+        }
+
+        :root[data-theme="dark"] .theme .sun { display: block; }
+
+        :root[data-theme="dark"] .theme .moon { display: none; }
+
+        :root[data-theme="light"] .theme .sun { display: none; }
+
+        :root[data-theme="light"] .theme .moon { display: block; }
+
+        section { margin-top: 40px; }
+
+        h2 {
+            margin: 0 0 4px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+        }
+
+        .hint {
+            margin: 0 0 16px;
+            color: var(--ink-2);
+            font-size: 13.5px;
+            max-width: 68ch;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .code {
+            margin: 0;
+            padding: 14px 16px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--line-soft);
+            max-height: 360px;
+            overflow: auto;
+        }
+
+        .code code {
+            display: block;
+            font: 12.5px/1.7 var(--mono);
+            color: var(--ink-2);
+            background: none;
+            border-radius: 0;
+            padding: 0;
+            white-space: pre;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .code + .field,
+        .code + .rows { border-top: 0; }
+
+        .hljs-keyword { color: var(--code-keyword); }
+
+        .hljs-built_in { color: var(--code-type); }
+
+        .hljs-literal { color: var(--code-literal); }
+
+        .hljs-attr { color: var(--ink); }
+
+        .hljs-title { color: var(--code-title); }
+
+        .rows { border-top: 1px solid var(--line-soft); }
+
+        .row {
+            display: grid;
+            grid-template-columns: minmax(140px, 180px) 1fr;
+            gap: 16px;
+            padding: 13px 16px;
+            border-top: 1px solid var(--line-soft);
+        }
+
+        .row:first-child { border-top: 0; }
+
+        .key {
+            font: 500 13px/1.5 var(--mono);
+            color: var(--ink-2);
+            word-break: break-all;
+        }
+
+        .val {
+            font: 13px/1.5 var(--mono);
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+
+        .val.is-null { color: var(--null); }
+
+        @media (max-width: 560px) {
+            .row { grid-template-columns: 1fr; gap: 5px; }
+        }
+
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .chip {
+            font: 12px/1 var(--mono);
+            padding: 5px 8px;
+            border-radius: 6px;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .chip.dim { background: var(--line-soft); color: var(--ink-3); }
+
+        .field { padding: 16px; border-top: 1px solid var(--line-soft); }
+
+        .field:first-child { border-top: 0; }
+
+        .field > * + * { margin-top: 10px; }
+
+        .field > label + .controls,
+        .field > .outlabel + .out { margin-top: 8px; }
+
+        .field > .controls + label,
+        .field > .controls + .outlabel,
+        .field > .out + label,
+        .field > .out + .outlabel,
+        .field > .note + label,
+        .field > .note + .outlabel { margin-top: 22px; }
+
+        label {
+            display: block;
+            font: 500 12px/1 var(--mono);
+            color: var(--ink-3);
+        }
+
+        .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        input[type="text"] {
+            flex: 1 1 200px;
+            min-width: 0;
+            font: 13px/1 var(--mono);
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            padding: 10px 11px;
+        }
+
+        input[type="text"]:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: -1px;
+        }
+
+        button {
+            font: 500 13px/1 var(--sans);
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            padding: 10px 13px;
+            cursor: pointer;
+        }
+
+        button:hover { border-color: var(--ink-3); }
+
+        button.primary {
+            color: var(--accent-ink);
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .out {
+            font: 12.5px/1.65 var(--mono);
+            color: var(--ink-2);
+            background: var(--bg);
+            border: 1px solid var(--line-soft);
+            border-radius: 7px;
+            padding: 11px 12px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            overflow-x: auto;
+        }
+
+        .out.null { color: var(--null); }
+
+        .note {
+            margin: 0;
+            font-size: 13px;
+            color: var(--ink-3);
+        }
+
+        code {
+            font: 12.5px/1 var(--mono);
+            background: var(--line-soft);
+            border-radius: 4px;
+            padding: 2px 5px;
+        }
+
+        footer {
+            margin-top: 56px;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: var(--ink-3);
+        }
+
+        a { color: var(--accent); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+        .panel > .code:last-child { border-bottom: 0; }
+
+        .outlabel {
+            display: block;
+            font: 500 12px/1 var(--mono);
+            color: var(--ink-3);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            font: 500 12px/1 var(--mono);
+            color: var(--ink-2);
+            cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .switch input {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: 0;
+            opacity: 0;
+        }
+
+        .switch .track {
+            position: relative;
+            flex: none;
+            width: 34px;
+            height: 20px;
+            border-radius: 999px;
+            background: var(--line);
+            transition: background 0.15s ease;
+        }
+
+        .switch .track::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 999px;
+            background: var(--panel);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+            transition: transform 0.15s ease;
+        }
+
+        .switch input:checked + .track { background: var(--accent); }
+
+        .switch input:checked + .track::after { transform: translateX(14px); }
+
+        .switch input:focus-visible + .track {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .switch input:disabled + .track { opacity: 0.4; }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 16px;
+            border-top: 1px solid var(--line-soft);
+        }
+
+        .tab {
+            font: 500 12px/1 var(--mono);
+            color: var(--ink-2);
+            padding: 9px 12px;
+        }
+
+        .tab.on {
+            color: var(--accent-ink);
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .code + .tabs { border-top: 0; }
+
+        [hidden] { display: none; }
+
+        select {
+            flex: 0 1 auto;
+            min-width: 0;
+            font: 13px/1 var(--mono);
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            padding: 10px 11px;
+        }
+
+        textarea {
+            flex: 1 1 100%;
+            min-width: 0;
+            min-height: 78px;
+            font: 13px/1.6 var(--mono);
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            padding: 10px 11px;
+            resize: vertical;
+        }
+
+        select:focus,
+        textarea:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: -1px;
+        }
+
+        input[type="text"]:disabled { color: var(--ink-3); }
+
+        .chip.bad { background: var(--line-soft); color: var(--null); }
+
+        .pad {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 104px;
+            padding: 16px;
+            text-align: center;
+            font: 12.5px/1.6 var(--mono);
+            color: var(--ink-3);
+            background: var(--bg);
+            border: 1px dashed var(--line);
+            border-radius: 7px;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .out.log { max-height: 220px; overflow-y: auto; }
+
+        body.launch {
+            padding: 0 20px;
+            overflow: hidden;
+            overscroll-behavior: none;
+        }
+
+        body.launch .wrap { max-width: 420px; }
+
+        .launcher {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            height: 100vh;
+            height: 100dvh;
+            text-align: center;
+        }
+
+        .app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .app-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 22px;
+            background: var(--line-soft);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+        }
+
+        .app-name {
+            font: 600 19px/1.3 var(--sans);
+            color: var(--ink);
+            word-break: break-word;
+        }
+
+        .guide {
+            margin: 0;
+            max-width: 32ch;
+            color: var(--ink-2);
+            font-size: 14.5px;
+        }
+
+        .cta {
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .cta button {
+            width: 100%;
+            padding: 15px 18px;
+            font: 600 15px/1 var(--sans);
+            color: var(--accent-ink);
+            background: var(--accent);
+            border-color: var(--accent);
+            border-radius: 12px;
+        }
+
+        .qr {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 7px;
+        }
+        .hljs-string { color: var(--code-string); }
+
+        .hljs-number { color: var(--code-literal); }
+
+        .hljs-variable { color: var(--code-title); }
+    </style>
+</head>
+<body>
+<button class="theme" id="theme" type="button" aria-label="Toggle colour scheme">
+    <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1Z"/>
+    </svg>
+    <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2"/>
+        <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/>
+    </svg>
+</button>
+
+<div class="wrap">
+    <header>
+        <div class="titlebar">
+            <h1>web-permission-kit</h1>
+            <span class="version" id="version">&hellip;</span>
+        </div>
+        <p class="tagline">
+            Bridges the Web Permissions API to one <code>check</code> / <code>request</code> /
+            <code>subscribe</code> interface, with fallbacks for legacy <code>getUserMedia</code>, iOS Safari
+            sensor permissions, and browsers that never fire permission <code>change</code> events. Nothing
+            here throws &mdash; failure is a state.
+        </p>
+        <div class="install"><span>$</span> npm install web-permission-kit</div>
+    </header>
+
+    <section>
+        <h2>Your environment</h2>
+        <p class="hint">
+            <code>supported</code> reports whether the Query API (<code>navigator.permissions</code>) exists.
+            Where it does not, the kit still answers through per-API fallbacks.
+        </p>
+        <div class="panel">
+            <pre class="code"><code class="language-typescript">readonly version: string;
+get supported(): boolean;</code></pre>
+            <div class="rows" id="env"></div>
+        </div>
+    </section>
+
+    <section>
+        <h2>check(type)</h2>
+        <p class="hint">
+            Never prompts, and asks the browser for the current state every time it is called &mdash; use it
+            to decide what UI to show on load. Sensors have no read-only query on iOS, so a sensor check
+            listens for events briefly before falling back.
+        </p>
+        <div class="panel">
+            <pre class="code"><code class="language-typescript">check(type: PermissionType): Promise&lt;PermissionState&gt;;</code></pre>
+            <div class="field">
+                <div class="controls">
+                    <button type="button" class="primary" id="check-all">check all</button>
+                </div>
+            </div>
+            <div class="rows" id="check-rows"></div>
+        </div>
+    </section>
+
+    <section>
+        <h2>request(type)</h2>
+        <p class="hint">
+            May prompt. Device sensors only prompt from inside a user gesture, which the button below is
+            &mdash; called anywhere else they resolve <code>"prompt"</code> without asking.
+        </p>
+        <div class="panel">
+            <pre class="code"><code class="language-typescript">request(type: PermissionType): Promise&lt;PermissionState&gt;;</code></pre>
+            <div class="field">
+                <label for="request-type">type</label>
+                <div class="controls">
+                    <select id="request-type"></select>
+                    <button type="button" class="primary" id="request-run">request</button>
+                </div>
+                <div class="out" id="request-out"></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>subscribe(type, callback)</h2>
+        <p class="hint">
+            Fires once with the current state, then on every change. Where the native
+            <code>change</code> event is unreliable the kit re-checks when the page regains focus, so
+            flipping the permission in browser settings and coming back shows up in the log.
+        </p>
+        <div class="panel">
+            <pre class="code"><code class="language-typescript">subscribe(type: PermissionType, callback: PermissionSubscriber): PermissionUnsubscribe;
+
+type PermissionSubscriber = (state: PermissionState) =&gt; void;
+type PermissionUnsubscribe = () =&gt; void;</code></pre>
+            <div class="field">
+                <label for="subscribe-type">type</label>
+                <div class="controls">
+                    <select id="subscribe-type"></select>
+                    <button type="button" class="primary" id="subscribe-run">subscribe</button>
+                    <button type="button" id="subscribe-stop">unsubscribe all</button>
+                </div>
+                <span class="outlabel">callback log</span>
+                <div class="out log" id="subscribe-out"></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Type / State</h2>
+        <p class="hint">
+            Both enums are reachable from the singleton, so the named imports are optional. The rows are
+            built by walking the live objects.
+        </p>
+        <div class="panel">
+            <pre class="code"><code class="language-typescript">readonly Type: typeof PermissionType;
+readonly State: typeof PermissionState;
+
+enum PermissionType {
+    Notification = 'notifications',
+    Geolocation = 'geolocation',
+    Camera = 'camera',
+    ClipboardRead = 'clipboard-read',
+    ClipboardWrite = 'clipboard-write',
+    Microphone = 'microphone',
+    MIDI = 'midi',
+    DeviceOrientation = 'device-orientation',
+    DeviceMotion = 'device-motion',
+    PersistentStorage = 'persistent-storage'
+}
+
+enum PermissionState {
+    Grant = 'grant',
+    Denied = 'denied',
+    Prompt = 'prompt',
+    Unsupported = 'unsupported'
+}</code></pre>
+            <div class="rows" id="enum-rows"></div>
+        </div>
+    </section>
+
+    <footer>
+        <a href="https://www.npmjs.com/package/web-permission-kit">npm</a>
+        <a href="https://github.com/pjy0509/web-permission-kit">GitHub</a>
+        <a href="https://github.com/pjy0509/web-permission-kit#readme">README</a>
+        <a href="https://github.com/pjy0509/web-permission-kit/blob/main/README.ko.md">한국어</a>
+    </footer>
+</div>
+
+<script>
+    (function () {
+        var root = document.documentElement;
+        var media = typeof window.matchMedia === 'function'
+            ? window.matchMedia('(prefers-color-scheme: dark)')
+            : null;
+
+        document.getElementById('theme').addEventListener('click', function () {
+            var current = root.getAttribute('data-theme');
+            var dark = current === 'dark' || (!current && media !== null && media.matches);
+
+            root.setAttribute('data-theme', dark ? 'light' : 'dark');
+        });
+    })();
+
+    function load(src) {
+        return new Promise(function (resolve, reject) {
+            var script = document.createElement('script');
+
+            script.src = src;
+            script.onload = resolve;
+            script.onerror = reject;
+
+            document.head.appendChild(script);
+        });
+    }
+
+    load('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11/highlight.min.js')
+        .catch(function () {
+            return load('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js');
+        })
+        .then(function () {
+            var blocks = document.querySelectorAll('.code code');
+
+            for (var i = 0; i < blocks.length; i++) window.hljs.highlightElement(blocks[i]);
+        })
+        .catch(function () {
+            return null;
+        });
+
+    load('https://unpkg.com/web-permission-kit@0.0.7/dist/permission-kit.umd.min.js')
+        .catch(function () {
+            return load('https://cdn.jsdelivr.net/npm/web-permission-kit@0.0.7/dist/permission-kit.umd.min.js');
+        })
+        .then(boot)
+        .catch(function (error) {
+            document.getElementById('env').textContent = 'Could not load the bundle: ' + error;
+        });
+
+    function boot() {
+        var PermissionKit = window.PermissionKit['default'];
+        var Type = PermissionKit.Type;
+        var State = PermissionKit.State;
+        var env = document.getElementById('env');
+
+        document.getElementById('version').textContent = 'v' + PermissionKit.version;
+
+        function keys(object) {
+            var out = [];
+
+            for (var key in object) {
+                if (Object.prototype.hasOwnProperty.call(object, key)) out.push(key);
+            }
+
+            return out;
+        }
+
+        function row(container, key, value) {
+            var wrap = document.createElement('div');
+            var k = document.createElement('div');
+            var v = document.createElement('div');
+
+            wrap.className = 'row';
+            k.className = 'key';
+            k.textContent = key;
+            v.className = 'val';
+
+            if (typeof value === 'string') v.textContent = value;
+
+            wrap.appendChild(k);
+            wrap.appendChild(v);
+            container.appendChild(wrap);
+
+            return v;
+        }
+
+        function stateChip(state) {
+            var chip = document.createElement('span');
+
+            chip.className = state === State.Grant ? 'chip'
+                : state === State.Denied ? 'chip bad'
+                    : 'chip dim';
+            chip.textContent = state;
+
+            return chip;
+        }
+
+        function paint(cell, state) {
+            cell.textContent = '';
+            cell.appendChild(stateChip(state));
+        }
+
+        row(env, 'version', PermissionKit.version);
+        row(env, 'supported', String(PermissionKit.supported));
+
+        var typeNames = keys(Type);
+        var checkRows = document.getElementById('check-rows');
+        var cells = {};
+
+        for (var i = 0; i < typeNames.length; i++) {
+            var name = typeNames[i];
+            var cell = row(checkRows, 'Type.' + name);
+            var idle = document.createElement('span');
+
+            idle.className = 'chip dim';
+            idle.textContent = 'not checked';
+            cell.appendChild(idle);
+            cells[name] = cell;
+        }
+
+        function checkOne(name) {
+            var cell = cells[name];
+            var pending = document.createElement('span');
+
+            cell.textContent = '';
+            pending.className = 'chip dim';
+            pending.textContent = 'checking';
+            cell.appendChild(pending);
+
+            PermissionKit.check(Type[name]).then(function (state) {
+                paint(cell, state);
+            });
+        }
+
+        document.getElementById('check-all').addEventListener('click', function () {
+            for (var j = 0; j < typeNames.length; j++) checkOne(typeNames[j]);
+        });
+
+        function fillSelect(select) {
+            for (var j = 0; j < typeNames.length; j++) {
+                var option = document.createElement('option');
+
+                option.value = typeNames[j];
+                option.textContent = 'PermissionType.' + typeNames[j];
+                select.appendChild(option);
+            }
+        }
+
+        var requestType = document.getElementById('request-type');
+        var requestOut = document.getElementById('request-out');
+
+        fillSelect(requestType);
+
+        document.getElementById('request-run').addEventListener('click', function () {
+            var name = requestType.value;
+
+            requestOut.textContent = 'pending';
+
+            PermissionKit.request(Type[name]).then(function (state) {
+                requestOut.textContent = name + '  ' + state;
+
+                if (cells[name]) paint(cells[name], state);
+            });
+        });
+
+        var subscribeType = document.getElementById('subscribe-type');
+        var subscribeOut = document.getElementById('subscribe-out');
+        var unsubscribes = [];
+
+        fillSelect(subscribeType);
+
+        function log(text) {
+            var stamp = new Date();
+            var time = ('0' + stamp.getHours()).slice(-2)
+                + ':' + ('0' + stamp.getMinutes()).slice(-2)
+                + ':' + ('0' + stamp.getSeconds()).slice(-2);
+
+            subscribeOut.textContent = time + '  ' + text
+                + (subscribeOut.textContent === '' ? '' : '\n' + subscribeOut.textContent);
+        }
+
+        document.getElementById('subscribe-run').addEventListener('click', function () {
+            var name = subscribeType.value;
+
+            unsubscribes.push(PermissionKit.subscribe(Type[name], function (state) {
+                log(name + ' -> ' + state);
+            }));
+
+            log('subscribe  ' + name + '  ' + unsubscribes.length + ' active');
+        });
+
+        document.getElementById('subscribe-stop').addEventListener('click', function () {
+            var count = unsubscribes.length;
+
+            for (var j = 0; j < count; j++) unsubscribes[j]();
+
+            unsubscribes = [];
+            log('unsubscribed  ' + count + (count === 1 ? ' listener' : ' listeners'));
+        });
+
+        var enumRows = document.getElementById('enum-rows');
+
+        for (var t = 0; t < typeNames.length; t++) {
+            row(enumRows, 'Type.' + typeNames[t], '"' + Type[typeNames[t]] + '"');
+        }
+
+        var stateNames = keys(State);
+
+        for (var s = 0; s < stateNames.length; s++) {
+            row(enumRows, 'State.' + stateNames[s], '"' + State[stateNames[s]] + '"');
+        }
+    }
+</script>
+</body>
+</html>
