@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>web-event-kit — live demo</title>
+    <style>
+        :root {
+            --bg: #fbfbfd;
+            --panel: #ffffff;
+            --line: #e4e4e9;
+            --line-soft: #eeeef2;
+            --ink: #17171b;
+            --ink-2: #5c5c66;
+            --ink-3: #8e8e99;
+            --accent: #3b5bdb;
+            --accent-soft: #eef1fd;
+            --accent-ink: #ffffff;
+            --null: #b4262a;
+            --code-keyword: #a626a4;
+            --code-type: #0184bc;
+            --code-literal: #986801;
+            --code-title: #4078f2;
+            --code-string: #50a14f;
+            --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+            --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            --radius: 10px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0e0e11;
+                --panel: #17171b;
+                --line: #2b2b33;
+                --line-soft: #23232a;
+                --ink: #f2f2f5;
+                --ink-2: #a6a6b0;
+                --ink-3: #74747f;
+                --accent: #8da2fb;
+                --accent-soft: #1c2340;
+                --accent-ink: #10131f;
+                --null: #f08a8d;
+                --code-keyword: #c678dd;
+                --code-type: #56b6c2;
+                --code-literal: #d19a66;
+                --code-title: #61afef;
+                --code-string: #98c379;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #0e0e11;
+            --panel: #17171b;
+            --line: #2b2b33;
+            --line-soft: #23232a;
+            --ink: #f2f2f5;
+            --ink-2: #a6a6b0;
+            --ink-3: #74747f;
+            --accent: #8da2fb;
+            --accent-soft: #1c2340;
+            --accent-ink: #10131f;
+            --null: #f08a8d;
+            --code-keyword: #c678dd;
+            --code-type: #56b6c2;
+            --code-literal: #d19a66;
+            --code-title: #61afef;
+            --code-string: #98c379;
+        }
+
+        :root[data-theme="light"] {
+            --bg: #fbfbfd;
+            --panel: #ffffff;
+            --line: #e4e4e9;
+            --line-soft: #eeeef2;
+            --ink: #17171b;
+            --ink-2: #5c5c66;
+            --ink-3: #8e8e99;
+            --accent: #3b5bdb;
+            --accent-soft: #eef1fd;
+            --accent-ink: #ffffff;
+            --null: #b4262a;
+            --code-keyword: #a626a4;
+            --code-type: #0184bc;
+            --code-literal: #986801;
+            --code-title: #4078f2;
+            --code-string: #50a14f;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            margin: 0;
+            padding: 0 20px 88px;
+            background: var(--bg);
+            color: var(--ink);
+            font: 15px/1.6 var(--sans);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap { max-width: 860px; margin: 0 auto; }
+
+        header { padding: 48px 0 32px; }
+
+        .titlebar {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            margin: 0;
+            font: 600 26px/1.2 var(--mono);
+            letter-spacing: -0.02em;
+        }
+
+        .version {
+            font: 500 12px/1 var(--mono);
+            color: var(--accent);
+            background: var(--accent-soft);
+            border-radius: 999px;
+            padding: 5px 9px;
+        }
+
+        .tagline {
+            margin: 14px 0 0;
+            color: var(--ink-2);
+            max-width: 62ch;
+        }
+
+        .install {
+            margin-top: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 11px 14px;
+            font: 13px/1 var(--mono);
+            overflow-x: auto;
+        }
+
+        .install span { color: var(--ink-3); }
+
+        .theme {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 10;
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: var(--panel);
+            color: var(--ink-2);
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .theme svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .theme .sun { display: none; }
+
+        @media (prefers-color-scheme: dark) {
+            .theme .sun { display: block; }
+
+            .theme .moon { display: none; }
+        }
+
+        :root[data-theme="dark"] .theme .sun { display: block; }
+
+        :root[data-theme="dark"] .theme .moon { display: none; }
+
+        :root[data-theme="light"] .theme .sun { display: none; }
+
+        :root[data-theme="light"] .theme .moon { display: block; }
+
+        section { margin-top: 40px; }
+
+        h2 {
+            margin: 0 0 4px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+        }
+
+        .hint {
+            margin: 0 0 16px;
+            color: var(--ink-2);
+            font-size: 13.5px;
+            max-width: 68ch;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .code {
+            margin: 0;
+            padding: 14px 16px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--line-soft);
+            max-height: 360px;
+            overflow: auto;
+        }
+
+        .code code {
+            display: block;
+            font: 12.5px/1.7 var(--mono);
+            color: var(--ink-2);
+            background: none;
+            border-radius: 0;
+            padding: 0;
+            white-space: pre;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .code + .field,
+        .code + .rows { border-top: 0; }
+
+        .hljs-keyword { color: var(--code-keyword); }
+
+        .hljs-built_in { color: var(--code-type); }
+
+        .hljs-literal { color: var(--code-literal); }
+
+        .hljs-attr { color: var(--ink); }
+
+        .hljs-title { color: var(--code-title); }
+
+        .rows { border-top: 1px solid var(--line-soft); }
+
+        .row {
+            display: grid;
+            grid-template-columns: minmax(140px, 180px) 1fr;
+            gap: 16px;
+            padding: 13px 16px;
+            border-top: 1px solid var(--line-soft);
+        }
+
+        .row:first-child { border-top: 0; }
+
+        .key {
+            font: 500 13px/1.5 var(--mono);
+            color: var(--ink-2);
+            word-break: break-all;
+        }
+
+        .val {
+            font: 13px/1.5 var(--mono);
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+
+        .val.is-null { color: var(--null); }
+
+        @media (max-width: 560px) {
+            .row { grid-template-columns: 1fr; gap: 5px; }
+        }
+
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .chip {
+            font: 12px/1 var(--mono);
+            padding: 5px 8px;
+            border-radius: 6px;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .chip.dim { background: var(--line-soft); color: var(--ink-3); }
+
+        .field { padding: 16px; border-top: 1px solid var(--line-soft); }
+
+        .field:first-child { border-top: 0; }
+
+        .field > * + * { margin-top: 10px; }
+
+        .field > label + .controls,
+        .field > .outlabel + .out { margin-top: 8px; }
+
+        .field > .controls + label,
+        .field > .controls + .outlabel,
+        .field > .out + label,
+        .field > .out + .outlabel,
+        .field > .note + label,
+        .field > .note + .outlabel { margin-top: 22px; }
+
+        label {
+            display: block;
+            font: 500 12px/1 var(--mono);
+            color: var(--ink-3);
+        }
+
+        .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        input[type="text"] {
+            flex: 1 1 200px;
+            min-width: 0;
+            font: 13px/1 var(--mono);
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            padding: 10px 11px;
+        }
+
+        input[type="text"]:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: -1px;
+        }
+
+        button {
+            font: 500 13px/1 var(--sans);
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            padding: 10px 13px;
+            cursor: pointer;
+        }
+
+        button:hover { border-color: var(--ink-3); }
+
+        button.primary {
+            color: var(--accent-ink);
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .out {
+            font: 12.5px/1.65 var(--mono);
+            color: var(--ink-2);
+            background: var(--bg);
+            border: 1px solid var(--line-soft);
+            border-radius: 7px;
+            padding: 11px 12px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            overflow-x: auto;
+        }
+
+        .out.null { color: var(--null); }
+
+        .note {
+            margin: 0;
+            font-size: 13px;
+            color: var(--ink-3);
+        }
+
+        code {
+            font: 12.5px/1 var(--mono);
+            background: var(--line-soft);
+            border-radius: 4px;
+            padding: 2px 5px;
+        }
+
+        footer {
+            margin-top: 56px;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: var(--ink-3);
+        }
+
+        a { color: var(--accent); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+        .panel > .code:last-child { border-bottom: 0; }
+
+        .outlabel {
+            display: block;
+            font: 500 12px/1 var(--mono);
+            color: var(--ink-3);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            font: 500 12px/1 var(--mono);
+            color: var(--ink-2);
+            cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .switch input {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: 0;
+            opacity: 0;
+        }
+
+        .switch .track {
+            position: relative;
+            flex: none;
+            width: 34px;
+            height: 20px;
+            border-radius: 999px;
+            background: var(--line);
+            transition: background 0.15s ease;
+        }
+
+        .switch .track::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 999px;
+            background: var(--panel);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+            transition: transform 0.15s ease;
+        }
+
+        .switch input:checked + .track { background: var(--accent); }
+
+        .switch input:checked + .track::after { transform: translateX(14px); }
+
+        .switch input:focus-visible + .track {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .switch input:disabled + .track { opacity: 0.4; }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 16px;
+            border-top: 1px solid var(--line-soft);
+        }
+
+        .tab {
+            font: 500 12px/1 var(--mono);
+            color: var(--ink-2);
+            padding: 9px 12px;
+        }
+
+        .tab.on {
+            color: var(--accent-ink);
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .code + .tabs { border-top: 0; }
+
+        [hidden] { display: none; }
+
+        select {
+            flex: 0 1 auto;
+            min-width: 0;
+            font: 13px/1 var(--mono);
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            padding: 10px 11px;
+        }
+
+        textarea {
+            flex: 1 1 100%;
+            min-width: 0;
+            min-height: 78px;
+            font: 13px/1.6 var(--mono);
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            padding: 10px 11px;
+            resize: vertical;
+        }
+
+        select:focus,
+        textarea:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: -1px;
+        }
+
+        input[type="text"]:disabled { color: var(--ink-3); }
+
+        .chip.bad { background: var(--line-soft); color: var(--null); }
+
+        .pad {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 104px;
+            padding: 16px;
+            text-align: center;
+            font: 12.5px/1.6 var(--mono);
+            color: var(--ink-3);
+            background: var(--bg);
+            border: 1px dashed var(--line);
+            border-radius: 7px;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .out.log { max-height: 220px; overflow-y: auto; }
+
+        body.launch {
+            padding: 0 20px;
+            overflow: hidden;
+            overscroll-behavior: none;
+        }
+
+        body.launch .wrap { max-width: 420px; }
+
+        .launcher {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            height: 100vh;
+            height: 100dvh;
+            text-align: center;
+        }
+
+        .app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .app-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 22px;
+            background: var(--line-soft);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+        }
+
+        .app-name {
+            font: 600 19px/1.3 var(--sans);
+            color: var(--ink);
+            word-break: break-word;
+        }
+
+        .guide {
+            margin: 0;
+            max-width: 32ch;
+            color: var(--ink-2);
+            font-size: 14.5px;
+        }
+
+        .cta {
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .cta button {
+            width: 100%;
+            padding: 15px 18px;
+            font: 600 15px/1 var(--sans);
+            color: var(--accent-ink);
+            background: var(--accent);
+            border-color: var(--accent);
+            border-radius: 12px;
+        }
+
+        .qr {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 7px;
+        }
+        .hljs-string { color: var(--code-string); }
+
+        .hljs-number { color: var(--code-literal); }
+
+        .hljs-variable { color: var(--code-title); }
+    </style>
+</head>
+<body>
+<button class="theme" id="theme" type="button" aria-label="Toggle colour scheme">
+    <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1Z"/>
+    </svg>
+    <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2"/>
+        <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/>
+    </svg>
+</button>
+
+<div class="wrap">
+    <header>
+        <div class="titlebar">
+            <h1>web-event-kit</h1>
+            <span class="version" id="version">&hellip;</span>
+        </div>
+        <p class="tagline">
+            One <code>add</code> / <code>remove</code> interface for event listeners that behaves the same on
+            modern browsers, legacy IE (<code>attachEvent</code>), Cordova and iOS WebKit &mdash; vendor-prefix
+            resolution, <code>once</code> / <code>passive</code> / <code>signal</code> emulation, and
+            pointer&rarr;touch synthesis. Everything below runs live in this page.
+        </p>
+        <div class="install"><span>$</span> npm install web-event-kit</div>
+    </header>
+
+    <section>
+        <h2>Your environment</h2>
+        <p class="hint">
+            What this engine accepts natively. <code>once</code> and <code>signal</code> are emulated by the
+            kit either way, so the registry stays consistent and removal behaves identically everywhere.
+        </p>
+        <div class="panel">
+            <pre class="code"><code class="language-typescript">readonly version: string;
+readonly utils: EventKitUtils;
+
+get supportedOptions(): SupportedListenerOptions;
+
+interface SupportedListenerOptions {
+    once: boolean;
+    passive: boolean;
+    capture: boolean;
+    some: boolean;
+    all: boolean;
+}</code></pre>
+            <div class="rows" id="env"></div>
+        </div>
+    </section>
+
+    <section>
+        <h2>utils.resolveType(target, type)</h2>
+        <p class="hint">
+            The type this engine actually fires for what you asked for. Resolution walks Cordova lifecycle
+            events, iOS <code>&lt;video&gt;</code> fullscreen events, alias chains, then vendor prefixes, and
+            passes unknown types straight through &mdash; it never throws.
+        </p>
+        <div class="panel">
+            <pre class="code"><code class="language-typescript">resolveType(target: EventTarget, type: string): string;</code></pre>
+            <div class="field">
+                <label for="resolve-target">target</label>
+                <div class="controls">
+                    <select id="resolve-target">
+                        <option value="window">window</option>
+                        <option value="document">document</option>
+                        <option value="body">document.body</option>
+                        <option value="video">document.createElement('video')</option>
+                    </select>
+                </div>
+                <label for="resolve-type">type</label>
+                <div class="controls">
+                    <input type="text" id="resolve-type" value="wheel" spellcheck="false" autocapitalize="off">
+                </div>
+                <div class="out" id="resolve-out"></div>
+                <p class="note">
+                    Try
+                    <a href="#" data-resolve="wheel">wheel</a> &middot;
+                    <a href="#" data-resolve="touchstart">touchstart</a> &middot;
+                    <a href="#" data-resolve="fullscreenchange">fullscreenchange</a> &middot;
+                    <a href="#" data-resolve="transitionend">transitionend</a> &middot;
+                    <a href="#" data-resolve="webkitbeginfullscreen">webkitbeginfullscreen</a> &middot;
+                    <a href="#" data-resolve="deviceready">deviceready</a> &middot;
+                    <a href="#" data-resolve="demo:ping">demo:ping</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>add / remove</h2>
+        <p class="hint">
+            <code>add</code> hands back a release function, so cleanup never needs the callback again;
+            <code>remove</code> is there for the symmetric form. Registering the same target, type, callback
+            and <code>capture</code> twice is ignored the way the spec ignores it, and the second
+            <code>add</code> returns a release function that does nothing.
+        </p>
+        <div class="panel">
+            <pre class="code"><code class="language-typescript">add(target: EventTarget, type: string, callback: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): ReleaseEventListener;
+
+remove(target: EventTarget, type: string, callback: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+
+type ReleaseEventListener = () =&gt; void;</code></pre>
+            <div class="field">
+                <div class="pad" id="pad">click, wheel or touch here</div>
+            </div>
+            <div class="field">
+                <label for="listen-type">type</label>
+                <div class="controls">
+                    <input type="text" id="listen-type" value="click" spellcheck="false" autocapitalize="off">
+                </div>
+                <div class="controls">
+                    <label class="switch">
+                        <input type="checkbox" id="opt-once">
+                        <span class="track"></span>
+                        once
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="opt-passive">
+                        <span class="track"></span>
+                        passive
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="opt-capture">
+                        <span class="track"></span>
+                        capture
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="opt-signal">
+                        <span class="track"></span>
+                        signal
+                    </label>
+                </div>
+                <div class="controls">
+                    <button type="button" class="primary" id="listen-add">add()</button>
+                    <button type="button" id="listen-remove">remove()</button>
+                    <button type="button" id="listen-release">release()</button>
+                    <button type="button" id="listen-abort">abort()</button>
+                </div>
+                <p class="note">
+                    <code>release()</code> and <code>abort()</code> act on the most recent registration. Ask
+                    for <code>touchstart</code> on a pointer-only engine and the callback still sees
+                    <code>event.type === 'touchstart'</code> with a synthesized <code>TouchList</code>.
+                </p>
+                <span class="outlabel">registered through the kit</span>
+                <div class="out" id="listen-active"></div>
+                <span class="outlabel">callback log</span>
+                <div class="out log" id="listen-out"></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>utils.createEvent / utils.createCustomEvent</h2>
+        <p class="hint">
+            Constructor-free event factories that fall back to <code>document.createEvent</code> and
+            <code>initCustomEvent</code> on IE 9&ndash;11. Add a listener for the type above first and the
+            dispatch shows up in its log.
+        </p>
+        <div class="panel">
+            <pre class="code"><code class="language-typescript">createEvent(type: string, init?: EventInit): Event;
+
+createCustomEvent&lt;T&gt;(type: string, init?: CustomEventInit&lt;T&gt;): CustomEvent&lt;T&gt;;</code></pre>
+            <div class="field">
+                <label for="create-type">type</label>
+                <div class="controls">
+                    <input type="text" id="create-type" value="demo:ping" spellcheck="false" autocapitalize="off">
+                </div>
+                <label for="create-detail">detail (JSON)</label>
+                <div class="controls">
+                    <input type="text" id="create-detail" value="{&quot;n&quot;: 1}" spellcheck="false" autocapitalize="off">
+                </div>
+                <div class="controls">
+                    <button type="button" class="primary" id="create-event">createEvent() + dispatch</button>
+                    <button type="button" class="primary" id="create-custom">createCustomEvent() + dispatch</button>
+                </div>
+                <div class="out" id="create-out"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <a href="https://www.npmjs.com/package/web-event-kit">npm</a>
+        <a href="https://github.com/pjy0509/web-event-kit">GitHub</a>
+        <a href="https://github.com/pjy0509/web-event-kit#readme">README</a>
+        <a href="https://github.com/pjy0509/web-event-kit/blob/main/README.ko.md">한국어</a>
+    </footer>
+</div>
+
+<script>
+    (function () {
+        var root = document.documentElement;
+        var media = typeof window.matchMedia === 'function'
+            ? window.matchMedia('(prefers-color-scheme: dark)')
+            : null;
+
+        document.getElementById('theme').addEventListener('click', function () {
+            var current = root.getAttribute('data-theme');
+            var dark = current === 'dark' || (!current && media !== null && media.matches);
+
+            root.setAttribute('data-theme', dark ? 'light' : 'dark');
+        });
+    })();
+
+    function load(src) {
+        return new Promise(function (resolve, reject) {
+            var script = document.createElement('script');
+
+            script.src = src;
+            script.onload = resolve;
+            script.onerror = reject;
+
+            document.head.appendChild(script);
+        });
+    }
+
+    load('https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11/highlight.min.js')
+        .catch(function () {
+            return load('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js');
+        })
+        .then(function () {
+            var blocks = document.querySelectorAll('.code code');
+
+            for (var i = 0; i < blocks.length; i++) window.hljs.highlightElement(blocks[i]);
+        })
+        .catch(function () {
+            return null;
+        });
+
+    load('https://unpkg.com/web-event-kit@0.0.3/dist/event-kit.umd.min.js')
+        .catch(function () {
+            return load('https://cdn.jsdelivr.net/npm/web-event-kit@0.0.3/dist/event-kit.umd.min.js');
+        })
+        .then(boot)
+        .catch(function (error) {
+            document.getElementById('env').textContent = 'Could not load the bundle: ' + error;
+        });
+
+    function boot() {
+        var EventKit = window.EventKit['default'];
+        var env = document.getElementById('env');
+
+        document.getElementById('version').textContent = 'v' + EventKit.version;
+
+        function row(key, value) {
+            var wrap = document.createElement('div');
+            var k = document.createElement('div');
+            var v = document.createElement('div');
+
+            wrap.className = 'row';
+            k.className = 'key';
+            k.textContent = key;
+            v.className = 'val';
+            v.textContent = value;
+
+            wrap.appendChild(k);
+            wrap.appendChild(v);
+            env.appendChild(wrap);
+        }
+
+        row('version', EventKit.version);
+        row('utils.supportedOptions', JSON.stringify(EventKit.utils.supportedOptions, null, 2));
+
+        var probe = document.createElement('video');
+        var targets = {
+            window: window,
+            document: document,
+            body: document.body,
+            video: probe
+        };
+
+        var resolveTarget = document.getElementById('resolve-target');
+        var resolveType = document.getElementById('resolve-type');
+        var resolveOut = document.getElementById('resolve-out');
+
+        function renderResolve() {
+            var target = targets[resolveTarget.value];
+            var asked = resolveType.value;
+            var resolved = EventKit.utils.resolveType(target, asked);
+
+            resolveOut.className = 'out';
+            resolveOut.textContent = resolved === asked ? resolved : resolved + '\nrequested ' + asked;
+        }
+
+        resolveTarget.addEventListener('change', renderResolve);
+        resolveType.addEventListener('input', renderResolve);
+
+        var resolveSamples = document.querySelectorAll('[data-resolve]');
+
+        for (var i = 0; i < resolveSamples.length; i++) {
+            resolveSamples[i].addEventListener('click', function (event) {
+                event.preventDefault();
+
+                resolveType.value = this.getAttribute('data-resolve');
+                renderResolve();
+            });
+        }
+
+        var pad = document.getElementById('pad');
+        var listenType = document.getElementById('listen-type');
+        var optOnce = document.getElementById('opt-once');
+        var optPassive = document.getElementById('opt-passive');
+        var optCapture = document.getElementById('opt-capture');
+        var optSignal = document.getElementById('opt-signal');
+        var listenActive = document.getElementById('listen-active');
+        var listenOut = document.getElementById('listen-out');
+        var entries = [];
+        var received = 0;
+
+        function log(text) {
+            listenOut.textContent = text + (listenOut.textContent === '' ? '' : '\n' + listenOut.textContent);
+        }
+
+        function onEvent(event) {
+            received = received + 1;
+
+            var text = '#' + received + '  ' + event.type
+                + '  currentTarget=' + (event.currentTarget && event.currentTarget.nodeName
+                    ? event.currentTarget.nodeName
+                    : 'window');
+
+            if (event.touches) {
+                text = text + '  touches=' + event.touches.length
+                    + '  changedTouches=' + event.changedTouches.length;
+            }
+
+            if (typeof event.detail !== 'undefined' && event.detail !== null) {
+                text = text + '  detail=' + JSON.stringify(event.detail);
+            }
+
+            log(text);
+        }
+
+        function currentOptions(controller) {
+            var options = {};
+
+            if (optOnce.checked) options.once = true;
+            if (optPassive.checked) options.passive = true;
+            if (optCapture.checked) options.capture = true;
+            if (controller) options.signal = controller.signal;
+
+            return options;
+        }
+
+        function renderActive() {
+            if (entries.length === 0) {
+                listenActive.className = 'out null';
+                listenActive.textContent = 'nothing registered';
+
+                return;
+            }
+
+            var lines = [];
+
+            for (var j = 0; j < entries.length; j++) {
+                lines.push(entries[j].label);
+            }
+
+            listenActive.className = 'out';
+            listenActive.textContent = lines.join('\n');
+        }
+
+        function label(type, options, controller, duplicate) {
+            var flags = [];
+
+            if (options.once) flags.push('once');
+            if (options.passive) flags.push('passive');
+            if (options.capture) flags.push('capture');
+            if (controller) flags.push('signal');
+
+            var resolved = EventKit.utils.resolveType(pad, type);
+
+            return type
+                + (flags.length === 0 ? '' : '  {' + flags.join(', ') + '}')
+                + (resolved === type ? '' : '  -> ' + resolved)
+                + (duplicate ? '  duplicate' : '');
+        }
+
+        document.getElementById('listen-add').addEventListener('click', function () {
+            var type = listenType.value;
+            var controller = optSignal.checked && typeof window.AbortController === 'function'
+                ? new window.AbortController()
+                : null;
+            var options = currentOptions(controller);
+            var duplicate = false;
+            var j;
+
+            for (j = 0; j < entries.length; j++) {
+                if (entries[j].type === type && entries[j].capture === !!options.capture) duplicate = true;
+            }
+
+            var release = EventKit.add(pad, type, onEvent, options);
+
+            entries.push({
+                type: type,
+                capture: !!options.capture,
+                release: release,
+                controller: controller,
+                label: label(type, options, controller, duplicate)
+            });
+
+            log('add  ' + type
+                + (duplicate ? '  duplicate' : '')
+                + (optSignal.checked && !controller ? '  no AbortController on this engine' : ''));
+            renderActive();
+        });
+
+        document.getElementById('listen-remove').addEventListener('click', function () {
+            var type = listenType.value;
+            var options = currentOptions(null);
+            var kept = [];
+
+            EventKit.remove(pad, type, onEvent, options);
+
+            for (var j = 0; j < entries.length; j++) {
+                if (entries[j].type === type && entries[j].capture === !!options.capture) continue;
+
+                kept.push(entries[j]);
+            }
+
+            var dropped = entries.length - kept.length;
+
+            log('remove  ' + type + '  ' + dropped + (dropped === 1 ? ' record' : ' records') + ' dropped');
+            entries = kept;
+            renderActive();
+        });
+
+        document.getElementById('listen-release').addEventListener('click', function () {
+            if (entries.length === 0) {
+                log('nothing to release');
+
+                return;
+            }
+
+            var entry = entries.pop();
+
+            entry.release();
+            log('release  ' + entry.type);
+            renderActive();
+        });
+
+        document.getElementById('listen-abort').addEventListener('click', function () {
+            for (var j = entries.length - 1; j >= 0; j--) {
+                if (!entries[j].controller) continue;
+
+                entries[j].controller.abort();
+                log('abort  ' + entries[j].type);
+                entries.splice(j, 1);
+                renderActive();
+
+                return;
+            }
+
+            log('no signal to abort');
+        });
+
+        var createType = document.getElementById('create-type');
+        var createDetail = document.getElementById('create-detail');
+        var createOut = document.getElementById('create-out');
+
+        function describe(event) {
+            var text = 'type = ' + event.type
+                + '\nbubbles = ' + event.bubbles
+                + '\ncancelable = ' + event.cancelable;
+
+            if (typeof event.detail !== 'undefined') text = text + '\ndetail = ' + JSON.stringify(event.detail);
+
+            return text;
+        }
+
+        function dispatch(event) {
+            createOut.className = 'out';
+            createOut.textContent = describe(event);
+            pad.dispatchEvent(event);
+        }
+
+        document.getElementById('create-event').addEventListener('click', function () {
+            dispatch(EventKit.utils.createEvent(createType.value, {bubbles: true, cancelable: true}));
+        });
+
+        document.getElementById('create-custom').addEventListener('click', function () {
+            var detail = null;
+
+            try {
+                detail = JSON.parse(createDetail.value);
+            } catch (error) {
+                createOut.className = 'out null';
+                createOut.textContent = 'detail is not valid JSON: ' + error;
+
+                return;
+            }
+
+            dispatch(EventKit.utils.createCustomEvent(createType.value, {
+                bubbles: true,
+                cancelable: true,
+                detail: detail
+            }));
+        });
+
+        renderResolve();
+        renderActive();
+    }
+</script>
+</body>
+</html>
