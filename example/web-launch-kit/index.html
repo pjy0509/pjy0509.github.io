@@ -474,6 +474,40 @@
 
         .code + .tabs { border-top: 0; }
 
+
+        .preview-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .preview-toggle {
+            flex: 0 0 auto;
+            font: 500 12px/1 var(--mono);
+            color: var(--ink-3);
+            background: none;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .preview-toggle:hover { color: var(--ink); }
+
+        .preview-frame {
+            display: block;
+            width: 100%;
+            height: 320px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: var(--bg);
+        }
+
+        .preview-empty {
+            font: 12px/1.5 var(--mono);
+            color: var(--ink-3);
+        }
+
         [hidden] { display: none; }
 
         select {
@@ -732,6 +766,19 @@ interface LaunchError extends Error {
 }</code></pre>
             <div class="tabs" id="app-tabs"></div>
             <div id="app-panels"></div>
+            <div class="field" id="app-preview">
+                <div class="preview-head">
+                    <span class="outlabel">store listing for these identifiers</span>
+                    <button type="button" class="preview-toggle" id="app-preview-toggle" aria-expanded="true" aria-controls="app-preview-body">hide</button>
+                </div>
+                <div id="app-preview-body">
+                    <iframe class="preview-frame" id="app-preview-frame" title="store listing" loading="lazy" referrerpolicy="no-referrer"></iframe>
+                    <p class="preview-empty" id="app-preview-empty" hidden>
+                        Fill in packageName, bundleId, trackId, productId or packageFamilyName to see the store
+                        listing for the app this tab targets.
+                    </p>
+                </div>
+            </div>
             <div class="field">
                 <div class="controls">
                     <label class="switch">
@@ -1180,6 +1227,7 @@ getProductId(packageFamilyName: string): Promise&lt;string | undefined&gt;;</cod
             input.spellcheck = false;
             input.setAttribute('autocapitalize', 'off');
             input.addEventListener('input', renderAppOptions);
+            input.addEventListener('input', schedulePreview);
 
             controls.appendChild(input);
             panel.appendChild(caption);
@@ -1240,13 +1288,109 @@ getProductId(packageFamilyName: string): Promise&lt;string | undefined&gt;;</cod
             appPanelNodes[os] = panel;
         }
 
+
+        var PREVIEW_ORIGIN = 'https://store-scrapper.onrender.com';
+        var PREVIEW_STORES = {
+            android: {store: 'play-store', keys: {package_name: 'packageName'}},
+            ios: {store: 'app-store', keys: {track_id: 'trackId', bundle_id: 'bundleId'}},
+            macos: {store: 'app-store', keys: {track_id: 'trackId', bundle_id: 'bundleId'}},
+            windows: {store: 'microsoft-store', keys: {product_id: 'productId', package_family_name: 'packageFamilyName'}}
+        };
+
+        var appPreview = document.getElementById('app-preview');
+        var appPreviewBody = document.getElementById('app-preview-body');
+        var appPreviewFrame = document.getElementById('app-preview-frame');
+        var appPreviewEmpty = document.getElementById('app-preview-empty');
+        var appPreviewToggle = document.getElementById('app-preview-toggle');
+        var previewTimer = null;
+        var previewSrc = '';
+        var previewOpen = true;
+
+        function previewAppearance() {
+            return document.documentElement.getAttribute('data-theme') || 'auto';
+        }
+
+        function previewUrl(os) {
+            var mapping = PREVIEW_STORES[os];
+
+            if (!mapping) return '';
+
+            var query = 'embed&store=' + mapping.store;
+            var found = false;
+
+            // First identifier the tab actually carries; the rest are aliases.
+            for (var param in mapping.keys) {
+                var input = appInputs[os][mapping.keys[param]];
+                var value = input ? input.value.trim() : '';
+
+                if (!value) continue;
+
+                query += '&' + param + '=' + encodeURIComponent(value);
+                found = true;
+
+                break;
+            }
+
+            if (!found) return '';
+
+            return PREVIEW_ORIGIN + '/?' + query
+                + '&lang=en&country=us&sections=header,about,details'
+                + '&appearance=' + previewAppearance();
+        }
+
+        function renderPreview() {
+            var url = previewUrl(currentOS);
+
+            appPreviewEmpty.hidden = url !== '';
+            appPreviewFrame.hidden = url === '';
+
+            if (!previewOpen || url === previewSrc) return;
+
+            previewSrc = url;
+            appPreviewFrame.src = url;
+        }
+
+        function schedulePreview() {
+            if (previewTimer !== null) clearTimeout(previewTimer);
+
+            previewTimer = setTimeout(function () {
+                previewTimer = null;
+
+                renderPreview();
+            }, 500);
+        }
+
+        appPreviewToggle.addEventListener('click', function () {
+            previewOpen = !previewOpen;
+
+            appPreviewBody.hidden = !previewOpen;
+            appPreviewToggle.textContent = previewOpen ? 'hide' : 'show';
+            appPreviewToggle.setAttribute('aria-expanded', previewOpen ? 'true' : 'false');
+
+            if (previewOpen) renderPreview();
+        });
+
+        // The docs theme toggle writes data-theme on <html>.
+        if (typeof MutationObserver === 'function') {
+            new MutationObserver(schedulePreview).observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme']
+            });
+        }
+
+        var currentOS = null;
+
         function selectOS(os) {
+            currentOS = os;
+
             for (var i = 0; i < APP_ORDER.length; i++) {
                 var name = APP_ORDER[i];
 
                 appTabButtons[name].className = name === os ? 'tab on' : 'tab';
                 appPanelNodes[name].hidden = name !== os;
             }
+
+            schedulePreview();
         }
 
         function infoFor(os) {
