@@ -772,7 +772,7 @@ interface LaunchError extends Error {
                     <button type="button" class="preview-toggle" id="app-preview-toggle" aria-expanded="true" aria-controls="app-preview-body">hide</button>
                 </div>
                 <div id="app-preview-body">
-                    <iframe class="preview-frame" id="app-preview-frame" title="store listing" loading="lazy" referrerpolicy="no-referrer"></iframe>
+                    <iframe class="preview-frame" id="app-preview-frame" title="store listing" loading="lazy" referrerpolicy="no-referrer" frameborder="0" allow="clipboard-write"></iframe>
                     <p class="preview-empty" id="app-preview-empty" hidden>
                         Fill in packageName, bundleId, trackId, productId or packageFamilyName to see the store
                         listing for the app this tab targets.
@@ -1334,7 +1334,7 @@ getProductId(packageFamilyName: string): Promise&lt;string | undefined&gt;;</cod
             if (!found) return '';
 
             return PREVIEW_ORIGIN + '/?' + query
-                + '&lang=en&country=us&sections=header,about,details'
+                + '&nav=0&lang=en&country=us&sections=header,preview,about,categories,details,similar,histogram,news,reviews'
                 + '&appearance=' + previewAppearance();
         }
 
